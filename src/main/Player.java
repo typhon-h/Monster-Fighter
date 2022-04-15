@@ -30,9 +30,8 @@ public class Player {
 	/**
 	 * The team of monsters which the player has
 	 *
-	 * @default An empty team
 	 */
-	private Team team = new Team();
+	private Team team;
 
 	/**
 	 * Amount of gold the player has
@@ -47,7 +46,6 @@ public class Player {
 	 * @default 0
 	 */
 	private int score = 0;
-
 
 	/**
 	 * Constructor to create a player with a team
@@ -84,39 +82,46 @@ public class Player {
 	 *
 	 * @param newName The name of the player
 	 */
-	public void setName(String newName) { name = newName ;}
+	public void setName(String newName) {
+		name = newName;
+	}
 
 	/**
 	 * Get the name of the player
 	 *
 	 * @return The name of the player
 	 */
-	public String getName() { return name; }
-
+	public String getName() {
+		return name;
+	}
 
 	/**
 	 * Get the amount of gold the player owns
 	 *
 	 * @return The amount of gold the player has
 	 */
-	public int getGold() { return gold; }
+	public int getGold() {
+		return gold;
+	}
 
 	/**
 	 * Increases the amount of gold a player has by a give amount
 	 *
 	 * @param goldAmount The amount of gold to give to the player
 	 */
-	public void addGold(int goldAmount) { gold += goldAmount; }
+	public void addGold(int goldAmount) {
+		gold += goldAmount;
+	}
 
 	/**
 	 * Decreases the amount of gold the player has
 	 *
 	 * @param goldAmount The amount of gold to remove from the player
+	 * @throws InsufficientFundsException not enough gold to remove amount
 	 */
-	public void removeGold(int goldAmount) {
-		// TODO: Should an error be raised if the amount of gold we want to remove is more than the players gold
+	public void removeGold(int goldAmount) throws InsufficientFundsException {
 		if (gold - goldAmount < 0) {
-
+			throw new InsufficientFundsException((goldAmount - gold) + " more gold is required");
 		} else {
 			gold -= goldAmount;
 		}
@@ -127,27 +132,33 @@ public class Player {
 	 *
 	 * @return Team object which contains the player's team
 	 */
-	public Team getTeam() { return team; }
+	public Team getTeam() {
+		return team;
+	}
 
 	/**
 	 * Sets the player's team to a team object
 	 *
 	 * @param newTeam The team to give to the player
 	 */
-	public void setTeam(Team newTeam) { team = newTeam; }
+	public void setTeam(Team newTeam) {
+		team = newTeam;
+	}
 
 	/**
 	 * Gets the player's inventory
 	 *
 	 * @return An array of the items which the player has
 	 */
-	public ArrayList<Item> getInventory() { return inventory; }
+	public ArrayList<Item> getInventory() {
+		return inventory;
+	}
 
 	/**
 	 * Adds an item to the player's inventory
 	 * If the inventory is full, returns false otherwise true
 	 *
-	 * @param  newItem The item to give to the player
+	 * @param newItem The item to give to the player
 	 * @return True if the item is successfully added to the inventory
 	 */
 	public boolean addItem(Item newItem) {
@@ -163,7 +174,8 @@ public class Player {
 	 * If the item is not in the inventory, then false is returned
 	 *
 	 * @param removeItem
-	 * @return true if the item is successfully removed from the players inventory otherwise false
+	 * @return true if the item is successfully removed from the players inventory
+	 *         otherwise false
 	 */
 	public boolean removeItem(Item removeItem) {
 		return inventory.remove(removeItem);
@@ -174,20 +186,26 @@ public class Player {
 	 *
 	 * @return The number of free slots left in the inventory
 	 */
-	public int getNumFreeSlots() { return inventoryLimit - inventory.size(); }
+	public int getNumFreeSlots() {
+		return inventoryLimit - inventory.size();
+	}
 
 	/**
 	 * Gets the players score in the game
 	 *
 	 * @return The player's score
 	 */
-	public int getScore() { return score; }
+	public int getScore() {
+		return score;
+	}
 
 	/**
 	 * Increases the player's score by a given amount
 	 *
 	 * @param incrementAmount The amount to increment the score by
 	 */
-	public void incrementScore(int incrementAmount) { score += incrementAmount; }
+	public void incrementScore(int incrementAmount) {
+		score += incrementAmount;
+	}
 
 }
