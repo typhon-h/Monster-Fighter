@@ -3,7 +3,7 @@
  * An Entity is able to be possessed by a player and traded in shops
  * 
  * @author Harrison Tyson
- * @version 1.0, Apr 2022.
+ * @version 1.1, Apr 2022.
  */
 public class Entity {
     /**
@@ -48,10 +48,10 @@ public class Entity {
     /**
      * Sets the name of the entity
      * 
-     * @param newName New name for the entity
+     * @param name New name for the entity
      */
-    public void setName(String newName) {
-        name = newName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
@@ -66,10 +66,10 @@ public class Entity {
     /**
      * Sets the description of the entity
      * 
-     * @param newDescription New description for the entity
+     * @param description New description for the entity
      */
-    public void setDescription(String newDescription) {
-        description = newDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**
@@ -84,10 +84,10 @@ public class Entity {
     /**
      * Sets the buy price of the entity
      * 
-     * @param newBuyPrice New buy price of the entity
+     * @param buyPrice New buy price of the entity
      */
-    public void setBuyPrice(int newBuyPrice) {
-        buyPrice = newBuyPrice;
+    public void setBuyPrice(int buyPrice) {
+        this.buyPrice = buyPrice;
     }
 
     /**
@@ -102,10 +102,10 @@ public class Entity {
     /**
      * Sets the sell price of the entity
      * 
-     * @param newSellPrice New sell price of the entity
+     * @param sellPrice New sell price of the entity
      */
-    public void setSellPrice(int newSellPrice) {
-        sellPrice = newSellPrice;
+    public void setSellPrice(int sellPrice) {
+        this.sellPrice = sellPrice;
     }
 
     /**
@@ -120,10 +120,10 @@ public class Entity {
     /**
      * Sets the rarity of the entity
      * 
-     * @param newRarity New rarity of the entity
+     * @param rarity New rarity of the entity
      */
-    public void setRarity(Rarity newRarity) {
-        rarity = newRarity;
+    public void setRarity(Rarity rarity) {
+        this.rarity = rarity;
     }
 
     /**
