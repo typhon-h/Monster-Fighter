@@ -1,9 +1,10 @@
+package main;
 import java.util.Queue;
 import java.util.LinkedList;
 
 /**
  * Generic Monster
- * 
+ *
  * @author Harrison Tyson
  * @version 1.0, Apr 2022.
  */
@@ -26,13 +27,13 @@ public abstract class Monster extends Entity {
     private int baseAttackDamage;
     /**
      * Number of times the monster has fainted.
-     * 
+     *
      * @default 0
      */
     private int faintCount = 0;
     /**
      * Event which triggers the Monster's ability
-     * 
+     *
      * @default Trigger.NOABILITY
      */
     private Trigger abilityTrigger = Trigger.NOABILITY;
@@ -43,14 +44,14 @@ public abstract class Monster extends Entity {
     /**
      * Status of the monster.
      * true when alive and false when fainted
-     * 
+     *
      * @default true
      */
     private boolean status = true;
 
     /**
      * Constructor for the Monster class
-     * 
+     *
      * @param name               Name of the monster
      * @param description        Description of the monster
      * @param buyPrice           Price to buy the monster from shop
@@ -71,7 +72,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Unique ability of the monster that has special effects in battle
-     * 
+     *
      * @param allyTeam  Friendly team of the monster
      * @param enemyTeam Enemy team of the monster
      * @return a Queue containing all monsters whose abilities triggered
@@ -80,7 +81,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Deals damage to the monster and triggers relevant events
-     * 
+     *
      * @param damage amount of damage recieved
      * @return a Queue containing all monsters whose abilities triggered
      */
@@ -106,7 +107,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Gets the current attack damage of the monster
-     * 
+     *
      * @return the current attack damage
      */
     public int getCurrentAttackDamage() {
@@ -116,7 +117,7 @@ public abstract class Monster extends Entity {
     /**
      * Gets the status of the monster.
      * true when alive and false when fainted
-     * 
+     *
      * @return the status of the monster
      */
     public boolean getStatus() {
@@ -125,7 +126,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Sets the status of the monster.
-     * 
+     *
      * @param status new status of the monster
      */
     public void setStatus(boolean status) {
@@ -144,7 +145,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Gets the current ability Trigger
-     * 
+     *
      * @return current event that triggers the ability
      */
     public Trigger getTrigger() {
@@ -153,7 +154,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Sets the ability Trigger
-     * 
+     *
      * @param newTrigger event to trigger ability
      */
     public void setTrigger(Trigger newTrigger) {
@@ -162,7 +163,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Increases monster base health
-     * 
+     *
      * @param amount amount to increase by
      */
     public void increaseBaseHealth(int amount) {
@@ -172,7 +173,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Increases base monster attack damage
-     * 
+     *
      * @param amount amount to increase by
      */
     public void increaseBaseAttackDamage(int amount) {
@@ -182,7 +183,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Gets the description of the monster ability
-     * 
+     *
      * @return the description of the monster ability
      */
     public String getAbilityDescription() {
@@ -191,7 +192,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Sets the description of the monster ability
-     * 
+     *
      * @param description the description of the monster ability
      */
     public void setAbilityDescription(String description) {
@@ -200,7 +201,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Gets the number of times the monster has fainted
-     * 
+     *
      * @return the number of times the monster has fainted
      */
     public int getFaintCount() {

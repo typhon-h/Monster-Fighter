@@ -1,7 +1,8 @@
+package main;
 /**
  * Superclass for game objects.
  * An Entity is able to be possessed by a player and traded in shops
- * 
+ *
  * @author Harrison Tyson
  * @version 1.1, Apr 2022.
  */
@@ -30,14 +31,14 @@ public class Entity {
     /**
      * Constructor to be invoked from subclasses
      * Sets instance variables
-     * 
+     *
      * @param newName        Name of the entity
      * @param newDescription Description of the entity
      * @param newBuyPrice    Price to buy the entity
      * @param newSellPrice   Price to sell the entity
      * @param newRarity      Rarity of the entity
      */
-    Entity(String newName, String newDescription, int newBuyPrice, int newSellPrice, Rarity newRarity) {
+    public Entity(String newName, String newDescription, int newBuyPrice, int newSellPrice, Rarity newRarity) {
         setName(newName);
         setDescription(newDescription);
         setBuyPrice(newBuyPrice);
@@ -46,8 +47,20 @@ public class Entity {
     }
 
     /**
+     * Constructor to be invoked from subclasses.
+     * Sets name and description instance variables
+     *
+     * @param newName        The name of the entity
+     * @param newDescription Description of the entity
+     */
+    public Entity(String newName, String newDescription, Rarity newRarity) {
+        setName(newName);
+        setDescription(newDescription);
+    }
+
+    /**
      * Sets the name of the entity
-     * 
+     *
      * @param name New name for the entity
      */
     public void setName(String name) {
@@ -56,7 +69,7 @@ public class Entity {
 
     /**
      * Gets the name of the entity
-     * 
+     *
      * @return the name of the entity
      */
     public String getName() {
@@ -65,7 +78,7 @@ public class Entity {
 
     /**
      * Sets the description of the entity
-     * 
+     *
      * @param description New description for the entity
      */
     public void setDescription(String description) {
@@ -74,7 +87,7 @@ public class Entity {
 
     /**
      * Gets the description of the entity
-     * 
+     *
      * @return the description of the entity
      */
     public String getDescription() {
@@ -83,7 +96,7 @@ public class Entity {
 
     /**
      * Sets the buy price of the entity
-     * 
+     *
      * @param buyPrice New buy price of the entity
      */
     public void setBuyPrice(int buyPrice) {
@@ -92,7 +105,7 @@ public class Entity {
 
     /**
      * Gets the buy price of the entity
-     * 
+     *
      * @return the buy price of the entity
      */
     public int getBuyPrice() {
@@ -101,7 +114,7 @@ public class Entity {
 
     /**
      * Sets the sell price of the entity
-     * 
+     *
      * @param sellPrice New sell price of the entity
      */
     public void setSellPrice(int sellPrice) {
@@ -110,7 +123,7 @@ public class Entity {
 
     /**
      * Gets the sell price of the entity
-     * 
+     *
      * @return the sell price of the entity
      */
     public int getSellPrice() {
@@ -119,7 +132,7 @@ public class Entity {
 
     /**
      * Sets the rarity of the entity
-     * 
+     *
      * @param rarity New rarity of the entity
      */
     public void setRarity(Rarity rarity) {
@@ -128,7 +141,7 @@ public class Entity {
 
     /**
      * Gets the rarity of the entity
-     * 
+     *
      * @return the rarity of the entity
      */
     public Rarity getRarity() {

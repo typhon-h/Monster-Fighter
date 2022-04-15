@@ -1,6 +1,7 @@
+package main;
 /**
  * Different possible events that can trigger an ability in battle
- * 
+ *
  * @author Harrison Tyson
  * @version 1.0, Apr 2022.
  */

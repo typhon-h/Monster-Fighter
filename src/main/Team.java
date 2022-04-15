@@ -1,3 +1,4 @@
+package main;
 /**
  * A class to hold and manage a group of monsters.
  * Used to create a team of monsters used by Player and BattleManager.

@@ -1,7 +1,8 @@
+package main;
 /**
  * Represents the different available entity rarities.
  * In order from most to least occuring.
- * 
+ *
  * @author Harrison Tyson
  * @version 1.0, Apr 2022.
  */
