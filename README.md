@@ -1,5 +1,5 @@
 Generate Documentation from project root with:
-javadoc -d ./doc/ ./src/*
+javadoc -d ./doc/ ./src/* ./exceptions/*
 
 
 UML Class Diagram - https://lucid.app/documents/view/ba2a9f60-76ff-407c-80b6-37a0b629bf9c
