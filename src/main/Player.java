@@ -1,10 +1,14 @@
 package main;
+
 import java.util.ArrayList;
 import exceptions.InsufficientFundsException;
+import items.Item;
 
 /**
- * A class for defining a player. Used to track the players information including
- * their inventory and score and to create opponents for the player to face against.
+ * A class for defining a player. Used to track the players information
+ * including
+ * their inventory and score and to create opponents for the player to face
+ * against.
  *
  * @author Jackie Jone
  * @version 1.0, Apr 2022.
@@ -50,6 +54,8 @@ public class Player {
 
 	/**
 	 * Constructor to create a player with a team
+	 * 
+	 * @param newTeam The team to give to the player
 	 */
 	public Player(Team newTeam) {
 		setTeam(newTeam);
@@ -58,7 +64,8 @@ public class Player {
 	/**
 	 * Constructor to create a player with a name and team
 	 *
-	 * @param  newName The name of the player
+	 * @param newName The name of the player
+	 * @param newTeam The team to give to the player
 	 */
 	public Player(String newName, Team newTeam) {
 		setName(newName);
@@ -174,7 +181,7 @@ public class Player {
 	 * Removes the given item from the player's inventory
 	 * If the item is not in the inventory, then false is returned
 	 *
-	 * @param removeItem
+	 * @param removeItem item to remove from the player's inventory
 	 * @return true if the item is successfully removed from the players inventory
 	 *         otherwise false
 	 */

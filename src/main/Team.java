@@ -1,6 +1,9 @@
 package main;
+
 import java.util.ArrayList;
 import exceptions.*;
+import monsters.Monster;
+
 /**
  * Team of monsters owned by the player
  *
@@ -34,7 +37,7 @@ public class Team {
      *
      * @param monster starting monster
      */
-    Team(Monster monster) {
+    public Team(Monster monster) {
         this.monsters = new ArrayList<Monster>();
         this.monsters.add(monster);
         this.teamSize = 1;
@@ -53,6 +56,21 @@ public class Team {
             }
         }
         throw new TeamStatusException();
+    }
+
+    /**
+     * Get all alive monsters
+     * 
+     * @return ArrayList of alive monsters
+     */
+    public ArrayList<Monster> getAliveMonsters() {
+        ArrayList<Monster> monsters = new ArrayList<Monster>();
+        for (Monster monster : monsters) {
+            if (monster.getStatus()) {
+                monsters.add(monster);
+            }
+        }
+        return monsters;
     }
 
     /**

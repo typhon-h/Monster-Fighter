@@ -1,4 +1,8 @@
-package main;
+package items;
+
+import main.Entity;
+import main.Rarity;
+import monsters.Monster;
 
 /**
  * Generic Item.
@@ -20,13 +24,13 @@ public abstract class Item extends Entity {
      * @param newSellPrice   Price to sell the item
      * @param newRarity      Rarity of the item
      */
-	public Item(String newName,
-                String newDescription,
-                int newBuyPrice,
-                int newSellPrice,
-                Rarity newRarity) {
-		super(newName, newDescription, newBuyPrice, newSellPrice, newRarity);
-	}
+    public Item(String newName,
+            String newDescription,
+            int newBuyPrice,
+            int newSellPrice,
+            Rarity newRarity) {
+        super(newName, newDescription, newBuyPrice, newSellPrice, newRarity);
+    }
 
     /**
      * Constructor to call the constructor of the superclass, Entity.

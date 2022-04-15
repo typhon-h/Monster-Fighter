@@ -1,8 +1,7 @@
 package items;
 
-import main.Item;
 import main.Rarity;
-import main.Monster;
+import monsters.Monster;
 
 /**
  * An item that increases a random stat of a Monster
@@ -12,6 +11,13 @@ import main.Monster;
  */
 public class RandomStatBoost extends Item {
 
+    /**
+     * Constructor for RandomStatBoost
+     * 
+     * @param newName        name of the item
+     * @param newDescription description of the item
+     * @param newRarity      rarity of the description
+     */
     public RandomStatBoost(String newName, String newDescription, Rarity newRarity) {
         super(newName, newDescription, newRarity);
 
@@ -35,7 +41,7 @@ public class RandomStatBoost extends Item {
     }
 
     // TODO: Implement this method based on item and rarity
-    public void use(Monster mosnter) {
+    public void use(Monster monster) {
 
     }
 }

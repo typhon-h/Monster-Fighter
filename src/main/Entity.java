@@ -1,4 +1,5 @@
 package main;
+
 /**
  * Superclass for game objects.
  * An Entity is able to be possessed by a player and traded in shops
@@ -52,6 +53,7 @@ public class Entity {
      *
      * @param newName        The name of the entity
      * @param newDescription Description of the entity
+     * @param newRarity      The rarity of the entity
      */
     public Entity(String newName, String newDescription, Rarity newRarity) {
         setName(newName);
