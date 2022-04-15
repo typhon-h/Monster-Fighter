@@ -1,5 +1,6 @@
 package main;
 import java.util.ArrayList;
+import exceptions.InsufficientFundsException;
 
 /**
  * A class for defining a player. Used to track the players information including
