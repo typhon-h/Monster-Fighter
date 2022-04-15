@@ -40,8 +40,46 @@ public abstract class Item extends Entity {
      * @param newDescription Description of the item
      * @param newRarity      Rarity of the item
      */
-    public Item(String newName, String newDescription, Rarity newRarity) {
+    public Item(String newName,
+                String newDescription,
+                Rarity newRarity) {
         super(newName, newDescription, newRarity);
+
+        switch (newRarity) {
+            case COMMON:
+                setBuyPrice(ItemConstants.COMMONBUYPRICE);
+                setSellPrice(ItemConstants.COMMONSELLPRICE);
+                break;
+
+            case RARE:
+                setBuyPrice(ItemConstants.RAREBUYPRICE);
+                setSellPrice(ItemConstants.RARESELLPRICE);
+                break;
+
+            case LEGENDARY:
+                setBuyPrice(ItemConstants.LEGENDARYBUYPRICE);
+                setSellPrice(ItemConstants.LEGENDARYSELLPRICE);
+                break;
+        }
+    }
+
+    /**
+     * Returns the amount to increment a statistic of a monster
+     * based on the rarity of the item.
+     *
+     * @return The amount to increase the statistic by.
+     */
+    public int getStatBoostAmount() {
+        switch (getRarity()) {
+            case COMMON:
+                return ItemConstants.COMMONSTATBOOST;
+            case RARE:
+                return ItemConstants.RARESTATBOOST;
+            case LEGENDARY:
+                return ItemConstants.LEGENDARYSTATBOOST;
+            default:
+                return ItemConstants.COMMONSTATBOOST;
+        }
     }
 
     /**

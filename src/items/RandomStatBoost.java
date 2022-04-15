@@ -20,24 +20,6 @@ public class RandomStatBoost extends Item {
      */
     public RandomStatBoost(String newName, String newDescription, Rarity newRarity) {
         super(newName, newDescription, newRarity);
-
-        switch (newRarity) {
-            case COMMON:
-                setBuyPrice(ItemConstants.COMMONBUYPRICE);
-                setSellPrice(ItemConstants.COMMONSELLPRICE);
-                break;
-
-            case RARE:
-                setBuyPrice(ItemConstants.RAREBUYPRICE);
-                setSellPrice(ItemConstants.RARESELLPRICE);
-                break;
-
-            case LEGENDARY:
-                setBuyPrice(ItemConstants.LEGENDARYBUYPRICE);
-                setSellPrice(ItemConstants.LEGENDARYSELLPRICE);
-                break;
-        }
-
     }
 
     /**
@@ -51,27 +33,13 @@ public class RandomStatBoost extends Item {
         // TODO: Test if this actually does something different on seperate method calls.
         Random random = new Random();
 
-        int statBoostAmount;
-
-        switch (getRarity()) {
-            case COMMON:
-                statBoostAmount = ItemConstants.COMMONSTATBOOST;
-                break;
-            case RARE:
-                statBoostAmount = ItemConstants.RARESTATBOOST;
-                break;
-            case LEGENDARY:
-                statBoostAmount = ItemConstants.LEGENDARYSTATBOOST;
-                break;
-            default:
-                statBoostAmount = ItemConstants.COMMONSTATBOOST;
-        }
-
-        // TODO: Turn this into an enum? change that random 3 into a constant inside generic monster?
-        if (random.nextInt(3) == 0) {
-            monster.increaseBaseHealth(statBoostAmount);
+        // TODO: Turn this into an enum?
+        // change that random 3 into a constant inside generic monster?
+        // Adjust probability that the heal/damage will increase
+        if (random.nextInt(2) == 0) {
+            monster.increaseBaseHealth(getStatBoostAmount());
         } else {
-            monster.increaseBaseAttackDamage(statBoostAmount);
+            monster.increaseBaseAttackDamage(getStatBoostAmount());
         }
     }
 }
