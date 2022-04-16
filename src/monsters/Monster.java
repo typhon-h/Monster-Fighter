@@ -12,7 +12,7 @@ import main.Trigger;
  * Generic Monster
  * 
  * @author Harrison Tyson
- * @version 1.1, Apr 2022.
+ * @version 1.2, Apr 2022.
  */
 public abstract class Monster extends Entity {
     /**
@@ -92,12 +92,12 @@ public abstract class Monster extends Entity {
      * @return a Queue containing all monsters whose abilities triggered
      */
     public Queue<Monster> takeDamage(int damage) {
+        if (damage <= 0) {
+            throw new IllegalArgumentException("Argument must be positive");
+        }
+
         Queue<Monster> triggeredAbilities = new LinkedList<Monster>();
         this.currentHealth -= damage;
-
-        if (getTrigger() == Trigger.ONHURT) { // ONHURT Event
-            triggeredAbilities.add(this);
-        }
 
         if (currentHealth <= 0) { // Check for faint
             currentHealth = 0;
@@ -106,6 +106,8 @@ public abstract class Monster extends Entity {
             if (getTrigger() == Trigger.ONFAINT) { // ONFAINT Event
                 triggeredAbilities.add(this);
             }
+        } else if (getTrigger() == Trigger.ONHURT) {
+            triggeredAbilities.add(this);
         }
 
         return triggeredAbilities;
@@ -204,8 +206,30 @@ public abstract class Monster extends Entity {
      * @param amount amount to increase by
      */
     public void increaseBaseHealth(int amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Argument must be positive");
+        }
         baseHealth += amount;
         currentHealth = baseHealth;
+
+    }
+
+    /**
+     * Gets the base health of the monster
+     * 
+     * @return base health of the monster
+     */
+    public int getBaseHealth() {
+        return baseHealth;
+    }
+
+    /**
+     * Gets the base attack damage of the monster
+     * 
+     * @return base attack damage of the monster
+     */
+    public int getBaseAttackDamage() {
+        return baseAttackDamage;
     }
 
     /**
@@ -214,6 +238,9 @@ public abstract class Monster extends Entity {
      * @param amount amount to increase by
      */
     public void increaseBaseAttackDamage(int amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Argument must be positive");
+        }
         baseAttackDamage += amount;
         currentAttackDamage = baseAttackDamage;
     }
