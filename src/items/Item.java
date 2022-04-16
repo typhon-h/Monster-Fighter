@@ -3,6 +3,7 @@ package items;
 import main.Entity;
 import main.Rarity;
 import monsters.Monster;
+import exceptions.UnusableItemException;
 
 /**
  * Generic Item.
@@ -94,5 +95,5 @@ public abstract class Item extends Entity {
      *
      * @param monster The {@link monsters.Monster} to apply the effect to
      */
-    public abstract void use(Monster monster);
+    public abstract void use(Monster monster) throws UnusableItemException; // Test this with the Exception
 }

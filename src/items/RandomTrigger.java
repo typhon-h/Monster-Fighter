@@ -29,8 +29,13 @@ public class RandomTrigger extends Item{
      * @param monster The {@link monsters.Monster} to set the {@link main.Trigger} for.
      */
     public void use(Monster monster) {
-        // Get get a random {@link main.Trigger} that is not NOTRIGGER.
-        Trigger randomTrigger = Trigger.values()[rng.nextInt(Trigger.numTriggers - 1)];
+        Trigger randomTrigger = Trigger.NOABILITY;
+
+        // Keep generating a new tigger that is not already owned by the monster and is not NOABILITY
+        while (randomTrigger != Trigger.NOABILITY && randomTrigger != monster.getTrigger()) {
+            randomTrigger = Trigger.values()[rng.nextInt(Trigger.numTriggers - 1)];
+        }
+
         monster.setTrigger(randomTrigger);
     }
 }
