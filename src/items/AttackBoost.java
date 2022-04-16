@@ -4,8 +4,8 @@ import main.Rarity;
 import monsters.Monster;
 
 /**
- * An item that increases the base attack damage of a monster by
- * a set amount based on the rarity of the item.
+ * An item that increases the base attack damage of a {@link monsters.Monster} by
+ * a set amount based on the {@link main.Rarity} of the item.
  *
  * @author Jackie Jone
  * @version 1.0, Apr 2022
@@ -16,17 +16,17 @@ public class AttackBoost extends Item{
      *
      * @param newName        name of the item.
      * @param newDescription description of the item.
-     * @param newRarity      rarity of the description.
+     * @param newRarity      {@link main.Rarity} of the item.
      */
     public AttackBoost(String newName, String newDescription, Rarity newRarity) {
         super(newName, newDescription, newRarity);
     }
 
     /**
-     * Increases the base attack damage of a given monster by an amount
-     * based on the rarity of the item.
+     * Increases the base attack damage of a given {@link monsters.Monster} by an amount
+     * based on the {@link main.Rarity} of the item.
      *
-     * @param monster The monster to use the item on.
+     * @param monster The {@link monsters.Monster} to use the item on.
      */
     public void use(Monster monster) {
         monster.increaseBaseAttackDamage(getStatBoostAmount());
