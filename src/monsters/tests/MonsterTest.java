@@ -14,15 +14,34 @@ import org.junit.jupiter.api.*;
 
 import main.Trigger;
 
+/**
+ * Testing for generic monster class.
+ * Covers all non trivial methods (not getters/setters)
+ * 
+ * @author Harrison Tyson
+ * @version 1.0, Apr 2022.
+ */
 public class MonsterTest { // TODO: testing for valid arguments on constructor?
 
     private Monster monster;
 
+    /**
+     * Set up a monster to test methods on before each test
+     * 
+     * @throws Exception any error that occurs
+     */
     @BeforeEach
     public void setUp() throws Exception {
         monster = new ClinkMonster();
     }
 
+    /**
+     * Checks that monster recieves damage correctly
+     * Covers:
+     * valid: 1
+     * invalid: 0
+     * invalud: -1
+     */
     @Test
     public void recieveDamageTest() {
         int startingHealth = monster.getCurrentHealth();
@@ -47,6 +66,13 @@ public class MonsterTest { // TODO: testing for valid arguments on constructor?
 
     }
 
+    /**
+     * Check ONHURT event is triggered
+     * Covers: takeDamage
+     * Valid: recieves damage and has ONHURT
+     * Invalid: recieves damage and has ONFAINT
+     * Invalid: recieves damage and faints and has ONHURT
+     */
     @Test
     public void onHurtTriggerTest() {
         ArrayList<Monster> expectedAbilities = new ArrayList<>(Arrays.asList(monster));
@@ -60,8 +86,20 @@ public class MonsterTest { // TODO: testing for valid arguments on constructor?
         triggeredAbilities = monster.takeDamage(1);
         // Hurt ability was not triggered
         assertNotEquals(expectedAbilities, triggeredAbilities);
+
+        monster.restore();
+        monster.setTrigger(Trigger.ONHURT);
+        triggeredAbilities = monster.takeDamage(monster.getCurrentHealth() + 1);
+        assertNotEquals(expectedAbilities, triggeredAbilities);
     }
 
+    /**
+     * Checks health cannot overflow to zero
+     * Covers: takeDamage, setCurrentHealth
+     * monster recieves more damage than current health
+     * monster recieves damage with 0 health
+     * monster health is set negative
+     */
     @Test
     public void healthOverflowTest() {
         // Checks health doesn't overflow
@@ -78,6 +116,13 @@ public class MonsterTest { // TODO: testing for valid arguments on constructor?
         assertEquals(0, monster.getCurrentHealth());
     }
 
+    /**
+     * Check that when a monster faints faint conditions are met
+     * Covers: takeDamage
+     * health is 0
+     * status is false
+     * faintCount is incremented
+     */
     @Test
     public void faintTest() {
         int initialFaintCount = monster.getFaintCount();
@@ -91,6 +136,13 @@ public class MonsterTest { // TODO: testing for valid arguments on constructor?
 
     }
 
+    /**
+     * Check ONFAINT event is triggered
+     * Covers: takeDamage
+     * Valid: recieves damage and faints and has ONFAINT
+     * Invalid: recieves damage and has ONFAINT
+     * Invalid: recieves damage and has ONHURT
+     */
     @Test
     public void onFaintTriggerTest() {
         ArrayList<Monster> expectedAbilities = new ArrayList<>(Arrays.asList(monster));
@@ -101,13 +153,27 @@ public class MonsterTest { // TODO: testing for valid arguments on constructor?
         assertFalse(monster.getStatus()); // Check fainted
 
         monster.restore();
+        triggeredAbilities = monster.takeDamage(1);
+        // Faint ability was not triggered
+        assertNotEquals(expectedAbilities, triggeredAbilities);
+        assertTrue(monster.getStatus()); // Check fainted
+
+        monster.restore();
         monster.setTrigger(Trigger.ONHURT);
         triggeredAbilities = monster.takeDamage(monster.getCurrentHealth());
         // Hurt ability was not triggered
         assertNotEquals(expectedAbilities, triggeredAbilities);
         assertFalse(monster.getStatus()); // Check fainted
+
     }
 
+    /**
+     * Checks restore sets instance variables correctly
+     * Covers: restore
+     * currentHealth set to baseHealth
+     * currentAttackDamage set to baseAttackDamage
+     * status set to true
+     */
     @Test
     public void restoreTest() {
         // Check stats restored when below base values
@@ -134,6 +200,13 @@ public class MonsterTest { // TODO: testing for valid arguments on constructor?
         assertTrue(monster.getStatus());
     }
 
+    /**
+     * Checks stat increase methods increase stats
+     * Covers: increaseBaseHealth, increaseBaseAttackDamage
+     * Valid: increased by positive
+     * Invalid: increased by 0
+     * Invalid: increased by negative
+     */
     @Test
     public void statIncreaseTest() {
         int startBaseHealth = monster.getBaseHealth();

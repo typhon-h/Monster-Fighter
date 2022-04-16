@@ -89,9 +89,10 @@ public abstract class Monster extends Entity {
      * Deals damage to the monster and triggers relevant events
      * 
      * @param damage amount of damage recieved
+     * @throws IllegalArgumentException Argument must be positive
      * @return a Queue containing all monsters whose abilities triggered
      */
-    public Queue<Monster> takeDamage(int damage) {
+    public Queue<Monster> takeDamage(int damage) throws IllegalArgumentException {
         if (damage <= 0) {
             throw new IllegalArgumentException("Argument must be positive");
         }
@@ -204,8 +205,9 @@ public abstract class Monster extends Entity {
      * Increases monster base health
      * 
      * @param amount amount to increase by
+     * @throws IllegalArgumentException Argument must be positive
      */
-    public void increaseBaseHealth(int amount) {
+    public void increaseBaseHealth(int amount) throws IllegalArgumentException {
         if (amount <= 0) {
             throw new IllegalArgumentException("Argument must be positive");
         }
@@ -236,8 +238,9 @@ public abstract class Monster extends Entity {
      * Increases base monster attack damage
      * 
      * @param amount amount to increase by
+     * @throws IllegalArgumentException Argument must be positive
      */
-    public void increaseBaseAttackDamage(int amount) {
+    public void increaseBaseAttackDamage(int amount) throws IllegalArgumentException {
         if (amount <= 0) {
             throw new IllegalArgumentException("Argument must be positive");
         }
