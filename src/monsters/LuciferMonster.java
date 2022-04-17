@@ -3,7 +3,6 @@ package monsters;
 import java.util.Queue;
 import java.util.LinkedList;
 
-import main.Rarity;
 import main.Trigger;
 import main.Team;
 
@@ -22,11 +21,9 @@ public class LuciferMonster extends Monster {
         super(
                 "Lucifer", // Name
                 "Flip a coin, horns or tails, you never know", // Description
-                0, // Buy Price
-                0, // Sell Price
-                Rarity.LEGENDARY, // Rarity
-                2, // Base AttackDamage
-                2, // Base Health
+                BaseStatConstants.LUCIFERRARITY, // Rarity
+                BaseStatConstants.LUCIFERBASEATTACKDAMAGE, // Base AttackDamage
+                BaseStatConstants.LUCIFERBASEHEALTH, // Base Health
                 "SWAP Atack and Health");
         this.setTrigger(Trigger.ONHURT); // TODO decide trigger
     }

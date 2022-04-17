@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 
-import main.Rarity;
 import main.Trigger;
 import main.Team;
 
@@ -28,11 +27,9 @@ public class JynxMonster extends Monster {
         super(
                 "Jynx", // Name
                 "Highly trained assassin. *CLASSIFIED*", // Description
-                0, // Buy Price
-                0, // Sell Price
-                Rarity.LEGENDARY, // Rarity
-                1, // Base AttackDamage
-                3, // Base Health
+                BaseStatConstants.JYNXRARITY, // Rarity
+                BaseStatConstants.JYNXBASEATTACKDAMAGE, // Base AttackDamage
+                BaseStatConstants.JYNXBASEHEALTH, // Base Health
                 "-1 Health to a random ENEMY");
         this.setTrigger(Trigger.ONFAINT); // TODO decide trigger
     }

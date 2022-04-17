@@ -1,5 +1,7 @@
 package main;
 
+import items.ItemConstants;
+
 /**
  * Superclass for game objects.
  * An Entity is able to be possessed by a player and traded in shops
@@ -35,29 +37,31 @@ public class Entity {
      *
      * @param newName        Name of the entity
      * @param newDescription Description of the entity
-     * @param newBuyPrice    Price to buy the entity
-     * @param newSellPrice   Price to sell the entity
      * @param newRarity      Rarity of the entity
-     */
-    public Entity(String newName, String newDescription, int newBuyPrice, int newSellPrice, Rarity newRarity) {
-        setName(newName);
-        setDescription(newDescription);
-        setBuyPrice(newBuyPrice);
-        setSellPrice(newSellPrice);
-        setRarity(newRarity);
-    }
-
-    /**
-     * Constructor to be invoked from subclasses.
-     * Sets name and description instance variables
-     *
-     * @param newName        The name of the entity
-     * @param newDescription Description of the entity
-     * @param newRarity      The rarity of the entity
      */
     public Entity(String newName, String newDescription, Rarity newRarity) {
         setName(newName);
         setDescription(newDescription);
+        switch (newRarity) {
+            case COMMON:
+                setBuyPrice(ItemConstants.COMMONBUYPRICE);
+                setSellPrice(ItemConstants.COMMONSELLPRICE);
+                break;
+            case RARE:
+                setBuyPrice(ItemConstants.RAREBUYPRICE);
+                setSellPrice(ItemConstants.RARESELLPRICE);
+                break;
+            case LEGENDARY:
+                setBuyPrice(ItemConstants.LEGENDARYBUYPRICE);
+                setSellPrice(ItemConstants.LEGENDARYSELLPRICE);
+                break;
+            default:
+                setBuyPrice(ItemConstants.COMMONBUYPRICE);
+                setSellPrice(ItemConstants.COMMONSELLPRICE);
+                break;
+
+        }
+        setRarity(newRarity);
     }
 
     /**

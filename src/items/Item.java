@@ -10,27 +10,9 @@ import monsters.Monster;
  * Used to define common traits between all the specific items.
  *
  * @author Jackie Jone
- * @version 1.0, Apr 2022
+ * @version 1.1, Apr 2022
  */
 public abstract class Item extends Entity {
-
-    /**
-     * Constructor to call the constructor of the superclass, Entity.
-     * Sets all instance variables
-     *
-     * @param newName        Name of the item
-     * @param newDescription Description of the item
-     * @param newBuyPrice    Price to buy the item
-     * @param newSellPrice   Price to sell the item
-     * @param newRarity      Rarity of the item
-     */
-    public Item(String newName,
-            String newDescription,
-            int newBuyPrice,
-            int newSellPrice,
-            Rarity newRarity) {
-        super(newName, newDescription, newBuyPrice, newSellPrice, newRarity);
-    }
 
     /**
      * Constructor to call the constructor of the superclass, Entity.

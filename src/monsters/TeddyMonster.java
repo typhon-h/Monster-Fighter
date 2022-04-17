@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 
-import main.Rarity;
 import main.Trigger;
 import main.Team;
 
@@ -28,11 +27,9 @@ public class TeddyMonster extends Monster {
         super(
                 "Teddy", // Name
                 "Legend says she always puts others before herself", // Description
-                0, // Buy Price
-                0, // Sell Price
-                Rarity.LEGENDARY, // Rarity
-                1, // Base AttackDamage
-                3, // Base Health
+                BaseStatConstants.TEDDYRARITY, // Rarity
+                BaseStatConstants.TEDDYBASEATTACKDAMAGE, // Base AttackDamage
+                BaseStatConstants.TEDDYBASEHEALTH, // Base Health
                 "+1 Health to a random ALLY");
         this.setTrigger(Trigger.BEFOREATTACK); // TODO decide trigger
     }

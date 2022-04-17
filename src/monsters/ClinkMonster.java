@@ -2,7 +2,7 @@ package monsters;
 
 import java.util.Queue;
 import java.util.LinkedList;
-import main.Rarity;
+
 import main.Trigger;
 import main.Team;
 
@@ -20,11 +20,9 @@ public class ClinkMonster extends Monster {
         super(
                 "Clink", // Name
                 "Not very friendly until you get to know him", // Description
-                0, // Buy Price
-                0, // Sell Price
-                Rarity.LEGENDARY, // Rarity
-                2, // Base AttackDamage
-                2, // Base Health
+                BaseStatConstants.CLINKRARITY, // Rarity
+                BaseStatConstants.CLINKBASEATTACKDAMAGE, // Base AttackDamage
+                BaseStatConstants.CLINKBASEHEALTH, // Base Health
                 "-1 Attack and +1 Health (min 1 Attack)");
         this.setTrigger(Trigger.AFTERATTACK); // TODO decide trigger
     }

@@ -67,10 +67,9 @@ public abstract class Monster extends Entity {
      * @param baseAttackDamage   Base attack damage of the monster
      * @param abilityDescription Description of the monster's ability
      */
-    public Monster(String name, String description, int buyPrice, int sellPrice,
-            Rarity rarity, int baseAttackDamage, int baseHealth,
-            String abilityDescription) {
-        super(name, description, buyPrice, sellPrice, rarity); // Entity
+    public Monster(String name, String description, Rarity rarity,
+            int baseAttackDamage, int baseHealth, String abilityDescription) {
+        super(name, description, rarity); // Entity
         this.baseHealth = this.currentHealth = baseHealth;
         this.baseAttackDamage = this.currentAttackDamage = baseAttackDamage;
         setAbilityDescription(abilityDescription);

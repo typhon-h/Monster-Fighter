@@ -3,7 +3,6 @@ package monsters;
 import java.util.Queue;
 import java.util.LinkedList;
 
-import main.Rarity;
 import main.Trigger;
 import main.Team;
 
@@ -21,11 +20,9 @@ public class GilMonster extends Monster {
         super(
                 "Gil", // Name
                 "Full of encouraging words but that's about it", // Description
-                0, // Buy Price
-                0, // Sell Price
-                Rarity.LEGENDARY, // Rarity
-                1, // Base AttackDamage
-                3, // Base Health
+                BaseStatConstants.GILRARITY, // Rarity
+                BaseStatConstants.GILBASEATTACKDAMAGE, // Base AttackDamage
+                BaseStatConstants.GILBASEHEALTH, // Base Health
                 "Boosts attack of ALLY in front by 50% of my ATTACK");
         this.setTrigger(Trigger.STARTOFBATTLE); // TODO decide trigger
     }
