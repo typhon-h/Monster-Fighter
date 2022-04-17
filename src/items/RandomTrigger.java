@@ -8,6 +8,8 @@ import java.util.Random;
 /**
  * An item that gives a {@link monsters.Monster} a random {@link main.Trigger}
  * for their Ability Trigger
+ * @author Jackie Jone
+ * @version 1.0, Apr 2022
  */
 public class RandomTrigger extends Item{
     Random rng;

@@ -91,9 +91,10 @@ public abstract class Item extends Entity {
     }
 
     /**
-     * Applies the unique effect of the item to a given {@link monsters.Monster}
+     * Applies the unique effect of the item to a given {@link monsters.Monster}.
      *
-     * @param monster The {@link monsters.Monster} to apply the effect to
+     * @param monster The {@link monsters.Monster} to apply the effect to.
+     * @throws UnusableItemException The item cannot be used.
      */
     public abstract void use(Monster monster) throws UnusableItemException; // Test this with the Exception
 }

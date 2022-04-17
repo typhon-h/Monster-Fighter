@@ -11,7 +11,7 @@ public class UnusableItemException extends Exception {
     /**
      * Constructor for DuplicateTriggerException.
      *
-     * @prarm message The message to be displayed.
+     * @param message The message to be displayed.
      */
     public UnusableItemException(String message) {
         super(message);
