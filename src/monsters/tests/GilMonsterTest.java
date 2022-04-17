@@ -76,8 +76,7 @@ public class GilMonsterTest {
         // Initialize variables
         Team enemyTeam = new Team(new ClinkMonster()); // Arbitrary
         Monster ally = new ClinkMonster();
-        Team allyTeam = new Team(ally);
-        allyTeam.addMonster(monster);
+        Team allyTeam = new Team(ally, monster);
 
         // Check Gil is in team
         int indexOfGil = allyTeam.getAliveMonsters().indexOf(monster);

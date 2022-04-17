@@ -74,8 +74,7 @@ public class TeddyMonsterTest {
      */
     @Test
     public void abilityTest() throws TeamSizeException, TeamStatusException {
-        Team allyTeam = new Team(monster);
-        allyTeam.addMonster(new ClinkMonster());
+        Team allyTeam = new Team(monster, new ClinkMonster());
         Team enemyTeam = new Team(new ClinkMonster());
 
         // Check boosts health

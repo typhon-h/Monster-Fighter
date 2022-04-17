@@ -78,8 +78,7 @@ public class JynxMonsterTest {
     @Test
     public void abilityTest() throws TeamSizeException, TeamStatusException {
         Team allyTeam = new Team(monster);
-        Team enemyTeam = new Team(new ClinkMonster());
-        enemyTeam.addMonster(new ClinkMonster());
+        Team enemyTeam = new Team(new ClinkMonster(), new ClinkMonster());
 
         // Check does damage
         int startEnemyTeamSumHealth = 0;
