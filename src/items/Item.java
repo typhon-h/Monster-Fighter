@@ -45,6 +45,19 @@ public abstract class Item extends Entity {
                 String newDescription,
                 Rarity newRarity) {
         super(newName, newDescription, newRarity);
+        // Might need to call setRarity(newRarity) here if the superclass implementation doesnt
+        // call the subclass's implementation which overrides the superclass implementation.
+    }
+
+    /**
+     * Sets the {@link main.Rarity} of the item.
+     * Overrides the superclass implementation but uses the superclass implementation.
+     *
+     * @param rarity New {@link main.Rarity}  of the item
+     */
+    @Override
+    public void setRarity(Rarity rarity) {
+        super.setRarity(rarity);
         setBuySellPrice();
     }
 

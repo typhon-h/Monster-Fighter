@@ -44,7 +44,7 @@ public class Entity {
         setDescription(newDescription);
         setBuyPrice(newBuyPrice);
         setSellPrice(newSellPrice);
-        setRarity(newRarity);
+        setRarity(newRarity); // Check if this calls the subclass overriden implementation
     }
 
     /**
