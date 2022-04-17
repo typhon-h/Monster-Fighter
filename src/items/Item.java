@@ -68,6 +68,10 @@ public abstract class Item extends Entity {
                 setBuyPrice(ItemConstants.LEGENDARYBUYPRICE);
                 setSellPrice(ItemConstants.LEGENDARYSELLPRICE);
                 break;
+            default:
+                setBuyPrice(ItemConstants.COMMONBUYPRICE);
+                setSellPrice(ItemConstants.COMMONSELLPRICE);
+                break;
         }
     }
 

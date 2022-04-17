@@ -58,6 +58,7 @@ public class Entity {
     public Entity(String newName, String newDescription, Rarity newRarity) {
         setName(newName);
         setDescription(newDescription);
+        setRarity(newRarity);
     }
 
     /**
