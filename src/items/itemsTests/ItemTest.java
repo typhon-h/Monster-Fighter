@@ -21,7 +21,7 @@ class ItemTest {
 	 */
 	@Test
 	void sellPriceTest() {
-		AttackBoost testItem = new AttackBoost("An item",
+		Item testItem = new AttackBoost("An item",
 								 "Item Description",
 								 Rarity.COMMON);
 		
@@ -43,7 +43,7 @@ class ItemTest {
 	 */
 	@Test
 	void buyPriceTest() {
-		AttackBoost testItem = new AttackBoost("An item",
+		Item testItem = new AttackBoost("An item",
 								 "Item Description",
 								 Rarity.COMMON);
 		
@@ -64,7 +64,7 @@ class ItemTest {
 	 */
 	@Test
 	void getStatBoostAmountTest() {
-		AttackBoost testItem = new AttackBoost("An item",
+		Item testItem = new AttackBoost("An item",
 				 "Item Description",
 				 Rarity.COMMON);
 		assertEquals(testItem.getStatBoostAmount(), ItemConstants.COMMONSTATBOOST);
