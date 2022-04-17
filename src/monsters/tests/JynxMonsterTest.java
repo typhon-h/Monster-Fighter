@@ -111,7 +111,7 @@ public class JynxMonsterTest {
      * Valid: two monsters with ONHURT targetting each other
      * Valid: Monster with no abilty not having their ability trigger
      * 
-     * @throws TeamStatusException
+     * @throws TeamStatusException if whole team has fainted
      */
     @Test
     public void recursiveAbilityTest() throws TeamStatusException {

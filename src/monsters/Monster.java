@@ -57,8 +57,6 @@ public abstract class Monster extends Entity {
      * 
      * @param name               Name of the monster
      * @param description        Description of the monster
-     * @param buyPrice           Price to buy the monster from shop
-     * @param sellPrice          Price to sell the monster to shop
      * @param rarity             Rarity of the monster
      * @param baseHealth         Base health of the monster
      * @param baseAttackDamage   Base attack damage of the monster
