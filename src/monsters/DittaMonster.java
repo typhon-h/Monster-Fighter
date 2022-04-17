@@ -1,8 +1,5 @@
 package monsters;
 
-import java.util.Queue;
-import java.util.LinkedList;
-
 import main.Trigger;
 import main.Team;
 
@@ -30,9 +27,8 @@ public class DittaMonster extends Monster {
     }
 
     @Override
-    public Queue<Monster> ability(Team allyTeam, Team enemyTeam) {
+    public Monster ability(Team allyTeam, Team enemyTeam) {
         // COPY the stats of the enemy in front
-        Queue<Monster> triggeredAbilities = new LinkedList<Monster>();
 
         try {
             Monster monsterToCopy = enemyTeam.getFirstAliveMonster();
@@ -42,7 +38,7 @@ public class DittaMonster extends Monster {
             // Do Nothing
         }
 
-        return triggeredAbilities; // Empty
+        return null; // No Trigger
     }
 
 }

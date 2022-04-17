@@ -1,8 +1,5 @@
 package monsters;
 
-import java.util.Queue;
-import java.util.LinkedList;
-
 import main.Trigger;
 import main.Team;
 
@@ -29,16 +26,15 @@ public class LuciferMonster extends Monster {
     }
 
     @Override
-    public Queue<Monster> ability(Team allyTeam, Team enemyTeam) {
+    public Monster ability(Team allyTeam, Team enemyTeam) {
         // SWAP Atack and Health
-        Queue<Monster> triggeredAbilities = new LinkedList<Monster>();
 
         int tempAttack = this.getCurrentAttackDamage();
         int tempHealth = this.getCurrentHealth();
         this.setCurrentAttackDamage(tempHealth);
         this.setCurrentHealth(tempAttack);
 
-        return triggeredAbilities; // Empty
+        return null; // Empty
     }
 
 }

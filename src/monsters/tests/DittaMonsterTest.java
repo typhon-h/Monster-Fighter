@@ -9,8 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import exceptions.TeamStatusException;
 
-import java.util.Queue;
-
 /**
  * Testing for Ditta Monster class.
  * 
@@ -75,11 +73,11 @@ public class DittaMonsterTest {
     public void abilityTest() throws TeamStatusException {
         Team allyTeam = new Team(monster);
         Team enemyTeam = new Team(new ClinkMonster());
-        Queue<Monster> triggeredAbilities = monster.ability(allyTeam, enemyTeam);
+        Monster triggeredAbility = monster.ability(allyTeam, enemyTeam);
         Monster firstEnemy = enemyTeam.getFirstAliveMonster();
 
         // Check stats are copied
-        assertEquals(0, triggeredAbilities.size());
+        assertNull(triggeredAbility);
         assertEquals(firstEnemy.getCurrentHealth(), monster.getCurrentHealth());
         assertEquals(firstEnemy.getCurrentAttackDamage(), monster.getCurrentAttackDamage());
 

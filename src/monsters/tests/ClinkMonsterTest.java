@@ -7,8 +7,6 @@ import main.Team;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Queue;
-
 /**
  * Testing for Clink Monster class.
  * 
@@ -74,9 +72,9 @@ public class ClinkMonsterTest {
         Team allyTeam = new Team(monster);
         Team enemyTeam = new Team(new ClinkMonster());
 
-        Queue<Monster> triggeredAbilities = monster.ability(allyTeam, enemyTeam);
+        Monster triggeredAbility = monster.ability(allyTeam, enemyTeam);
         // No other abilities were triggered
-        assertEquals(0, triggeredAbilities.size());
+        assertNull(triggeredAbility);
 
         // Attack damage is reduced
         assertEquals(startAttackDamage - 1, monster.getCurrentAttackDamage());

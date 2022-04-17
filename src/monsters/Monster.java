@@ -1,8 +1,5 @@
 package monsters;
 
-import java.util.Queue;
-import java.util.LinkedList;
-
 import main.Entity;
 import main.Rarity;
 import main.Team;
@@ -80,23 +77,22 @@ public abstract class Monster extends Entity {
      * 
      * @param allyTeam  Friendly team of the monster
      * @param enemyTeam Enemy team of the monster
-     * @return a Queue containing all monsters whose abilities triggered
+     * @return a Monster whose ability gets triggered next
      */
-    public abstract Queue<Monster> ability(Team allyTeam, Team enemyTeam);
+    public abstract Monster ability(Team allyTeam, Team enemyTeam);
 
     /**
      * Deals damage to the monster and triggers relevant events
      * 
      * @param damage amount of damage recieved
      * @throws IllegalArgumentException Argument must be positive
-     * @return a Queue containing all monsters whose abilities triggered
+     * @return itself if ability was triggered
      */
-    public Queue<Monster> takeDamage(int damage) throws IllegalArgumentException {
+    public Monster takeDamage(int damage) throws IllegalArgumentException {
         if (damage <= 0) {
             throw new IllegalArgumentException("Argument must be positive");
         }
 
-        Queue<Monster> triggeredAbilities = new LinkedList<Monster>();
         this.currentHealth -= damage;
 
         if (currentHealth <= 0) { // Check for faint
@@ -104,13 +100,13 @@ public abstract class Monster extends Entity {
             setStatus(false);
             incrementFaintCount();
             if (getTrigger() == Trigger.ONFAINT) { // ONFAINT Event
-                triggeredAbilities.add(this);
+                return this;
             }
         } else if (getTrigger() == Trigger.ONHURT) {
-            triggeredAbilities.add(this);
+            return this;
         }
 
-        return triggeredAbilities;
+        return null; // No ability triggered
     };
 
     /**

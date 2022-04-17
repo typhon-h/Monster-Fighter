@@ -5,13 +5,9 @@ import monsters.*;
 import main.Team;
 
 import org.junit.jupiter.api.*;
-
-import exceptions.TeamSizeException;
-import exceptions.TeamStatusException;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Queue;
+import exceptions.*;
 
 /**
  * Testing for Gil Monster class.
@@ -95,8 +91,8 @@ public class GilMonsterTest {
         monster.setCurrentAttackDamage(1);
         int startAttackDamage = monsterInFront.getCurrentAttackDamage();
         // Checks no additional abilities are triggered
-        Queue<Monster> triggeredAbilities = monster.ability(allyTeam, enemyTeam);
-        assertEquals(0, triggeredAbilities.size()); // Triggers no abilities
+        Monster triggeredAbility = monster.ability(allyTeam, enemyTeam);
+        assertNull(triggeredAbility);
         assertEquals(startAttackDamage, monsterInFront.getCurrentAttackDamage()); // 50% of 1 is 0 (rounded down)
 
         // Monster in front of Gil AttackDamage: 2

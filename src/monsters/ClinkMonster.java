@@ -1,8 +1,5 @@
 package monsters;
 
-import java.util.Queue;
-import java.util.LinkedList;
-
 import main.Trigger;
 import main.Team;
 
@@ -28,14 +25,13 @@ public class ClinkMonster extends Monster {
     }
 
     @Override
-    public Queue<Monster> ability(Team allyTeam, Team enemyTeam) {
+    public Monster ability(Team allyTeam, Team enemyTeam) {
         // -1 Attack and +1 Health (min 1 Attack)
-        Queue<Monster> triggeredAbilities = new LinkedList<Monster>();
         if (this.getCurrentAttackDamage() > 1) { // Attack can't go lower than 1
             this.setCurrentAttackDamage(this.getCurrentAttackDamage() - 1);
             this.setCurrentHealth(this.getCurrentHealth() + 1);
         }
-        return triggeredAbilities; // Empty
+        return null; // Empty
     }
 
 }

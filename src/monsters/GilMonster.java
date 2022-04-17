@@ -1,8 +1,5 @@
 package monsters;
 
-import java.util.Queue;
-import java.util.LinkedList;
-
 import main.Trigger;
 import main.Team;
 
@@ -28,9 +25,8 @@ public class GilMonster extends Monster {
     }
 
     @Override
-    public Queue<Monster> ability(Team allyTeam, Team enemyTeam) {
+    public Monster ability(Team allyTeam, Team enemyTeam) {
         // Boosts attack of ALLY in front by 50% of my ATTACK
-        Queue<Monster> triggeredAbilities = new LinkedList<Monster>();
 
         int myPosition = allyTeam.getAliveMonsters().indexOf(this);
         Monster monsterToAdjust;
@@ -40,7 +36,7 @@ public class GilMonster extends Monster {
                     monsterToAdjust.getCurrentAttackDamage() + (this.getCurrentAttackDamage() / 2));
         }
 
-        return triggeredAbilities; // Empty
+        return null; // No trigger
     }
 
 }

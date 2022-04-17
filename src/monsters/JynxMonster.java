@@ -1,8 +1,6 @@
 package monsters;
 
-import java.util.Queue;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Random;
 
 import main.Trigger;
@@ -35,15 +33,16 @@ public class JynxMonster extends Monster {
     }
 
     @Override
-    public Queue<Monster> ability(Team allyTeam, Team enemyTeam) {
+    public Monster ability(Team allyTeam, Team enemyTeam) {
         // -1 Health to a random ENEMY
-        Queue<Monster> triggeredAbilities = new LinkedList<Monster>();
 
         ArrayList<Monster> possibleMembers = enemyTeam.getAliveMonsters();
-        Monster monsterToAdjust = possibleMembers.get(rng.nextInt() % possibleMembers.size());
-        triggeredAbilities.addAll(monsterToAdjust.takeDamage(1));
+        if (possibleMembers.size() > 0) {
+            Monster monsterToAdjust = possibleMembers.get(rng.nextInt() % possibleMembers.size());
+            return monsterToAdjust.takeDamage(1);
+        }
 
-        return triggeredAbilities;
+        return null;
     }
 
 }
