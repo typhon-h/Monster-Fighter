@@ -149,7 +149,10 @@ public abstract class Monster extends Entity {
      * 
      * @param attackDamage the new current attack damage
      */
-    public void setCurrentAttackDamage(int attackDamage) {
+    public void setCurrentAttackDamage(int attackDamage) throws IllegalArgumentException {
+        if (attackDamage < 1) {
+            currentAttackDamage = 1;
+        }
         currentAttackDamage = attackDamage;
     }
 
