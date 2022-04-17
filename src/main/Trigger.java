@@ -29,5 +29,13 @@ public enum Trigger {
     /**
      * The monster's ability will not be triggered
      */
-    NOABILITY
+    NOABILITY;
+
+    /**
+     * Total number of triggers
+     */
+    public static final int numTriggers;
+    static {
+        numTriggers = values().length;
+    }
 }
