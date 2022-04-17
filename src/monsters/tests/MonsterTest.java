@@ -44,10 +44,9 @@ public class MonsterTest { // TODO: testing for valid arguments on constructor?
      */
     @Test
     public void recieveDamageTest() {
-        int startingHealth = monster.getCurrentHealth();
-        monster.takeDamage(1);
+        monster.takeDamage(monster.getBaseHealth() - 1); // non lethal
         // Checks damage is dealt
-        assertEquals(startingHealth - 1, monster.getCurrentHealth());
+        assertEquals(1, monster.getCurrentHealth());
         // Base health is not effected
         assertNotEquals(monster.getBaseHealth(), monster.getCurrentHealth());
 
@@ -77,19 +76,19 @@ public class MonsterTest { // TODO: testing for valid arguments on constructor?
     public void onHurtTriggerTest() {
         ArrayList<Monster> expectedAbilities = new ArrayList<>(Arrays.asList(monster));
         monster.setTrigger(Trigger.ONHURT);
-        Queue<Monster> triggeredAbilities = monster.takeDamage(1);
+        Queue<Monster> triggeredAbilities = monster.takeDamage(monster.getBaseHealth() - 1); // Non lethal
         // Hurt ability was triggered
         assertEquals(expectedAbilities, triggeredAbilities);
 
         monster.restore();
         monster.setTrigger(Trigger.ONFAINT);
-        triggeredAbilities = monster.takeDamage(1);
+        triggeredAbilities = monster.takeDamage(monster.getBaseHealth() - 1); // Non lethal
         // Hurt ability was not triggered
         assertNotEquals(expectedAbilities, triggeredAbilities);
 
         monster.restore();
         monster.setTrigger(Trigger.ONHURT);
-        triggeredAbilities = monster.takeDamage(monster.getCurrentHealth() + 1);
+        triggeredAbilities = monster.takeDamage(monster.getBaseHealth() + 1); // Lethal
         assertNotEquals(expectedAbilities, triggeredAbilities);
     }
 
@@ -103,12 +102,12 @@ public class MonsterTest { // TODO: testing for valid arguments on constructor?
     @Test
     public void healthOverflowTest() {
         // Checks health doesn't overflow
-        monster.takeDamage(monster.getCurrentHealth() + 1);
+        monster.takeDamage(monster.getBaseHealth() + 1); // Lethal
         assertEquals(0, monster.getCurrentHealth());
 
         monster.restore();
         monster.setCurrentHealth(0);
-        monster.takeDamage(1);
+        monster.takeDamage(monster.getBaseHealth() + 1); // Lethal
         assertEquals(0, monster.getCurrentHealth());
 
         monster.restore();
@@ -153,7 +152,7 @@ public class MonsterTest { // TODO: testing for valid arguments on constructor?
         assertFalse(monster.getStatus()); // Check fainted
 
         monster.restore();
-        triggeredAbilities = monster.takeDamage(1);
+        triggeredAbilities = monster.takeDamage(monster.getBaseHealth() - 1); // Non lethal
         // Faint ability was not triggered
         assertNotEquals(expectedAbilities, triggeredAbilities);
         assertTrue(monster.getStatus()); // Check fainted
