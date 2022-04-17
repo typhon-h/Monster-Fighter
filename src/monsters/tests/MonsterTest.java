@@ -1,9 +1,6 @@
 package monsters.tests;
 
 import monsters.*;
-import java.util.Queue;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
@@ -70,22 +67,21 @@ public class MonsterTest { // TODO: testing for valid arguments on constructor?
      */
     @Test
     public void onHurtTriggerTest() {
-        ArrayList<Monster> expectedAbilities = new ArrayList<>(Arrays.asList(monster));
         monster.setTrigger(Trigger.ONHURT);
-        Queue<Monster> triggeredAbilities = monster.takeDamage(monster.getBaseHealth() - 1); // Non lethal
+        Monster triggeredAbility = monster.takeDamage(monster.getBaseHealth() - 1); // Non lethal
         // Hurt ability was triggered
-        assertEquals(expectedAbilities, triggeredAbilities);
+        assertEquals(monster, triggeredAbility);
 
         monster.restore();
         monster.setTrigger(Trigger.ONFAINT);
-        triggeredAbilities = monster.takeDamage(monster.getBaseHealth() - 1); // Non lethal
+        triggeredAbility = monster.takeDamage(monster.getBaseHealth() - 1); // Non lethal
         // Hurt ability was not triggered
-        assertNotEquals(expectedAbilities, triggeredAbilities);
+        assertNull(triggeredAbility);
 
         monster.restore();
         monster.setTrigger(Trigger.ONHURT);
-        triggeredAbilities = monster.takeDamage(monster.getBaseHealth() + 1); // Lethal
-        assertNotEquals(expectedAbilities, triggeredAbilities);
+        triggeredAbility = monster.takeDamage(monster.getBaseHealth() + 1); // Lethal
+        assertNull(triggeredAbility);
     }
 
     /**
@@ -140,24 +136,23 @@ public class MonsterTest { // TODO: testing for valid arguments on constructor?
      */
     @Test
     public void onFaintTriggerTest() {
-        ArrayList<Monster> expectedAbilities = new ArrayList<>(Arrays.asList(monster));
         monster.setTrigger(Trigger.ONFAINT);
-        Queue<Monster> triggeredAbilities = monster.takeDamage(monster.getCurrentHealth());
+        Monster triggeredAbility = monster.takeDamage(monster.getCurrentHealth());
         // Faint ability was triggered
-        assertEquals(triggeredAbilities, expectedAbilities);
+        assertEquals(monster, triggeredAbility);
         assertFalse(monster.getStatus()); // Check fainted
 
         monster.restore();
-        triggeredAbilities = monster.takeDamage(monster.getBaseHealth() - 1); // Non lethal
+        triggeredAbility = monster.takeDamage(monster.getBaseHealth() - 1); // Non lethal
         // Faint ability was not triggered
-        assertNotEquals(expectedAbilities, triggeredAbilities);
+        assertNull(triggeredAbility);
         assertTrue(monster.getStatus()); // Check fainted
 
         monster.restore();
         monster.setTrigger(Trigger.ONHURT);
-        triggeredAbilities = monster.takeDamage(monster.getCurrentHealth());
+        triggeredAbility = monster.takeDamage(monster.getCurrentHealth());
         // Hurt ability was not triggered
-        assertNotEquals(expectedAbilities, triggeredAbilities);
+        assertNull(triggeredAbility);
         assertFalse(monster.getStatus()); // Check fainted
 
     }
