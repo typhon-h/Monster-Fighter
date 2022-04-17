@@ -70,6 +70,8 @@ public class DittaMonsterTest {
      * Covers: ability
      * Valid: effect occurs. Stats match first enemy
      * Invalid: Whole opponent team has fainted
+     * 
+     * @throws TeamStatusException if there is no first monster in team
      */
     @Test
     public void abilityTest() throws TeamStatusException {

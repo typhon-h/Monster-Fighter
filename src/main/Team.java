@@ -65,7 +65,7 @@ public class Team {
      */
     public ArrayList<Monster> getAliveMonsters() {
         ArrayList<Monster> monsters = new ArrayList<Monster>();
-        for (Monster monster : monsters) {
+        for (Monster monster : this.monsters) {
             if (monster.getStatus()) {
                 monsters.add(monster);
             }
