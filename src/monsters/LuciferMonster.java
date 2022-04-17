@@ -21,9 +21,9 @@ public class LuciferMonster extends Monster {
         super(
                 "Lucifer", // Name
                 "Flip a coin, horns or tails, you never know", // Description
-                BaseStatConstants.LUCIFERRARITY, // Rarity
-                BaseStatConstants.LUCIFERBASEATTACKDAMAGE, // Base AttackDamage
-                BaseStatConstants.LUCIFERBASEHEALTH, // Base Health
+                MonsterConstants.LUCIFERRARITY, // Rarity
+                MonsterConstants.LUCIFERBASEATTACKDAMAGE, // Base AttackDamage
+                MonsterConstants.LUCIFERBASEHEALTH, // Base Health
                 "SWAP Atack and Health");
         this.setTrigger(Trigger.ONHURT); // TODO decide trigger
     }

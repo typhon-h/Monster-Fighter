@@ -27,9 +27,9 @@ public class TeddyMonster extends Monster {
         super(
                 "Teddy", // Name
                 "Legend says she always puts others before herself", // Description
-                BaseStatConstants.TEDDYRARITY, // Rarity
-                BaseStatConstants.TEDDYBASEATTACKDAMAGE, // Base AttackDamage
-                BaseStatConstants.TEDDYBASEHEALTH, // Base Health
+                MonsterConstants.TEDDYRARITY, // Rarity
+                MonsterConstants.TEDDYBASEATTACKDAMAGE, // Base AttackDamage
+                MonsterConstants.TEDDYBASEHEALTH, // Base Health
                 "+1 Health to a random ALLY");
         this.setTrigger(Trigger.BEFOREATTACK); // TODO decide trigger
     }

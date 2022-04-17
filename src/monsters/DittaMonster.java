@@ -22,9 +22,9 @@ public class DittaMonster extends Monster {
         super(
                 "Ditta", // Name
                 "It looks familiar, just can't put my finger on it", // Description
-                BaseStatConstants.DITTARARITY, // Rarity
-                BaseStatConstants.DITTABASEATTACKDAMAGE, // Base AttackDamage
-                BaseStatConstants.DITTABASEHEALTH, // Base Health
+                MonsterConstants.DITTARARITY, // Rarity
+                MonsterConstants.DITTABASEATTACKDAMAGE, // Base AttackDamage
+                MonsterConstants.DITTABASEHEALTH, // Base Health
                 "COPY the stats of the enemy in front");
         this.setTrigger(Trigger.STARTOFBATTLE); // TODO decide trigger
     }

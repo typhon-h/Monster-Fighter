@@ -20,9 +20,9 @@ public class GilMonster extends Monster {
         super(
                 "Gil", // Name
                 "Full of encouraging words but that's about it", // Description
-                BaseStatConstants.GILRARITY, // Rarity
-                BaseStatConstants.GILBASEATTACKDAMAGE, // Base AttackDamage
-                BaseStatConstants.GILBASEHEALTH, // Base Health
+                MonsterConstants.GILRARITY, // Rarity
+                MonsterConstants.GILBASEATTACKDAMAGE, // Base AttackDamage
+                MonsterConstants.GILBASEHEALTH, // Base Health
                 "Boosts attack of ALLY in front by 50% of my ATTACK");
         this.setTrigger(Trigger.STARTOFBATTLE); // TODO decide trigger
     }

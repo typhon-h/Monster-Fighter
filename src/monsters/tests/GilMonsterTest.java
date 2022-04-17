@@ -2,8 +2,6 @@ package monsters.tests;
 
 import monsters.*;
 
-import items.ItemConstants;
-
 import main.Team;
 
 import org.junit.jupiter.api.*;
@@ -48,21 +46,21 @@ public class GilMonsterTest {
         assertNotNull(monster.getSellPrice());
         assertNotNull(monster.getRarity());
         // Check base stats are set correctly
-        assertEquals(BaseStatConstants.GILBASEATTACKDAMAGE, monster.getBaseAttackDamage());
-        assertEquals(BaseStatConstants.GILBASEHEALTH, monster.getBaseHealth());
+        assertEquals(MonsterConstants.GILBASEATTACKDAMAGE, monster.getBaseAttackDamage());
+        assertEquals(MonsterConstants.GILBASEHEALTH, monster.getBaseHealth());
         // Check buy/sell prices are set correctly
         switch (monster.getRarity()) {
             case COMMON:
-                assertEquals(ItemConstants.COMMONBUYPRICE, monster.getBuyPrice());
-                assertEquals(ItemConstants.COMMONSELLPRICE, monster.getSellPrice());
+                assertEquals(MonsterConstants.COMMONBUYPRICE, monster.getBuyPrice());
+                assertEquals(MonsterConstants.COMMONSELLPRICE, monster.getSellPrice());
                 break;
             case RARE:
-                assertEquals(ItemConstants.RAREBUYPRICE, monster.getBuyPrice());
-                assertEquals(ItemConstants.RARESELLPRICE, monster.getSellPrice());
+                assertEquals(MonsterConstants.RAREBUYPRICE, monster.getBuyPrice());
+                assertEquals(MonsterConstants.RARESELLPRICE, monster.getSellPrice());
                 break;
             case LEGENDARY:
-                assertEquals(ItemConstants.LEGENDARYBUYPRICE, monster.getBuyPrice());
-                assertEquals(ItemConstants.LEGENDARYSELLPRICE, monster.getSellPrice());
+                assertEquals(MonsterConstants.LEGENDARYBUYPRICE, monster.getBuyPrice());
+                assertEquals(MonsterConstants.LEGENDARYSELLPRICE, monster.getSellPrice());
                 break;
         }
     }

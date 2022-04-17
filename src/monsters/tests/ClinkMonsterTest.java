@@ -2,8 +2,6 @@ package monsters.tests;
 
 import monsters.*;
 
-import items.ItemConstants;
-
 import main.Team;
 
 import org.junit.jupiter.api.*;
@@ -44,21 +42,21 @@ public class ClinkMonsterTest {
         assertNotNull(monster.getSellPrice());
         assertNotNull(monster.getRarity());
         // Check base stats are set correctly
-        assertEquals(BaseStatConstants.CLINKBASEATTACKDAMAGE, monster.getBaseAttackDamage());
-        assertEquals(BaseStatConstants.CLINKBASEHEALTH, monster.getBaseHealth());
+        assertEquals(MonsterConstants.CLINKBASEATTACKDAMAGE, monster.getBaseAttackDamage());
+        assertEquals(MonsterConstants.CLINKBASEHEALTH, monster.getBaseHealth());
         // Check buy/sell prices are set correctly
         switch (monster.getRarity()) {
             case COMMON:
-                assertEquals(ItemConstants.COMMONBUYPRICE, monster.getBuyPrice());
-                assertEquals(ItemConstants.COMMONSELLPRICE, monster.getSellPrice());
+                assertEquals(MonsterConstants.COMMONBUYPRICE, monster.getBuyPrice());
+                assertEquals(MonsterConstants.COMMONSELLPRICE, monster.getSellPrice());
                 break;
             case RARE:
-                assertEquals(ItemConstants.RAREBUYPRICE, monster.getBuyPrice());
-                assertEquals(ItemConstants.RARESELLPRICE, monster.getSellPrice());
+                assertEquals(MonsterConstants.RAREBUYPRICE, monster.getBuyPrice());
+                assertEquals(MonsterConstants.RARESELLPRICE, monster.getSellPrice());
                 break;
             case LEGENDARY:
-                assertEquals(ItemConstants.LEGENDARYBUYPRICE, monster.getBuyPrice());
-                assertEquals(ItemConstants.LEGENDARYSELLPRICE, monster.getSellPrice());
+                assertEquals(MonsterConstants.LEGENDARYBUYPRICE, monster.getBuyPrice());
+                assertEquals(MonsterConstants.LEGENDARYSELLPRICE, monster.getSellPrice());
                 break;
         }
     }
@@ -83,12 +81,12 @@ public class ClinkMonsterTest {
         // Attack damage is reduced
         assertEquals(startAttackDamage - 1, monster.getCurrentAttackDamage());
         // Base attack was not changed
-        assertEquals(BaseStatConstants.CLINKBASEATTACKDAMAGE, monster.getBaseAttackDamage());
+        assertEquals(MonsterConstants.CLINKBASEATTACKDAMAGE, monster.getBaseAttackDamage());
 
         // Health was increased
         assertEquals(startHealth + 1, monster.getCurrentHealth());
         // Base health was not changed
-        assertEquals(BaseStatConstants.CLINKBASEHEALTH, monster.getBaseHealth());
+        assertEquals(MonsterConstants.CLINKBASEHEALTH, monster.getBaseHealth());
 
         // Ability does nothing
         monster.restore();

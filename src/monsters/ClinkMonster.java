@@ -20,9 +20,9 @@ public class ClinkMonster extends Monster {
         super(
                 "Clink", // Name
                 "Not very friendly until you get to know him", // Description
-                BaseStatConstants.CLINKRARITY, // Rarity
-                BaseStatConstants.CLINKBASEATTACKDAMAGE, // Base AttackDamage
-                BaseStatConstants.CLINKBASEHEALTH, // Base Health
+                MonsterConstants.CLINKRARITY, // Rarity
+                MonsterConstants.CLINKBASEATTACKDAMAGE, // Base AttackDamage
+                MonsterConstants.CLINKBASEHEALTH, // Base Health
                 "-1 Attack and +1 Health (min 1 Attack)");
         this.setTrigger(Trigger.AFTERATTACK); // TODO decide trigger
     }

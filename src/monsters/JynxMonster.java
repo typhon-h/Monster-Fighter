@@ -27,9 +27,9 @@ public class JynxMonster extends Monster {
         super(
                 "Jynx", // Name
                 "Highly trained assassin. *CLASSIFIED*", // Description
-                BaseStatConstants.JYNXRARITY, // Rarity
-                BaseStatConstants.JYNXBASEATTACKDAMAGE, // Base AttackDamage
-                BaseStatConstants.JYNXBASEHEALTH, // Base Health
+                MonsterConstants.JYNXRARITY, // Rarity
+                MonsterConstants.JYNXBASEATTACKDAMAGE, // Base AttackDamage
+                MonsterConstants.JYNXBASEHEALTH, // Base Health
                 "-1 Health to a random ENEMY");
         this.setTrigger(Trigger.ONFAINT); // TODO decide trigger
     }

@@ -284,4 +284,27 @@ public abstract class Monster extends Entity {
         faintCount++;
     }
 
+    @Override
+    public void setRarity(Rarity rarity) {
+        super.setRarity(rarity);
+        switch (this.getRarity()) {
+            case COMMON:
+                setBuyPrice(MonsterConstants.COMMONBUYPRICE);
+                setSellPrice(MonsterConstants.COMMONSELLPRICE);
+                break;
+            case RARE:
+                setBuyPrice(MonsterConstants.RAREBUYPRICE);
+                setSellPrice(MonsterConstants.RARESELLPRICE);
+                break;
+            case LEGENDARY:
+                setBuyPrice(MonsterConstants.LEGENDARYBUYPRICE);
+                setSellPrice(MonsterConstants.LEGENDARYSELLPRICE);
+                break;
+            default:
+                setBuyPrice(MonsterConstants.COMMONBUYPRICE);
+                setSellPrice(MonsterConstants.COMMONSELLPRICE);
+                break;
+        }
+    }
+
 }
