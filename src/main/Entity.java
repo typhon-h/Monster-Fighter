@@ -35,25 +35,7 @@ public class Entity {
      *
      * @param newName        Name of the entity
      * @param newDescription Description of the entity
-     * @param newBuyPrice    Price to buy the entity
-     * @param newSellPrice   Price to sell the entity
      * @param newRarity      Rarity of the entity
-     */
-    public Entity(String newName, String newDescription, int newBuyPrice, int newSellPrice, Rarity newRarity) {
-        setName(newName);
-        setDescription(newDescription);
-        setBuyPrice(newBuyPrice);
-        setSellPrice(newSellPrice);
-        setRarity(newRarity); // Check if this calls the subclass overriden implementation
-    }
-
-    /**
-     * Constructor to be invoked from subclasses.
-     * Sets name and description instance variables
-     *
-     * @param newName        The name of the entity
-     * @param newDescription Description of the entity
-     * @param newRarity      The rarity of the entity
      */
     public Entity(String newName, String newDescription, Rarity newRarity) {
         setName(newName);
