@@ -1,11 +1,8 @@
 package monsters;
 
-import java.util.Queue;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Random;
 
-import main.Rarity;
 import main.Trigger;
 import main.Team;
 
@@ -28,25 +25,24 @@ public class JynxMonster extends Monster {
         super(
                 "Jynx", // Name
                 "Highly trained assassin. *CLASSIFIED*", // Description
-                0, // Buy Price
-                0, // Sell Price
-                Rarity.LEGENDARY, // Rarity
-                1, // Base AttackDamage
-                3, // Base Health
+                MonsterConstants.JYNXRARITY, // Rarity
+                MonsterConstants.JYNXBASEATTACKDAMAGE, // Base AttackDamage
+                MonsterConstants.JYNXBASEHEALTH, // Base Health
                 "-1 Health to a random ENEMY");
         this.setTrigger(Trigger.ONFAINT); // TODO decide trigger
     }
 
     @Override
-    public Queue<Monster> ability(Team allyTeam, Team enemyTeam) {
+    public Monster ability(Team allyTeam, Team enemyTeam) {
         // -1 Health to a random ENEMY
-        Queue<Monster> triggeredAbilities = new LinkedList<Monster>();
 
         ArrayList<Monster> possibleMembers = enemyTeam.getAliveMonsters();
-        Monster monsterToAdjust = possibleMembers.get(rng.nextInt() % possibleMembers.size());
-        triggeredAbilities.addAll(monsterToAdjust.takeDamage(1));
+        if (possibleMembers.size() > 0) {
+            Monster monsterToAdjust = possibleMembers.get(rng.nextInt() % possibleMembers.size());
+            return monsterToAdjust.takeDamage(1);
+        }
 
-        return triggeredAbilities;
+        return null;
     }
 
 }

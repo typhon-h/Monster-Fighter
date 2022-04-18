@@ -44,6 +44,94 @@ public class Team {
     }
 
     /**
+     * Constructor for Team. Creates a team with the starting monster
+     *
+     * @param monster1 monster in first position
+     * @param monster2 monster in second position
+     */
+    public Team(Monster monster1, Monster monster2) {
+        this.monsters = new ArrayList<Monster>();
+        this.monsters.add(monster1);
+        this.monsters.add(monster2);
+        this.teamSize = 2;
+    }
+
+    /**
+     * Constructor for Team. Creates a team with the starting monster
+     *
+     * @param monster1 monster in first position
+     * @param monster2 monster in second position
+     * @param monster3 monster in third position
+     */
+    public Team(Monster monster1, Monster monster2, Monster monster3) {
+        this.monsters = new ArrayList<Monster>();
+        this.monsters.add(monster1);
+        this.monsters.add(monster2);
+        this.monsters.add(monster3);
+        this.teamSize = 3;
+    }
+
+    /**
+     * Constructor for Team. Creates a team with the starting monster
+     *
+     * @param monster1 monster in first position
+     * @param monster2 monster in second position
+     * @param monster3 monster in third position
+     * @param monster4 monster in fourth position
+     */
+    public Team(Monster monster1, Monster monster2, Monster monster3,
+            Monster monster4) {
+        this.monsters = new ArrayList<Monster>();
+        this.monsters.add(monster1);
+        this.monsters.add(monster2);
+        this.monsters.add(monster3);
+        this.monsters.add(monster4);
+        this.teamSize = 4;
+    }
+
+    /**
+     * Constructor for Team. Creates a team with the starting monster
+     *
+     * @param monster1 monster in first position
+     * @param monster2 monster in second position
+     * @param monster3 monster in third position
+     * @param monster4 monster in fourth position
+     * @param monster5 monster in fifth position
+     */
+    public Team(Monster monster1, Monster monster2, Monster monster3,
+            Monster monster4, Monster monster5) {
+        this.monsters = new ArrayList<Monster>();
+        this.monsters.add(monster1);
+        this.monsters.add(monster2);
+        this.monsters.add(monster3);
+        this.monsters.add(monster4);
+        this.monsters.add(monster5);
+        this.teamSize = 5;
+    }
+
+    /**
+     * Constructor for Team. Creates a team with the starting monster
+     *
+     * @param monster1 monster in first position
+     * @param monster2 monster in second position
+     * @param monster3 monster in third position
+     * @param monster4 monster in fourth position
+     * @param monster5 monster in fifth position
+     * @param monster6 monster in sixth position
+     */
+    public Team(Monster monster1, Monster monster2, Monster monster3,
+            Monster monster4, Monster monster5, Monster monster6) {
+        this.monsters = new ArrayList<Monster>();
+        this.monsters.add(monster1);
+        this.monsters.add(monster2);
+        this.monsters.add(monster3);
+        this.monsters.add(monster4);
+        this.monsters.add(monster5);
+        this.monsters.add(monster6);
+        this.teamSize = 6;
+    }
+
+    /**
      * Gets the first monster in the team that has not fainted
      *
      * @return the first available monster
@@ -65,7 +153,7 @@ public class Team {
      */
     public ArrayList<Monster> getAliveMonsters() {
         ArrayList<Monster> monsters = new ArrayList<Monster>();
-        for (Monster monster : monsters) {
+        for (Monster monster : this.monsters) {
             if (monster.getStatus()) {
                 monsters.add(monster);
             }
