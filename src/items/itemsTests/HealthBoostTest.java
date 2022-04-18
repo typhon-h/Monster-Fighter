@@ -41,11 +41,11 @@ class HealthBoostTest {
 													  rarity);
 		
 		// TODO: Change this to use getBaseHealth
-		int prevMonsterBaseHealth = testMonster.getCurrentHealth();
+		int prevMonsterBaseHealth = testMonster.getBaseHealth();
 		
 		testHealthBoost.use(testMonster);
 		
-		assertEquals(testMonster.getCurrentHealth(),
+		assertEquals(testMonster.getBaseHealth(),
 				     prevMonsterBaseHealth + boost);
 	}
 

@@ -16,7 +16,7 @@ import monsters.ClinkMonster;
 import items.ItemConstants;
 
 /**
- * Tests for the class AttackBoost
+ * Tests for the class {@link items.AttackBoost}
  * 
  * @author Jackie Jone
  * @version 1.0, Apr 2022.
@@ -31,7 +31,7 @@ class AttackBoostTest {
 	
 	/**
 	 * Sets up the arguments for each test
-	 * @return A stream of arugments to be passed into the test
+	 * @return A stream of arguments to be passed into the test
 	 */
 	private static Stream<Arguments> rarityAndBoost() {
 		return Stream.of(
@@ -61,13 +61,11 @@ class AttackBoostTest {
 													  "Boosts attack",
 													  rarity);
 		
-		// TODO: Change this to testmonster.getBaseAttack() method.
-		int monsterPrevAttack = testMonster.getCurrentAttackDamage(); 
+		int monsterPrevAttack = testMonster.getBaseAttackDamage(); 
 		
 		attackBoostItem.use(testMonster);
 		
-		// TODO: change monster method to getBaseAttackDamage.
-		assertEquals(testMonster.getCurrentAttackDamage(), monsterPrevAttack + boost);
+		assertEquals(testMonster.getBaseAttackDamage(), monsterPrevAttack + boost);
 	}
 
 }
