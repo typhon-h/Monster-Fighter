@@ -2,8 +2,12 @@ package items.itemsTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import items.AttackBoost;
 import main.Rarity;
@@ -24,32 +28,38 @@ class AttackBoostTest {
 	void setUp() throws Exception {
 		testMonster = new ClinkMonster();
 	}
-
-	@Test
-	void itemBoostAmountTest() {
+	
+	/**
+	 * Sets up the arguments for each test
+	 * @return A stream of arugments to be passed into the test
+	 */
+	private static Stream<Arguments> rarityAndBoost() {
+		return Stream.of(
+				Arguments.arguments(Rarity.COMMON, ItemConstants.COMMONSTATBOOST),
+				Arguments.arguments(Rarity.RARE, ItemConstants.RARESTATBOOST),
+				Arguments.arguments(Rarity.LEGENDARY, ItemConstants.LEGENDARYSTATBOOST));
+	}
+	
+	@ParameterizedTest
+	@MethodSource("rarityAndBoost")
+	void itemBoostAmountTest(Rarity rarity, int boost) {
 		AttackBoost attackBoostItem = new AttackBoost("Attack Boost",
 													  "Boosts attack",
-													  Rarity.COMMON);
+													  rarity);
 		
 		// Checks that the item has the correct boost amount to apply to the monster
-		assertEquals(attackBoostItem.getStatBoostAmount(), ItemConstants.COMMONSTATBOOST);
-		
-		attackBoostItem = new AttackBoost("Attack Boost",
-										  "Boosts attack",
-										  Rarity.LEGENDARY);
-		
-		// Checks that the item has the correct boost amount to apply to the monster
-		assertEquals(attackBoostItem.getStatBoostAmount(), ItemConstants.LEGENDARYSTATBOOST);
+		assertEquals(attackBoostItem.getStatBoostAmount(), boost);
 	}
 	
 	/**
 	 * Tests that the use method increases the base attack of a monster by the define damount
 	 */
-	@Test
-	void useItemTest() {
+	@ParameterizedTest
+	@MethodSource("rarityAndBoost")
+	void useItemTest(Rarity rarity, int boost) {
 		AttackBoost attackBoostItem = new AttackBoost("Attack Boost",
 													  "Boosts attack",
-													  Rarity.COMMON);
+													  rarity);
 		
 		// TODO: Change this to testmonster.getBaseAttack() method.
 		int monsterPrevAttack = testMonster.getCurrentAttackDamage(); 
@@ -57,19 +67,7 @@ class AttackBoostTest {
 		attackBoostItem.use(testMonster);
 		
 		// TODO: change monster method to getBaseAttackDamage.
-		assertEquals(testMonster.getCurrentAttackDamage(), monsterPrevAttack + ItemConstants.COMMONSTATBOOST);
-		
-		monsterPrevAttack = testMonster.getCurrentAttackDamage();
-		attackBoostItem = new AttackBoost("Attack Boost",
-										  "Boosts attack",
-										  Rarity.LEGENDARY);
-		
-		
-		monsterPrevAttack = testMonster.getCurrentAttackDamage();
-		
-		attackBoostItem.use(testMonster);
-		
-		assertEquals(testMonster.getCurrentAttackDamage(), monsterPrevAttack + ItemConstants.LEGENDARYSTATBOOST);
+		assertEquals(testMonster.getCurrentAttackDamage(), monsterPrevAttack + boost);
 	}
 
 }
