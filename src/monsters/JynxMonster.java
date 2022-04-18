@@ -38,7 +38,7 @@ public class JynxMonster extends Monster {
 
         ArrayList<Monster> possibleMembers = enemyTeam.getAliveMonsters();
         if (possibleMembers.size() > 0) {
-            Monster monsterToAdjust = possibleMembers.get(rng.nextInt() % possibleMembers.size());
+            Monster monsterToAdjust = possibleMembers.get(rng.nextInt(possibleMembers.size()));
             return monsterToAdjust.takeDamage(1);
         }
 

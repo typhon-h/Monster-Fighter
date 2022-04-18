@@ -37,9 +37,10 @@ public class TeddyMonster extends Monster {
         // +1 Health to a random ALLY
 
         ArrayList<Monster> possibleMembers = allyTeam.getAliveMonsters();
-        Monster monsterToAdjust = possibleMembers.get(rng.nextInt() % possibleMembers.size());
-        monsterToAdjust.setCurrentHealth(monsterToAdjust.getCurrentHealth() + 1);
-
+        if(possibleMembers.size() > 0) {
+        	Monster monsterToAdjust = possibleMembers.get(rng.nextInt(possibleMembers.size()));
+        	monsterToAdjust.setCurrentHealth(monsterToAdjust.getCurrentHealth() + 1);
+        }
         return null; // Empty
     }
 
