@@ -12,7 +12,7 @@ import java.util.Random;
  * @version 1.0, Apr 2022
  */
 public class RandomTrigger extends Item{
-    Random rng;
+    private Random rng;
     /**
      * Constructor for RandomTrigger Item,
      * the {@link main.Rarity} of this item is always {@link main.Rarity#RARE}.
@@ -31,12 +31,12 @@ public class RandomTrigger extends Item{
      * @param monster The {@link monsters.Monster} to set the {@link main.Trigger} for.
      */
     public void use(Monster monster) {
-        Trigger randomTrigger = Trigger.NOABILITY;
+        Trigger randomTrigger = monster.getTrigger();
 
         // Keep generating a new tigger that is not already owned by the monster and is not NOABILITY
-        while (randomTrigger != Trigger.NOABILITY && randomTrigger != monster.getTrigger()) {
+        do {
             randomTrigger = Trigger.values()[rng.nextInt(Trigger.numTriggers - 1)];
-        }
+        } while (randomTrigger.equals(Trigger.NOABILITY) || randomTrigger.equals(monster.getTrigger()));
 
         monster.setTrigger(randomTrigger);
     }
