@@ -27,9 +27,27 @@ public class SelectTrigger extends Item {
     public SelectTrigger(String newName, String newDescription, Trigger newTrigger) {
         super(newName, newDescription, Rarity.LEGENDARY);
 
-        itemTrigger = newTrigger;
+        setTrigger(newTrigger);
     }
-
+    
+    /**
+     * Sets the {@link main.Trigger} of the item to a given trigger.
+     * 
+     * @param newTrigger The {@link main.Trigger} to set the item to.
+     */
+    public void setTrigger(Trigger newTrigger) {
+    	itemTrigger = newTrigger;
+    }
+    
+    /**
+     * Gets the {@link main.Trigger} of the SelectTrigger {@link items.Item}.
+     * 
+     * @return {@link main.Trigger} of the SelectTrigger {@link items.Item}.
+     */
+    public Trigger getTrigger() {
+    	return itemTrigger;
+    }
+    
     /**
      * Gives the applies the {@link main.Trigger} of the {@link items.Item} to a
      * {@link monsters.Monster}.
