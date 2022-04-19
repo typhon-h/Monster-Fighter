@@ -58,7 +58,7 @@ class RandomTriggerTest {
 			foundTriggers.add(testMonster.getTrigger());
 			i++;
 		}
-		System.out.println(foundTriggers);
+
 		assertEquals(foundTriggers.size(), Trigger.numTriggers - 1);
 	}
 }
