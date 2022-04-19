@@ -2,6 +2,8 @@ package items.itemsTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.HashSet;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +25,7 @@ class RandomTriggerTest {
 	 * be NOABILITY nor can it be the ability that the monster already has.
 	 */
 	@Test
-	void test() {
+	void useItemTest() {
 		RandomTrigger testItem = new RandomTrigger("Random Trigger",
 												   "Gives random trigger");
 		
@@ -39,5 +41,24 @@ class RandomTriggerTest {
 		assertTrue(testMonster.getTrigger() != prevTrigger &&
 				   testMonster.getTrigger() != Trigger.NOABILITY);
 	}
-
+	
+	/**
+	 * Tests that the all possible triggers are applied to the monster at least
+	 * once.
+	 */
+	@Test
+	void itemAppliesAllTriggers() {
+		RandomTrigger testItem = new RandomTrigger("Random Trigger",
+				   								   "Gives random trigger");
+		
+		HashSet<Trigger> foundTriggers = new HashSet<Trigger>();
+		int i = 0;
+		while (foundTriggers.size() < Trigger.numTriggers - 1 && i < 1000) {
+			testItem.use(testMonster);
+			foundTriggers.add(testMonster.getTrigger());
+			i++;
+		}
+		System.out.println(foundTriggers);
+		assertEquals(foundTriggers.size(), Trigger.numTriggers - 1);
+	}
 }
