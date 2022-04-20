@@ -65,8 +65,8 @@ public class TeddyMonsterTest {
     public void statsTest(Rarity rarity, int buyPrice, int sellPrice) {
         monster.setRarity(rarity);
         // Check base stats are set correctly
-        assertEquals(MonsterConstants.CLINKBASEATTACKDAMAGE, monster.getBaseAttackDamage());
-        assertEquals(MonsterConstants.CLINKBASEHEALTH, monster.getBaseHealth());
+        assertEquals(MonsterConstants.TEDDYBASEATTACKDAMAGE, monster.getBaseAttackDamage());
+        assertEquals(MonsterConstants.TEDDYBASEHEALTH, monster.getBaseHealth());
         // Check buy/sell prices are set correctly
         assertEquals(buyPrice, monster.getBuyPrice());
         assertEquals(sellPrice, monster.getSellPrice());

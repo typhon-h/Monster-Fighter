@@ -18,7 +18,7 @@ public class Player {
 	/**
 	 * Constant defining the maximum size of the inventory for all players
 	 */
-	final private static int inventoryLimit = 6;
+	final public static int INVENTORYLIMIT = 6;
 
 	/**
 	 * Name of the player
@@ -53,23 +53,15 @@ public class Player {
 	private int score = 0;
 
 	/**
-	 * Constructor to create a player with a team
-	 * 
-	 * @param newTeam The team to give to the player
-	 */
-	public Player(Team newTeam) {
-		setTeam(newTeam);
-	}
-
-	/**
 	 * Constructor to create a player with a name and team
 	 *
-	 * @param newName The name of the player
-	 * @param newTeam The team to give to the player
+	 * @param newTeam      The team to give to the player
+	 * @param startingGold Amount of gold to start off with
 	 */
-	public Player(String newName, Team newTeam) {
-		setName(newName);
+	public Player(Team newTeam, int startingGold) {
+		setName("Opponent");
 		setTeam(newTeam);
+		addGold(startingGold);
 	}
 
 	/**
@@ -116,9 +108,14 @@ public class Player {
 	 * Increases the amount of gold a player has by a give amount
 	 *
 	 * @param goldAmount The amount of gold to give to the player
+	 * @throws IllegalArgumentException if the amount is negative
 	 */
-	public void addGold(int goldAmount) {
-		gold += goldAmount;
+	public void addGold(int goldAmount) throws IllegalArgumentException {
+		if (goldAmount < 0) {
+			throw new IllegalArgumentException("Argument cannot be negative");
+		} else {
+			gold += goldAmount;
+		}
 	}
 
 	/**
@@ -126,9 +123,12 @@ public class Player {
 	 *
 	 * @param goldAmount The amount of gold to remove from the player
 	 * @throws InsufficientFundsException not enough gold to remove amount
+	 * @throws IllegalArgumentException   if the amount is negative
 	 */
-	public void removeGold(int goldAmount) throws InsufficientFundsException {
-		if (gold - goldAmount < 0) {
+	public void removeGold(int goldAmount) throws IllegalArgumentException, InsufficientFundsException {
+		if (goldAmount < 0) {
+			throw new IllegalArgumentException("Argument cannot be negative");
+		} else if (gold - goldAmount < 0) {
 			throw new InsufficientFundsException((goldAmount - gold) + " more gold is required");
 		} else {
 			gold -= goldAmount;
@@ -160,7 +160,7 @@ public class Player {
 	 */
 	public ArrayList<Item> getInventory() {
 		return inventory;
-	}
+	} // TODO: Get item method
 
 	/**
 	 * Adds an item to the player's inventory
@@ -170,7 +170,7 @@ public class Player {
 	 * @return True if the item is successfully added to the inventory
 	 */
 	public boolean addItem(Item newItem) {
-		if (inventory.size() < inventoryLimit) {
+		if (this.getNumFreeSlots() > 0) {
 			inventory.add(newItem);
 			return true;
 		}
@@ -195,7 +195,7 @@ public class Player {
 	 * @return The number of free slots left in the inventory
 	 */
 	public int getNumFreeSlots() {
-		return inventoryLimit - inventory.size();
+		return INVENTORYLIMIT - inventory.size();
 	}
 
 	/**
@@ -211,9 +211,15 @@ public class Player {
 	 * Increases the player's score by a given amount
 	 *
 	 * @param incrementAmount The amount to increment the score by
+	 * @throws IllegalArgumentException if the amount is negative
 	 */
-	public void incrementScore(int incrementAmount) {
-		score += incrementAmount;
+	public void incrementScore(int incrementAmount) throws IllegalArgumentException {
+		if (incrementAmount < 0) {
+			throw new IllegalArgumentException("Argument cannot be negative");
+		} else {
+			score += incrementAmount;
+		}
+
 	}
 
 }
