@@ -33,7 +33,7 @@ public class MonsterTest { // TODO: testing for valid arguments on constructor?
      * Covers:
      * valid: 1
      * invalid: 0
-     * invalud: -1
+     * invalid: -1
      */
     @Test
     public void recieveDamageTest() {

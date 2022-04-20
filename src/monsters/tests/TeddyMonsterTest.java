@@ -1,12 +1,18 @@
 package monsters.tests;
 
 import monsters.*;
-
+import main.Rarity;
 import main.Team;
 import main.Trigger;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.stream.Stream;
 
 import exceptions.*;
 
@@ -30,36 +36,40 @@ public class TeddyMonsterTest {
     }
 
     /**
+     * Test cases to check
+     * 
+     * @return A stream of arguments as the test case
+     */
+    private static Stream<Arguments> rarityAndPrice() {
+        return Stream.of(
+                Arguments.arguments(Rarity.COMMON, MonsterConstants.COMMONBUYPRICE, MonsterConstants.COMMONSELLPRICE),
+                Arguments.arguments(Rarity.RARE, MonsterConstants.RAREBUYPRICE, MonsterConstants.RARESELLPRICE),
+                Arguments.arguments(Rarity.LEGENDARY, MonsterConstants.LEGENDARYBUYPRICE,
+                        MonsterConstants.LEGENDARYSELLPRICE));
+    }
+
+    /**
      * Checks stats are set correctly according to constants
      * Covers: Constructor
      * BuyPrice, SellPrice, Rarity not NULL
      * AttackDamage set to BaseAttackDamage
      * Health set to BaseHealth
      * BuyPrice and SellPrice set based on Rarity
+     * 
+     * @param rarity    rarity to set the monster
+     * @param buyPrice  expected buy price
+     * @param sellPrice expected sell price
      */
-    @Test
-    public void statsTest() {
-        assertNotNull(monster.getBuyPrice());
-        assertNotNull(monster.getSellPrice());
-        assertNotNull(monster.getRarity());
+    @ParameterizedTest
+    @MethodSource("rarityAndPrice")
+    public void statsTest(Rarity rarity, int buyPrice, int sellPrice) {
+        monster.setRarity(rarity);
         // Check base stats are set correctly
-        assertEquals(MonsterConstants.TEDDYBASEATTACKDAMAGE, monster.getBaseAttackDamage());
-        assertEquals(MonsterConstants.TEDDYBASEHEALTH, monster.getBaseHealth());
+        assertEquals(MonsterConstants.CLINKBASEATTACKDAMAGE, monster.getBaseAttackDamage());
+        assertEquals(MonsterConstants.CLINKBASEHEALTH, monster.getBaseHealth());
         // Check buy/sell prices are set correctly
-        switch (monster.getRarity()) {
-            case COMMON:
-                assertEquals(MonsterConstants.COMMONBUYPRICE, monster.getBuyPrice());
-                assertEquals(MonsterConstants.COMMONSELLPRICE, monster.getSellPrice());
-                break;
-            case RARE:
-                assertEquals(MonsterConstants.RAREBUYPRICE, monster.getBuyPrice());
-                assertEquals(MonsterConstants.RARESELLPRICE, monster.getSellPrice());
-                break;
-            case LEGENDARY:
-                assertEquals(MonsterConstants.LEGENDARYBUYPRICE, monster.getBuyPrice());
-                assertEquals(MonsterConstants.LEGENDARYSELLPRICE, monster.getSellPrice());
-                break;
-        }
+        assertEquals(buyPrice, monster.getBuyPrice());
+        assertEquals(sellPrice, monster.getSellPrice());
     }
 
     /**

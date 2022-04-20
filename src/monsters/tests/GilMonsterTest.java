@@ -1,11 +1,17 @@
 package monsters.tests;
 
 import monsters.*;
-
+import main.Rarity;
 import main.Team;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.stream.Stream;
 
 import exceptions.*;
 
@@ -29,36 +35,40 @@ public class GilMonsterTest {
     }
 
     /**
+     * Test cases to check
+     * 
+     * @return A stream of arguments as the test case
+     */
+    private static Stream<Arguments> rarityAndPrice() {
+        return Stream.of(
+                Arguments.arguments(Rarity.COMMON, MonsterConstants.COMMONBUYPRICE, MonsterConstants.COMMONSELLPRICE),
+                Arguments.arguments(Rarity.RARE, MonsterConstants.RAREBUYPRICE, MonsterConstants.RARESELLPRICE),
+                Arguments.arguments(Rarity.LEGENDARY, MonsterConstants.LEGENDARYBUYPRICE,
+                        MonsterConstants.LEGENDARYSELLPRICE));
+    }
+
+    /**
      * Checks stats are set correctly according to constants
      * Covers: Constructor
      * BuyPrice, SellPrice, Rarity not NULL
      * AttackDamage set to BaseAttackDamage
      * Health set to BaseHealth
      * BuyPrice and SellPrice set based on Rarity
+     * 
+     * @param rarity    rarity to set the monster
+     * @param buyPrice  expected buy price
+     * @param sellPrice expected sell price
      */
-    @Test
-    public void statsTest() {
-        assertNotNull(monster.getBuyPrice());
-        assertNotNull(monster.getSellPrice());
-        assertNotNull(monster.getRarity());
+    @ParameterizedTest
+    @MethodSource("rarityAndPrice")
+    public void statsTest(Rarity rarity, int buyPrice, int sellPrice) {
+        monster.setRarity(rarity);
         // Check base stats are set correctly
         assertEquals(MonsterConstants.GILBASEATTACKDAMAGE, monster.getBaseAttackDamage());
         assertEquals(MonsterConstants.GILBASEHEALTH, monster.getBaseHealth());
         // Check buy/sell prices are set correctly
-        switch (monster.getRarity()) {
-            case COMMON:
-                assertEquals(MonsterConstants.COMMONBUYPRICE, monster.getBuyPrice());
-                assertEquals(MonsterConstants.COMMONSELLPRICE, monster.getSellPrice());
-                break;
-            case RARE:
-                assertEquals(MonsterConstants.RAREBUYPRICE, monster.getBuyPrice());
-                assertEquals(MonsterConstants.RARESELLPRICE, monster.getSellPrice());
-                break;
-            case LEGENDARY:
-                assertEquals(MonsterConstants.LEGENDARYBUYPRICE, monster.getBuyPrice());
-                assertEquals(MonsterConstants.LEGENDARYSELLPRICE, monster.getSellPrice());
-                break;
-        }
+        assertEquals(buyPrice, monster.getBuyPrice());
+        assertEquals(sellPrice, monster.getSellPrice());
     }
 
     /**
@@ -86,7 +96,7 @@ public class GilMonsterTest {
         Monster monsterInFront = allyTeam.getAliveMonsters().get(indexOfGil - 1);
         assertEquals(ally, monsterInFront); // Check positions are correct
 
-        // Monster in front of Gil AttackDamage: 1
+        // Monster in front with Gil AttackDamage: 1
         monster.setCurrentAttackDamage(1);
         int startAttackDamage = monsterInFront.getCurrentAttackDamage();
         // Checks no additional abilities are triggered
@@ -94,7 +104,7 @@ public class GilMonsterTest {
         assertNull(triggeredAbility);
         assertEquals(startAttackDamage, monsterInFront.getCurrentAttackDamage()); // 50% of 1 is 0 (rounded down)
 
-        // Monster in front of Gil AttackDamage: 2
+        // Monster in front with Gil AttackDamage: 2
         monster.setCurrentAttackDamage(2);
         monsterInFront.restore(); // Reset stats
         startAttackDamage = monsterInFront.getCurrentAttackDamage();
