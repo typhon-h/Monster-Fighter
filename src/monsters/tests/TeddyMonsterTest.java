@@ -79,11 +79,11 @@ public class TeddyMonsterTest {
      * Valid: heals itself if only member
      * Randomness must be checked manually
      * 
-     * @throws TeamSizeException   too many members added to team
-     * @throws TeamStatusException all team members are dead
+     * @throws DuplicateMonsterException if same monster is added more than once
+     * @throws TeamSizeException         if more team members than max allowed
      */
     @Test
-    public void abilityTest() throws TeamSizeException, TeamStatusException {
+    public void abilityTest() throws TeamSizeException, DuplicateMonsterException {
         Team allyTeam = new Team(monster, new ClinkMonster());
         Team enemyTeam = new Team(new ClinkMonster());
 

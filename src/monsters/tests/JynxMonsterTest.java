@@ -81,11 +81,11 @@ public class JynxMonsterTest {
      * Invalid: empty enemy team
      * Randomness must be checked manually
      * 
-     * @throws TeamSizeException   too many members added to team
-     * @throws TeamStatusException all team members are dead
+     * @throws DuplicateMonsterException if same monster is added more than once
+     * @throws TeamSizeException         if more team members than max allowed
      */
     @Test
-    public void abilityTest() throws TeamSizeException, TeamStatusException {
+    public void abilityTest() throws TeamSizeException, DuplicateMonsterException {
         Team allyTeam = new Team(monster);
         Team enemyTeam = new Team(new ClinkMonster(), new ClinkMonster());
 
@@ -120,10 +120,12 @@ public class JynxMonsterTest {
      * Valid: two monsters with ONHURT targetting each other
      * Valid: Monster with no abilty not having their ability trigger
      * 
-     * @throws TeamStatusException if whole team has fainted
+     * @throws DuplicateMonsterException if same monster is added more than once
+     * @throws TeamSizeException         if more team members than max allowed
+     * 
      */
     @Test
-    public void recursiveAbilityTest() throws TeamStatusException {
+    public void recursiveAbilityTest() throws TeamSizeException, DuplicateMonsterException {
         // Ability bounces back and forth until one faints
         /*
          * Looks like

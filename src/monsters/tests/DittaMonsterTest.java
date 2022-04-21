@@ -9,11 +9,12 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import exceptions.DuplicateMonsterException;
+import exceptions.TeamSizeException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.stream.Stream;
-
-import exceptions.TeamStatusException;
 
 /**
  * Testing for Ditta Monster class.
@@ -77,10 +78,12 @@ public class DittaMonsterTest {
      * Valid: effect occurs. Stats match first enemy
      * Invalid: Whole opponent team has fainted
      * 
-     * @throws TeamStatusException if there is no first monster in team
+     * @throws DuplicateMonsterException if same monster is added more than once
+     * @throws TeamSizeException         if more team members than max allowed
+     * 
      */
     @Test
-    public void abilityTest() throws TeamStatusException {
+    public void abilityTest() throws TeamSizeException, DuplicateMonsterException {
         Team allyTeam = new Team(monster);
         Team enemyTeam = new Team(new ClinkMonster());
         Monster triggeredAbility = monster.ability(allyTeam, enemyTeam);

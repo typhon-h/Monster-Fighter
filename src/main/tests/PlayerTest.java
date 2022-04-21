@@ -9,6 +9,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import exceptions.*;
 
+/**
+ * Testing for Player Class
+ * 
+ * @author Harrison Tyson
+ * @version 1.0, Apr 2022.
+ */
 public class PlayerTest {
     Player player;
 
@@ -20,9 +26,12 @@ public class PlayerTest {
 
     /**
      * Test constructors setup default variables correctly
+     * 
+     * @throws DuplicateMonsterException if same monster is added more than once
+     * @throws TeamSizeException         if more team members than max allowed
      */
     @Test
-    public void constructorTest() {
+    public void constructorTest() throws TeamSizeException, DuplicateMonsterException {
         Team defaultTeam = new Team(new ClinkMonster());
         Player player1 = new Player("MyPlayer", defaultTeam, 0);
         Player opponent = new Player(defaultTeam, 0);

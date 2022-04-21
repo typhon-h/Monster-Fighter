@@ -3,8 +3,6 @@ package monsters;
 import main.Trigger;
 import main.Team;
 
-import exceptions.TeamStatusException;
-
 /**
  * Ditta Monster
  * 
@@ -30,13 +28,9 @@ public class DittaMonster extends Monster {
     public Monster ability(Team allyTeam, Team enemyTeam) {
         // COPY the stats of the enemy in front
 
-        try {
-            Monster monsterToCopy = enemyTeam.getFirstAliveMonster();
-            this.setCurrentAttackDamage(monsterToCopy.getCurrentAttackDamage());
-            this.setCurrentHealth(monsterToCopy.getCurrentHealth());
-        } catch (TeamStatusException e) {
-            // Do Nothing
-        }
+        Monster monsterToCopy = enemyTeam.getFirstAliveMonster();
+        this.setCurrentAttackDamage(monsterToCopy.getCurrentAttackDamage());
+        this.setCurrentHealth(monsterToCopy.getCurrentHealth());
 
         return null; // No Trigger
     }

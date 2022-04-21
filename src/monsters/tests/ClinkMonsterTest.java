@@ -9,6 +9,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import exceptions.DuplicateMonsterException;
+import exceptions.TeamSizeException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.stream.Stream;
@@ -74,9 +77,12 @@ public class ClinkMonsterTest {
      * Covers: ability
      * Valid: effect occurs. Base stats not affected
      * Invalid: Attack is at minimum (1)
+     * 
+     * @throws DuplicateMonsterException if same monster is added more than once
+     * @throws TeamSizeException         if more team members than max allowed
      */
     @Test
-    public void abilityTest() {
+    public void abilityTest() throws TeamSizeException, DuplicateMonsterException {
         int startAttackDamage = monster.getCurrentAttackDamage();
         int startHealth = monster.getCurrentHealth();
         Team allyTeam = new Team(monster);

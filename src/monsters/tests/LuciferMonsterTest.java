@@ -9,6 +9,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import exceptions.DuplicateMonsterException;
+import exceptions.TeamSizeException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.stream.Stream;
@@ -73,9 +76,12 @@ public class LuciferMonsterTest {
      * Checks ability effect activates correctly
      * Covers: ability
      * Valid: stats are swapped
+     * 
+     * @throws DuplicateMonsterException if same monster is added more than once
+     * @throws TeamSizeException         if more team members than max allowed
      */
     @Test
-    public void abilityTest() {
+    public void abilityTest() throws TeamSizeException, DuplicateMonsterException {
         monster.setCurrentAttackDamage(2);
         monster.setCurrentHealth(1);
         int startAttackDamage = monster.getCurrentAttackDamage();
