@@ -94,6 +94,8 @@ public class TeamTest {
      * Tests alive monsters are able to be retrieved with different combinations
      * of fainted monsters
      * Covers: getAliveMonsters, getFirstAliveMonster
+     * 
+     * @param positionsToFaint array of indexes of monsters to faint
      */
     @ParameterizedTest
     @MethodSource("positionsToTest")
@@ -177,6 +179,9 @@ public class TeamTest {
     /**
      * Checks monsters are correctly removed from various positions in team
      * Covers: removeMonster
+     * 
+     * @param positionsToRemove array of indexes of monsters to remove
+     * @throws TeamSizeException if tries to remove more than minimum team size
      */
     @ParameterizedTest
     @MethodSource("positionsToTest")

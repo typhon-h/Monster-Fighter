@@ -18,7 +18,7 @@ public class Player {
 	/**
 	 * Constant defining the maximum size of the inventory for all players
 	 */
-	final public static int INVENTORYLIMIT = 6;
+	final private static int INVENTORYLIMIT = 6;
 
 	/**
 	 * Name of the player

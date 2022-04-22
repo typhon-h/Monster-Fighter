@@ -18,8 +18,14 @@ import exceptions.*;
 public class PlayerTest {
     Player player;
 
+    /**
+     * Create a player instance for testing
+     * 
+     * @throws TeamSizeException         too many members in team
+     * @throws DuplicateMonsterException same monster added to team more than once
+     */
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() throws TeamSizeException, DuplicateMonsterException {
         Team defaultTeam = new Team(new ClinkMonster());
         player = new Player("MyPlayer", defaultTeam, 5);
     }
