@@ -31,119 +31,30 @@ public class Team {
      * Current size of the team
      */
     private int teamSize = monsters.size();
-
+    
+    
     /**
-     * Constructor for Team. Creates a team with the starting monster
+     * Constructor for Team. Creates a team with the starting monster/s
      *
-     * @param monster starting monster
+     * @param monsters starting monster/s
      * 
-     * @throws TeamSizeException         team is full
+     * @throws TeamSizeException         team is full or empty
      * @throws DuplicateMonsterException monster already in team
      */
-    public Team(Monster monster) throws TeamSizeException, DuplicateMonsterException {
-        this.addMonster(monster);
+    public Team(Monster ... newMonsters) throws TeamSizeException, DuplicateMonsterException {
+        if (newMonsters.length > MAXTEAMSIZE) {
+        	throw new TeamSizeException("Team can only contain 6 Monsters");
+        } else if (newMonsters.length < MINTEAMSIZE) {
+        	throw new TeamSizeException("Team must contain atleast one monster");
+        }
+    	
+        for (Monster monster : newMonsters) {
+        	this.addMonster(monster);
+        }
         teamSize = monsters.size();
     }
-
-    /**
-     * Constructor for Team. Creates a team with the starting monster
-     *
-     * @param monster1 monster in first position
-     * @param monster2 monster in second position
-     * 
-     * @throws TeamSizeException         team is full
-     * @throws DuplicateMonsterException monster already in team
-     */
-    public Team(Monster monster1, Monster monster2) throws TeamSizeException, DuplicateMonsterException {
-        this.addMonster(monster1);
-        this.addMonster(monster2);
-        teamSize = monsters.size();
-    }
-
-    /**
-     * Constructor for Team. Creates a team with the starting monster
-     *
-     * @param monster1 monster in first position
-     * @param monster2 monster in second position
-     * @param monster3 monster in third position
-     * 
-     * @throws TeamSizeException         team is full
-     * @throws DuplicateMonsterException monster already in team
-     */
-    public Team(Monster monster1, Monster monster2, Monster monster3)
-            throws TeamSizeException, DuplicateMonsterException {
-        this.addMonster(monster1);
-        this.addMonster(monster2);
-        this.addMonster(monster3);
-        teamSize = monsters.size();
-    }
-
-    /**
-     * Constructor for Team. Creates a team with the starting monster
-     *
-     * @param monster1 monster in first position
-     * @param monster2 monster in second position
-     * @param monster3 monster in third position
-     * @param monster4 monster in fourth position
-     * 
-     * @throws TeamSizeException         team is full
-     * @throws DuplicateMonsterException monster already in team
-     */
-    public Team(Monster monster1, Monster monster2, Monster monster3,
-            Monster monster4) throws TeamSizeException, DuplicateMonsterException {
-        this.addMonster(monster1);
-        this.addMonster(monster2);
-        this.addMonster(monster3);
-        this.addMonster(monster4);
-        teamSize = monsters.size();
-    }
-
-    /**
-     * Constructor for Team. Creates a team with the starting monster
-     *
-     * @param monster1 monster in first position
-     * @param monster2 monster in second position
-     * @param monster3 monster in third position
-     * @param monster4 monster in fourth position
-     * @param monster5 monster in fifth position
-     * 
-     * @throws TeamSizeException         team is full
-     * @throws DuplicateMonsterException monster already in team
-     */
-    public Team(Monster monster1, Monster monster2, Monster monster3,
-            Monster monster4, Monster monster5) throws TeamSizeException, DuplicateMonsterException {
-        this.addMonster(monster1);
-        this.addMonster(monster2);
-        this.addMonster(monster3);
-        this.addMonster(monster4);
-        this.addMonster(monster5);
-        teamSize = monsters.size();
-    }
-
-    /**
-     * Constructor for Team. Creates a team with the starting monster
-     *
-     * @param monster1 monster in first position
-     * @param monster2 monster in second position
-     * @param monster3 monster in third position
-     * @param monster4 monster in fourth position
-     * @param monster5 monster in fifth position
-     * @param monster6 monster in sixth position
-     * 
-     * @throws TeamSizeException         team is full
-     * @throws DuplicateMonsterException monster already in team
-     */
-    public Team(Monster monster1, Monster monster2, Monster monster3,
-            Monster monster4, Monster monster5, Monster monster6) throws TeamSizeException, DuplicateMonsterException {
-        this.addMonster(monster1);
-        this.addMonster(monster2);
-        this.addMonster(monster3);
-        this.addMonster(monster4);
-        this.addMonster(monster5);
-        this.addMonster(monster6);
-        teamSize = monsters.size();
-    }
-
+    
+    
     /**
      * Gets the first monster in the team that has not fainted
      *
