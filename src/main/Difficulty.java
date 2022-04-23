@@ -3,8 +3,7 @@ package main;
 /**
  * Different difficulties of the game
  *
- * @author Jackie Jones
- *
+ * @author Jackie Jone
  * @version 1.0, Apr 2022.
  */
 public enum Difficulty {
