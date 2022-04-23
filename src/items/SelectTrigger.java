@@ -20,12 +20,12 @@ public class SelectTrigger extends Item {
      * Constructor for SelectTrigger Item,
      * the {@link main.Rarity} of this item is always {@link main.Rarity#LEGENDARY}.
      *
-     * @param newName        name of the item.
-     * @param newDescription description of the item.
-     * @param newTrigger     {@link main.Trigger} to give the item.
+     * @param newTrigger {@link main.Trigger} to give the item.
      */
-    public SelectTrigger(String newName, String newDescription, Trigger newTrigger) {
-        super(newName, newDescription, Rarity.LEGENDARY);
+    public SelectTrigger(Trigger newTrigger) {
+        super(newTrigger.name() + " Ability Trigger",
+                ItemConstants.SELECTTRIGGERDESC + newTrigger.name(),
+                Rarity.LEGENDARY);
 
         setTrigger(newTrigger);
     }
@@ -36,7 +36,7 @@ public class SelectTrigger extends Item {
      * @param newTrigger The {@link main.Trigger} to set the item to.
      */
     public void setTrigger(Trigger newTrigger) {
-    	itemTrigger = newTrigger;
+        itemTrigger = newTrigger;
     }
 
     /**
@@ -45,20 +45,24 @@ public class SelectTrigger extends Item {
      * @return {@link main.Trigger} of the SelectTrigger {@link items.Item}.
      */
     public Trigger getTrigger() {
-    	return itemTrigger;
+        return itemTrigger;
     }
 
     /**
      * Gives the applies the {@link main.Trigger} of the {@link items.Item} to a
      * {@link monsters.Monster}.
      *
-     * @param monster The {@link monsters.Monster} to apply the {@link main.Trigger} to
-     * @throws UnusableItemException The {@link monsters.Monster} which the {@link items.Item}
-     * is used on already has the {@link main.Trigger} of the {@link items.Item}.
+     * @param monster The {@link monsters.Monster} to apply the {@link main.Trigger}
+     *                to
+     * @throws UnusableItemException The {@link monsters.Monster} which the
+     *                               {@link items.Item}
+     *                               is used on already has the {@link main.Trigger}
+     *                               of the {@link items.Item}.
      */
-    public void use(Monster monster) throws UnusableItemException{
-        if (monster.getTrigger() == itemTrigger){
-            throw new UnusableItemException("Monster: " + monster.getName() + " already has trigger + " + monster.getTrigger());
+    public void use(Monster monster) throws UnusableItemException {
+        if (monster.getTrigger() == itemTrigger) {
+            throw new UnusableItemException(
+                    "Monster: " + monster.getName() + " already has trigger + " + monster.getTrigger());
         } else {
             monster.setTrigger(itemTrigger);
         }

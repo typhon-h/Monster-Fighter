@@ -3,7 +3,6 @@ package items;
 import main.Rarity;
 import monsters.Monster;
 
-
 /**
  * An item that increases the base health of a {@link monsters.Monster} by
  * a set amount based on the {@link main.Rarity} of the item.
@@ -15,12 +14,12 @@ public class HealthBoost extends Item {
     /**
      * Constructor for HealthBoost.
      *
-     * @param newName        name of the item.
-     * @param newDescription description of the item.
-     * @param newRarity      {@link main.Rarity} of the item.
+     * @param newRarity {@link main.Rarity} of the item.
      */
-    public HealthBoost(String newName, String newDescription, Rarity newRarity) {
-        super(newName, newDescription, newRarity);
+    public HealthBoost(Rarity newRarity) {
+        super("Health Boost",
+                ItemConstants.HEALTHBOOSTDESC + Item.getStatBoostAmount(newRarity),
+                newRarity);
     }
 
     /**

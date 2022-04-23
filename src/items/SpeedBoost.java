@@ -14,12 +14,12 @@ public class SpeedBoost extends Item {
     /**
      * Constructor for SpeedBoost.
      *
-     * @param newName        name of the item.
-     * @param newDescription description of the item.
-     * @param newRarity      {@link main.Rarity} of the item.
+     * @param newRarity {@link main.Rarity} of the item.
      */
-    public SpeedBoost(String newName, String newDescription, Rarity newRarity) {
-        super(newName, newDescription, newRarity);
+    public SpeedBoost(Rarity newRarity) {
+        super("Speed Boost",
+                ItemConstants.SPEEDBOOSTDESC + Item.getStatBoostAmount(newRarity),
+                newRarity);
     }
 
     /**

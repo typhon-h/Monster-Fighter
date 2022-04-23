@@ -57,4 +57,35 @@ public final class ItemConstants {
      * Constant defining the cost of a common item.
      */
     public static final int LEGENDARYSELLPRICE = 75;
+
+    /**
+     * Constant definiing the description of attack boost item
+     */
+    public static final String ATTACKBOOSTDESC = "Increases the attack of a Monster by "; // amount
+
+    /**
+     * Constant definiing the description of health boost item
+     */
+    public static final String HEALTHBOOSTDESC = "Increases the health of a Monster by "; // amount
+
+    /**
+     * Constant definiing the description of speed boost item
+     */
+    public static final String SPEEDBOOSTDESC = "Increases the speed of a Monster by "; // amount
+
+    /**
+     * Constant definiing the description of random boost item
+     */
+    public static final String RANDOMBOOSTDESC = "Increases a random stat of the monster by "; // amount
+
+    /**
+     * Constant definiing the description of select trigger item
+     */
+    public static final String SELECTTRIGGERDESC = "Sets the Ability Trigger of a Monster to "; // Trigger
+
+    /**
+     * Constant definiing the description of random trigger item
+     */
+    public static final String RANDOMTRIGGERDESC = "Sets the Ability Trigger of a Monster randomly"; // NOTHING
+                                                                                                     // ADDITIONAL
 }

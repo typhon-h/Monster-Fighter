@@ -27,15 +27,18 @@ public abstract class Item extends Entity {
             String newDescription,
             Rarity newRarity) {
         super(newName, newDescription, newRarity);
-        // Might need to call setRarity(newRarity) here if the superclass implementation doesnt
-        // call the subclass's implementation which overrides the superclass implementation.
+        // Might need to call setRarity(newRarity) here if the superclass implementation
+        // doesnt
+        // call the subclass's implementation which overrides the superclass
+        // implementation.
     }
 
     /**
      * Sets the {@link main.Rarity} of the item.
-     * Overrides the superclass implementation but uses the superclass implementation.
+     * Overrides the superclass implementation but uses the superclass
+     * implementation.
      *
-     * @param rarity New {@link main.Rarity}  of the item
+     * @param rarity New {@link main.Rarity} of the item
      */
     @Override
     public void setRarity(Rarity rarity) {
@@ -78,6 +81,26 @@ public abstract class Item extends Entity {
      */
     public int getStatBoostAmount() {
         switch (getRarity()) {
+            case COMMON:
+                return ItemConstants.COMMONSTATBOOST;
+            case RARE:
+                return ItemConstants.RARESTATBOOST;
+            case LEGENDARY:
+                return ItemConstants.LEGENDARYSTATBOOST;
+            default:
+                return ItemConstants.COMMONSTATBOOST;
+        }
+    }
+
+    /**
+     * Returns the amount to increment a statistic of a {@link monsters.Monster}
+     * based on a given {@link main.Rarity}.
+     *
+     * @param rarity the of the item to retrieve stats for
+     * @return The amount to increase the statistic by.
+     */
+    public static int getStatBoostAmount(Rarity rarity) {
+        switch (rarity) {
             case COMMON:
                 return ItemConstants.COMMONSTATBOOST;
             case RARE:
