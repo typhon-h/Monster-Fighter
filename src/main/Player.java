@@ -6,9 +6,8 @@ import items.Item;
 
 /**
  * A class for defining a player. Used to track the players information
- * including
- * their inventory and score and to create opponents for the player to face
- * against.
+ * including their inventory and score and to create opponents for the
+ * player to face against.
  *
  * @author Jackie Jone
  * @version 1.0, Apr 2022.
