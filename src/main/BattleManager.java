@@ -2,6 +2,8 @@ package main;
 
 import java.util.ArrayList;
 
+import monsters.Monster;
+
 /**
  * A class for managing all the battles and functionality of battles
  * which a player can prticipate in.
@@ -36,7 +38,11 @@ public class BattleManager {
         /*
          * Math.ceil(CurrentDay / AbsolouteTotalDays) * 6
          *
+         * Number of items available: TotalBoostAmount player has + average boost / gold * gold
+         * -> Give opponents % player boost amount scaled on difficulty.
          */
+
+         int numOpponents = (int) Math.ceil(currentDay / maxDays) * Team.getMaxTeamSize();
     }
 
     /**
@@ -68,5 +74,42 @@ public class BattleManager {
         }
 
         battleResult = BattleResult.NULL;
+    }
+
+    /**
+     * Should return a BattleEvent object not void
+     *
+     * @param allyMonster  Ally monster that is currently fighting
+     * @param enemyMonster Enemy monster that is currently fighting
+     */
+    private BattleEvent fight(Monster allyMonster, Monster enemyMonster) {
+
+    }
+
+    /**
+     * Should return a BattleEvent object not void
+     *
+     * @param monster Monster to run ability on
+     * @param trigger Current trigger that is checked for
+     */
+    private BattleEvent runAbility(Monster monster, Trigger trigger) {
+
+    }
+
+    /**
+     * Simulates the battle then returns a history log of all the event that
+     * occured during the battle. A ArrayList<BattleEvent> object should be returned, not void
+     */
+    public ArrayList<BattleEvent> simulateBattle() {
+
+    }
+
+
+    /**
+     * Gets the next event from the event log after simulating the battle.
+     * Should return a BattleEvent object, no void
+     */
+    public BattleEvent nextEvent() {
+
     }
 }
