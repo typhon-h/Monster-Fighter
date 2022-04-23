@@ -313,7 +313,7 @@ public abstract class Monster extends Entity {
      *
      * @param speed The new speed of the monster.
      */
-    public void setSpeed(int newSpeed) {
+    private void setSpeed(int newSpeed) {
         this.speed = newSpeed;
     }
 
@@ -324,5 +324,14 @@ public abstract class Monster extends Entity {
      */
     public int getSpeed() {
         return this.speed;
+    }
+
+    /**
+     * Increases the speed of a monster by a given amount.
+     *
+     * @param speedAmount The speed to increase the monster speed by.
+     */
+    public void increaseSpeed(int speedAmount) {
+        setSpeed(this.getSpeed() + speedAmount);
     }
 }
