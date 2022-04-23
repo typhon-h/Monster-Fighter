@@ -8,7 +8,7 @@ import monsters.Monster;
 
 /**
  * Subclass of shop
- * Used for selling player items
+ * Used for selling player items/monsters
  *
  * @author Harrison Tyson
  * @version 1.0, Apr 2022.
