@@ -13,6 +13,7 @@ import items.ItemConstants;
 import main.Rarity;
 import monsters.ClinkMonster;
 import monsters.Monster;
+import monsters.MonsterConstants;
 import items.RandomStatBoost;
 
 /**
@@ -57,15 +58,36 @@ class RandomStatBoostTest {
 				rarity);
 		int prevMonsterHealth = testMonster.getBaseHealth();
 		int prevMonsterDamage = testMonster.getBaseAttackDamage();
+		int prevMonsterSpeed = testMonster.getSpeed();
 		statBoostItem.use(testMonster);
 
-		// Test that one stat has increased by the correct amount and the other has
-		// stayed the same.
-		assertTrue((testMonster.getBaseHealth() == prevMonsterHealth + boostAmount &&
-				testMonster.getBaseAttackDamage() == prevMonsterDamage) ||
-				(testMonster.getBaseHealth() == prevMonsterHealth &&
-						testMonster.getBaseAttackDamage() == prevMonsterDamage + boostAmount));
-
+		// Test that one stat has increased by the correct amount and the others
+		// have stayed the same.
+		int numChanged = 0;
+		int numSame = 0;
+		
+		if (testMonster.getBaseHealth() == prevMonsterHealth + boostAmount) {
+			numChanged += 1;
+		} else {
+			numSame += 1;
+		}
+		
+		if (testMonster.getBaseAttackDamage() == prevMonsterDamage + boostAmount) {
+			numChanged += 1;
+		} else {
+			numSame += 1;
+		}
+		
+		if (testMonster.getSpeed() == prevMonsterSpeed+ boostAmount) {
+			numChanged += 1;
+		} else {
+			numSame += 1;
+		}
+		
+		
+		assertEquals(numSame, MonsterConstants.NUMBEROFSTATS - 1);
+		assertEquals(numChanged, 1);
 	}
-
+	
+	// TODO: Add test to check if all the different stats are reached.
 }

@@ -7,7 +7,10 @@ import main.Rarity;
  */
 public class MonsterConstants {
     // TODO: tweak these constants to balance game.
-
+    /**
+     * Constant defining the number of stats a monster has
+     */
+    public static final int NUMBEROFSTATS = 3;
     /**
      * Constant defining the cost of a common item
      */
