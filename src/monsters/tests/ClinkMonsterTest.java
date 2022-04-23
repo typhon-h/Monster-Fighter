@@ -70,6 +70,7 @@ public class ClinkMonsterTest {
         // Check buy/sell prices are set correctly
         assertEquals(buyPrice, monster.getBuyPrice());
         assertEquals(sellPrice, monster.getSellPrice());
+        assertEquals(MonsterConstants.CLINKBASESPEED, monster.getSpeed());
     }
 
     /**

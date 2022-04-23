@@ -3,8 +3,6 @@ package items;
 import main.Rarity;
 import monsters.Monster;
 
-// TODO: Add tests for this
-
 /**
  * An item that increases the speed of a {@link monsters.Monster} by
  * a set amount based on the {@link main.Rarity} of the item.

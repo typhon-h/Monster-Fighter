@@ -1,4 +1,4 @@
-package items.itemsTests;
+package items.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,34 +14,35 @@ import main.Trigger;
 
 class RandomTriggerTest {
 	Monster testMonster;
-	
+
 	@BeforeEach
 	void setUp() throws Exception {
 		testMonster = new ClinkMonster();
 	}
 
 	/**
-	 * Tests that the item gives the monster a new random ability. The ability cannot
+	 * Tests that the item gives the monster a new random ability. The ability
+	 * cannot
 	 * be NOABILITY nor can it be the ability that the monster already has.
 	 */
 	@Test
 	void useItemTest() {
 		RandomTrigger testItem = new RandomTrigger("Random Trigger",
-												   "Gives random trigger");
-		
+				"Gives random trigger");
+
 		Trigger prevTrigger = testMonster.getTrigger();
 		testItem.use(testMonster);
-		
-//		assertTrue(testMonster.getTrigger() != prevTrigger &&
-//				   testMonster.getTrigger() != Trigger.NOABILITY);
-		
+
+		// assertTrue(testMonster.getTrigger() != prevTrigger &&
+		// testMonster.getTrigger() != Trigger.NOABILITY);
+
 		prevTrigger = testMonster.getTrigger();
 		testItem.use(testMonster);
-		
+
 		assertTrue(testMonster.getTrigger() != prevTrigger &&
-				   testMonster.getTrigger() != Trigger.NOABILITY);
+				testMonster.getTrigger() != Trigger.NOABILITY);
 	}
-	
+
 	/**
 	 * Tests that the all possible triggers are applied to the monster at least
 	 * once.
@@ -49,8 +50,8 @@ class RandomTriggerTest {
 	@Test
 	void itemAppliesAllTriggers() {
 		RandomTrigger testItem = new RandomTrigger("Random Trigger",
-				   								   "Gives random trigger");
-		
+				"Gives random trigger");
+
 		HashSet<Trigger> foundTriggers = new HashSet<Trigger>();
 		int i = 0;
 		while (foundTriggers.size() < Trigger.numTriggers - 1 && i < 1000) {

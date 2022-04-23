@@ -1,4 +1,4 @@
-package items.itemsTests;
+package items.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,14 +23,15 @@ import items.ItemConstants;
  */
 class AttackBoostTest {
 	Monster testMonster;
-	
+
 	@BeforeEach
 	void setUp() throws Exception {
 		testMonster = new ClinkMonster();
 	}
-	
+
 	/**
 	 * Sets up the arguments for each test
+	 * 
 	 * @return A stream of arguments to be passed into the test
 	 */
 	private static Stream<Arguments> rarityAndBoost() {
@@ -39,32 +40,33 @@ class AttackBoostTest {
 				Arguments.arguments(Rarity.RARE, ItemConstants.RARESTATBOOST),
 				Arguments.arguments(Rarity.LEGENDARY, ItemConstants.LEGENDARYSTATBOOST));
 	}
-	
+
 	@ParameterizedTest
 	@MethodSource("rarityAndBoost")
 	void itemBoostAmountTest(Rarity rarity, int boost) {
 		AttackBoost attackBoostItem = new AttackBoost("Attack Boost",
-													  "Boosts attack",
-													  rarity);
-		
+				"Boosts attack",
+				rarity);
+
 		// Checks that the item has the correct boost amount to apply to the monster
 		assertEquals(attackBoostItem.getStatBoostAmount(), boost);
 	}
-	
+
 	/**
-	 * Tests that the use method increases the base attack of a monster by the define damount
+	 * Tests that the use method increases the base attack of a monster by the
+	 * define damount
 	 */
 	@ParameterizedTest
 	@MethodSource("rarityAndBoost")
 	void useItemTest(Rarity rarity, int boost) {
 		AttackBoost attackBoostItem = new AttackBoost("Attack Boost",
-													  "Boosts attack",
-													  rarity);
-		
-		int monsterPrevAttack = testMonster.getBaseAttackDamage(); 
-		
+				"Boosts attack",
+				rarity);
+
+		int monsterPrevAttack = testMonster.getBaseAttackDamage();
+
 		attackBoostItem.use(testMonster);
-		
+
 		assertEquals(testMonster.getBaseAttackDamage(), monsterPrevAttack + boost);
 	}
 

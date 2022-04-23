@@ -1,4 +1,4 @@
-package items.itemsTests;
+package items.tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -27,7 +27,7 @@ class ItemTest {
 				Arguments.arguments(Rarity.RARE, ItemConstants.RARESELLPRICE),
 				Arguments.arguments(Rarity.LEGENDARY, ItemConstants.LEGENDARYSELLPRICE));
 	}
-	
+
 	/**
 	 * Checks that the set sell price of {@link items.Item} is setup
 	 * properly in the initialization methods.
@@ -36,20 +36,20 @@ class ItemTest {
 	@MethodSource("rarityAndSellPrice")
 	void sellPriceTest(Rarity rarity, int sellPrice) {
 		Item testItem = new AttackBoost("An item",
-										"Item Description",
-										rarity);
-		
+				"Item Description",
+				rarity);
+
 		// Checks that the buy sell is set to its sell price
 		assertEquals(testItem.getSellPrice(), sellPrice);
 	}
-	
+
 	private static Stream<Arguments> rarityAndBuyPrice() {
 		return Stream.of(
 				Arguments.arguments(Rarity.COMMON, ItemConstants.COMMONBUYPRICE),
 				Arguments.arguments(Rarity.RARE, ItemConstants.RAREBUYPRICE),
 				Arguments.arguments(Rarity.LEGENDARY, ItemConstants.LEGENDARYBUYPRICE));
 	}
-	
+
 	/**
 	 * Checks that the set set sell price of {@link items.Item} is set up
 	 * correctly in the initialization methods.
@@ -58,14 +58,13 @@ class ItemTest {
 	@MethodSource("rarityAndBuyPrice")
 	void buyPriceTest(Rarity rarity, int buyPrice) {
 		Item testItem = new AttackBoost("An item",
-										"Item Description",
-										rarity);
-		
+				"Item Description",
+				rarity);
+
 		// Checks that the buy price is set to the buy price for the rarity
 		assertEquals(testItem.getBuyPrice(), buyPrice);
 	}
 
-	
 	private static Stream<Arguments> rarityAndBoost() {
 		return Stream.of(
 				Arguments.arguments(Rarity.COMMON, ItemConstants.COMMONSTATBOOST),
@@ -74,34 +73,36 @@ class ItemTest {
 	}
 
 	/**
-	 * Tests that the method {@link items.item#getStatBoostAmount() getStatBoostAmount} functions properly
+	 * Tests that the method {@link items.item#getStatBoostAmount()
+	 * getStatBoostAmount} functions properly
 	 */
 	@ParameterizedTest
 	@MethodSource("rarityAndBoost")
 	void getStatBoostAmountTest(Rarity rarity, int boostAmount) {
 		Item testItem = new AttackBoost("An item",
-										"Item Description",
-										rarity);
+				"Item Description",
+				rarity);
 		assertEquals(testItem.getStatBoostAmount(), boostAmount);
 	}
-	
+
 	/**
-	 * Tests that changing the rarity of the item also changes the buy and sell price.
+	 * Tests that changing the rarity of the item also changes the buy and sell
+	 * price.
 	 */
 	@Test
 	void rarityPriceChangeTest() {
 		Item testItem = new AttackBoost("An item",
-										"Item Description",
-										Rarity.COMMON);
-		
+				"Item Description",
+				Rarity.COMMON);
+
 		// Check that all the values of the test item is common
 		assertEquals(testItem.getRarity(), Rarity.COMMON);
 		assertEquals(testItem.getBuyPrice(), ItemConstants.COMMONBUYPRICE);
 		assertEquals(testItem.getSellPrice(), ItemConstants.COMMONSELLPRICE);
-		
+
 		// Change item to a legendary item
 		testItem.setRarity(Rarity.LEGENDARY);
-		
+
 		// Check that all the values of the test item is legendary
 		assertEquals(testItem.getRarity(), Rarity.LEGENDARY);
 		assertEquals(testItem.getBuyPrice(), ItemConstants.LEGENDARYBUYPRICE);

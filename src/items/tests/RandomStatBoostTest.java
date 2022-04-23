@@ -1,4 +1,4 @@
-package items.itemsTests;
+package items.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -65,29 +65,28 @@ class RandomStatBoostTest {
 		// have stayed the same.
 		int numChanged = 0;
 		int numSame = 0;
-		
+
 		if (testMonster.getBaseHealth() == prevMonsterHealth + boostAmount) {
 			numChanged += 1;
 		} else {
 			numSame += 1;
 		}
-		
+
 		if (testMonster.getBaseAttackDamage() == prevMonsterDamage + boostAmount) {
 			numChanged += 1;
 		} else {
 			numSame += 1;
 		}
-		
-		if (testMonster.getSpeed() == prevMonsterSpeed+ boostAmount) {
+
+		if (testMonster.getSpeed() == prevMonsterSpeed + boostAmount) {
 			numChanged += 1;
 		} else {
 			numSame += 1;
 		}
-		
-		
+
 		assertEquals(numSame, MonsterConstants.NUMBEROFSTATS - 1);
 		assertEquals(numChanged, 1);
 	}
-	
+
 	// TODO: Add test to check if all the different stats are reached.
 }

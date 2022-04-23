@@ -1,4 +1,4 @@
-package items.itemsTests;
+package items.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,19 +17,19 @@ import main.Rarity;
 
 class HealthBoostTest {
 	Monster testMonster;
-	
+
 	@BeforeEach
 	void setUp() throws Exception {
 		testMonster = new ClinkMonster();
 	}
-	
+
 	private static Stream<Arguments> rarityAndBoost() {
 		return Stream.of(
 				Arguments.arguments(Rarity.COMMON, ItemConstants.COMMONSTATBOOST),
 				Arguments.arguments(Rarity.RARE, ItemConstants.RARESTATBOOST),
 				Arguments.arguments(Rarity.LEGENDARY, ItemConstants.LEGENDARYSTATBOOST));
 	}
-	
+
 	/**
 	 * Tests that the item boosts the health of a given monster
 	 */
@@ -37,16 +37,15 @@ class HealthBoostTest {
 	@MethodSource("rarityAndBoost")
 	void useHealthBoostTest(Rarity rarity, int boost) {
 		HealthBoost testHealthBoost = new HealthBoost("Health Boost",
-													  "Description",
-													  rarity);
-		
-		// TODO: Change this to use getBaseHealth
+				"Description",
+				rarity);
+
 		int prevMonsterBaseHealth = testMonster.getBaseHealth();
-		
+
 		testHealthBoost.use(testMonster);
-		
+
 		assertEquals(testMonster.getBaseHealth(),
-				     prevMonsterBaseHealth + boost);
+				prevMonsterBaseHealth + boost);
 	}
 
 }
