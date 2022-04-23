@@ -8,9 +8,9 @@ import main.Team;
 
 /**
  * Jynx Monster
- * 
+ *
  * @author Harrison Tyson
- * @version 1.0, Apr 2022.
+ * @version 1.1, Apr 2022.
  */
 public class JynxMonster extends Monster {
     /**
@@ -28,7 +28,8 @@ public class JynxMonster extends Monster {
                 MonsterConstants.JYNXRARITY, // Rarity
                 MonsterConstants.JYNXBASEATTACKDAMAGE, // Base AttackDamage
                 MonsterConstants.JYNXBASEHEALTH, // Base Health
-                "-1 Health to a random ENEMY");
+                "-1 Health to a random ENEMY",
+                MonsterConstants.JYNXBASESPEED); // Base Speed
         this.setTrigger(Trigger.ONFAINT); // TODO decide trigger
     }
 

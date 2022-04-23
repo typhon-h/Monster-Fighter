@@ -50,6 +50,10 @@ public class MonsterConstants {
      * Constant defining the base Rarity of Clink
      */
     public final static Rarity CLINKRARITY = Rarity.LEGENDARY;
+    /**
+     * Constant defining the base speed of Clink
+     */
+    public final static int CLINKBASESPEED = 2;
 
     /**
      * Constant defining the base AttackDamage of Ditta
@@ -63,6 +67,10 @@ public class MonsterConstants {
      * Constant defining the base Rarity of Ditta
      */
     public final static Rarity DITTARARITY = Rarity.LEGENDARY;
+    /**
+     * Constant defining the base speed of Ditta
+     */
+    public final static int DITTABASESPEED = 2;
 
     /**
      * Constant defining the base AttackDamage of Gil
@@ -76,6 +84,10 @@ public class MonsterConstants {
      * Constant defining the base Rarity of Gil
      */
     public final static Rarity GILRARITY = Rarity.LEGENDARY;
+    /**
+     * Constant defining the base speed of Gil
+     */
+    public final static int GILBASESPEED = 2;
 
     /**
      * Constant defining the base AttackDamage of Jynx
@@ -89,6 +101,10 @@ public class MonsterConstants {
      * Constant defining the base Rarity of Jynx
      */
     public final static Rarity JYNXRARITY = Rarity.LEGENDARY;
+    /**
+     * Constant defining the base speed of Jynx
+     */
+    public final static int JYNXBASESPEED = 1;
 
     /**
      * Constant defining the base AttackDamage of Lucifer
@@ -102,6 +118,10 @@ public class MonsterConstants {
      * Constant defining the base Rarity of Lucifer
      */
     public final static Rarity LUCIFERRARITY = Rarity.LEGENDARY;
+    /**
+     * Constant defining the base speed of Lucifer
+     */
+    public final static int LUCIFERBASESPEED = 3;
 
     /**
      * Constant defining the base AttackDamage of Teddy
@@ -115,5 +135,9 @@ public class MonsterConstants {
      * Constant defining the base Rarity of Teddy
      */
     public final static Rarity TEDDYRARITY = Rarity.LEGENDARY;
+    /**
+     * Constant defining the base speed of Teddy
+     */
+    public final static int TEDDYBASESPEED = 2;
 
 }

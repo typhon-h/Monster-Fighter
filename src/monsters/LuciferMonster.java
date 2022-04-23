@@ -5,9 +5,9 @@ import main.Team;
 
 /**
  * Lucifer Monster
- * 
+ *
  * @author Harrison Tyson
- * @version 1.0, Apr 2022.
+ * @version 1.1, Apr 2022.
  */
 public class LuciferMonster extends Monster {
 
@@ -21,7 +21,8 @@ public class LuciferMonster extends Monster {
                 MonsterConstants.LUCIFERRARITY, // Rarity
                 MonsterConstants.LUCIFERBASEATTACKDAMAGE, // Base AttackDamage
                 MonsterConstants.LUCIFERBASEHEALTH, // Base Health
-                "SWAP Atack and Health");
+                "SWAP Atack and Health",
+                MonsterConstants.LUCIFERBASESPEED); // Base Speed
         this.setTrigger(Trigger.ONHURT); // TODO decide trigger
     }
 

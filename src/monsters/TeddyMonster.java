@@ -8,9 +8,9 @@ import main.Team;
 
 /**
  * Teddy Monster
- * 
+ *
  * @author Harrison Tyson
- * @version 1.0, Apr 2022.
+ * @version 1.1, Apr 2022.
  */
 public class TeddyMonster extends Monster {
     /**
@@ -28,7 +28,8 @@ public class TeddyMonster extends Monster {
                 MonsterConstants.TEDDYRARITY, // Rarity
                 MonsterConstants.TEDDYBASEATTACKDAMAGE, // Base AttackDamage
                 MonsterConstants.TEDDYBASEHEALTH, // Base Health
-                "+1 Health to a random ALLY");
+                "+1 Health to a random ALLY",
+                MonsterConstants.TEDDYBASESPEED); // Base Speed
         this.setTrigger(Trigger.BEFOREATTACK); // TODO decide trigger
     }
 

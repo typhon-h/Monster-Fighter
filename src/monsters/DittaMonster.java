@@ -5,9 +5,9 @@ import main.Team;
 
 /**
  * Ditta Monster
- * 
+ *
  * @author Harrison Tyson
- * @version 1.0, Apr 2022.
+ * @version 1.1, Apr 2022.
  */
 public class DittaMonster extends Monster {
     /**
@@ -20,7 +20,8 @@ public class DittaMonster extends Monster {
                 MonsterConstants.DITTARARITY, // Rarity
                 MonsterConstants.DITTABASEATTACKDAMAGE, // Base AttackDamage
                 MonsterConstants.DITTABASEHEALTH, // Base Health
-                "COPY the stats of the enemy in front");
+                "COPY the stats of the enemy in front",
+                MonsterConstants.DITTABASESPEED); // Base Speed
         this.setTrigger(Trigger.STARTOFBATTLE); // TODO decide trigger
     }
 

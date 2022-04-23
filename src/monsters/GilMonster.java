@@ -5,9 +5,9 @@ import main.Team;
 
 /**
  * Gil Monster
- * 
+ *
  * @author Harrison Tyson
- * @version 1.0, Apr 2022.
+ * @version 1.1, Apr 2022.
  */
 public class GilMonster extends Monster {
     /**
@@ -20,7 +20,8 @@ public class GilMonster extends Monster {
                 MonsterConstants.GILRARITY, // Rarity
                 MonsterConstants.GILBASEATTACKDAMAGE, // Base AttackDamage
                 MonsterConstants.GILBASEHEALTH, // Base Health
-                "Boosts attack of ALLY in front by 50% of my ATTACK");
+                "Boosts attack of ALLY in front by 50% of my ATTACK",
+                MonsterConstants.GILBASESPEED); // Base Speed
         this.setTrigger(Trigger.STARTOFBATTLE); // TODO decide trigger
     }
 

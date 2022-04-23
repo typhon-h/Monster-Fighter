@@ -5,9 +5,9 @@ import main.Team;
 
 /**
  * Clink Monster
- * 
+ *
  * @author Harrison Tyson
- * @version 1.0, Apr 2022.
+ * @version 1.1, Apr 2022.
  */
 public class ClinkMonster extends Monster {
     /**
@@ -20,7 +20,8 @@ public class ClinkMonster extends Monster {
                 MonsterConstants.CLINKRARITY, // Rarity
                 MonsterConstants.CLINKBASEATTACKDAMAGE, // Base AttackDamage
                 MonsterConstants.CLINKBASEHEALTH, // Base Health
-                "-1 Attack and +1 Health (min 1 Attack)");
+                "-1 Attack and +1 Health (min 1 Attack)",
+                MonsterConstants.CLINKBASESPEED); // Base Speed
         this.setTrigger(Trigger.AFTERATTACK); // TODO decide trigger
     }
 

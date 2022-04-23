@@ -7,9 +7,9 @@ import main.Trigger;
 
 /**
  * Generic Monster
- * 
+ *
  * @author Harrison Tyson
- * @version 1.2, Apr 2022.
+ * @version 1.3, Apr 2022.
  */
 public abstract class Monster extends Entity {
     /**
@@ -30,13 +30,13 @@ public abstract class Monster extends Entity {
     private int baseAttackDamage;
     /**
      * Number of times the monster has fainted.
-     * 
+     *
      * @default 0
      */
     private int faintCount = 0;
     /**
      * Event which triggers the Monster's ability
-     * 
+     *
      * @default Trigger.NOABILITY
      */
     private Trigger abilityTrigger = Trigger.NOABILITY;
@@ -47,32 +47,39 @@ public abstract class Monster extends Entity {
     /**
      * Status of the monster.
      * true when alive and false when fainted
-     * 
+     *
      * @default true
      */
     private boolean status = true;
+    /**
+     * Speed of the monster.
+     */
+    private int speed;
 
     /**
      * Constructor for the Monster class
-     * 
+     *
      * @param name               Name of the monster
      * @param description        Description of the monster
      * @param rarity             Rarity of the monster
      * @param baseHealth         Base health of the monster
      * @param baseAttackDamage   Base attack damage of the monster
      * @param abilityDescription Description of the monster's ability
+     * @param speed              Speed of the monster
      */
     public Monster(String name, String description, Rarity rarity,
-            int baseAttackDamage, int baseHealth, String abilityDescription) {
+            int baseAttackDamage, int baseHealth, String abilityDescription,
+            int speed) {
         super(name, description, rarity); // Entity
         this.baseHealth = this.currentHealth = baseHealth;
         this.baseAttackDamage = this.currentAttackDamage = baseAttackDamage;
         setAbilityDescription(abilityDescription);
+        setSpeed(speed);
     }
 
     /**
      * Unique ability of the monster that has special effects in battle
-     * 
+     *
      * @param allyTeam  Friendly team of the monster
      * @param enemyTeam Enemy team of the monster
      * @return a Monster whose ability gets triggered next
@@ -81,7 +88,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Deals damage to the monster and triggers relevant events
-     * 
+     *
      * @param damage amount of damage recieved
      * @throws IllegalArgumentException Argument must be positive
      * @return itself if ability was triggered
@@ -109,7 +116,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Gets current health of monster
-     * 
+     *
      * @return current health of monster
      */
     public int getCurrentHealth() {
@@ -118,7 +125,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Sets the current health of monster
-     * 
+     *
      * @param health value to set current health to
      */
     public void setCurrentHealth(int health) {
@@ -131,7 +138,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Gets the current attack damage of the monster
-     * 
+     *
      * @return the current attack damage
      */
     public int getCurrentAttackDamage() {
@@ -140,7 +147,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Sets the current attack damage of the monster
-     * 
+     *
      * @param attackDamage the new current attack damage
      */
     public void setCurrentAttackDamage(int attackDamage) throws IllegalArgumentException {
@@ -153,7 +160,7 @@ public abstract class Monster extends Entity {
     /**
      * Gets the status of the monster.
      * true when alive and false when fainted
-     * 
+     *
      * @return the status of the monster
      */
     public boolean getStatus() {
@@ -162,7 +169,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Sets the status of the monster.
-     * 
+     *
      * @param status new status of the monster
      */
     public void setStatus(boolean status) {
@@ -181,7 +188,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Gets the current ability Trigger
-     * 
+     *
      * @return current event that triggers the ability
      */
     public Trigger getTrigger() {
@@ -190,7 +197,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Sets the ability Trigger
-     * 
+     *
      * @param newTrigger event to trigger ability
      */
     public void setTrigger(Trigger newTrigger) {
@@ -199,7 +206,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Increases monster base health
-     * 
+     *
      * @param amount amount to increase by
      * @throws IllegalArgumentException Argument must be positive
      */
@@ -214,7 +221,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Gets the base health of the monster
-     * 
+     *
      * @return base health of the monster
      */
     public int getBaseHealth() {
@@ -223,7 +230,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Gets the base attack damage of the monster
-     * 
+     *
      * @return base attack damage of the monster
      */
     public int getBaseAttackDamage() {
@@ -232,7 +239,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Increases base monster attack damage
-     * 
+     *
      * @param amount amount to increase by
      * @throws IllegalArgumentException Argument must be positive
      */
@@ -246,7 +253,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Gets the description of the monster ability
-     * 
+     *
      * @return the description of the monster ability
      */
     public String getAbilityDescription() {
@@ -255,7 +262,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Sets the description of the monster ability
-     * 
+     *
      * @param description the description of the monster ability
      */
     public void setAbilityDescription(String description) {
@@ -264,7 +271,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Gets the number of times the monster has fainted
-     * 
+     *
      * @return the number of times the monster has fainted
      */
     public int getFaintCount() {
@@ -301,4 +308,21 @@ public abstract class Monster extends Entity {
         }
     }
 
+    /**
+     * Sets the speed of the monster.
+     *
+     * @param speed The new speed of the monster.
+     */
+    public void setSpeed(int newSpeed) {
+        this.speed = newSpeed;
+    }
+
+    /**
+     * Gets the speed of the monster.
+     *
+     * @return The speed of the monster.
+     */
+    public int getSpeed() {
+        return this.speed;
+    }
 }
