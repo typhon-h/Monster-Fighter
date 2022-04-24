@@ -1,9 +1,11 @@
-package main;
+package shop;
 
 import java.util.ArrayList;
 
 import exceptions.TeamSizeException;
 import items.Item;
+import main.Entity;
+import main.Player;
 import monsters.Monster;
 
 /**

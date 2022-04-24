@@ -31,30 +31,28 @@ public class Team {
      * Current size of the team
      */
     private int teamSize = monsters.size();
-    
-    
+
     /**
      * Constructor for Team. Creates a team with the starting monster/s
      *
-     * @param monsters starting monster/s
+     * @param newMonsters starting monster/s
      * 
      * @throws TeamSizeException         team is full or empty
      * @throws DuplicateMonsterException monster already in team
      */
-    public Team(Monster ... newMonsters) throws TeamSizeException, DuplicateMonsterException {
+    public Team(Monster... newMonsters) throws TeamSizeException, DuplicateMonsterException {
         if (newMonsters.length > MAXTEAMSIZE) {
-        	throw new TeamSizeException("Team can only contain 6 Monsters");
+            throw new TeamSizeException("Team can only contain 6 Monsters");
         } else if (newMonsters.length < MINTEAMSIZE) {
-        	throw new TeamSizeException("Team must contain atleast one monster");
+            throw new TeamSizeException("Team must contain atleast one monster");
         }
-    	
+
         for (Monster monster : newMonsters) {
-        	this.addMonster(monster);
+            this.addMonster(monster);
         }
         teamSize = monsters.size();
     }
-    
-    
+
     /**
      * Gets the first monster in the team that has not fainted
      *

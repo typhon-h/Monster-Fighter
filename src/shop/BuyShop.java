@@ -1,4 +1,4 @@
-package main;
+package shop;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,6 +6,10 @@ import java.util.Random;
 
 import exceptions.*;
 import items.*;
+import main.Entity;
+import main.Player;
+import main.Rarity;
+import main.Trigger;
 import monsters.*;
 
 /**

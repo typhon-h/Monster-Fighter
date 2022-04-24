@@ -1,6 +1,9 @@
-package main;
+package shop;
 
 import java.util.ArrayList;
+
+import main.Entity;
+import main.Player;
 
 /**
  * Superclass for shop objects.
