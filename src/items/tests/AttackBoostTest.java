@@ -44,9 +44,7 @@ class AttackBoostTest {
 	@ParameterizedTest
 	@MethodSource("rarityAndBoost")
 	void itemBoostAmountTest(Rarity rarity, int boost) {
-		AttackBoost attackBoostItem = new AttackBoost("Attack Boost",
-				"Boosts attack",
-				rarity);
+		AttackBoost attackBoostItem = new AttackBoost(rarity);
 
 		// Checks that the item has the correct boost amount to apply to the monster
 		assertEquals(attackBoostItem.getStatBoostAmount(), boost);
@@ -59,9 +57,7 @@ class AttackBoostTest {
 	@ParameterizedTest
 	@MethodSource("rarityAndBoost")
 	void useItemTest(Rarity rarity, int boost) {
-		AttackBoost attackBoostItem = new AttackBoost("Attack Boost",
-				"Boosts attack",
-				rarity);
+		AttackBoost attackBoostItem = new AttackBoost(rarity);
 
 		int monsterPrevAttack = testMonster.getBaseAttackDamage();
 

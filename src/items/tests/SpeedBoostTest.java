@@ -15,7 +15,7 @@ import items.SpeedBoost;
 import items.ItemConstants;
 import main.Rarity;
 
-class HealthBoostTest {
+class SpeedBoostTest {
     Monster testMonster;
 
     @BeforeEach
@@ -36,9 +36,7 @@ class HealthBoostTest {
     @ParameterizedTest
     @MethodSource("rarityAndBoost")
     void useHealthBoostTest(Rarity rarity, int boost) {
-        SpeedBoost testSpeedBoost = new SpeedBoost("Speed Boost",
-                "Description",
-                rarity);
+        SpeedBoost testSpeedBoost = new SpeedBoost(rarity);
 
         int prevMonsterBaseSpeed = testMonster.getSpeed();
 

@@ -47,6 +47,7 @@ public class SellShop extends Shop {
         if (this.content.contains(item)) { // Check item in contents
             this.player.addGold(item.getSellPrice());
             this.player.removeItem(item);
+            this.setContent();
             return item.getName() + " was sold for " + item.getSellPrice();
         }
 

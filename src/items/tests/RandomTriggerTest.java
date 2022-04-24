@@ -27,8 +27,7 @@ class RandomTriggerTest {
 	 */
 	@Test
 	void useItemTest() {
-		RandomTrigger testItem = new RandomTrigger("Random Trigger",
-				"Gives random trigger");
+		RandomTrigger testItem = new RandomTrigger();
 
 		Trigger prevTrigger = testMonster.getTrigger();
 		testItem.use(testMonster);
@@ -49,8 +48,7 @@ class RandomTriggerTest {
 	 */
 	@Test
 	void itemAppliesAllTriggers() {
-		RandomTrigger testItem = new RandomTrigger("Random Trigger",
-				"Gives random trigger");
+		RandomTrigger testItem = new RandomTrigger();
 
 		HashSet<Trigger> foundTriggers = new HashSet<Trigger>();
 		int i = 0;

@@ -44,7 +44,7 @@ public class Team {
         if (newMonsters.length > MAXTEAMSIZE) {
             throw new TeamSizeException("Team can only contain 6 Monsters");
         } else if (newMonsters.length < MINTEAMSIZE) {
-            throw new TeamSizeException("Team must contain atleast one monster");
+            throw new TeamSizeException("Team must have at least " + MINTEAMSIZE + " monsters");
         }
 
         for (Monster monster : newMonsters) {
@@ -117,7 +117,7 @@ public class Team {
      */
     public void removeMonster(Monster monster) throws TeamSizeException {
         if (monsters.size() == MINTEAMSIZE) {
-            throw new TeamSizeException("Team must have at least " + MINTEAMSIZE + " monster");
+            throw new TeamSizeException("Team must have at least " + MINTEAMSIZE + " monsters");
         } else {
             monsters.remove(monster);
             teamSize = monsters.size();

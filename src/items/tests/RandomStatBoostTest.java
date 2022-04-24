@@ -53,9 +53,7 @@ class RandomStatBoostTest {
 	@ParameterizedTest
 	@MethodSource("rarityAndBoost")
 	void useItemTest(Rarity rarity, int boostAmount) {
-		RandomStatBoost statBoostItem = new RandomStatBoost("Random stat boost",
-				"boosts random stat",
-				rarity);
+		RandomStatBoost statBoostItem = new RandomStatBoost(rarity);
 		int prevMonsterHealth = testMonster.getBaseHealth();
 		int prevMonsterDamage = testMonster.getBaseAttackDamage();
 		int prevMonsterSpeed = testMonster.getSpeed();

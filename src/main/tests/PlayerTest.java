@@ -111,7 +111,7 @@ public class PlayerTest {
      */
     @Test
     public void addItemTest() {
-        Item testItem = new AttackBoost("ArbitraryItem", "N/A", Rarity.COMMON);
+        Item testItem = new AttackBoost(Rarity.COMMON);
         // Check items can be added until full
         int count = 0;
         while (player.getNumFreeSlots() > 0) {
@@ -137,7 +137,7 @@ public class PlayerTest {
         }
 
         // Check item not in inventory can't be removed
-        Item testItem = new AttackBoost("ArbitraryItem", "N/A", Rarity.COMMON);
+        Item testItem = new AttackBoost(Rarity.COMMON);
         assertFalse(player.removeItem(testItem));
     }
 

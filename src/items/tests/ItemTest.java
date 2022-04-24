@@ -35,9 +35,7 @@ class ItemTest {
 	@ParameterizedTest
 	@MethodSource("rarityAndSellPrice")
 	void sellPriceTest(Rarity rarity, int sellPrice) {
-		Item testItem = new AttackBoost("An item",
-				"Item Description",
-				rarity);
+		Item testItem = new AttackBoost(rarity);
 
 		// Checks that the buy sell is set to its sell price
 		assertEquals(testItem.getSellPrice(), sellPrice);
@@ -57,9 +55,7 @@ class ItemTest {
 	@ParameterizedTest
 	@MethodSource("rarityAndBuyPrice")
 	void buyPriceTest(Rarity rarity, int buyPrice) {
-		Item testItem = new AttackBoost("An item",
-				"Item Description",
-				rarity);
+		Item testItem = new AttackBoost(rarity);
 
 		// Checks that the buy price is set to the buy price for the rarity
 		assertEquals(testItem.getBuyPrice(), buyPrice);
@@ -79,9 +75,7 @@ class ItemTest {
 	@ParameterizedTest
 	@MethodSource("rarityAndBoost")
 	void getStatBoostAmountTest(Rarity rarity, int boostAmount) {
-		Item testItem = new AttackBoost("An item",
-				"Item Description",
-				rarity);
+		Item testItem = new AttackBoost(rarity);
 		assertEquals(testItem.getStatBoostAmount(), boostAmount);
 	}
 
@@ -91,9 +85,7 @@ class ItemTest {
 	 */
 	@Test
 	void rarityPriceChangeTest() {
-		Item testItem = new AttackBoost("An item",
-				"Item Description",
-				Rarity.COMMON);
+		Item testItem = new AttackBoost(Rarity.COMMON);
 
 		// Check that all the values of the test item is common
 		assertEquals(testItem.getRarity(), Rarity.COMMON);

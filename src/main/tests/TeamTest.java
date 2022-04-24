@@ -67,21 +67,22 @@ public class TeamTest {
                 new ClinkMonster(), new ClinkMonster());
         assertEquals(6, team.getTeamSize());
     }
-    
+
     /**
-     * Checks that a team cannot be created with more than {@link main.Team#MAXTEAMSIZE} and
+     * Checks that a team cannot be created with more than
+     * {@link main.Team#MAXTEAMSIZE} and
      * less than {@link main.Team#MINTEAMSIZE} monsters.
      */
     @Test
     public void constructorTeamSizeTest() {
-    	// Initialize team with 7 monsters, max team size is 6.
-    	TeamSizeException exception = assertThrows(TeamSizeException.class, () -> new Team(new ClinkMonster(),
-    			new ClinkMonster(), new ClinkMonster(), new ClinkMonster(),
+        // Initialize team with 7 monsters, max team size is 6.
+        TeamSizeException exception = assertThrows(TeamSizeException.class, () -> new Team(new ClinkMonster(),
+                new ClinkMonster(), new ClinkMonster(), new ClinkMonster(),
                 new ClinkMonster(), new ClinkMonster(), new ClinkMonster()));
-    	assertEquals("Team can only contain 6 Monsters", exception.getMessage());
-    	
-    	exception = assertThrows(TeamSizeException.class, () -> new Team());
-    	assertEquals("Team must contain atleast one monster", exception.getMessage());
+        assertEquals("Team can only contain 6 Monsters", exception.getMessage());
+
+        exception = assertThrows(TeamSizeException.class, () -> new Team());
+        assertEquals("Team must have at least " + Team.getMinTeamSize() + " monsters", exception.getMessage());
     }
 
     /**
@@ -231,7 +232,7 @@ public class TeamTest {
             team.removeMonster(team.getMonsters().get(0));
         });
 
-        assertEquals("Team must have at least " + Team.getMinTeamSize() + " monster", exception.getMessage());
+        assertEquals("Team must have at least " + Team.getMinTeamSize() + " monsters", exception.getMessage());
     }
 
     /**

@@ -33,9 +33,7 @@ class SelectTriggerTest {
 	@ParameterizedTest
 	@EnumSource(Trigger.class)
 	void itemHasCorrectTriggerTest(Trigger trigger) {
-		SelectTrigger testTrigger = new SelectTrigger("Select Trigger",
-				"Item description",
-				trigger);
+		SelectTrigger testTrigger = new SelectTrigger(trigger);
 		assertEquals(testTrigger.getTrigger(), trigger);
 
 		testTrigger.setTrigger(Trigger.NOABILITY);
@@ -52,9 +50,7 @@ class SelectTriggerTest {
 	@ParameterizedTest
 	@EnumSource(Trigger.class)
 	void useItemTest(Trigger trigger) {
-		SelectTrigger testTrigger = new SelectTrigger("Select Trigger",
-				"Item description",
-				trigger);
+		SelectTrigger testTrigger = new SelectTrigger(trigger);
 		if (testMonster.getTrigger() == trigger) {
 			assertThrows(UnusableItemException.class, () -> testTrigger.use(testMonster));
 		} else {

@@ -36,9 +36,7 @@ class HealthBoostTest {
 	@ParameterizedTest
 	@MethodSource("rarityAndBoost")
 	void useHealthBoostTest(Rarity rarity, int boost) {
-		HealthBoost testHealthBoost = new HealthBoost("Health Boost",
-				"Description",
-				rarity);
+		HealthBoost testHealthBoost = new HealthBoost(rarity);
 
 		int prevMonsterBaseHealth = testMonster.getBaseHealth();
 
