@@ -23,7 +23,8 @@ public final class MonsterTriggers {
                                                    Trigger.STARTOFBATTLE}),
         // Optimal Triggers for Ditta Monster.
         entry(DittaMonster.class,   new Trigger[] {Trigger.ONFAINT,
-                                                   Trigger.STARTOFBATTLE}),
+                                                   Trigger.STARTOFBATTLE,
+                                                   Trigger.ONHURT}),
         // Optimal Triggers for Gil Monster.
         entry(GilMonster.class,     new Trigger[] {Trigger.ONFAINT,
                                                    Trigger.STARTOFBATTLE}),
@@ -46,7 +47,7 @@ public final class MonsterTriggers {
      * @throws IllegalArgumentException if the given class is not a subclass of {@link monsters.Monster monster class}.
      */
     public static final Trigger[] getTriggers(Monster monster) throws IllegalArgumentException {
-        if (Monster.class.isAssignableFrom(monster.getClass()) && monster.getClass() == Monster.class) {
+        if (Monster.class.isAssignableFrom(monster.getClass()) && monster.getClass() != Monster.class) {
             return triggers.get(monster.getClass());
         } else {
             throw new IllegalArgumentException("The given class is not a subclass of Monster class");
