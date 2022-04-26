@@ -31,8 +31,8 @@ public class DittaMonster extends Monster {
 
         Monster monsterToCopy = enemyTeam.getFirstAliveMonster();
         if(monsterToCopy != null) {
-	        this.setCurrentAttackDamage(monsterToCopy.getCurrentAttackDamage());
-	        this.setCurrentHealth(monsterToCopy.getCurrentHealth());
+            this.setCurrentAttackDamage(monsterToCopy.getCurrentAttackDamage());
+            this.setCurrentHealth(monsterToCopy.getCurrentHealth());
         }
 
         return null; // No Trigger

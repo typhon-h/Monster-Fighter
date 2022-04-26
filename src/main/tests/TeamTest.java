@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 
 /**
  * Testing for Team class.
- * 
+ *
  * @author Harrison Tyson
  * @version 1.0, Apr 2022.
  */
@@ -28,7 +28,7 @@ public class TeamTest {
 
     /**
      * Set up a full team for testing
-     * 
+     *
      * @throws TeamSizeException         if too many team members
      * @throws DuplicateMonsterException if same monster is added twice
      */
@@ -40,7 +40,7 @@ public class TeamTest {
 
     /**
      * Checks all constructors are set correctly
-     * 
+     *
      * @throws TeamSizeException         if too many team members
      * @throws DuplicateMonsterException if same monster is added twice
      */
@@ -67,26 +67,26 @@ public class TeamTest {
                 new ClinkMonster(), new ClinkMonster());
         assertEquals(6, team.getTeamSize());
     }
-    
+
     /**
      * Checks that a team cannot be created with more than {@link main.Team#MAXTEAMSIZE} and
      * less than {@link main.Team#MINTEAMSIZE} monsters.
      */
     @Test
     public void constructorTeamSizeTest() {
-    	// Initialize team with 7 monsters, max team size is 6.
-    	TeamSizeException exception = assertThrows(TeamSizeException.class, () -> new Team(new ClinkMonster(),
-    			new ClinkMonster(), new ClinkMonster(), new ClinkMonster(),
+        // Initialize team with 7 monsters, max team size is 6.
+        TeamSizeException exception = assertThrows(TeamSizeException.class, () -> new Team(new ClinkMonster(),
+                new ClinkMonster(), new ClinkMonster(), new ClinkMonster(),
                 new ClinkMonster(), new ClinkMonster(), new ClinkMonster()));
-    	assertEquals("Team can only contain 6 Monsters", exception.getMessage());
-    	
-    	exception = assertThrows(TeamSizeException.class, () -> new Team());
-    	assertEquals("Team must contain atleast one monster", exception.getMessage());
+        assertEquals("Team can only contain 6 Monsters", exception.getMessage());
+
+        exception = assertThrows(TeamSizeException.class, () -> new Team());
+        assertEquals("Team must contain atleast one monster", exception.getMessage());
     }
 
     /**
      * Test cases to check
-     * 
+     *
      * @return A stream of arguments as the test case
      */
     private static Stream<Arguments> positionsToTest() {
@@ -110,7 +110,7 @@ public class TeamTest {
      * Tests alive monsters are able to be retrieved with different combinations
      * of fainted monsters
      * Covers: getAliveMonsters, getFirstAliveMonster
-     * 
+     *
      * @param positionsToFaint array of indexes of monsters to faint
      */
     @ParameterizedTest
@@ -150,7 +150,7 @@ public class TeamTest {
      * Covers: addMonster
      * Valid: add monsters until full
      * Invalid: adds additional monster
-     * 
+     *
      * @throws TeamSizeException         if too many team members
      * @throws DuplicateMonsterException if same monster is added twice
      */
@@ -172,7 +172,7 @@ public class TeamTest {
     /**
      * Checks duplicate monsters cannot be added to a team
      * Covers: addMonster, Constructor
-     * 
+     *
      * @throws TeamSizeException         if too many team members
      * @throws DuplicateMonsterException if same monster is added twice
      */
@@ -195,7 +195,7 @@ public class TeamTest {
     /**
      * Checks monsters are correctly removed from various positions in team
      * Covers: removeMonster
-     * 
+     *
      * @param positionsToRemove array of indexes of monsters to remove
      * @throws TeamSizeException if tries to remove more than minimum team size
      */
@@ -218,7 +218,7 @@ public class TeamTest {
      * Covers: removeMonster
      * Valid: removes until empty
      * Invalid: removes when empty
-     * 
+     *
      * @throws TeamSizeException if too many team members
      */
     @Test

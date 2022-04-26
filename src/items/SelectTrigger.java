@@ -36,7 +36,7 @@ public class SelectTrigger extends Item {
      * @param newTrigger The {@link main.Trigger} to set the item to.
      */
     public void setTrigger(Trigger newTrigger) {
-    	itemTrigger = newTrigger;
+        itemTrigger = newTrigger;
     }
 
     /**
@@ -45,7 +45,7 @@ public class SelectTrigger extends Item {
      * @return {@link main.Trigger} of the SelectTrigger {@link items.Item}.
      */
     public Trigger getTrigger() {
-    	return itemTrigger;
+        return itemTrigger;
     }
 
     /**
