@@ -12,7 +12,7 @@ import monsters.*;
  * @author Jackie Jone
  * @version 1.0, Apr 2022.
  */
-public final class MonsterTriggers {
+public final class MonsterTriggerConstants {
     // TODO: Tweak the triggers for each monster
     /**
      * A map mapping each subclass of the monster class to an array of triggers.
@@ -44,14 +44,9 @@ public final class MonsterTriggers {
      *
      * @param monster The monster to get the triggers for.
      * @return        An array of {@link main.Trigger trigger enum} values.
-     * @throws IllegalArgumentException if the given class is not a subclass of {@link monsters.Monster monster class}.
      */
-    public static final Trigger[] getTriggers(Monster monster) throws IllegalArgumentException {
-        if (Monster.class.isAssignableFrom(monster.getClass()) && monster.getClass() != Monster.class) {
-            return triggers.get(monster.getClass());
-        } else {
-            throw new IllegalArgumentException("The given class is not a subclass of Monster class");
-        }
+    public static final Trigger[] getTriggers(Monster monster) {
+        return triggers.get(monster.getClass());
     }
 
     /**
