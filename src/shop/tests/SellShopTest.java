@@ -6,9 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import exceptions.*;
 import items.*;
 import monsters.*;
-import main.Player;
-import main.Rarity;
-import main.Team;
+import main.*;
 import shop.SellShop;
 
 /**
@@ -79,10 +77,10 @@ public class SellShopTest {
     }
 
     /**
-     * Check items can be sold
+     * Tests valid item sale
      */
     @Test
-    public void itemSellTest() {
+    public void validItemSellTest() {
         // Valid sale
         int startingGold = player.getGold();
         Item itemToSell = player.getInventory().get(0);
@@ -93,26 +91,32 @@ public class SellShopTest {
         assertFalse(player.getInventory().contains(itemToSell));
         assertFalse(shop.getContent().contains(itemToSell));
         contentMatchTest();
+    }
 
+    /**
+     * Checks item player does not own cannot be sold
+     */
+    @Test
+    public void noItemSellTest() {
         // Player does not have item
-        itemToSell = new AttackBoost(Rarity.LEGENDARY);
-        startingGold = player.getGold();
+        Item itemToSell = new AttackBoost(Rarity.LEGENDARY);
+        int startingGold = player.getGold();
+
         assertFalse(player.getInventory().contains(itemToSell));
         assertFalse(shop.getContent().contains(itemToSell));
-        message = shop.sell(itemToSell);
+
+        String message = shop.sell(itemToSell);
+
         assertEquals(startingGold, player.getGold());
         assertEquals("Sell Error: item was not found", message);
         contentMatchTest();
     }
 
     /**
-     * Check monsters can be sold
-     * 
-     * @throws TeamSizeException         Too many monsters in team
-     * @throws DuplicateMonsterException Same monster in team more than once
+     * Checks valid monster sale
      */
     @Test
-    public void monsterSellTest() throws TeamSizeException, DuplicateMonsterException {
+    public void validMonsterSellTest() {
         // Valid sale
         int startingGold = player.getGold();
         Monster monsterToSell = player.getTeam().getMonsters().get(0);
@@ -123,23 +127,44 @@ public class SellShopTest {
         assertFalse(player.getTeam().getMonsters().contains(monsterToSell));
         assertFalse(shop.getContent().contains(monsterToSell));
         contentMatchTest();
+    }
 
+    /**
+     * Checks monster cannot be sold if not owned by player
+     */
+    @Test
+    public void noMonsterSellTest() {
         // Player does not have Monster
-        monsterToSell = new ClinkMonster();
-        startingGold = player.getGold();
+        Monster monsterToSell = new ClinkMonster();
+        int startingGold = player.getGold();
+
         assertFalse(player.getTeam().getMonsters().contains(monsterToSell));
         assertFalse(shop.getContent().contains(monsterToSell));
-        message = shop.sell(monsterToSell);
+
+        String message = shop.sell(monsterToSell);
+
         assertEquals(startingGold, player.getGold());
         assertEquals("Sell Error: monster was not found", message);
         contentMatchTest();
+    }
 
+    /**
+     * Checks last monster cannot be sold
+     * 
+     * @throws TeamSizeException         If team is created with more members than
+     *                                   maximum
+     * @throws DuplicateMonsterException monster is already in team
+     */
+    @Test
+    public void lastMonsterSellTest() throws TeamSizeException, DuplicateMonsterException {
         // Player selling their last monster
-        startingGold = player.getGold();
+        int startingGold = player.getGold();
         player.setTeam(new Team(new ClinkMonster())); // Team with one monster
         shop.setContent();
-        monsterToSell = player.getTeam().getMonsters().get(0);
-        message = shop.sell(monsterToSell);
+        Monster monsterToSell = player.getTeam().getMonsters().get(0);
+
+        String message = shop.sell(monsterToSell);
+
         assertTrue(player.getTeam().getMonsters().contains(monsterToSell));
         assertTrue(shop.getContent().contains(monsterToSell));
         assertEquals(startingGold, player.getGold());

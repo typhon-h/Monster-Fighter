@@ -14,7 +14,7 @@ import main.Trigger;
  * @author Harrison Tyson
  * @version 1.0, Apr 2022.
  */
-public class MonsterTest { // TODO: testing for valid arguments on constructor?
+public class MonsterTest {
 
     private Monster monster;
 
