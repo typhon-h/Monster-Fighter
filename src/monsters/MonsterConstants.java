@@ -52,7 +52,7 @@ public class MonsterConstants {
     /**
      * Constant defining the base Rarity of Clink
      */
-    public final static Rarity CLINKRARITY = Rarity.LEGENDARY;
+    public final static Rarity CLINKRARITY = Rarity.COMMON;
     /**
      * Constant defining the base speed of Clink
      */
@@ -69,7 +69,7 @@ public class MonsterConstants {
     /**
      * Constant defining the base Rarity of Ditta
      */
-    public final static Rarity DITTARARITY = Rarity.LEGENDARY;
+    public final static Rarity DITTARARITY = Rarity.COMMON;
     /**
      * Constant defining the base speed of Ditta
      */
@@ -86,7 +86,7 @@ public class MonsterConstants {
     /**
      * Constant defining the base Rarity of Gil
      */
-    public final static Rarity GILRARITY = Rarity.LEGENDARY;
+    public final static Rarity GILRARITY = Rarity.RARE;
     /**
      * Constant defining the base speed of Gil
      */
@@ -103,7 +103,7 @@ public class MonsterConstants {
     /**
      * Constant defining the base Rarity of Jynx
      */
-    public final static Rarity JYNXRARITY = Rarity.LEGENDARY;
+    public final static Rarity JYNXRARITY = Rarity.RARE;
     /**
      * Constant defining the base speed of Jynx
      */

@@ -94,13 +94,18 @@ public class BuyShop extends Shop {
      */
     public void setContent() {
         generateStock();
+        this.content.clear();
         ArrayList<Entity> filteredItems, filteredMonsters;
         for (Rarity rarity : Rarity.values()) {
             filteredItems = filterStock(itemStock, rarity);
             filteredMonsters = filterStock(monsterStock, rarity);
+            if (filteredItems.size() > 0) {
+                this.content.add(filteredItems.get(rng.nextInt(filteredItems.size())));
+            }
+            if (filteredMonsters.size() > 0) {
+                this.content.add(filteredMonsters.get(rng.nextInt(filteredMonsters.size())));
+            }
 
-            this.content.add(filteredItems.get(rng.nextInt(filteredItems.size())));
-            this.content.add(filteredMonsters.get(rng.nextInt(filteredMonsters.size())));
         }
     }
 
@@ -118,7 +123,7 @@ public class BuyShop extends Shop {
                     return "Sorry, you do not have enough space in your inventory";
                 }
                 this.content.remove(item);
-                return item.getName() + " bought successfully!";
+                return item.getName() + " bought successfully";
             } catch (InsufficientFundsException e) { // Not enough gold
                 this.player.removeItem(item);
                 return e.getMessage();
@@ -140,7 +145,7 @@ public class BuyShop extends Shop {
                 this.player.removeGold(monster.getBuyPrice());
                 this.player.getTeam().addMonster(monster);
                 this.content.remove(monster);
-                return monster.getName() + " bought successfully!";
+                return monster.getName() + " bought successfully";
             } catch (InsufficientFundsException e) { // Not enough gold
                 return e.getMessage();
             } catch (TeamSizeException | DuplicateMonsterException e) { // Too many members in team or

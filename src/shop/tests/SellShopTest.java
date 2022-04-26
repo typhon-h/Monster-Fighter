@@ -19,7 +19,13 @@ import shop.SellShop;
  */
 public class SellShopTest {
 
+    /**
+     * Player that interacts with the shop
+     */
     Player player;
+    /**
+     * SellShop object to be tested
+     */
     SellShop shop;
 
     /**
