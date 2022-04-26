@@ -25,14 +25,14 @@ public final class MonsterTriggerConstants {
     private static final Map<Class<?>, Trigger[][]> triggers = Map.ofEntries(
         // Optimal Triggers for Clink Monster.
         entry(ClinkMonster.class,   new Trigger[][] {
-            {Trigger.ONFAINT,Trigger.STARTOFBATTLE}, // Easy Triggers
-            {}, // Normal Triggers
-            {}}), // Hard Triggers
+            {Trigger.ONFAINT}, // Easy Triggers
+            {Trigger.STARTOFBATTLE}, // Normal Triggers
+            {Trigger.ONHURT}}), // Hard Triggers
         // Optimal Triggers for Ditta Monster.
         entry(DittaMonster.class,   new Trigger[][] {
             {Trigger.ONFAINT, Trigger.STARTOFBATTLE, Trigger.ONHURT},
             {},
-            {}}),
+            {Trigger.AFTERATTACK}}),
         // Optimal Triggers for Gil Monster.
         entry(GilMonster.class,     new Trigger[][] {
             {Trigger.ONFAINT, Trigger.STARTOFBATTLE},
@@ -76,15 +76,25 @@ public final class MonsterTriggerConstants {
         return finalArray;
     }
 
+
+    /**
+     * Returns all the triggers as a one-dimensional array based on the
+     * difficulty of the game in order from easy to hard.
+     *
+     * @param allTriggers A two-dimensional array of all the triggers.
+     * @param difficulty  The difficulty of the game.
+     * @return            A one-dimensional array of all the triggers based on diffculty.
+     */
     private static Trigger[] getTriggerDifficulties(Trigger[][] allTriggers, Difficulty difficulty) {
         Trigger[] finalTriggers = new Trigger[0];
         switch (difficulty) {
+            // No break statements here because HARD includes both NORMAL and EASY triggers
             case HARD:
-                finalTriggers = appendArray(finalTriggers, allTriggers[2]);
+                finalTriggers = appendArray(allTriggers[2], finalTriggers);
             case NORMAL:
-                finalTriggers = appendArray(finalTriggers, allTriggers[1]);
+                finalTriggers = appendArray(allTriggers[1], finalTriggers);
             case EASY:
-                finalTriggers = appendArray(finalTriggers, allTriggers[0]);
+                finalTriggers = appendArray(allTriggers[0], finalTriggers);
         }
         return finalTriggers;
     }
