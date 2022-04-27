@@ -212,6 +212,8 @@ public class PlayerTest {
         String message = player.useItem(testItem, player.getTeam().getFirstAliveMonster());
         assertEquals(prevItemPoints, player.getItemPoints());
         assertTrue(player.getInventory().contains(testItem));
+        assertEquals("Monster: " + player.getTeam().getFirstAliveMonster().getName() + " already has trigger + "
+                + player.getTeam().getFirstAliveMonster().getTrigger(), message);
     }
 
 }
