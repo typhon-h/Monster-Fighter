@@ -121,13 +121,13 @@ public class GameEnvironment {
         }
 
         // Random boost (level up)
-        events.addAll(RandomEvent.randomBoost(player.getTeam(), currentDay));
+        events.addAll(RandomEvent.randomBoost(player.getTeam(), currentDay, difficulty));
 
         // Random leave
-        events.addAll(RandomEvent.randomMonsterLeave(player.getTeam()));
+        events.addAll(RandomEvent.randomMonsterLeave(player.getTeam(), difficulty));
 
         // Random join
-        String monsterJoinDescription = RandomEvent.randomMonsterJoin(player.getTeam(), currentDay);
+        String monsterJoinDescription = RandomEvent.randomMonsterJoin(player.getTeam(), difficulty);
         if (monsterJoinDescription != null) {
             events.add(monsterJoinDescription);
         }
