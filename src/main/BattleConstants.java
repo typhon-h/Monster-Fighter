@@ -6,7 +6,7 @@ import static java.util.Map.entry;
 import monsters.*;
 
 /**
- * Class definting the constants of the optimal triggers for
+ * Class defining the constants of the optimal triggers for
  * each monster in the game.
  *
  * @author Jackie Jone

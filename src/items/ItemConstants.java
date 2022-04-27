@@ -1,7 +1,7 @@
 package items;
 
 /**
- * Class containting constants for items based on {@link main.Rarity} level
+ * Class containing constants for items based on {@link main.Rarity} level
  *
  * @author Jackie Jone
  * @version 1.0, Apr 2022

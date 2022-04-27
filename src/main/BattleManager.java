@@ -11,7 +11,7 @@ import monsters.*;
 
 /**
  * A class for managing all the battles and functionality of battles
- * which a player can prticipate in.
+ * which a player can participate in.
  *
  * @author Jackie Jone
  * @version 1.0, Apr 2022.
@@ -86,9 +86,9 @@ public class BattleManager {
      * @param difficulty The difficulty of the game.
      * @return           A {@link main.Team Team} containing monsters.
      */
-    private Team generateTeam(int currentDay, int maxDays, Difficulty difficulty) {
-        int teamSize = (int) Math.ceil(currentDay / maxDays) * Team.getMaxTeamSize();
-
+    public Team generateTeam(int currentDay, int maxDays, Difficulty difficulty) {
+        int teamSize = (int) Math.ceil(((double)currentDay * (double) Team.getMaxTeamSize()) / (double) maxDays);
+        
         Team team = null;
         for (int i=0; i<teamSize; i++) {
             Monster monster = getRandomMonster(difficulty);
@@ -105,6 +105,7 @@ public class BattleManager {
             }
 
             // Use boost item on random monsters
+            // TODO: add += 10% based on difficulty -> need to add constants somewhere
             int totalPoints = (int) Math.round(ItemConstants.AVERAGEBOOSTPERBUYPRICE * allyPlayer.getGold() + allyPlayer.getItemPoints());
             int expendedPoints = 0;
 
@@ -123,7 +124,7 @@ public class BattleManager {
     }
 
     /**
-     * Generates the different oponents what the player can battle against.
+     * Generates the different opponents what the player can battle against.
      *
      * @param currentDay The current day of the game.
      * @param maxDays    The maximum number of days any game can last.
@@ -131,14 +132,14 @@ public class BattleManager {
      */
     public void generateOpponents(int currentDay, int maxDays, Difficulty difficulty) {
         /*
-         * Math.ceil(CurrentDay / AbsolouteTotalDays) * 6
+         * Math.ceil(CurrentDay / AbsoluteTotalDays) * 6
          *
          * Number of items available: TotalBoostAmount player has + average boost / gold * gold
          * -> Give opponents % player boost amount scaled on difficulty.
          */
 
         for (int i=0; i<BattleConstants.NUMOPPONENTS; i++) {
-            // Generate team, generate gold -> generate player -> add player to opponets
+            // Generate team, generate gold -> generate player -> add player to opponents
             Team team = generateTeam(currentDay, maxDays, difficulty);
             // TODO: opponent gold should be based on day and difficulty multiplier.
             // TODO: opponent points should be based on day and difficulty.
@@ -198,7 +199,7 @@ public class BattleManager {
 
     /**
      * Simulates the battle then returns a history log of all the event that
-     * occured during the battle. A ArrayList<BattleEvent> object should be returned, not void
+     * occurred during the battle. A ArrayList<BattleEvent> object should be returned, not void
      */
     public ArrayList<BattleEvent> simulateBattle() {
 
