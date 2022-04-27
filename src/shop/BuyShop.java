@@ -1,12 +1,12 @@
 package shop;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 import exceptions.*;
 import items.*;
 import main.Entity;
+import main.GameEnvironment;
 import main.Player;
 import main.Rarity;
 import main.Trigger;
@@ -50,6 +50,7 @@ public class BuyShop extends Shop {
      */
     private void generateStock() {
         itemStock = new ArrayList<Entity>();
+        monsterStock = new ArrayList<Entity>();
         itemStock.add(new RandomTrigger());
 
         for (Rarity rarity : Rarity.values()) { // Items of all rarities
@@ -63,13 +64,9 @@ public class BuyShop extends Shop {
             itemStock.add(new SelectTrigger(trigger));
         }
 
-        monsterStock = new ArrayList<Entity>(Arrays.asList( // All Monsters
-                new ClinkMonster(),
-                new DittaMonster(),
-                new GilMonster(),
-                new JynxMonster(),
-                new LuciferMonster(),
-                new TeddyMonster()));
+        for (Monster monster : GameEnvironment.generateMonsters()) {
+            monsterStock.add(monster);
+        }
     }
 
     /**
