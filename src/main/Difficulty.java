@@ -18,5 +18,18 @@ public enum Difficulty {
     /**
      * Hard difficulty
      */
-    HARD
+    HARD;
+
+    public static float getDifficultyMultiplier(Difficulty difficulty) {
+        switch (difficulty) {
+            case EASY:
+                return 0.9f;
+            case NORMAL:
+                return 1.0f;
+            case HARD:
+                return 1.1f;
+            default:
+                return 1.0f;
+        }
+    }
 }
