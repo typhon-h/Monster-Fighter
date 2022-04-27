@@ -7,8 +7,21 @@ import items.Item;
 import items.RandomStatBoost;
 import monsters.Monster;
 
+/**
+ * Contains all random events that occur during the game.
+ * 
+ * @author Harrison Tyson
+ * @version 1.0, Apr 2022.
+ */
 public class RandomEvent {
 
+    /**
+     * Randomly applies a boost to members of a team based on a probability constant
+     * 
+     * @param team       team to apply the boost to
+     * @param currentDay current day of the game, used to manipulate probability
+     * @return ArrayList of String effects that occured
+     */
     public static ArrayList<String> randomBoost(Team team, int currentDay) {
         ArrayList<String> results = new ArrayList<String>();
         Item boost = new RandomStatBoost(Rarity.COMMON);
@@ -28,6 +41,12 @@ public class RandomEvent {
         return results;
     }
 
+    /**
+     * Randomly removes monsters from a team based on a probability constant
+     * 
+     * @param team team to remove monsters from
+     * @return ArrayList of String effects that occured
+     */
     public static ArrayList<String> randomMonsterLeave(Team team) {
         ArrayList<String> results = new ArrayList<String>();
 
@@ -47,6 +66,13 @@ public class RandomEvent {
         return results;
     }
 
+    /**
+     * Randomly add a monster to a team based on a probability constant
+     * 
+     * @param team       team to add monster to
+     * @param currentDay current day of game used to manipulate probability
+     * @return String describing monster joining, else null
+     */
     public static String randomMonsterJoin(Team team, int currentDay) {
         double probabilityBound = RandomEventConstants.MONSTERJOINPROBABILITY;
         // TODO: probability manip based on current day and difficulty
