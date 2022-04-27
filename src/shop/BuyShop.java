@@ -1,15 +1,10 @@
 package shop;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import exceptions.*;
 import items.*;
-import main.Entity;
-import main.GameEnvironment;
-import main.Player;
-import main.Rarity;
-import main.Trigger;
+import main.*;
 import monsters.*;
 
 /**
@@ -20,11 +15,6 @@ import monsters.*;
  * @version 1.0, Apr 2022.
  */
 public class BuyShop extends Shop {
-    /**
-     * Random Number Generator
-     */
-    private Random rng = new Random();
-
     /**
      * Items the shop can sell
      */
@@ -97,10 +87,10 @@ public class BuyShop extends Shop {
             filteredItems = filterStock(itemStock, rarity);
             filteredMonsters = filterStock(monsterStock, rarity);
             if (filteredItems.size() > 0) {
-                this.content.add(filteredItems.get(rng.nextInt(filteredItems.size())));
+                this.content.add(filteredItems.get(GameEnvironment.rng.nextInt(filteredItems.size())));
             }
             if (filteredMonsters.size() > 0) {
-                this.content.add(filteredMonsters.get(rng.nextInt(filteredMonsters.size())));
+                this.content.add(filteredMonsters.get(GameEnvironment.rng.nextInt(filteredMonsters.size())));
             }
 
         }

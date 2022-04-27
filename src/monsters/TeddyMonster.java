@@ -1,9 +1,9 @@
 package monsters;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import main.Trigger;
+import main.GameEnvironment;
 import main.Team;
 
 /**
@@ -13,11 +13,6 @@ import main.Team;
  * @version 1.1, Apr 2022.
  */
 public class TeddyMonster extends Monster {
-    /**
-     * Random number generator
-     */
-    Random rng = new Random();
-
     /**
      * Creates a new Monster with specified base stats
      */
@@ -33,14 +28,13 @@ public class TeddyMonster extends Monster {
         this.setTrigger(Trigger.BEFOREATTACK); // TODO decide trigger
     }
 
-    @Override
     public Monster ability(Team allyTeam, Team enemyTeam) {
         // +1 Health to a random ALLY
 
         ArrayList<Monster> possibleMembers = allyTeam.getAliveMonsters();
-        if(possibleMembers.size() > 0) {
-        	Monster monsterToAdjust = possibleMembers.get(rng.nextInt(possibleMembers.size()));
-        	monsterToAdjust.setCurrentHealth(monsterToAdjust.getCurrentHealth() + 1);
+        if (possibleMembers.size() > 0) {
+            Monster monsterToAdjust = possibleMembers.get(GameEnvironment.rng.nextInt(possibleMembers.size()));
+            monsterToAdjust.setCurrentHealth(monsterToAdjust.getCurrentHealth() + 1);
         }
         return null; // Empty
     }

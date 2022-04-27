@@ -1,10 +1,9 @@
 package items;
 
+import main.GameEnvironment;
 import main.Rarity;
 import monsters.Monster;
 import monsters.MonsterConstants;
-
-import java.util.Random;
 
 /**
  * An item that increases a random stat of a {@link monsters.Monster}.
@@ -13,8 +12,6 @@ import java.util.Random;
  * @version 1.1, Apr 2022
  */
 public class RandomStatBoost extends Item {
-    Random rng;
-
     /**
      * Constructor for RandomStatBoost item.
      *
@@ -24,7 +21,6 @@ public class RandomStatBoost extends Item {
         super("Random Stat Boost",
                 ItemConstants.RANDOMBOOSTDESC + Item.getStatBoostAmount(newRarity),
                 newRarity);
-        rng = new Random(); // Seed it? or have a global rng?
     }
 
     /**
@@ -39,7 +35,7 @@ public class RandomStatBoost extends Item {
         String statChanged;
         int newStatValue;
         // Adjust probability that each stat will increase
-        switch (rng.nextInt(MonsterConstants.NUMBEROFSTATS)) {
+        switch (GameEnvironment.rng.nextInt(MonsterConstants.NUMBEROFSTATS)) {
             case 0:
                 statChanged = "HEALTH";
                 monster.increaseBaseHealth(getStatBoostAmount());

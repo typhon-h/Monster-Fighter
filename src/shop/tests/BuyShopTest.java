@@ -2,8 +2,7 @@ package shop.tests;
 
 import org.junit.jupiter.api.*;
 
-import exceptions.DuplicateMonsterException;
-import exceptions.TeamSizeException;
+import exceptions.*;
 import items.*;
 import main.*;
 import monsters.*;

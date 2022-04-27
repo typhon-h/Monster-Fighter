@@ -2,6 +2,7 @@ package main;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 import shop.*;
 import monsters.*;
@@ -15,6 +16,7 @@ public class GameEnvironment {
     private SellShop sellShop;
     private BuyShop buyShop;
     private BattleManager battleState;
+    public static Random rng = new Random();
 
     public GameEnvironment(Player player, int maxDays, Difficulty difficulty) {
         this.player = player;
