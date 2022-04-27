@@ -10,7 +10,7 @@ import items.Item;
  * player to face against.
  *
  * @author Jackie Jone
- * @version 1.0, Apr 2022.
+ * @version 1.1, Apr 2022.
  */
 public class Player {
 
@@ -50,6 +50,11 @@ public class Player {
      * @default 0
      */
     private int score = 0;
+
+    /**
+     * Number of item points the player has used
+     */
+    private int itemPoints = 0;
 
     /**
      * Constructor to create a player with a name and team
@@ -221,4 +226,18 @@ public class Player {
 
     }
 
+    /**
+     * Increments the amount of item points the player has used
+     * by a given amount
+     *
+     * @param amount The amount to increment item points by
+     */
+    public void incrementItemPoints(int amount) {
+        itemPoints += amount;
+    }
+
+    /
+    public int getItemPoints() {
+        return itemPoints;
+    }
 }
