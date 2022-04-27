@@ -64,9 +64,19 @@ public final class ItemConstants {
     public static final String ATTACKBOOSTDESC = "Increases the attack of a Monster by "; // amount
 
     /**
+     * Feedback message when attack boost is used
+     */
+    public static final String ATTACKBOOSTFEEDBACK = "%s's ATTACK was increased by %d to %d";
+
+    /**
      * Constant definiing the description of health boost item
      */
     public static final String HEALTHBOOSTDESC = "Increases the health of a Monster by "; // amount
+
+    /**
+     * Feedback message when health boost is used
+     */
+    public static final String HEALTHBOOSTFEEDBACK = "%s's HEALTH was increased by %d to %d";
 
     /**
      * Constant definiing the description of speed boost item
@@ -74,18 +84,34 @@ public final class ItemConstants {
     public static final String SPEEDBOOSTDESC = "Increases the speed of a Monster by "; // amount
 
     /**
+     * Feedback message when speed boost is used
+     */
+    public static final String SPEEDBOOSTFEEDBACK = "%s's SPEED was increased by %d to %d";
+    /**
      * Constant definiing the description of random boost item
      */
     public static final String RANDOMBOOSTDESC = "Increases a random stat of the monster by "; // amount
 
+    /**
+     * Feedback message when random boost is used
+     */
+    public static final String RANDOMBOOSTFEEDBACK = "%s's %s was increased by %d to %d";
     /**
      * Constant definiing the description of select trigger item
      */
     public static final String SELECTTRIGGERDESC = "Sets the Ability Trigger of a Monster to "; // Trigger
 
     /**
+     * Feedback message when select trigger is used
+     */
+    public static final String SELECTTRIGGERFEEDBACK = "%s's ability trigger was changed to %s";
+    /**
      * Constant definiing the description of random trigger item
      */
     public static final String RANDOMTRIGGERDESC = "Sets the Ability Trigger of a Monster randomly"; // NOTHING
                                                                                                      // ADDITIONAL
+    /**
+     * Feedback message when random trigger is used
+     */
+    public static final String RANDOMTRIGGERFEEDBACK = "%%s's ability trigger was changed to %s";
 }

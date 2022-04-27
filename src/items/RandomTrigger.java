@@ -33,16 +33,19 @@ public class RandomTrigger extends Item {
      *
      * @param monster The {@link monsters.Monster} to set the {@link main.Trigger}
      *                for.
+     * @return string describing item effect
      */
-    public void use(Monster monster) {
+    public String use(Monster monster) {
         Trigger randomTrigger = monster.getTrigger();
 
-        // Keep generating a new tigger that is not already owned by the monster and is
+        // Keep generating a new trigger that is not already owned by the monster and is
         // not NOABILITY
         do {
             randomTrigger = Trigger.values()[rng.nextInt(Trigger.numTriggers - 1)];
         } while (randomTrigger.equals(Trigger.NOABILITY) || randomTrigger.equals(monster.getTrigger()));
 
         monster.setTrigger(randomTrigger);
+
+        return String.format(ItemConstants.RANDOMTRIGGERFEEDBACK, monster.getName(), monster.getTrigger().name());
     }
 }

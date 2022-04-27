@@ -34,6 +34,7 @@ public class SelectTrigger extends Item {
      * Sets the {@link main.Trigger} of the item to a given trigger.
      *
      * @param newTrigger The {@link main.Trigger} to set the item to.
+     * @return string describing item effect
      */
     public void setTrigger(Trigger newTrigger) {
         itemTrigger = newTrigger;
@@ -59,13 +60,15 @@ public class SelectTrigger extends Item {
      *                               is used on already has the {@link main.Trigger}
      *                               of the {@link items.Item}.
      */
-    public void use(Monster monster) throws UnusableItemException {
+    public String use(Monster monster) throws UnusableItemException {
         if (monster.getTrigger() == itemTrigger) {
             throw new UnusableItemException(
                     "Monster: " + monster.getName() + " already has trigger + " + monster.getTrigger());
         } else {
             monster.setTrigger(itemTrigger);
         }
+
+        return String.format(ItemConstants.SELECTTRIGGERFEEDBACK, monster.getName(), monster.getTrigger().name());
     }
 
 }

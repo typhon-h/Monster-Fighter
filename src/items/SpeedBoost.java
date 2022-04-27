@@ -27,8 +27,11 @@ public class SpeedBoost extends Item {
      * based on the {@link main.Rarity} of the item.
      *
      * @param monster The {@link monsters.Monster} to use the item on.
+     * @return string describing item effect
      */
-    public void use(Monster monster) {
+    public String use(Monster monster) {
         monster.increaseSpeed(getStatBoostAmount());
+        return String.format(ItemConstants.SPEEDBOOSTFEEDBACK, monster.getName(), getStatBoostAmount(),
+                monster.getSpeed());
     }
 }

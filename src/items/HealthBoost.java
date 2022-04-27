@@ -27,8 +27,11 @@ public class HealthBoost extends Item {
      * based on the {@link main.Rarity} of the item.
      *
      * @param monster The {@link monsters.Monster} to use the item on.
+     * @return string describing item effect
      */
-    public void use(Monster monster) {
+    public String use(Monster monster) {
         monster.increaseBaseHealth(getStatBoostAmount());
+        return String.format(ItemConstants.HEALTHBOOSTFEEDBACK, monster.getName(), getStatBoostAmount(),
+                monster.getBaseHealth());
     }
 }
