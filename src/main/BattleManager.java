@@ -1,8 +1,11 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Random;
 
-import monsters.Monster;
+import exceptions.DuplicateMonsterException;
+import exceptions.TeamSizeException;
+import monsters.*;
 
 /**
  * A class for managing all the battles and functionality of battles
@@ -28,6 +31,84 @@ public class BattleManager {
     }
 
     /**
+     * Generates a random monster with different triggers based
+     * on the difficulty of the game.
+     *
+     * @param difficulty The difficulty of the game.
+     * @return           A {@link monsters.Monster Monster} with a random trigger.
+     */
+    private Monster getRandomMonster(Difficulty difficulty) {
+        Random rng = new Random();
+
+        Monster monster = null;
+        switch (rng.nextInt(monsters.Monster.NUMMONSTERS)) {
+            case 0:
+                monster = new ClinkMonster();
+                break;
+            case 1:
+                monster = new DittaMonster();
+                break;
+            case 2:
+                monster = new GilMonster();
+                break;
+            case 3:
+                monster = new JynxMonster();
+                break;
+            case 4:
+                monster = new LuciferMonster();
+                break;
+            case 5:
+                monster = new TeddyMonster();
+                break;
+            default:
+                monster = new ClinkMonster();
+                break;
+        }
+
+        /*
+         * Get the optimal triggers for the mosnter, select a random one
+         * and apply it to the monster.
+         */
+        Trigger[] possibleTriggers = BattleConstants.getTriggers(monster, difficulty);
+        Trigger selectedTrigger = possibleTriggers[rng.nextInt(possibleTriggers.length)];
+        monster.setTrigger(selectedTrigger);
+
+        return monster;
+    }
+
+    /**
+     * Generates a team of monsters.
+     *
+     * @param currentDay The current day in the game.
+     * @param maxDays    The maximum number of days in the game.
+     * @param difficulty The difficulty of the game.
+     * @return           A {@link main.Team Team} containing monsters.
+     */
+    private Team generateTeam(int currentDay, int maxDays, Difficulty difficulty) {
+        int teamSize = (int) Math.ceil(currentDay / maxDays) * Team.getMaxTeamSize();
+
+        Team team = null;
+        for (int i=0; i<teamSize; i++) {
+            Monster monster = getRandomMonster(difficulty);
+            try {
+                if (team == null) {
+                    team = new Team(monster);
+                } else {
+                    team.addMonster(monster);
+                }
+            } catch (TeamSizeException e) {
+                e.printStackTrace();
+            } catch (DuplicateMonsterException e) {
+                e.printStackTrace();
+            }
+
+            // Add items to monsters
+        }
+
+        return team;
+    }
+
+    /**
      * Generates the different oponents what the player can battle against.
      *
      * @param currentDay The current day of the game.
@@ -42,7 +123,12 @@ public class BattleManager {
          * -> Give opponents % player boost amount scaled on difficulty.
          */
 
-         int numOpponents = (int) Math.ceil(currentDay / maxDays) * Team.getMaxTeamSize();
+        for (int i=0; i<BattleConstants.NUMOPPONENTS; i++) {
+            // Generate team, generate gold -> generate player -> add player to opponets
+            Team team = generateTeam(currentDay, maxDays, difficulty);
+            // TODO: opponent gold should be based on day and difficulty multiplier.
+            // TODO: opponent points should be based on day and difficulty.
+        }
     }
 
     /**

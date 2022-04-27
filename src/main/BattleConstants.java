@@ -12,12 +12,14 @@ import monsters.*;
  * @author Jackie Jone
  * @version 1.1, Apr 2022.
  */
-public final class MonsterTriggerConstants {
+public final class BattleConstants {
     // TODO: Tweak the triggers for each monster
     /*
     * When triggers for a monster are changed, also make the same changes to
     * the test file.
     */
+
+    public static final int NUMOPPONENTS = 3;
 
     /**
      * A map mapping each subclass of the monster class to an array of triggers.

@@ -13,6 +13,11 @@ import main.Trigger;
  */
 public abstract class Monster extends Entity {
     /**
+     * Constant defining the total number of monsters
+     * that exist in the game.
+     */
+    public static final int NUMMONSTERS = 6;
+    /**
      * Current health of the monter
      */
     private int currentHealth;
