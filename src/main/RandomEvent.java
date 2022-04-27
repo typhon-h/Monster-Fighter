@@ -3,9 +3,7 @@ package main;
 import java.util.ArrayList;
 import java.util.Random;
 
-import exceptions.DuplicateMonsterException;
-import exceptions.TeamSizeException;
-import exceptions.UnusableItemException;
+import exceptions.*;
 import items.Item;
 import items.RandomStatBoost;
 import monsters.Monster;
@@ -23,7 +21,7 @@ public class RandomEvent {
 
             if (rng.nextDouble() < probabilityBound) {
                 try {
-                    results.add(boost.use(monster));
+                    results.add("During the night " + boost.use(monster));
                 } catch (UnusableItemException e) {
                     // Do nothing
                 }
