@@ -5,7 +5,13 @@ import monsters.*;
 import items.*;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.stream.Stream;
 
 import exceptions.*;
 
@@ -156,6 +162,56 @@ public class PlayerTest {
             player.incrementScore(-1);
         });
         assertEquals("Argument cannot be negative", negativeScore.getMessage());
+    }
+
+    /**
+     * Test cases to check
+     * 
+     * @return A stream of arguments as the test case
+     */
+    private static Stream<Arguments> itemsToTest() {
+        return Stream.of(
+                Arguments.arguments(new AttackBoost(Rarity.COMMON)),
+                Arguments.arguments(new HealthBoost(Rarity.COMMON)),
+                Arguments.arguments(new RandomStatBoost(Rarity.COMMON)),
+                Arguments.arguments(new RandomTrigger()),
+                Arguments.arguments(new SelectTrigger(Trigger.STARTOFBATTLE)),
+                Arguments.arguments(new SpeedBoost(Rarity.COMMON)));
+    }
+
+    /**
+     * Tests item can be used correctly
+     */
+    @ParameterizedTest
+    @MethodSource("itemsToTest")
+    public void useItemTest(Item testItem) {
+        player.getTeam().getFirstAliveMonster().setTrigger(Trigger.NOABILITY);
+        // Valid item used
+        player.addItem(testItem);
+        assertTrue(player.getInventory().contains(testItem));
+        int prevItemPoints = player.getItemPoints();
+        // Item message not being checked in valid cases as a lot of variation based on
+        // the item used
+        player.useItem(testItem, player.getTeam().getFirstAliveMonster());
+        assertEquals(prevItemPoints + testItem.getStatBoostAmount(), player.getItemPoints());
+        assertFalse(player.getInventory().contains(testItem));
+
+        // Player does not have item
+        prevItemPoints = player.getItemPoints();
+        String message = player.useItem(testItem, player.getTeam().getFirstAliveMonster());
+        assertEquals(prevItemPoints, player.getItemPoints());
+        assertEquals("Error: player does not possess this item", message);
+    }
+
+    @Test
+    public void unusableItemTest() {
+        Item testItem = new SelectTrigger(player.getTeam().getFirstAliveMonster().getTrigger());
+        player.addItem(testItem);
+        assertTrue(player.getInventory().contains(testItem));
+        int prevItemPoints = player.getItemPoints();
+        String message = player.useItem(testItem, player.getTeam().getFirstAliveMonster());
+        assertEquals(prevItemPoints, player.getItemPoints());
+        assertTrue(player.getInventory().contains(testItem));
     }
 
 }

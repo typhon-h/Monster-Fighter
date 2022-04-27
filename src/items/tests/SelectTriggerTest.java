@@ -7,6 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
 import exceptions.UnusableItemException;
+import items.ItemConstants;
 import items.SelectTrigger;
 import monsters.ClinkMonster;
 import monsters.Monster;
@@ -55,7 +56,9 @@ class SelectTriggerTest {
 			assertThrows(UnusableItemException.class, () -> testTrigger.use(testMonster));
 		} else {
 			try {
-				testTrigger.use(testMonster);
+				String message = testTrigger.use(testMonster);
+				assertEquals(String.format(ItemConstants.SELECTTRIGGERFEEDBACK, testMonster.getName(),
+						testMonster.getTrigger().name()), message);
 			} catch (UnusableItemException e) {
 			}
 

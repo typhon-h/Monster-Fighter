@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import monsters.ClinkMonster;
 import monsters.Monster;
+import items.ItemConstants;
 import items.RandomTrigger;
 import main.Trigger;
 
@@ -30,13 +31,17 @@ class RandomTriggerTest {
 		RandomTrigger testItem = new RandomTrigger();
 
 		Trigger prevTrigger = testMonster.getTrigger();
-		testItem.use(testMonster);
+		String message = testItem.use(testMonster);
+		assertEquals(String.format(ItemConstants.RANDOMTRIGGERFEEDBACK, testMonster.getName(),
+				testMonster.getTrigger().name()), message);
 
 		// assertTrue(testMonster.getTrigger() != prevTrigger &&
 		// testMonster.getTrigger() != Trigger.NOABILITY);
 
 		prevTrigger = testMonster.getTrigger();
-		testItem.use(testMonster);
+		message = testItem.use(testMonster);
+		assertEquals(String.format(ItemConstants.RANDOMTRIGGERFEEDBACK, testMonster.getName(),
+				testMonster.getTrigger().name()), message);
 
 		assertTrue(testMonster.getTrigger() != prevTrigger &&
 				testMonster.getTrigger() != Trigger.NOABILITY);

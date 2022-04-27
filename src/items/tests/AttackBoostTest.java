@@ -61,9 +61,11 @@ class AttackBoostTest {
 
 		int monsterPrevAttack = testMonster.getBaseAttackDamage();
 
-		attackBoostItem.use(testMonster);
+		String message = attackBoostItem.use(testMonster);
 
 		assertEquals(testMonster.getBaseAttackDamage(), monsterPrevAttack + boost);
+		assertEquals(String.format(ItemConstants.ATTACKBOOSTFEEDBACK, testMonster.getName(),
+				attackBoostItem.getStatBoostAmount(), testMonster.getBaseAttackDamage()), message);
 	}
 
 }

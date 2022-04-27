@@ -40,10 +40,12 @@ class SpeedBoostTest {
 
         int prevMonsterBaseSpeed = testMonster.getSpeed();
 
-        testSpeedBoost.use(testMonster);
+        String message = testSpeedBoost.use(testMonster);
 
         assertEquals(testMonster.getSpeed(),
                 prevMonsterBaseSpeed + boost);
+        assertEquals(String.format(ItemConstants.SPEEDBOOSTFEEDBACK, testMonster.getName(),
+                testSpeedBoost.getStatBoostAmount(), testMonster.getSpeed()), message);
     }
 
 }

@@ -57,7 +57,7 @@ class RandomStatBoostTest {
 		int prevMonsterHealth = testMonster.getBaseHealth();
 		int prevMonsterDamage = testMonster.getBaseAttackDamage();
 		int prevMonsterSpeed = testMonster.getSpeed();
-		statBoostItem.use(testMonster);
+		String message = statBoostItem.use(testMonster);
 
 		// Test that one stat has increased by the correct amount and the others
 		// have stayed the same.
@@ -66,18 +66,24 @@ class RandomStatBoostTest {
 
 		if (testMonster.getBaseHealth() == prevMonsterHealth + boostAmount) {
 			numChanged += 1;
+			assertEquals(String.format(ItemConstants.RANDOMBOOSTFEEDBACK, testMonster.getName(), "HEALTH",
+					statBoostItem.getStatBoostAmount(), testMonster.getBaseHealth()), message);
 		} else {
 			numSame += 1;
 		}
 
 		if (testMonster.getBaseAttackDamage() == prevMonsterDamage + boostAmount) {
 			numChanged += 1;
+			assertEquals(String.format(ItemConstants.RANDOMBOOSTFEEDBACK, testMonster.getName(), "ATTACK",
+					statBoostItem.getStatBoostAmount(), testMonster.getBaseAttackDamage()), message);
 		} else {
 			numSame += 1;
 		}
 
 		if (testMonster.getSpeed() == prevMonsterSpeed + boostAmount) {
 			numChanged += 1;
+			assertEquals(String.format(ItemConstants.RANDOMBOOSTFEEDBACK, testMonster.getName(), "SPEED",
+					statBoostItem.getStatBoostAmount(), testMonster.getSpeed()), message);
 		} else {
 			numSame += 1;
 		}

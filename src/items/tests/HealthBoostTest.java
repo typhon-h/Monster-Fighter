@@ -40,10 +40,12 @@ class HealthBoostTest {
 
 		int prevMonsterBaseHealth = testMonster.getBaseHealth();
 
-		testHealthBoost.use(testMonster);
+		String message = testHealthBoost.use(testMonster);
 
 		assertEquals(testMonster.getBaseHealth(),
 				prevMonsterBaseHealth + boost);
+		assertEquals(String.format(ItemConstants.HEALTHBOOSTFEEDBACK, testMonster.getName(),
+				testHealthBoost.getStatBoostAmount(), testMonster.getBaseHealth()), message);
 	}
 
 }
