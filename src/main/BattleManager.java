@@ -5,6 +5,8 @@ import java.util.Random;
 
 import exceptions.DuplicateMonsterException;
 import exceptions.TeamSizeException;
+import items.ItemConstants;
+import items.RandomStatBoost;
 import monsters.*;
 
 /**
@@ -15,10 +17,11 @@ import monsters.*;
  * @version 1.0, Apr 2022.
  */
 public class BattleManager {
-    Player allyPlayer;
-    ArrayList<Player> opponents;
-    Player currentOpponent = null;
-    BattleResult battleResult = BattleResult.NULL;
+    private Player allyPlayer;
+    private ArrayList<Player> opponents;
+    private Player currentOpponent = null;
+    private BattleResult battleResult = BattleResult.NULL;
+    private static Random rng = new Random();
 
     /**
      * Constructor to for BattleManager, creates a new BattleManager
@@ -38,7 +41,6 @@ public class BattleManager {
      * @return           A {@link monsters.Monster Monster} with a random trigger.
      */
     private Monster getRandomMonster(Difficulty difficulty) {
-        Random rng = new Random();
 
         Monster monster = null;
         switch (rng.nextInt(monsters.Monster.NUMMONSTERS)) {
@@ -66,7 +68,7 @@ public class BattleManager {
         }
 
         /*
-         * Get the optimal triggers for the mosnter, select a random one
+         * Get the optimal triggers for the monster, select a random one
          * and apply it to the monster.
          */
         Trigger[] possibleTriggers = BattleConstants.getTriggers(monster, difficulty);
@@ -102,7 +104,19 @@ public class BattleManager {
                 e.printStackTrace();
             }
 
-            // Add items to monsters
+            // Use boost item on random monsters
+            int totalPoints = (int) Math.round(ItemConstants.AVERAGEBOOSTPERBUYPRICE * allyPlayer.getGold() + allyPlayer.getItemPoints());
+            int expendedPoints = 0;
+
+            RandomStatBoost boost = new RandomStatBoost("Boost", "Desc", Rarity.COMMON);
+
+            while (expendedPoints < totalPoints) {
+                int MonsterIndex = rng.nextInt(team.getTeamSize());
+                Monster monsterToUseItemOn = team.getMonsters().get(MonsterIndex);
+                boost.use(monsterToUseItemOn);
+
+                expendedPoints += ItemConstants.COMMONSTATBOOST;
+            }
         }
 
         return team;

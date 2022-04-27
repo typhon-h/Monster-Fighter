@@ -57,4 +57,12 @@ public final class ItemConstants {
      * Constant defining the cost of a common item.
      */
     public static final int LEGENDARYSELLPRICE = 75;
+
+    /**
+     * Constant defining the average buy price of all items.
+     */
+    public static final int AVERAGEITEMBUYPRICE = (int) Math.round((COMMONBUYPRICE + RAREBUYPRICE + LEGENDARYBUYPRICE) / 3);
+
+    public static final float AVERAGEBOOSTPERBUYPRICE = (COMMONSTATBOOST + RARESTATBOOST + LEGENDARYSTATBOOST) /
+                                                        (COMMONBUYPRICE + RAREBUYPRICE + LEGENDARYBUYPRICE);
 }

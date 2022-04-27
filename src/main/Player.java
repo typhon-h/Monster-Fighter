@@ -236,7 +236,11 @@ public class Player {
         itemPoints += amount;
     }
 
-    /
+    /**
+     * Gets the amount of item points the player has used
+     *
+     * @return The amount of item points the player has used
+     */
     public int getItemPoints() {
         return itemPoints;
     }

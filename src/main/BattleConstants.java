@@ -19,6 +19,10 @@ public final class BattleConstants {
     * the test file.
     */
 
+    /**
+     * Constant for number of opponents generated each day for the player
+     *  to face against.
+     */
     public static final int NUMOPPONENTS = 3;
 
     /**
