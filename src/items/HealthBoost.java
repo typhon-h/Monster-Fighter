@@ -31,7 +31,6 @@ public class HealthBoost extends Item {
      */
     public String use(Monster monster) {
         monster.increaseBaseHealth(getStatBoostAmount());
-        return String.format(ItemConstants.HEALTHBOOSTFEEDBACK, monster.getName(), getStatBoostAmount(),
-                monster.getBaseHealth());
+        return String.format(ItemConstants.HEALTHBOOSTFEEDBACK, monster.getName(), getStatBoostAmount());
     }
 }

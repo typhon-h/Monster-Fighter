@@ -33,30 +33,24 @@ public class RandomStatBoost extends Item {
      */
     public String use(Monster monster) {
         String statChanged;
-        int newStatValue;
         // Adjust probability that each stat will increase
         switch (GameEnvironment.rng.nextInt(MonsterConstants.NUMBEROFSTATS)) {
             case 0:
                 statChanged = "HEALTH";
                 monster.increaseBaseHealth(getStatBoostAmount());
-                newStatValue = monster.getBaseHealth();
                 break;
             case 1:
                 statChanged = "ATTACK";
                 monster.increaseBaseAttackDamage(getStatBoostAmount());
-                newStatValue = monster.getBaseAttackDamage();
                 break;
             case 2:
                 statChanged = "SPEED";
                 monster.increaseSpeed(getStatBoostAmount());
-                newStatValue = monster.getSpeed();
                 break;
             default:
                 statChanged = "NULL";
-                newStatValue = -1;
         }
 
-        return String.format(ItemConstants.RANDOMBOOSTFEEDBACK, monster.getName(), statChanged, getStatBoostAmount(),
-                newStatValue);
+        return String.format(ItemConstants.RANDOMBOOSTFEEDBACK, monster.getName(), statChanged, getStatBoostAmount());
     }
 }

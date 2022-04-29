@@ -66,7 +66,7 @@ public final class ItemConstants {
     /**
      * Feedback message when attack boost is used
      */
-    public static final String ATTACKBOOSTFEEDBACK = "%s's ATTACK was increased by %d to %d";
+    public static final String ATTACKBOOSTFEEDBACK = "%s's ATTACK was increased by %d";
 
     /**
      * Constant definiing the description of health boost item
@@ -76,7 +76,7 @@ public final class ItemConstants {
     /**
      * Feedback message when health boost is used
      */
-    public static final String HEALTHBOOSTFEEDBACK = "%s's HEALTH was increased by %d to %d";
+    public static final String HEALTHBOOSTFEEDBACK = "%s's HEALTH was increased by %d";
 
     /**
      * Constant definiing the description of speed boost item
@@ -86,7 +86,7 @@ public final class ItemConstants {
     /**
      * Feedback message when speed boost is used
      */
-    public static final String SPEEDBOOSTFEEDBACK = "%s's SPEED was increased by %d to %d";
+    public static final String SPEEDBOOSTFEEDBACK = "%s's SPEED was increased by %d";
     /**
      * Constant definiing the description of random boost item
      */
@@ -95,7 +95,7 @@ public final class ItemConstants {
     /**
      * Feedback message when random boost is used
      */
-    public static final String RANDOMBOOSTFEEDBACK = "%s's %s was increased by %d to %d";
+    public static final String RANDOMBOOSTFEEDBACK = "%s's %s was increased by %d";
     /**
      * Constant definiing the description of select trigger item
      */

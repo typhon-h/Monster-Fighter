@@ -31,7 +31,6 @@ public class SpeedBoost extends Item {
      */
     public String use(Monster monster) {
         monster.increaseSpeed(getStatBoostAmount());
-        return String.format(ItemConstants.SPEEDBOOSTFEEDBACK, monster.getName(), getStatBoostAmount(),
-                monster.getSpeed());
+        return String.format(ItemConstants.SPEEDBOOSTFEEDBACK, monster.getName(), getStatBoostAmount());
     }
 }

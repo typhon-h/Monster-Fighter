@@ -34,7 +34,6 @@ public class AttackBoost extends Item {
     public String use(Monster monster) {
         monster.increaseBaseAttackDamage(getStatBoostAmount());
         new String();
-        return String.format(ItemConstants.ATTACKBOOSTFEEDBACK, monster.getName(), getStatBoostAmount(),
-                monster.getBaseAttackDamage());
+        return String.format(ItemConstants.ATTACKBOOSTFEEDBACK, monster.getName(), getStatBoostAmount());
     }
 }

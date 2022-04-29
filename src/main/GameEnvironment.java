@@ -62,7 +62,7 @@ public class GameEnvironment {
     /**
      * Global random variable used for randomness of game
      */
-    public static Random rng;
+    public static Random rng = new Random();
 
     /**
      * Constructor for GameEnvironment
@@ -78,7 +78,6 @@ public class GameEnvironment {
         sellShop = new SellShop(player);
         buyShop = new BuyShop(player);
         battleState = new BattleManager(player);
-        rng = new Random();
     }
 
     /**
@@ -128,17 +127,6 @@ public class GameEnvironment {
             return events;
         }
 
-        // Update shops
-        sellShop.setContent();
-
-        // Update battles
-        battleState.generateOpponents(currentDay, maxDays, difficulty);
-
-        // Heal monsters
-        for (Monster monster : player.getTeam().getMonsters()) {
-            monster.restore();
-        }
-
         // Random boost (level up)
         events.addAll(RandomEvent.randomBoost(player.getTeam(), currentDay, difficulty));
 
@@ -150,6 +138,19 @@ public class GameEnvironment {
         if (monsterJoinDescription != null) {
             events.add(monsterJoinDescription);
         }
+        
+        // Update shops
+        buyShop.setContent();
+
+        // Update battles
+        battleState.generateOpponents(currentDay, maxDays, difficulty);
+
+        // Heal monsters
+        for (Monster monster : player.getTeam().getMonsters()) {
+            monster.restore();
+        }
+
+
 
         return events;
     }
@@ -225,5 +226,14 @@ public class GameEnvironment {
      */
     public boolean isGameOver() {
         return gameOverStatus;
+    }
+
+    /**
+     * Sets the rng seed and refreshes variable
+     * 
+     * @param seed seed of the generator
+     */
+    public static void setSeed(long seed) {
+        GameEnvironment.rng = new Random(seed);
     }
 }

@@ -37,7 +37,7 @@ public class RandomEvent {
             if (probabilityBound > 1) {
                 probabilityBound = 1;
             }
-
+            
             if (GameEnvironment.rng.nextDouble() < probabilityBound) {
                 try {
                     results.add("During the night " + boost.use(monster));
