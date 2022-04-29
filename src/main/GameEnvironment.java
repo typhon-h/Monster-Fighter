@@ -62,7 +62,7 @@ public class GameEnvironment {
     /**
      * Global random variable used for randomness of game
      */
-    public static Random rng = new Random();
+    public static Random rng;
 
     /**
      * Constructor for GameEnvironment
@@ -78,6 +78,25 @@ public class GameEnvironment {
         sellShop = new SellShop(player);
         buyShop = new BuyShop(player);
         battleState = new BattleManager(player);
+        rng = new Random();
+    }
+
+    /**
+     * Constructor for GameEnvironment
+     * 
+     * @param player     active player
+     * @param maxDays    days game will last for
+     * @param difficulty difficulty of game
+     * @param seed       seed for the random generator
+     */
+    public GameEnvironment(Player player, int maxDays, Difficulty difficulty, long seed) {
+        this.player = player;
+        this.maxDays = maxDays;
+        this.difficulty = difficulty;
+        sellShop = new SellShop(player);
+        buyShop = new BuyShop(player);
+        battleState = new BattleManager(player);
+        rng = new Random(seed);
     }
 
     /**
