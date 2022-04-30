@@ -65,7 +65,9 @@ public class RandomEvent {
             probabilityBound *= Difficulty.getDifficultyMultiplier(difficulty);
             // TODO: adjust probability
             probabilityBound += ((double) monster.getFaintCount()) * RandomEventConstants.MODIFIERMULTIPLIER;
-
+            if (probabilityBound > 1) {
+                probabilityBound = 1;
+            }
             if (GameEnvironment.rng.nextDouble() < probabilityBound) {
                 try {
                     team.removeMonster(monster);
@@ -92,7 +94,10 @@ public class RandomEvent {
         probabilityBound *= 1 - Difficulty.getDifficultyMultiplier(difficulty);
         // TODO: adjust probability
         probabilityBound += (Team.getMaxTeamSize() - team.getTeamSize()) * RandomEventConstants.MODIFIERMULTIPLIER;
-
+        if (probabilityBound > 1) {
+            probabilityBound = 1;
+        }
+        
         ArrayList<Monster> possibleMonsters = GameEnvironment.generateMonsters();
         if (GameEnvironment.rng.nextDouble() < probabilityBound) {
             try {

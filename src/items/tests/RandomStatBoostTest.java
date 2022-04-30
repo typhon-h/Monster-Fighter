@@ -1,20 +1,20 @@
 package items.tests;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.stream.Stream;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import items.ItemConstants;
-import main.Rarity;
-import monsters.ClinkMonster;
-import monsters.Monster;
-import monsters.MonsterConstants;
 import items.RandomStatBoost;
+import main.GameEnvironment;
+import main.Rarity;
+import monsters.*;
 
 /**
  * Tests for the class {@link items.RandomStatBoost}
@@ -23,8 +23,14 @@ import items.RandomStatBoost;
  * @version 1.0, Apr 2022.
  */
 class RandomStatBoostTest {
+	/**
+	 * Monster for item to be tested on
+	 */
 	Monster testMonster;
 
+	/**
+	 * Creates new monster for each test to run on
+	 */
 	@BeforeEach
 	void setUp() throws Exception {
 		testMonster = new ClinkMonster();
@@ -92,5 +98,38 @@ class RandomStatBoostTest {
 		assertEquals(numChanged, 1);
 	}
 
-	// TODO: Add test to check if all the different stats are reached.
+	/**
+	 * Check all stats are boosted
+	 * Seed: 2
+	 * Gives: 1, 0, 2
+	 */
+	@Test
+	public void useItemCoverageTest() {
+		GameEnvironment.setSeed(2);
+		RandomStatBoost item = new RandomStatBoost(Rarity.COMMON);
+
+		int prevAttack = testMonster.getBaseAttackDamage();
+		int prevHealth = testMonster.getBaseHealth();
+		int prevSpeed = testMonster.getSpeed();
+
+		// Changes attack
+		item.use(testMonster);
+		assertEquals(prevAttack + item.getStatBoostAmount(), testMonster.getBaseAttackDamage());
+		assertEquals(prevHealth, testMonster.getBaseHealth());
+		assertEquals(prevSpeed, testMonster.getSpeed());
+		prevAttack = testMonster.getBaseAttackDamage();
+
+		// Changes health
+		item.use(testMonster);
+		assertEquals(prevAttack, testMonster.getBaseAttackDamage());
+		assertEquals(prevHealth + item.getStatBoostAmount(), testMonster.getBaseHealth());
+		assertEquals(prevSpeed, testMonster.getSpeed());
+		prevHealth = testMonster.getBaseHealth();
+
+		// Changes speed
+		item.use(testMonster);
+		assertEquals(prevAttack, testMonster.getBaseAttackDamage());
+		assertEquals(prevHealth, testMonster.getBaseHealth());
+		assertEquals(prevSpeed + item.getStatBoostAmount(), testMonster.getSpeed());
+	}
 }

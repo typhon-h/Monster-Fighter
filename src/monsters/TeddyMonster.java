@@ -2,9 +2,9 @@ package monsters;
 
 import java.util.ArrayList;
 
-import main.Trigger;
 import main.GameEnvironment;
 import main.Team;
+import main.Trigger;
 
 /**
  * Teddy Monster

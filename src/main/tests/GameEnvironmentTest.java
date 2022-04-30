@@ -31,6 +31,21 @@ public class GameEnvironmentTest {
     }
 
     /**
+     * Tests game environment can be set up with a distinguished seed
+     * Seed: 0
+     * Generates: -1155484576, -723955400, 1033096058, -1690734402, -1557280266
+     */
+    @Test
+    public void gameEnvironmentSeedTest() {
+        new GameEnvironment(this.game.getPlayer(), 0, Difficulty.NORMAL, 0);
+        assertEquals(GameEnvironment.rng.nextInt(), -1155484576);
+        assertEquals(GameEnvironment.rng.nextInt(), -723955400);
+        assertEquals(GameEnvironment.rng.nextInt(), 1033096058);
+        assertEquals(GameEnvironment.rng.nextInt(), -1690734402);
+        assertEquals(GameEnvironment.rng.nextInt(), -1557280266);
+    }
+
+    /**
      * Checks sleeping advances the day until the last day and then ends the game
      */
     @Test

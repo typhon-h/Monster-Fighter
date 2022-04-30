@@ -69,6 +69,7 @@ public class BuyShopTest {
             assertEquals(1, monstersOfRarity);
             assertEquals(1, itemsOfRarity);
         }
+        assertEquals(2 * Rarity.values().length, buyShop.getContent().size());
     }
 
     /**
