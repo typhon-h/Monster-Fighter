@@ -42,7 +42,7 @@ public class Team {
      */
     public Team(Monster... newMonsters) throws TeamSizeException, DuplicateMonsterException {
         if (newMonsters.length > MAXTEAMSIZE) {
-            throw new TeamSizeException("Team can only contain 6 Monsters");
+            throw new TeamSizeException("Team can only contain " + MAXTEAMSIZE + " Monsters");
         } else if (newMonsters.length < MINTEAMSIZE) {
             throw new TeamSizeException("Team must have at least " + MINTEAMSIZE + " monsters");
         }

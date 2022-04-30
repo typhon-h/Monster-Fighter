@@ -30,14 +30,17 @@ public class RandomEvent {
 
         for (Monster monster : team.getMonsters()) {
             double probabilityBound = RandomEventConstants.STATBOOSTPROBABILITY;
-            probabilityBound *= 1 - Difficulty.getDifficultyMultiplier(difficulty);
             // TODO: adjust probability
             probabilityBound += ((double) currentDay - (double) monster.getFaintCount())
                     * RandomEventConstants.MODIFIERMULTIPLIER;
+            probabilityBound *= 1 /
+                    Difficulty.getDifficultyMultiplier(difficulty);
             if (probabilityBound > 1) {
                 probabilityBound = 1;
+            } else if (probabilityBound < 0) {
+                probabilityBound = 0;
             }
-            
+
             if (GameEnvironment.rng.nextDouble() < probabilityBound) {
                 try {
                     results.add("During the night " + boost.use(monster));
@@ -59,12 +62,12 @@ public class RandomEvent {
      */
     public static ArrayList<String> randomMonsterLeave(Team team, Difficulty difficulty) {
         ArrayList<String> results = new ArrayList<String>();
-
-        for (Monster monster : team.getMonsters()) {
+        ArrayList<Monster> monsters = new ArrayList<Monster>(team.getMonsters());
+        for (Monster monster : monsters) {
             double probabilityBound = RandomEventConstants.MONSTERLEAVEPROBABILITY;
-            probabilityBound *= Difficulty.getDifficultyMultiplier(difficulty);
             // TODO: adjust probability
             probabilityBound += ((double) monster.getFaintCount()) * RandomEventConstants.MODIFIERMULTIPLIER;
+            probabilityBound *= Difficulty.getDifficultyMultiplier(difficulty);
             if (probabilityBound > 1) {
                 probabilityBound = 1;
             }
@@ -91,13 +94,15 @@ public class RandomEvent {
      */
     public static String randomMonsterJoin(Team team, Difficulty difficulty) {
         double probabilityBound = RandomEventConstants.MONSTERJOINPROBABILITY;
-        probabilityBound *= 1 - Difficulty.getDifficultyMultiplier(difficulty);
+
         // TODO: adjust probability
-        probabilityBound += (Team.getMaxTeamSize() - team.getTeamSize()) * RandomEventConstants.MODIFIERMULTIPLIER;
+        probabilityBound += (Team.getMaxTeamSize() - team.getTeamSize() - 1) * RandomEventConstants.MODIFIERMULTIPLIER;
+        probabilityBound *= 1 / Difficulty.getDifficultyMultiplier(difficulty);
+
         if (probabilityBound > 1) {
             probabilityBound = 1;
         }
-        
+
         ArrayList<Monster> possibleMonsters = GameEnvironment.generateMonsters();
         if (GameEnvironment.rng.nextDouble() < probabilityBound) {
             try {

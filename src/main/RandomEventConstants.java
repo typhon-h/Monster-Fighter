@@ -2,7 +2,7 @@ package main;
 
 public class RandomEventConstants {
 
-    public static final double STATBOOSTPROBABILITY = 0.2;
+    public static final double STATBOOSTPROBABILITY = 0.25;
 
     public static final double MONSTERLEAVEPROBABILITY = 0;
 
