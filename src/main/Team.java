@@ -14,9 +14,9 @@ public class Team {
     /**
      * Maximum team size
      *
-     * @default 6
+     * @default 4
      */
-    private final static int MAXTEAMSIZE = 6;
+    private final static int MAXTEAMSIZE = 4;
     /**
      * Minimum team size
      *

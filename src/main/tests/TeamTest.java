@@ -34,39 +34,12 @@ public class TeamTest {
      */
     @BeforeEach
     public void setUp() throws TeamSizeException, DuplicateMonsterException {
-        team = new Team(new ClinkMonster(), new ClinkMonster(), new ClinkMonster(), new ClinkMonster(),
-                new ClinkMonster(), new ClinkMonster());
+        team = new Team(new ClinkMonster());
+        while(team.getTeamSize() < Team.getMaxTeamSize()) {
+        	team.addMonster(new ClinkMonster());
+        }
     }
 
-    /**
-     * Checks all constructors are set correctly
-     * 
-     * @throws TeamSizeException         if too many team members
-     * @throws DuplicateMonsterException if same monster is added twice
-     */
-    @Test
-    public void constructorTest() throws TeamSizeException, DuplicateMonsterException {
-        // Initialize with 1
-        team = new Team(new ClinkMonster());
-        assertEquals(1, team.getTeamSize());
-        // Initialize with 2
-        team = new Team(new ClinkMonster(), new ClinkMonster());
-        assertEquals(2, team.getTeamSize());
-        // Initialize with 3
-        team = new Team(new ClinkMonster(), new ClinkMonster(), new ClinkMonster());
-        assertEquals(3, team.getTeamSize());
-        // Initialize with 4
-        team = new Team(new ClinkMonster(), new ClinkMonster(), new ClinkMonster(), new ClinkMonster());
-        assertEquals(4, team.getTeamSize());
-        // Initialize with 5
-        team = new Team(new ClinkMonster(), new ClinkMonster(), new ClinkMonster(), new ClinkMonster(),
-                new ClinkMonster());
-        assertEquals(5, team.getTeamSize());
-        // Initialize with 6
-        team = new Team(new ClinkMonster(), new ClinkMonster(), new ClinkMonster(), new ClinkMonster(),
-                new ClinkMonster(), new ClinkMonster());
-        assertEquals(6, team.getTeamSize());
-    }
 
     /**
      * Checks that a team cannot be created with more than
@@ -75,11 +48,13 @@ public class TeamTest {
      */
     @Test
     public void constructorTeamSizeTest() {
-        // Initialize team with 7 monsters, max team size is 6.
-        TeamSizeException exception = assertThrows(TeamSizeException.class, () -> new Team(new ClinkMonster(),
-                new ClinkMonster(), new ClinkMonster(), new ClinkMonster(),
-                new ClinkMonster(), new ClinkMonster(), new ClinkMonster()));
-        assertEquals("Team can only contain 6 Monsters", exception.getMessage());
+        TeamSizeException exception = assertThrows(TeamSizeException.class, () -> {
+        	team = new Team(new ClinkMonster());
+        	while(team.getTeamSize() < Team.getMaxTeamSize()+1) {
+        		team.addMonster(new ClinkMonster());
+        	}
+        });
+        assertEquals("Team is full", exception.getMessage());
 
         exception = assertThrows(TeamSizeException.class, () -> new Team());
         assertEquals("Team must have at least " + Team.getMinTeamSize() + " monsters", exception.getMessage());
@@ -98,13 +73,10 @@ public class TeamTest {
                 Arguments.arguments(new int[] { 1 }),
                 Arguments.arguments(new int[] { 2 }),
                 Arguments.arguments(new int[] { 3 }),
-                Arguments.arguments(new int[] { 4 }),
-                Arguments.arguments(new int[] { 5 }),
                 Arguments.arguments(new int[] { 0, 1 }),
                 Arguments.arguments(new int[] { 0, 1, 2 }),
-                Arguments.arguments(new int[] { 0, 1, 2, 3 }),
-                Arguments.arguments(new int[] { 0, 1, 2, 3, 4 }),
-                Arguments.arguments(new int[] { 0, 5 }));
+                Arguments.arguments(new int[] { 0, 1, 3}),
+                Arguments.arguments(new int[] { 2, 3 }));
     }
 
     /**
