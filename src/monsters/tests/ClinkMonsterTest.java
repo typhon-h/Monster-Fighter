@@ -1,6 +1,7 @@
 package monsters.tests;
 
 import monsters.*;
+import main.BattleEvent;
 import main.Rarity;
 import main.Team;
 
@@ -83,14 +84,13 @@ public class ClinkMonsterTest {
      */
     @Test
     public void abilityTest() throws TeamSizeException, DuplicateMonsterException {
-        int startAttackDamage = monster.getCurrentAttackDamage();
+       //TODO: check returned battle event
+    	int startAttackDamage = monster.getCurrentAttackDamage();
         int startHealth = monster.getCurrentHealth();
         Team allyTeam = new Team(monster);
         Team enemyTeam = new Team(new ClinkMonster());
 
-        Monster triggeredAbility = monster.ability(allyTeam, enemyTeam);
-        // No other abilities were triggered
-        assertNull(triggeredAbility);
+        monster.ability(allyTeam, enemyTeam);
 
         // Attack damage is reduced
         assertEquals(startAttackDamage - 1, monster.getCurrentAttackDamage());

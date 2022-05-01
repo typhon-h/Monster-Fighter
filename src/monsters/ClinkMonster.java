@@ -32,9 +32,14 @@ public class ClinkMonster extends Monster {
         if (this.getCurrentAttackDamage() > 1) { // Attack can't go lower than 1
             this.setCurrentAttackDamage(this.getCurrentAttackDamage() - 1);
             this.setCurrentHealth(this.getCurrentHealth() + 1);
-            return new BattleEvent((Team) allyTeam.clone(), (Team) enemyTeam.clone(),
-                    this.getName() + "'s " + this.getTrigger().name()
-                            + " ability triggered. Lost 1 ATK and gained 1 HP");
+            try {
+				return new BattleEvent((Team) allyTeam.clone(), (Team) enemyTeam.clone(),
+				        this.getName() + "'s " + this.getTrigger().name()
+				                + " ability triggered. Lost 1 ATK and gained 1 HP");
+			} catch (CloneNotSupportedException e) { // Never happens since Team implements cloneable
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
         return null;
     }

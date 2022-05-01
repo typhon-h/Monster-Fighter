@@ -34,10 +34,15 @@ public class DittaMonster extends Monster {
         if (monsterToCopy != null) {
             this.setCurrentAttackDamage(monsterToCopy.getCurrentAttackDamage());
             this.setCurrentHealth(monsterToCopy.getCurrentHealth());
-            return new BattleEvent((Team) allyTeam.clone(), (Team) enemyTeam.clone(),
-                    this.getName() + "'s " + this.getTrigger().name() + " ability triggered. " + this.getName()
-                            + " copied " + monsterToCopy.getName()
-                            + "'s stats.");
+            try {
+				return new BattleEvent((Team) allyTeam.clone(), (Team) enemyTeam.clone(),
+				        this.getName() + "'s " + this.getTrigger().name() + " ability triggered. " + this.getName()
+				                + " copied " + monsterToCopy.getName()
+				                + "'s stats.");
+			} catch (CloneNotSupportedException e) { // Never happens since Team implements cloneable
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
 
         return null; // No Trigger

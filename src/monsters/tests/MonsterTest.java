@@ -59,32 +59,6 @@ public class MonsterTest { // TODO: testing for valid arguments on constructor?
     }
 
     /**
-     * Check ONHURT event is triggered
-     * Covers: takeDamage
-     * Valid: recieves damage and has ONHURT
-     * Invalid: recieves damage and has ONFAINT
-     * Invalid: recieves damage and faints and has ONHURT
-     */
-    @Test
-    public void onHurtTriggerTest() {
-        monster.setTrigger(Trigger.ONHURT);
-        Monster triggeredAbility = monster.takeDamage(monster.getBaseHealth() - 1); // Non lethal
-        // Hurt ability was triggered
-        assertEquals(monster, triggeredAbility);
-
-        monster.restore();
-        monster.setTrigger(Trigger.ONFAINT);
-        triggeredAbility = monster.takeDamage(monster.getBaseHealth() - 1); // Non lethal
-        // Hurt ability was not triggered
-        assertNull(triggeredAbility);
-
-        monster.restore();
-        monster.setTrigger(Trigger.ONHURT);
-        triggeredAbility = monster.takeDamage(monster.getBaseHealth() + 1); // Lethal
-        assertNull(triggeredAbility);
-    }
-
-    /**
      * Checks health cannot overflow to zero
      * Covers: takeDamage, setCurrentHealth
      * monster recieves more damage than current health
@@ -127,35 +101,6 @@ public class MonsterTest { // TODO: testing for valid arguments on constructor?
 
     }
 
-    /**
-     * Check ONFAINT event is triggered
-     * Covers: takeDamage
-     * Valid: recieves damage and faints and has ONFAINT
-     * Invalid: recieves damage and has ONFAINT
-     * Invalid: recieves damage and has ONHURT
-     */
-    @Test
-    public void onFaintTriggerTest() {
-        monster.setTrigger(Trigger.ONFAINT);
-        Monster triggeredAbility = monster.takeDamage(monster.getCurrentHealth());
-        // Faint ability was triggered
-        assertEquals(monster, triggeredAbility);
-        assertFalse(monster.getStatus()); // Check fainted
-
-        monster.restore();
-        triggeredAbility = monster.takeDamage(monster.getBaseHealth() - 1); // Non lethal
-        // Faint ability was not triggered
-        assertNull(triggeredAbility);
-        assertTrue(monster.getStatus()); // Check fainted
-
-        monster.restore();
-        monster.setTrigger(Trigger.ONHURT);
-        triggeredAbility = monster.takeDamage(monster.getCurrentHealth());
-        // Hurt ability was not triggered
-        assertNull(triggeredAbility);
-        assertFalse(monster.getStatus()); // Check fainted
-
-    }
 
     /**
      * Checks restore sets instance variables correctly

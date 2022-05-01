@@ -86,11 +86,10 @@ public class DittaMonsterTest {
     public void abilityTest() throws TeamSizeException, DuplicateMonsterException {
         Team allyTeam = new Team(monster);
         Team enemyTeam = new Team(new ClinkMonster());
-        Monster triggeredAbility = monster.ability(allyTeam, enemyTeam);
+        monster.ability(allyTeam, enemyTeam);
         Monster firstEnemy = enemyTeam.getFirstAliveMonster();
 
         // Check stats are copied
-        assertNull(triggeredAbility);
         assertEquals(firstEnemy.getCurrentHealth(), monster.getCurrentHealth());
         assertEquals(firstEnemy.getCurrentAttackDamage(), monster.getCurrentAttackDamage());
 

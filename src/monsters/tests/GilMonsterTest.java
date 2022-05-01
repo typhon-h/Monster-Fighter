@@ -83,7 +83,8 @@ public class GilMonsterTest {
      */
     @Test
     public void abilityTest() throws TeamSizeException, DuplicateMonsterException {
-        // Initialize variables
+        //TODO: add test for correct BattleEvent return
+    	// Initialize variables
         Team enemyTeam = new Team(new ClinkMonster()); // Arbitrary
         Monster ally = new ClinkMonster();
         Team allyTeam = new Team(ally, monster);
@@ -100,8 +101,7 @@ public class GilMonsterTest {
         monster.setCurrentAttackDamage(1);
         int startAttackDamage = monsterInFront.getCurrentAttackDamage();
         // Checks no additional abilities are triggered
-        Monster triggeredAbility = monster.ability(allyTeam, enemyTeam);
-        assertNull(triggeredAbility);
+        monster.ability(allyTeam, enemyTeam);
         assertEquals(startAttackDamage, monsterInFront.getCurrentAttackDamage()); // 50% of 1 is 0 (rounded down)
 
         // Monster in front with Gil AttackDamage: 2
