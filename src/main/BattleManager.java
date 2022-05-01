@@ -226,8 +226,15 @@ public class BattleManager {
 
             String description = monster1.getName() + " dealt " + monster1.getCurrentAttackDamage() + " damage to "
                     + monster2.getName();
-            Trigger trigger;
+            BattleEvent ability;
 
+            // Check BEFOREATTACK Trigger
+            ability = runAbility(monster2, Trigger.BEFOREATTACK);
+            if (ability != null) {
+                eventLog.add(ability);
+            }
+
+            Trigger trigger;
             if (!monster2.getStatus()) {
                 trigger = Trigger.ONFAINT;
                 description += ". " + monster2.getName() + " fainted.";
@@ -237,9 +244,14 @@ public class BattleManager {
 
             // Fight event
             eventLog.add(new BattleEvent(allyPlayer.getTeam(), currentOpponent.getTeam(), description));
+            // Check ONHURT/ONFAINT Trigger
+            ability = runAbility(monster2, trigger);
+            if (ability != null) {
+                eventLog.add(ability);
+            }
 
-            // Ability event
-            BattleEvent ability = runAbility(monster2, trigger);
+            // Check AFTERATTACK trigger
+            ability = runAbility(monster2, Trigger.AFTERATTACK);
             if (ability != null) {
                 eventLog.add(ability);
             }
@@ -266,21 +278,13 @@ public class BattleManager {
 
     /**
      * Simulates the battle then returns a history log of all the event that
-     * occurred during the battle. A ArrayList<BattleEvent> object should be
+     * occurred during the battle. An ArrayList<BattleEvent> object should be
      * returned, not void
      */
     public ArrayList<BattleEvent> simulateBattle() {
         /**
-         * 1. BEFOREATTACK trigger
-         * 2. fight
-         * 5. After attack trigger
+         * While not whole team dead, fight
          */
-
-        // Check BEFOREATTACK trigger
-        // eventLog.addAll(runAbility(monster1, Trigger.BEFOREATTACK));
-
-        // // Check AFTERATTACK trigger
-        // eventLog.addAll(runAbility(monster1, Trigger.AFTERATTACK));
     }
 
     /**
