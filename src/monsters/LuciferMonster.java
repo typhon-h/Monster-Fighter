@@ -35,15 +35,8 @@ public class LuciferMonster extends Monster {
         int tempHealth = this.getCurrentHealth();
         this.setCurrentAttackDamage(tempHealth);
         this.setCurrentHealth(tempAttack);
-
-        try {
-			return new BattleEvent((Team) allyTeam.clone(), (Team) enemyTeam.clone(),
-			        this.getName() + "'s " + this.getTrigger().name() + " ability triggered. ATK and HP have been swapped");
-		} catch (CloneNotSupportedException e) {// Never happens since Team implements cloneable
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
+        return new BattleEvent(allyTeam, enemyTeam,
+                this.getName() + "'s " + this.getTrigger().name() + " ability triggered. ATK and HP have been swapped");
     }
 
 }

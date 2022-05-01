@@ -42,14 +42,8 @@ public class TeddyMonster extends Monster {
         if (possibleMembers.size() > 0) {
             Monster monsterToAdjust = possibleMembers.get(rng.nextInt(possibleMembers.size()));
             monsterToAdjust.setCurrentHealth(monsterToAdjust.getCurrentHealth() + 1);
-            try {
-				return new BattleEvent((Team) allyTeam.clone(), (Team) enemyTeam.clone(),
-				        this.getName() + "'s " + this.getTrigger().name() + " ability triggered. "
-				                + monsterToAdjust.getName() + " gained 1 HP");
-			} catch (CloneNotSupportedException e) { // Never happens since Team implements cloneable
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+            return new BattleEvent(allyTeam, enemyTeam, this.getName() + "'s " + this.getTrigger().name()
+                    + " ability triggered. " + monsterToAdjust.getName() + " gained 1 HP");
         }
         return null; // Empty
     }

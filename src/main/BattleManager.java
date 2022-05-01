@@ -236,13 +236,7 @@ public class BattleManager {
             }
 
             // Fight event
-            try {
-                eventLog.add(
-                        new BattleEvent((Team) allyPlayer.getTeam().clone(), (Team) currentOpponent.getTeam().clone(),
-                                description));
-            } catch (CloneNotSupportedException e) { // won't happen since Team implements clonable
-                e.printStackTrace();
-            }
+            eventLog.add(new BattleEvent(allyPlayer.getTeam(), currentOpponent.getTeam(), description));
 
             // Ability event
             BattleEvent ability = runAbility(monster2, trigger);

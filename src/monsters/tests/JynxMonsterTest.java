@@ -2,8 +2,6 @@ package monsters.tests;
 
 import monsters.*;
 import main.Rarity;
-import main.Team;
-import main.Trigger;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,10 +10,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import exceptions.*;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.stream.Stream;
 
 /**
@@ -74,6 +68,7 @@ public class JynxMonsterTest {
         assertEquals(sellPrice, monster.getSellPrice());
     }
 
- //TODO: Ability test has been temporarily removed as will be replaced by updated ablility in other branch
+    // TODO: Ability test has been temporarily removed as will be replaced by
+    // updated ablility in other branch
 
 }

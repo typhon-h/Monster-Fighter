@@ -36,15 +36,10 @@ public class GilMonster extends Monster {
             monsterToAdjust = allyTeam.getAliveMonsters().get(myPosition - 1);
             monsterToAdjust.setCurrentAttackDamage(
                     monsterToAdjust.getCurrentAttackDamage() + (this.getCurrentAttackDamage() / 2));
-            try {
-				return new BattleEvent((Team) allyTeam.clone(), (Team) enemyTeam.clone(),
-				        this.getName() + "'s " + this.getTrigger().name() + " ability triggered. "
-				                + monsterToAdjust.getName() + "'s attack increased to "
-				                + monsterToAdjust.getCurrentAttackDamage());
-			} catch (CloneNotSupportedException e) { // Never happens since Team implements cloneable
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+            return new BattleEvent(allyTeam, enemyTeam,
+                    this.getName() + "'s " + this.getTrigger().name() + " ability triggered. "
+                            + monsterToAdjust.getName() + "'s attack increased to "
+                            + monsterToAdjust.getCurrentAttackDamage());
         }
 
         return null; // No trigger
