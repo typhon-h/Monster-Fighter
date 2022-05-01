@@ -10,7 +10,7 @@ import monsters.Monster;
  * a set amount based on the {@link main.Rarity} of the item.
  *
  * @author Jackie Jone
- * @version 1.0, Apr 2022
+ * @version 1.1, Apr 2022
  */
 public class SpeedBoost extends Item {
     /**
@@ -32,5 +32,6 @@ public class SpeedBoost extends Item {
      */
     public void use(Monster monster) {
         monster.increaseSpeed(getStatBoostAmount());
+        monster.increaseSellPrice(this.getSellPrice());
     }
 }

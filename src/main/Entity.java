@@ -5,7 +5,7 @@ package main;
  * An Entity is able to be possessed by a player and traded in shops
  *
  * @author Harrison Tyson
- * @version 1.1, Apr 2022.
+ * @version 1.2, Apr 2022.
  */
 public class Entity {
     /**
@@ -113,6 +113,15 @@ public class Entity {
      */
     public int getSellPrice() {
         return sellPrice;
+    }
+
+    /**
+     * Increases sell price of the entity by a given amount
+     *
+     * @param amount Amount to increase sell price by
+     */
+    public void increaseSellPrice(int amount) {
+        sellPrice += amount;
     }
 
     /**

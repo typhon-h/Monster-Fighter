@@ -9,7 +9,7 @@ import monsters.Monster;
  * a set amount based on the {@link main.Rarity} of the item.
  *
  * @author Jackie Jone
- * @version 1.0, Apr 2022
+ * @version 1.1, Apr 2022
  */
 public class HealthBoost extends Item {
     /**
@@ -31,5 +31,7 @@ public class HealthBoost extends Item {
      */
     public void use(Monster monster) {
         monster.increaseBaseHealth(getStatBoostAmount());
+        monster.setCurrentHealth(monster.getBaseHealth());
+        monster.increaseSellPrice(this.getSellPrice());
     }
 }

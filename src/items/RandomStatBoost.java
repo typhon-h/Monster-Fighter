@@ -10,7 +10,7 @@ import java.util.Random;
  * An item that increases a random stat of a {@link monsters.Monster}.
  *
  * @author Jackie Jone
- * @version 1.1, Apr 2022
+ * @version 1.2, Apr 2022
  */
 public class RandomStatBoost extends Item {
     Random rng;
@@ -38,6 +38,7 @@ public class RandomStatBoost extends Item {
         switch (rng.nextInt(MonsterConstants.NUMBEROFSTATS)) {
             case 0:
                 monster.increaseBaseHealth(getStatBoostAmount());
+                monster.setCurrentHealth(monster.getBaseHealth());
                 break;
             case 1:
                 monster.increaseBaseAttackDamage(getStatBoostAmount());
@@ -45,5 +46,6 @@ public class RandomStatBoost extends Item {
             case 2:
                 monster.increaseSpeed(getStatBoostAmount());
         }
+        monster.increaseSellPrice(this.getSellPrice());
     }
 }

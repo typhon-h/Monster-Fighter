@@ -10,7 +10,7 @@ import exceptions.UnusableItemException;
  * for their Ability Trigger
  *
  * @author Jackie Jone
- * @version 1.0, Apr 2022
+ * @version 1.1, Apr 2022
  */
 public class SelectTrigger extends Item {
 
@@ -61,6 +61,7 @@ public class SelectTrigger extends Item {
             throw new UnusableItemException("Monster: " + monster.getName() + " already has trigger + " + monster.getTrigger());
         } else {
             monster.setTrigger(itemTrigger);
+            monster.increaseSellPrice(this.getSellPrice());
         }
     }
 
