@@ -8,9 +8,9 @@ import monsters.Monster;
  * Team of monsters owned by the player
  *
  * @author Harrison Tyson
- * @version 1.0, Apr 2022.
+ * @version 1.2, Apr 2022.
  */
-public class Team {
+public class Team implements Cloneable {
     /**
      * Maximum team size
      *
@@ -53,7 +53,6 @@ public class Team {
         }
         teamSize = monsters.size();
     }
-
 
     /**
      * Gets the first monster in the team that has not fainted
@@ -126,6 +125,22 @@ public class Team {
         }
     }
 
+    // TODO: test this overloaded method
+    /**
+     * Remove a monster from the team
+     *
+     * @param monster monster to be removed
+     * @throws TeamSizeException team is at minimum size
+     */
+    public void removeMonster(int index) throws TeamSizeException {
+        if (monsters.size() == MINTEAMSIZE) {
+            throw new TeamSizeException("Team must have at least " + MINTEAMSIZE + " monster");
+        } else {
+            monsters.remove(index);
+            teamSize = monsters.size();
+        }
+    }
+
     /**
      * Move a monster up a position in the team
      *
@@ -177,5 +192,23 @@ public class Team {
      */
     public static int getMinTeamSize() {
         return Team.MINTEAMSIZE;
+    }
+
+    // TODO: test that cloning works :)
+    // TODO: test that the monsters that are cloned are actually clones
+    /**
+     * Clones the team and all of the monsters
+     * in the team
+     */
+    public Object clone() throws CloneNotSupportedException {
+        Team teamCopy = (Team) super.clone();
+
+        ArrayList<Monster> monstersCopy = new ArrayList<Monster>();
+        for (Monster monster : this.monsters) {
+            monstersCopy.remove(0);
+            monstersCopy.add((Monster) monster.clone());
+        }
+
+        return teamCopy;
     }
 }

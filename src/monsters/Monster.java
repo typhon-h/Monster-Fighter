@@ -11,14 +11,14 @@ import main.Trigger;
  * @author Harrison Tyson
  * @version 1.3, Apr 2022.
  */
-public abstract class Monster extends Entity {
+public abstract class Monster extends Entity implements Cloneable {
     /**
      * Constant defining the total number of monsters
      * that exist in the game.
      */
     public static final int NUMMONSTERS = 6;
     /**
-     * Current health of the monter
+     * Current health of the monster
      */
     private int currentHealth;
     /**
@@ -94,7 +94,7 @@ public abstract class Monster extends Entity {
     /**
      * Deals damage to the monster and triggers relevant events
      *
-     * @param damage amount of damage recieved
+     * @param damage amount of damage received
      * @throws IllegalArgumentException Argument must be positive
      * @return itself if ability was triggered
      */
@@ -338,5 +338,12 @@ public abstract class Monster extends Entity {
      */
     public void increaseSpeed(int speedAmount) {
         setSpeed(this.getSpeed() + speedAmount);
+    }
+
+    /**
+     * Creates a clone of the Monster
+     */
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

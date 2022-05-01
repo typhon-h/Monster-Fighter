@@ -5,9 +5,9 @@ package main;
  * An Entity is able to be possessed by a player and traded in shops
  *
  * @author Harrison Tyson
- * @version 1.2, Apr 2022.
+ * @version 1.3, Apr 2022.
  */
-public class Entity {
+public class Entity implements Cloneable {
     /**
      * The name of the entity
      */
@@ -140,5 +140,12 @@ public class Entity {
      */
     public Rarity getRarity() {
         return rarity;
+    }
+
+    /**
+     * Creates a clone of the entity
+     */
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

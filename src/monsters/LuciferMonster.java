@@ -21,7 +21,7 @@ public class LuciferMonster extends Monster {
                 MonsterConstants.LUCIFERRARITY, // Rarity
                 MonsterConstants.LUCIFERBASEATTACKDAMAGE, // Base AttackDamage
                 MonsterConstants.LUCIFERBASEHEALTH, // Base Health
-                "SWAP Atack and Health",
+                "SWAP Attack and Health",
                 MonsterConstants.LUCIFERBASESPEED); // Base Speed
         this.setTrigger(Trigger.ONHURT); // TODO decide trigger
     }
