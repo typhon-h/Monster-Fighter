@@ -225,8 +225,8 @@ public class BattleManager {
              * 5. After attack trigger
              */
 
+            // Check BEFOREATTACK trigger
             eventLog.addAll(runAbility(monster1, Trigger.BEFOREATTACK));
-            // If a monster is returned from takeDamage then the monsters trigger was activated
             monster2.takeDamage(monster1.getCurrentAttackDamage());
             // Monster took damage
             eventLog.add(new BattleEvent(allyPlayer.getTeam(), currentOpponent.getTeam(), "damaged"));
@@ -236,6 +236,7 @@ public class BattleManager {
             if (!monster2.getStatus()) {
                 eventLog.addAll(runAbility(monster2, Trigger.ONFAINT));
             }
+            // Check AFTERATTACK trigger
             eventLog.addAll(runAbility(monster1, Trigger.AFTERATTACK));
         }
 
@@ -250,6 +251,11 @@ public class BattleManager {
      */
     private ArrayList<BattleEvent> runAbility(Monster monster, Trigger trigger) {
         ArrayList<BattleEvent> eventLog = new ArrayList<BattleEvent>();
+
+        // TODO: the aiblity should return a ArrayList<BattleEvent>
+        if (monster.getTrigger() == trigger) {
+            monster.ability(allyPlayer.getTeam(), currentOpponent.getTeam());
+        }
 
         return eventLog;
     }
