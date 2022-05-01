@@ -5,9 +5,12 @@ import java.util.Random;
 
 import exceptions.DuplicateMonsterException;
 import exceptions.TeamSizeException;
+
 import items.ItemConstants;
 import items.RandomStatBoost;
 import monsters.*;
+
+import static main.Difficulty.getDifficultyMultiplier;
 
 /**
  * A class for managing all the battles and functionality of battles
@@ -87,8 +90,10 @@ public class BattleManager {
      * @return           A {@link main.Team Team} containing monsters.
      */
     public Team generateTeam(int currentDay, int maxDays, Difficulty difficulty) {
-        int teamSize = (int) Math.ceil(((double)currentDay * (double) Team.getMaxTeamSize()) / (double) maxDays);
-        
+        // TODO: change team size and update tests
+        int teamSize = (int) Math.ceil(((double) currentDay * (double) Team.getMaxTeamSize()) / (double) maxDays);
+
+        // Create a team with a size based on the current
         Team team = null;
         for (int i=0; i<teamSize; i++) {
             Monster monster = getRandomMonster(difficulty);
@@ -103,21 +108,22 @@ public class BattleManager {
             } catch (DuplicateMonsterException e) {
                 e.printStackTrace();
             }
+        }
 
-            // Use boost item on random monsters
-            // TODO: add += 10% based on difficulty -> need to add constants somewhere
-            int totalPoints = (int) Math.round(ItemConstants.AVERAGEBOOSTPERBUYPRICE * allyPlayer.getGold() + allyPlayer.getItemPoints());
-            int expendedPoints = 0;
+        // Use boost item on random monsters in the team
+        int totalPoints = (int) (Difficulty.getDifficultyMultiplier(difficulty) *
+                                    Math.ceil((float) ItemConstants.AVERAGEBOOSTPERBUYPRICE *
+                                            (float) allyPlayer.getGold() +
+                                            (float) allyPlayer.getItemPoints()));
+        int expendedPoints = 0;
+        RandomStatBoost boost = new RandomStatBoost("Boost", "Desc", Rarity.COMMON);
 
-            RandomStatBoost boost = new RandomStatBoost("Boost", "Desc", Rarity.COMMON);
+        while (expendedPoints < totalPoints) {
+            int MonsterIndex = rng.nextInt(team.getTeamSize());
+            Monster monsterToUseItemOn = team.getMonsters().get(MonsterIndex);
+            boost.use(monsterToUseItemOn);
 
-            while (expendedPoints < totalPoints) {
-                int MonsterIndex = rng.nextInt(team.getTeamSize());
-                Monster monsterToUseItemOn = team.getMonsters().get(MonsterIndex);
-                boost.use(monsterToUseItemOn);
-
-                expendedPoints += ItemConstants.COMMONSTATBOOST;
-            }
+            expendedPoints += ItemConstants.COMMONSTATBOOST;
         }
 
         return team;
@@ -131,18 +137,20 @@ public class BattleManager {
      * @param difficulty The difficulty of the current game.
      */
     public void generateOpponents(int currentDay, int maxDays, Difficulty difficulty) {
-        /*
-         * Math.ceil(CurrentDay / AbsoluteTotalDays) * 6
-         *
-         * Number of items available: TotalBoostAmount player has + average boost / gold * gold
-         * -> Give opponents % player boost amount scaled on difficulty.
-         */
+        // Reset current opponent to null.
+        currentOpponent = null;
+
+        // gold = starting gold + goldPerDay * reverse of difficulty multiplier * currentDay
+        int gold = (int) (30f + (30f * (1f + 1f - getDifficultyMultiplier(difficulty)) * currentDay));
+        // points = basePoints * 1.1 ^ day * difficulty multiplier
+        int points = (int) Math.round(100f * (float) Math.pow(1.1, (double) currentDay) * getDifficultyMultiplier(difficulty));
 
         for (int i=0; i<BattleConstants.NUMOPPONENTS; i++) {
-            // Generate team, generate gold -> generate player -> add player to opponents
             Team team = generateTeam(currentDay, maxDays, difficulty);
-            // TODO: opponent gold should be based on day and difficulty multiplier.
-            // TODO: opponent points should be based on day and difficulty.
+            Player newOpponent = new Player(team, gold);
+            newOpponent.incrementScore(points);
+
+            opponents.add(newOpponent);
         }
     }
 
@@ -212,5 +220,12 @@ public class BattleManager {
      */
     public BattleEvent nextEvent() {
 
+    }
+
+    /**
+     * Gets the player in the BattleManager
+     */
+    public Player getPlayer() {
+        return this.allyPlayer;
     }
 }

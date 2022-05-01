@@ -8,38 +8,38 @@ import main.Rarity;
 public class MonsterConstants {
     // TODO: tweak these constants to balance game.
     /**
-     * Constant defining the number of stats a monster has
+     * Constant defining the number of stats a {@link monsters.Monster monster} has
      */
     public static final int NUMBEROFSTATS = 3;
     /**
-     * Constant defining the cost of a common item
+     * Constant defining the cost of a common {@link monsters.Monster monster}
      */
-    public static final int COMMONBUYPRICE = 20;
+    public static final int COMMONBUYPRICE = 40;
 
     /**
-     * Constant defining the cost of a common item
+     * Constant defining the cost of a rare {@link monsters.Monster monster}
      */
-    public static final int RAREBUYPRICE = 50;
+    public static final int RAREBUYPRICE = 80;
 
     /**
-     * Constant defining the cost of a common item
+     * Constant defining the cost of a legendary {@link monsters.Monster monster}
      */
-    public static final int LEGENDARYBUYPRICE = 100;
+    public static final int LEGENDARYBUYPRICE = 120;
 
     /**
-     * Constant defining the cost of a common item
+     * Constant defining the sell price of a common {@link monsters.Monster monster}
      */
-    public static final int COMMONSELLPRICE = 15;
+    public static final int COMMONSELLPRICE = 30;
 
     /**
-     * Constant defining the cost of a common item
+     * Constant defining the sell price of a rare {@link monsters.Monster monster}
      */
-    public static final int RARESELLPRICE = 35;
+    public static final int RARESELLPRICE = 60;
 
     /**
-     * Constant defining the cost of a common item
+     * Constant defining the sell price of legendary {@link monsters.Monster monster}
      */
-    public static final int LEGENDARYSELLPRICE = 75;
+    public static final int LEGENDARYSELLPRICE = 80;
 
     /**
      * Constant defining the base AttackDamage of Clink
