@@ -34,7 +34,7 @@ public class DittaMonster extends Monster {
         if (monsterToCopy != null) {
             this.setCurrentAttackDamage(monsterToCopy.getCurrentAttackDamage());
             this.setCurrentHealth(monsterToCopy.getCurrentHealth());
-            return new BattleEvent(allyTeam, enemyTeam,
+            return new BattleEvent((Team) allyTeam.clone(), (Team) enemyTeam.clone(),
                     this.getName() + "'s " + this.getTrigger().name() + " ability triggered. " + this.getName()
                             + " copied " + monsterToCopy.getName()
                             + "'s stats.");

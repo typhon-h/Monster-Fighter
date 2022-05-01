@@ -32,7 +32,7 @@ public class ClinkMonster extends Monster {
         if (this.getCurrentAttackDamage() > 1) { // Attack can't go lower than 1
             this.setCurrentAttackDamage(this.getCurrentAttackDamage() - 1);
             this.setCurrentHealth(this.getCurrentHealth() + 1);
-            return new BattleEvent(allyTeam, enemyTeam,
+            return new BattleEvent((Team) allyTeam.clone(), (Team) enemyTeam.clone(),
                     this.getName() + "'s " + this.getTrigger().name()
                             + " ability triggered. Lost 1 ATK and gained 1 HP");
         }

@@ -36,7 +36,7 @@ public class LuciferMonster extends Monster {
         this.setCurrentAttackDamage(tempHealth);
         this.setCurrentHealth(tempAttack);
 
-        return new BattleEvent(allyTeam, enemyTeam,
+        return new BattleEvent((Team) allyTeam.clone(), (Team) enemyTeam.clone(),
                 this.getName() + "'s " + this.getTrigger().name() + " ability triggered. ATK and HP have been swapped");
     }
 

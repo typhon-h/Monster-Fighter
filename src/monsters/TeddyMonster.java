@@ -42,7 +42,7 @@ public class TeddyMonster extends Monster {
         if (possibleMembers.size() > 0) {
             Monster monsterToAdjust = possibleMembers.get(rng.nextInt(possibleMembers.size()));
             monsterToAdjust.setCurrentHealth(monsterToAdjust.getCurrentHealth() + 1);
-            return new BattleEvent(allyTeam, enemyTeam,
+            return new BattleEvent((Team) allyTeam.clone(), (Team) enemyTeam.clone(),
                     this.getName() + "'s " + this.getTrigger().name() + " ability triggered. "
                             + monsterToAdjust.getName() + " gained 1 HP");
         }

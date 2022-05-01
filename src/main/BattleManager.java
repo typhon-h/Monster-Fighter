@@ -221,6 +221,7 @@ public class BattleManager {
             Monster monster1 = monster[0];
             Monster monster2 = monster[1];
 
+            // Does damage
             monster2.takeDamage(monster1.getCurrentAttackDamage());
 
             String description = monster1.getName() + " dealt " + monster1.getCurrentAttackDamage() + " damage to "
@@ -229,13 +230,16 @@ public class BattleManager {
 
             if (!monster2.getStatus()) {
                 trigger = Trigger.ONFAINT;
-                eventLog.add(new BattleEvent(allyPlayer.getTeam(), currentOpponent.getTeam(),
-                        description + ". " + monster2.getName() + " fainted."));
+                description += ". " + monster2.getName() + " fainted.";
             } else {
                 trigger = Trigger.ONHURT;
-                eventLog.add(new BattleEvent(allyPlayer.getTeam(), currentOpponent.getTeam(), description));
             }
 
+            // Fight event
+            eventLog.add(new BattleEvent((Team) allyPlayer.getTeam().clone(), (Team) currentOpponent.getTeam().clone(),
+                    description));
+
+            // Ability event
             BattleEvent ability = runAbility(monster2, trigger);
             if (ability != null) {
                 eventLog.add(ability);

@@ -36,7 +36,7 @@ public class GilMonster extends Monster {
             monsterToAdjust = allyTeam.getAliveMonsters().get(myPosition - 1);
             monsterToAdjust.setCurrentAttackDamage(
                     monsterToAdjust.getCurrentAttackDamage() + (this.getCurrentAttackDamage() / 2));
-            return new BattleEvent(allyTeam, enemyTeam,
+            return new BattleEvent((Team) allyTeam.clone(), (Team) enemyTeam.clone(),
                     this.getName() + "'s " + this.getTrigger().name() + " ability triggered. "
                             + monsterToAdjust.getName() + "'s attack increased to "
                             + monsterToAdjust.getCurrentAttackDamage());

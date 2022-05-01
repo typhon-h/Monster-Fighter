@@ -339,7 +339,12 @@ public abstract class Monster extends Entity {
     /**
      * Creates a clone of the Monster
      */
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) { // won't happen since implements cloneable
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -32,7 +32,6 @@ public class Team implements Cloneable {
      */
     private int teamSize = monsters.size();
 
-
     /**
      * Constructor for Team. Creates a team with the starting monster/s
      *
@@ -41,7 +40,7 @@ public class Team implements Cloneable {
      * @throws TeamSizeException         team is full or empty
      * @throws DuplicateMonsterException monster already in team
      */
-    public Team(Monster ... newMonsters) throws TeamSizeException, DuplicateMonsterException {
+    public Team(Monster... newMonsters) throws TeamSizeException, DuplicateMonsterException {
         if (newMonsters.length > MAXTEAMSIZE) {
             throw new TeamSizeException("Team can only contain 6 Monsters");
         } else if (newMonsters.length < MINTEAMSIZE) {
@@ -200,15 +199,20 @@ public class Team implements Cloneable {
      * Clones the team and all of the monsters
      * in the team
      */
-    public Object clone() throws CloneNotSupportedException {
-        Team teamCopy = (Team) super.clone();
+    public Object clone() {
+        try {
+            Team teamCopy = (Team) super.clone();
+            ArrayList<Monster> monstersCopy = new ArrayList<Monster>();
+            for (Monster monster : this.monsters) {
+                monstersCopy.remove(0);
+                monstersCopy.add((Monster) monster.clone());
+            }
 
-        ArrayList<Monster> monstersCopy = new ArrayList<Monster>();
-        for (Monster monster : this.monsters) {
-            monstersCopy.remove(0);
-            monstersCopy.add((Monster) monster.clone());
+            return teamCopy;
+        } catch (CloneNotSupportedException e) { // won't happen since implements Cloneable
+            e.printStackTrace();
+            return null;
         }
 
-        return teamCopy;
     }
 }
