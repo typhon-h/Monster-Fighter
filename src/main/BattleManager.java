@@ -136,22 +136,27 @@ public class BattleManager {
      * @param maxDays    The maximum number of days any game can last.
      * @param difficulty The difficulty of the current game.
      */
+    // TODO: change all Difficulty to use difficulty constant in GameEnvironment
     public void generateOpponents(int currentDay, int maxDays, Difficulty difficulty) {
         // Reset current opponent to null.
         currentOpponent = null;
 
+        // TODO: change magic numbers to constants
         // gold = starting gold + goldPerDay * reverse of difficulty multiplier * currentDay
         int gold = (int) (30f + (30f * (1f + 1f - getDifficultyMultiplier(difficulty)) * currentDay));
         // points = basePoints * 1.1 ^ day * difficulty multiplier
         int points = (int) Math.round(100f * (float) Math.pow(1.1, (double) currentDay) * getDifficultyMultiplier(difficulty));
 
+        ArrayList<Player> newOpponents = new ArrayList<Player>();
         for (int i=0; i<BattleConstants.NUMOPPONENTS; i++) {
             Team team = generateTeam(currentDay, maxDays, difficulty);
             Player newOpponent = new Player(team, gold);
             newOpponent.incrementScore(points);
 
-            opponents.add(newOpponent);
+            newOpponents.add(newOpponent);
         }
+
+        this.opponents = newOpponents;
     }
 
     /**

@@ -2,6 +2,7 @@ package main.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.stream.Stream;
 
@@ -126,4 +127,52 @@ class BattleManagerTests {
     }
 
     // TODO: Test that the difficulty multiplier works.
+    
+    /**
+     * Test for generating opponents
+     */
+    @Test
+    public void generateOpponentsTest() {
+        /*
+         * TODO: Test that points and gold increases / decreases on difficulty
+         */
+        battleManager.generateOpponents(1, 15, Difficulty.NORMAL);
+        ArrayList<Player> opponents1 = battleManager.getOpponents();
+        Player opponent1 = opponents1.get(0);
+        
+        // Check that there are the correct amount of opponents
+        assertEquals(opponents1.size(), BattleConstants.NUMOPPONENTS);
+        // Check that the gold amount from day 1 is not 0
+        assertNotEquals(opponent1.getGold(), 0);
+        
+        // Check that the gold increases every day
+        battleManager.generateOpponents(2, 15, Difficulty.NORMAL);
+        ArrayList<Player> opponents2 = battleManager.getOpponents();
+        Player opponent2 = opponents2.get(0);
+        
+        // Check that the the gold of the opponent on the second day is more
+        // than the gold of the opponent on the first day
+        assertTrue(opponent1.getGold() < opponent2.getGold(),
+                "Day one gold: " + opponents1.get(0).getGold() +
+                " day two gold: " + opponents2.get(0).getGold());
+        
+        // Testing points is not 0
+        assertNotEquals(opponent1.getScore(), 0);
+        // Testing 2nd day points is more than 1st day points
+        assertTrue(opponent1.getScore() < opponent2.getScore());
+        
+        // Testing that gold and points is affected by difficulty
+        battleManager.generateOpponents(1, 15, Difficulty.HARD);
+        opponent2 = battleManager.getOpponents().get(0);
+        
+        assertTrue(opponent1.getGold() > opponent2.getGold());
+        assertTrue(opponent1.getScore() < opponent2.getScore());
+        
+        battleManager.generateOpponents(1, 15, Difficulty.EASY);
+        opponent2 = battleManager.getOpponents().get(0);
+        
+        assertTrue(opponent1.getGold() < opponent2.getGold());
+        assertTrue(opponent1.getScore() > opponent2.getScore());
+        }
+    
 }
