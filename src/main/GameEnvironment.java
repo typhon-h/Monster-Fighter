@@ -21,9 +21,9 @@ public class GameEnvironment {
     private Player player;
 
     /**
-     * Maximum number of days the game will last
+     * Total number of days the game will last
      */
-    private int maxDays;
+    private int totalDays;
 
     /**
      * Current day of the game
@@ -65,15 +65,25 @@ public class GameEnvironment {
     public static Random rng = new Random();
 
     /**
+     * Maximum days the game can last for
+     */
+    public static final int MAXDAYS = 15;
+
+    /**
+     * Minimum days the game can last for
+     */
+    public static final int MINDAYS = 5;
+
+    /**
      * Constructor for GameEnvironment
      * 
      * @param player     active player
-     * @param maxDays    days game will last for
+     * @param totalDays  days game will last for
      * @param difficulty difficulty of game
      */
-    public GameEnvironment(Player player, int maxDays, Difficulty difficulty) {
+    public GameEnvironment(Player player, int totalDays, Difficulty difficulty) {
         this.player = player;
-        this.maxDays = maxDays;
+        this.totalDays = totalDays;
         this.difficulty = difficulty;
         sellShop = new SellShop(player);
         buyShop = new BuyShop(player);
@@ -84,13 +94,13 @@ public class GameEnvironment {
      * Constructor for GameEnvironment
      * 
      * @param player     active player
-     * @param maxDays    days game will last for
+     * @param totalDays  days game will last for
      * @param difficulty difficulty of game
      * @param seed       seed for the random generator
      */
-    public GameEnvironment(Player player, int maxDays, Difficulty difficulty, long seed) {
+    public GameEnvironment(Player player, int totalDays, Difficulty difficulty, long seed) {
         this.player = player;
-        this.maxDays = maxDays;
+        this.totalDays = totalDays;
         this.difficulty = difficulty;
         sellShop = new SellShop(player);
         buyShop = new BuyShop(player);
@@ -121,7 +131,7 @@ public class GameEnvironment {
     public ArrayList<String> sleep() {
         ArrayList<String> events = new ArrayList<String>();
         // Advance day and check end game
-        if (++currentDay > maxDays) {
+        if (++currentDay > totalDays) {
             gameOverStatus = true;
             events.add("Game has ended");
             return events;
@@ -138,19 +148,17 @@ public class GameEnvironment {
         if (monsterJoinDescription != null) {
             events.add(monsterJoinDescription);
         }
-        
+
         // Update shops
         buyShop.setContent();
 
         // Update battles
-        battleState.generateOpponents(currentDay, maxDays, difficulty);
+        battleState.generateOpponents(currentDay, totalDays, difficulty);
 
         // Heal monsters
         for (Monster monster : player.getTeam().getMonsters()) {
             monster.restore();
         }
-
-
 
         return events;
     }
@@ -169,8 +177,8 @@ public class GameEnvironment {
      * 
      * @return maximum number of days
      */
-    public int getMaxDays() {
-        return maxDays;
+    public int getTotalDays() {
+        return totalDays;
     }
 
     /**

@@ -5,12 +5,11 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
-import org.junit.jupiter.params.provider.ValueSource;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 import exceptions.DuplicateMonsterException;
 import exceptions.TeamSizeException;
+import items.ItemConstants;
 import main.Difficulty;
 import main.GameEnvironment;
 import main.RandomEvent;
@@ -32,6 +31,28 @@ public class RandomEventTest {
     Team team;
 
     /**
+     * Generates team with specified members and faint count for testing random
+     * events
+     * 
+     * @param numMembers      number of monsters in team
+     * @param faintPerMonster faint count for each monster
+     * @throws TeamSizeException         too many members in team
+     * @throws DuplicateMonsterException monster already in team
+     */
+    private void resetTeam(int numMembers, int faintPerMonster)
+            throws TeamSizeException, DuplicateMonsterException {
+        team = new Team(new ClinkMonster());
+        for (int i = 0; i < numMembers - 1; i++) {
+            team.addMonster(new ClinkMonster());
+        }
+        for (int i = 0; i < faintPerMonster; i++) {
+            for (Monster m : team.getMonsters()) {
+                m.incrementFaintCount();
+            }
+        }
+    }
+
+    /**
      * Sets rng seed to acheive even distribution for testing
      * 
      * @throws DuplicateMonsterException monster already in team
@@ -39,7 +60,42 @@ public class RandomEventTest {
      */
     @BeforeEach
     public void beforeEach() throws TeamSizeException, DuplicateMonsterException {
+        GameEnvironment.setSeed(seed);
         resetTeam(1, 0);
+    }
+
+    /**
+     * Checks events returns correct feedback
+     * 
+     * @throws TeamSizeException         too many members in team
+     * @throws DuplicateMonsterException monster already in team
+     */
+    @Test
+    public void randomBoostReturnTest() throws TeamSizeException, DuplicateMonsterException {
+        resetTeam(2, 0);
+        // Only one monster gets boosted
+        ArrayList<String> events = RandomEvent.randomBoost(team, 0, Difficulty.NORMAL);
+        assertEquals(1, events.size());
+        Monster monsterEffected = team.getFirstAliveMonster();
+        assertEquals(String.format("During the night " + ItemConstants.SPEEDBOOSTFEEDBACK, monsterEffected.getName(),
+                ItemConstants.COMMONSTATBOOST), events.get(0));
+
+        // No monsters
+        GameEnvironment.setSeed(2180);
+        events = RandomEvent.randomBoost(team, 0, Difficulty.NORMAL);
+        assertEquals(0, events.size());
+
+        // More than one monster gets boosted
+        GameEnvironment.setSeed(4097);
+        events = RandomEvent.randomBoost(team, 0, Difficulty.NORMAL);
+        assertEquals(2, events.size());
+        ArrayList<Monster> monstersEffected = team.getMonsters();
+        assertEquals(String.format("During the night " + ItemConstants.HEALTHBOOSTFEEDBACK,
+                monstersEffected.get(0).getName(),
+                ItemConstants.COMMONSTATBOOST), events.get(0));
+        assertEquals(String.format("During the night " + ItemConstants.ATTACKBOOSTFEEDBACK,
+                monstersEffected.get(0).getName(),
+                ItemConstants.COMMONSTATBOOST), events.get(1));
     }
 
     /**
@@ -49,7 +105,6 @@ public class RandomEventTest {
     @Test
     public void randomBoostBaseTest() {
         int expectedOccurences = 0;
-        GameEnvironment.setSeed(seed);
         for (int i = 0; i < repititions; i++) {
             if (GameEnvironment.rng.nextDouble() < RandomEventConstants.STATBOOSTPROBABILITY) {
                 expectedOccurences++;
@@ -79,7 +134,6 @@ public class RandomEventTest {
     @EnumSource(Difficulty.class)
     public void randomBoostDifficultyTest(Difficulty difficulty) {
         int expectedOccurences = 0;
-        GameEnvironment.setSeed(seed);
         for (int i = 0; i < repititions; i++) {
             if (GameEnvironment.rng.nextDouble() < RandomEventConstants.STATBOOSTPROBABILITY
                     * (1 / Difficulty.getDifficultyMultiplier(difficulty))) {
@@ -105,31 +159,33 @@ public class RandomEventTest {
     /**
      * Checks random stat boost occurs at base probability with current day modifier
      */
-    @ParameterizedTest
-    @ValueSource(ints = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }) // Days to test
-    public void randomBoostDayTest(int currentDay) {
-        int expectedOccurences = 0;
-        GameEnvironment.setSeed(seed);
-        for (int i = 0; i < repititions; i++) {
-            if (GameEnvironment.rng.nextDouble() < RandomEventConstants.STATBOOSTPROBABILITY
-                    + currentDay * RandomEventConstants.MODIFIERMULTIPLIER) {
-                expectedOccurences++;
-                GameEnvironment.rng.nextInt(); // Advance for choosing item effect
+    @Test
+    public void randomBoostDayTest() {
+        for (int currentDay = 0; currentDay < GameEnvironment.MAXDAYS; currentDay++) {
+
+            int expectedOccurences = 0;
+            GameEnvironment.setSeed(seed);
+            for (int i = 0; i < repititions; i++) {
+                if (GameEnvironment.rng.nextDouble() < RandomEventConstants.STATBOOSTPROBABILITY
+                        + currentDay * RandomEventConstants.MODIFIERMULTIPLIER) {
+                    expectedOccurences++;
+                    GameEnvironment.rng.nextInt(); // Advance for choosing item effect
+                }
             }
-        }
 
-        // Reset seed
-        GameEnvironment.setSeed(seed);
+            // Reset seed
+            GameEnvironment.setSeed(seed);
 
-        int actualOccurences = 0;
-        for (int i = 0; i < repititions; i++) {
-            ArrayList<String> events = RandomEvent.randomBoost(team, currentDay, Difficulty.NORMAL);
-            if (events.size() > 0) {
-                actualOccurences++;
+            int actualOccurences = 0;
+            for (int i = 0; i < repititions; i++) {
+                ArrayList<String> events = RandomEvent.randomBoost(team, currentDay, Difficulty.NORMAL);
+                if (events.size() > 0) {
+                    actualOccurences++;
+                }
             }
-        }
 
-        assertEquals(expectedOccurences, actualOccurences);
+            assertEquals(expectedOccurences, actualOccurences);
+        }
     }
 
     /**
@@ -139,7 +195,7 @@ public class RandomEventTest {
     public void randomBoostDayIncrementTest() {
         int prevOccurences = 0;
         int currentOccurences = 0;
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < GameEnvironment.MAXDAYS; i++) {
             GameEnvironment.setSeed(seed);
             for (int j = 0; j < repititions; j++) {
                 ArrayList<String> events = RandomEvent.randomBoost(team, i, Difficulty.NORMAL);
@@ -198,7 +254,7 @@ public class RandomEventTest {
         int prevOccurences = 0;
         int currentOccurences = 0;
         for (int i = 0; i < 15; i++) {
-            GameEnvironment.setSeed(seed);
+            GameEnvironment.setSeed(seed); // reset seed
             for (int j = 0; j < repititions; j++) {
                 ArrayList<String> events = RandomEvent.randomBoost(team, 0, Difficulty.NORMAL);
                 if (events.size() > 0) {
@@ -213,25 +269,35 @@ public class RandomEventTest {
     }
 
     /**
-     * Generates team of two with specified faint count for testing the monster
-     * leave event
+     * Checks event returns correct feedback
      * 
-     * @param numMembers      number of monsters in team
-     * @param faintPerMonster faint count for each monster
-     * @throws TeamSizeException
-     * @throws DuplicateMonsterException
+     * @throws TeamSizeException         too many members in team
+     * @throws DuplicateMonsterException monster already in team
      */
-    private void resetTeam(int numMembers, int faintPerMonster)
-            throws TeamSizeException, DuplicateMonsterException {
-        team = new Team(new ClinkMonster());
-        for (int i = 0; i < numMembers - 1; i++) {
-            team.addMonster(new ClinkMonster());
-        }
-        for (int i = 0; i < faintPerMonster; i++) {
-            for (Monster m : team.getMonsters()) {
-                m.incrementFaintCount();
-            }
-        }
+    @Test
+    public void randomMonsterLeaveReturnTest() throws TeamSizeException, DuplicateMonsterException {
+        resetTeam(3, 1);
+
+        // No monsters
+        GameEnvironment.setSeed(2180);
+        ArrayList<String> events = RandomEvent.randomMonsterLeave(team, Difficulty.NORMAL);
+        assertEquals(0, events.size());
+
+        // Only one monster gets boosted
+        GameEnvironment.setSeed(8390);
+        Monster monsterEffected = team.getFirstAliveMonster();
+        events = RandomEvent.randomMonsterLeave(team, Difficulty.NORMAL);
+        assertEquals(1, events.size());
+        assertEquals(monsterEffected.getName() + " got sick of fainting and ran away", events.get(0));
+
+        resetTeam(3, 1);
+        // More than one monster leaves
+        GameEnvironment.setSeed(4640);
+        events = RandomEvent.randomMonsterLeave(team, Difficulty.NORMAL);
+        assertEquals(2, events.size());
+        ArrayList<Monster> monstersEffected = team.getMonsters();
+        assertEquals(monstersEffected.get(0).getName() + " got sick of fainting and ran away", events.get(0));
+
     }
 
     /**
@@ -241,11 +307,10 @@ public class RandomEventTest {
      * @throws TeamSizeException         too many members in team
      */
     @Test
-    public void monsterLeaveBaseTest() throws TeamSizeException, DuplicateMonsterException {
+    public void randomMonsterLeaveBaseTest() throws TeamSizeException, DuplicateMonsterException {
         int expectedOccurences = 0;
 
         resetTeam(2, 0);
-        GameEnvironment.setSeed(seed);
         boolean justLeft = false; // Ignore second remove call since can't remove last monster
         for (int i = 0; i < repititions; i++) {
             double bound = RandomEventConstants.MONSTERLEAVEPROBABILITY;
@@ -289,7 +354,6 @@ public class RandomEventTest {
                                                                                     // from 0 to check difficulty
 
         resetTeam(2, faintCount);
-        GameEnvironment.setSeed(seed);
         boolean justLeft = false; // Ignore second remove call since can't remove last monster
         for (int i = 0; i < repititions; i++) {
             double bound = RandomEventConstants.MONSTERLEAVEPROBABILITY;
@@ -307,6 +371,7 @@ public class RandomEventTest {
 
         // Reset seed
         GameEnvironment.setSeed(seed);
+
         int actualOccurences = 0;
         for (int i = 0; i < repititions; i++) {
 
@@ -337,7 +402,7 @@ public class RandomEventTest {
         for (int faintCount = 0; faintCount < numFaints; faintCount++) {
             int expectedOccurences = 0;
             resetTeam(2, faintCount);
-            GameEnvironment.setSeed(seed);
+            GameEnvironment.setSeed(seed); // reset seed
             boolean justLeft = false; // Ignore second remove call since can't remove last monster
             for (int i = 0; i < repititions; i++) {
                 double bound = RandomEventConstants.MONSTERLEAVEPROBABILITY;
@@ -371,6 +436,37 @@ public class RandomEventTest {
     }
 
     /**
+     * Checks event returns correct feedback
+     * 
+     * @throws TeamSizeException         too many members in team
+     * @throws DuplicateMonsterException monster already in team
+     */
+    @Test
+    public void randomMonsterJoinReturnTest() throws TeamSizeException, DuplicateMonsterException {
+        resetTeam(1, 0);
+
+        // No monsters
+        GameEnvironment.setSeed(2180);
+        String event = RandomEvent.randomMonsterJoin(team, Difficulty.NORMAL);
+        assertNull(event);
+
+        // Monster joins
+        GameEnvironment.setSeed(8390);
+        ArrayList<Monster> prevTeam = new ArrayList<>(team.getMonsters());
+        event = RandomEvent.randomMonsterJoin(team, Difficulty.NORMAL);
+        assertNotNull(event);
+        boolean monsterHasJoined = false;
+        for (Monster m : team.getMonsters()) {
+            if (!prevTeam.contains(m) && !monsterHasJoined) {
+                assertEquals(m.getName() + " joined your team overnight", event);
+                monsterHasJoined = true;
+            } else if (!prevTeam.contains(m) && monsterHasJoined) {
+                throw new IllegalStateException("Error: more than one monster joined overnight");
+            }
+        }
+    }
+
+    /**
      * Check monster join occurs at base probability
      * 
      * @throws DuplicateMonsterException monster already in team
@@ -379,7 +475,6 @@ public class RandomEventTest {
     @Test
     public void randomMonsterJoinBaseTest() throws TeamSizeException, DuplicateMonsterException {
         int expectedOccurences = 0;
-        GameEnvironment.setSeed(seed); // Reset seed
         for (int i = 0; i < repititions; i++) {
             if (GameEnvironment.rng.nextDouble() < RandomEventConstants.MONSTERJOINPROBABILITY) {
                 expectedOccurences++;
@@ -414,7 +509,6 @@ public class RandomEventTest {
     public void randomMonsterJoinDifficultyTest(Difficulty difficulty)
             throws TeamSizeException, DuplicateMonsterException {
         int expectedOccurences = 0;
-        GameEnvironment.setSeed(seed); // reset seed
         for (int i = 0; i < repititions; i++) {
             double bound = RandomEventConstants.MONSTERJOINPROBABILITY;
             bound *= (1 / Difficulty.getDifficultyMultiplier(difficulty));

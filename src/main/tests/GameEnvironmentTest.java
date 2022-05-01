@@ -51,12 +51,12 @@ public class GameEnvironmentTest {
     @Test
     public void sleepDayAdvanceTest() {
         int i = 1;
-        for (; i <= game.getMaxDays(); i++) {
+        for (; i <= game.getTotalDays(); i++) {
             assertEquals(i, game.getCurrentDay());
             assertFalse(game.isGameOver());
             game.sleep();
         }
-        assertEquals(i - 1, game.getMaxDays());
+        assertEquals(i - 1, game.getTotalDays());
         assertTrue(game.isGameOver());
     }
 
