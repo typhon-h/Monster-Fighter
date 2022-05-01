@@ -41,7 +41,7 @@ public class BattleManager {
      * on the difficulty of the game.
      *
      * @param difficulty The difficulty of the game.
-     * @return           A {@link monsters.Monster Monster} with a random trigger.
+     * @return A {@link monsters.Monster Monster} with a random trigger.
      */
     private Monster getRandomMonster(Difficulty difficulty) {
 
@@ -87,7 +87,7 @@ public class BattleManager {
      * @param currentDay The current day in the game.
      * @param maxDays    The maximum number of days in the game.
      * @param difficulty The difficulty of the game.
-     * @return           A {@link main.Team Team} containing monsters.
+     * @return A {@link main.Team Team} containing monsters.
      */
     public Team generateTeam(int currentDay, int maxDays, Difficulty difficulty) {
         // TODO: change team size and update tests
@@ -95,7 +95,7 @@ public class BattleManager {
 
         // Create a team with a size based on the current
         Team team = null;
-        for (int i=0; i<teamSize; i++) {
+        for (int i = 0; i < teamSize; i++) {
             Monster monster = getRandomMonster(difficulty);
             try {
                 if (team == null) {
@@ -112,9 +112,9 @@ public class BattleManager {
 
         // Use boost item on random monsters in the team
         int totalPoints = (int) (Difficulty.getDifficultyMultiplier(difficulty) *
-                                    Math.ceil((float) ItemConstants.AVERAGEBOOSTPERBUYPRICE *
-                                            (float) allyPlayer.getGold() +
-                                            (float) allyPlayer.getItemPoints()));
+                Math.ceil((float) ItemConstants.AVERAGEBOOSTPERBUYPRICE *
+                        (float) allyPlayer.getGold() +
+                        (float) allyPlayer.getItemPoints()));
         int expendedPoints = 0;
         RandomStatBoost boost = new RandomStatBoost("Boost", "Desc", Rarity.COMMON);
 
@@ -142,13 +142,15 @@ public class BattleManager {
         currentOpponent = null;
 
         // TODO: change magic numbers to constants
-        // gold = starting gold + goldPerDay * reverse of difficulty multiplier * currentDay
+        // gold = starting gold + goldPerDay * reverse of difficulty multiplier *
+        // currentDay
         int gold = (int) (30f + (30f * (1f + 1f - getDifficultyMultiplier(difficulty)) * currentDay));
         // points = basePoints * 1.1 ^ day * difficulty multiplier
-        int points = (int) Math.round(100f * (float) Math.pow(1.1, (double) currentDay) * getDifficultyMultiplier(difficulty));
+        int points = (int) Math
+                .round(100f * (float) Math.pow(1.1, (double) currentDay) * getDifficultyMultiplier(difficulty));
 
         ArrayList<Player> newOpponents = new ArrayList<Player>();
-        for (int i=0; i<BattleConstants.NUMOPPONENTS; i++) {
+        for (int i = 0; i < BattleConstants.NUMOPPONENTS; i++) {
             Team team = generateTeam(currentDay, maxDays, difficulty);
             Player newOpponent = new Player(team, gold);
             newOpponent.incrementScore(points);
@@ -162,14 +164,16 @@ public class BattleManager {
     /**
      * Gets the possible opponents which the player can face against.
      *
-     * @return A list of {@link main.Player Opponents} that the player can face against.
+     * @return A list of {@link main.Player Opponents} that the player can face
+     *         against.
      */
     public ArrayList<Player> getOpponents() {
         return opponents;
     }
 
     /**
-     * Sets the {@link main.Player opponent} which the {@link main.Player player} is battling against
+     * Sets the {@link main.Player opponent} which the {@link main.Player player} is
+     * battling against
      *
      * @param opponent The selected {@link main.Player opponent} to battle against
      */
@@ -210,34 +214,33 @@ public class BattleManager {
         }
 
         Monster[][] monsterArray = new Monster[][] {
-            {firstMonster, secondMonster},
-            {secondMonster, firstMonster}};
+                { firstMonster, secondMonster },
+                { secondMonster, firstMonster } };
 
         for (Monster[] monster : monsterArray) {
             Monster monster1 = monster[0];
             Monster monster2 = monster[1];
 
-            /**
-             * 1. BEFOREATTACK trigger
-             * 2. First monster hits second monster
-             * 3. ONHURT trigger
-             * 4. ONFAINT trigger
-             * 5. After attack trigger
-             */
-
-            // Check BEFOREATTACK trigger
-            eventLog.addAll(runAbility(monster1, Trigger.BEFOREATTACK));
             monster2.takeDamage(monster1.getCurrentAttackDamage());
-            // Monster took damage
-            eventLog.add(new BattleEvent(allyPlayer.getTeam(), currentOpponent.getTeam(), "damaged"));
-            // Check ONHURT trigger
-            eventLog.addAll(runAbility(monster2, Trigger.ONHURT));
-            // Check ONFAINT trigger
+
+            String description = monster1.getName() + " dealt " + monster1.getCurrentAttackDamage() + " damage to "
+                    + monster2.getName();
+            Trigger trigger;
+
             if (!monster2.getStatus()) {
-                eventLog.addAll(runAbility(monster2, Trigger.ONFAINT));
+                trigger = Trigger.ONFAINT;
+                eventLog.add(new BattleEvent(allyPlayer.getTeam(), currentOpponent.getTeam(),
+                        description + ". " + monster2.getName() + " fainted."));
+            } else {
+                trigger = Trigger.ONHURT;
+                eventLog.add(new BattleEvent(allyPlayer.getTeam(), currentOpponent.getTeam(), description));
             }
-            // Check AFTERATTACK trigger
-            eventLog.addAll(runAbility(monster1, Trigger.AFTERATTACK));
+
+            BattleEvent ability = runAbility(monster2, trigger);
+            if (ability != null) {
+                eventLog.add(ability);
+            }
+
         }
 
         return eventLog;
@@ -249,24 +252,33 @@ public class BattleManager {
      * @param monster Monster to run ability on
      * @param trigger Current trigger that is checked for
      */
-    private ArrayList<BattleEvent> runAbility(Monster monster, Trigger trigger) {
-        ArrayList<BattleEvent> eventLog = new ArrayList<BattleEvent>();
+    private BattleEvent runAbility(Monster monster, Trigger trigger) {
 
-        // TODO: the aiblity should return a ArrayList<BattleEvent>
         if (monster.getTrigger() == trigger) {
-            monster.ability(allyPlayer.getTeam(), currentOpponent.getTeam());
+            return monster.ability(allyPlayer.getTeam(), currentOpponent.getTeam());
         }
 
-        return eventLog;
+        return null;
     }
 
     /**
      * Simulates the battle then returns a history log of all the event that
-     * occurred during the battle. A ArrayList<BattleEvent> object should be returned, not void
+     * occurred during the battle. A ArrayList<BattleEvent> object should be
+     * returned, not void
      */
     public ArrayList<BattleEvent> simulateBattle() {
-    }
+        /**
+         * 1. BEFOREATTACK trigger
+         * 2. fight
+         * 5. After attack trigger
+         */
 
+        // Check BEFOREATTACK trigger
+        // eventLog.addAll(runAbility(monster1, Trigger.BEFOREATTACK));
+
+        // // Check AFTERATTACK trigger
+        // eventLog.addAll(runAbility(monster1, Trigger.AFTERATTACK));
+    }
 
     /**
      * Gets the next event from the event log after simulating the battle.

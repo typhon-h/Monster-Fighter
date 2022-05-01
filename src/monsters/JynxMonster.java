@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import main.Trigger;
+import main.BattleEvent;
 import main.Team;
 
 /**
@@ -34,13 +35,13 @@ public class JynxMonster extends Monster {
     }
 
     @Override
-    public Monster ability(Team allyTeam, Team enemyTeam) {
-        // -1 Health to a random ENEMY
+    public BattleEvent ability(Team allyTeam, Team enemyTeam) {
+        // TODO: new ability is on GAME-MANAGER Branch
 
         ArrayList<Monster> possibleMembers = enemyTeam.getAliveMonsters();
         if (possibleMembers.size() > 0) {
             Monster monsterToAdjust = possibleMembers.get(rng.nextInt(possibleMembers.size()));
-            return monsterToAdjust.takeDamage(1);
+            return null;
         }
 
         return null;

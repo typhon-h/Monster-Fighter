@@ -1,6 +1,7 @@
 package monsters;
 
 import main.Trigger;
+import main.BattleEvent;
 import main.Team;
 
 /**
@@ -26,13 +27,17 @@ public class DittaMonster extends Monster {
     }
 
     @Override
-    public Monster ability(Team allyTeam, Team enemyTeam) {
+    public BattleEvent ability(Team allyTeam, Team enemyTeam) {
         // COPY the stats of the enemy in front
 
         Monster monsterToCopy = enemyTeam.getFirstAliveMonster();
-        if(monsterToCopy != null) {
+        if (monsterToCopy != null) {
             this.setCurrentAttackDamage(monsterToCopy.getCurrentAttackDamage());
             this.setCurrentHealth(monsterToCopy.getCurrentHealth());
+            return new BattleEvent(allyTeam, enemyTeam,
+                    this.getName() + "'s " + this.getTrigger().name() + " ability triggered. " + this.getName()
+                            + " copied " + monsterToCopy.getName()
+                            + "'s stats.");
         }
 
         return null; // No Trigger

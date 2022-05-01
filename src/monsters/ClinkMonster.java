@@ -1,6 +1,7 @@
 package monsters;
 
 import main.Trigger;
+import main.BattleEvent;
 import main.Team;
 
 /**
@@ -26,13 +27,16 @@ public class ClinkMonster extends Monster {
     }
 
     @Override
-    public Monster ability(Team allyTeam, Team enemyTeam) {
+    public BattleEvent ability(Team allyTeam, Team enemyTeam) {
         // -1 Attack and +1 Health (min 1 Attack)
         if (this.getCurrentAttackDamage() > 1) { // Attack can't go lower than 1
             this.setCurrentAttackDamage(this.getCurrentAttackDamage() - 1);
             this.setCurrentHealth(this.getCurrentHealth() + 1);
+            return new BattleEvent(allyTeam, enemyTeam,
+                    this.getName() + "'s " + this.getTrigger().name()
+                            + " ability triggered. Lost 1 ATK and gained 1 HP");
         }
-        return null; // Empty
+        return null;
     }
 
 }

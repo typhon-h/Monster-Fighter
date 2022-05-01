@@ -1,6 +1,7 @@
 package monsters;
 
 import main.Trigger;
+import main.BattleEvent;
 import main.Team;
 
 /**
@@ -27,7 +28,7 @@ public class LuciferMonster extends Monster {
     }
 
     @Override
-    public Monster ability(Team allyTeam, Team enemyTeam) {
+    public BattleEvent ability(Team allyTeam, Team enemyTeam) {
         // SWAP Atack and Health
 
         int tempAttack = this.getCurrentAttackDamage();
@@ -35,7 +36,8 @@ public class LuciferMonster extends Monster {
         this.setCurrentAttackDamage(tempHealth);
         this.setCurrentHealth(tempAttack);
 
-        return null; // Empty
+        return new BattleEvent(allyTeam, enemyTeam,
+                this.getName() + "'s " + this.getTrigger().name() + " ability triggered. ATK and HP have been swapped");
     }
 
 }

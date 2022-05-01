@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import main.Trigger;
+import main.BattleEvent;
 import main.Team;
 
 /**
@@ -34,13 +35,16 @@ public class TeddyMonster extends Monster {
     }
 
     @Override
-    public Monster ability(Team allyTeam, Team enemyTeam) {
+    public BattleEvent ability(Team allyTeam, Team enemyTeam) {
         // +1 Health to a random ALLY
 
         ArrayList<Monster> possibleMembers = allyTeam.getAliveMonsters();
-        if(possibleMembers.size() > 0) {
+        if (possibleMembers.size() > 0) {
             Monster monsterToAdjust = possibleMembers.get(rng.nextInt(possibleMembers.size()));
             monsterToAdjust.setCurrentHealth(monsterToAdjust.getCurrentHealth() + 1);
+            return new BattleEvent(allyTeam, enemyTeam,
+                    this.getName() + "'s " + this.getTrigger().name() + " ability triggered. "
+                            + monsterToAdjust.getName() + " gained 1 HP");
         }
         return null; // Empty
     }

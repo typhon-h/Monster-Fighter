@@ -1,5 +1,6 @@
 package monsters;
 
+import main.BattleEvent;
 import main.Entity;
 import main.Rarity;
 import main.Team;
@@ -89,7 +90,7 @@ public abstract class Monster extends Entity {
      * @param enemyTeam Enemy team of the monster
      * @return a Monster whose ability gets triggered next
      */
-    public abstract Monster ability(Team allyTeam, Team enemyTeam);
+    public abstract BattleEvent ability(Team allyTeam, Team enemyTeam);
 
     /**
      * Deals damage to the monster and triggers relevant events
@@ -98,7 +99,8 @@ public abstract class Monster extends Entity {
      * @throws IllegalArgumentException Argument must be positive
      * @return itself if ability was triggered
      */
-    public Monster takeDamage(int damage) throws IllegalArgumentException {
+    public void takeDamage(int damage) throws IllegalArgumentException {
+        // TODO: fix tests, move trigger testing to BattleManager.fight
         if (damage <= 0) {
             throw new IllegalArgumentException("Argument must be positive");
         }
@@ -109,14 +111,8 @@ public abstract class Monster extends Entity {
             currentHealth = 0;
             setStatus(false);
             incrementFaintCount();
-            if (getTrigger() == Trigger.ONFAINT) { // ONFAINT Event
-                return this;
-            }
-        } else if (getTrigger() == Trigger.ONHURT) {
-            return this;
-        }
 
-        return null; // No ability triggered
+        }
     };
 
     /**
