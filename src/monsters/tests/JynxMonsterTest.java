@@ -3,7 +3,6 @@ package monsters.tests;
 import monsters.*;
 import main.Rarity;
 import main.Team;
-import main.Trigger;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -14,8 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import exceptions.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.stream.Stream;
 
 /**
@@ -87,98 +84,29 @@ public class JynxMonsterTest {
      */
     @Test
     public void abilityTest() throws TeamSizeException, DuplicateMonsterException {
-        Team allyTeam = new Team(monster);
-        Team enemyTeam = new Team(new ClinkMonster(), new ClinkMonster());
+        Team enemyTeam = new Team(new ClinkMonster());
+        Team allyTeam = new Team(monster, new ClinkMonster());
 
-        // Check does damage
-        int startEnemyTeamSumHealth = 0;
-        int endEnemyTeamSumHealth = 0;
-        for (Monster m : enemyTeam.getAliveMonsters()) {
-            m.setTrigger(Trigger.NOABILITY);
-            startEnemyTeamSumHealth += m.getCurrentHealth();
-        }
+        Monster allyMonster = allyTeam.getMonsters().get(1);
+
+        // Health stays same if Jynx has highest health
+        monster.setCurrentHealth(allyMonster.getCurrentHealth() + 1);
+        int prevHealth = monster.getCurrentHealth();
         monster.ability(allyTeam, enemyTeam);
-        for (Monster m : enemyTeam.getAliveMonsters()) {
-            endEnemyTeamSumHealth += m.getCurrentHealth();
-        }
-        assertEquals(startEnemyTeamSumHealth - 1, endEnemyTeamSumHealth);
+        assertEquals(prevHealth, monster.getCurrentHealth());
 
-        // Check does nothing with empty team
-        enemyTeam = new Team(new ClinkMonster());
-        // Faint whole team
-        enemyTeam.getFirstAliveMonster().takeDamage(enemyTeam.getFirstAliveMonster().getCurrentHealth());
+        // Health switches to highest health (not Jynx)
+        allyMonster.setCurrentHealth(monster.getCurrentHealth() + 1);
+        prevHealth = monster.getCurrentHealth();
+        int expectedHealth = allyMonster.getCurrentHealth();
         monster.ability(allyTeam, enemyTeam);
-        endEnemyTeamSumHealth = 0;
-        for (Monster m : enemyTeam.getMonsters()) {
-            endEnemyTeamSumHealth += m.getCurrentHealth();
-        }
-        assertEquals(0, endEnemyTeamSumHealth); // Check damage hasn't been done to fainted enemies
-    }
+        assertNotEquals(prevHealth, monster.getCurrentHealth());
+        assertEquals(expectedHealth, monster.getCurrentHealth());
 
-    /**
-     * Tests if abilities are able to rescurse and hit a bound
-     * Covers: ability
-     * Valid: two monsters with ONHURT targetting each other
-     * Valid: Monster with no abilty not having their ability trigger
-     * 
-     * @throws DuplicateMonsterException if same monster is added more than once
-     * @throws TeamSizeException         if more team members than max allowed
-     * 
-     */
-    @Test
-    public void recursiveAbilityTest() throws TeamSizeException, DuplicateMonsterException {
-        // Ability bounces back and forth until one faints
-        /*
-         * Looks like
-         * Monster:2hp Enemy:2hp
-         * MONSTER ABILITY TRIGGERS
-         * 2hp 1hp enemy triggers
-         * 1hp 1hp monster triggers
-         * 1hp 0hp END
-         */
-        // SETUP
-        Team allyTeam = new Team(monster);
-        Monster enemy = new JynxMonster();
-        Team enemyTeam = new Team(enemy);
-        allyTeam.getFirstAliveMonster().setTrigger(Trigger.ONHURT);
-        enemyTeam.getFirstAliveMonster().setTrigger(Trigger.ONHURT);
-        allyTeam.getFirstAliveMonster().setCurrentHealth(2);
-        enemyTeam.getFirstAliveMonster().setCurrentHealth(2);
-        allyTeam.getFirstAliveMonster().setCurrentAttackDamage(1);
-        enemyTeam.getFirstAliveMonster().setCurrentAttackDamage(1);
-        ArrayList<Monster> expectedTriggered = new ArrayList<>(Arrays.asList(
-                monster,
-                enemy,
-                monster));
-        ArrayList<Monster> actualTriggered = new ArrayList<Monster>();
-        Monster triggered = monster;
-        // Test
-        while (triggered != null) {
-            actualTriggered.add(triggered);
-            if (allyTeam.getMonsters().contains(triggered)) {
-                triggered = triggered.ability(allyTeam, enemyTeam);
-            } else {
-                triggered = triggered.ability(enemyTeam, allyTeam);
-            }
+        // Health stays same if whole team has same health
+        prevHealth = monster.getCurrentHealth();
+        monster.ability(allyTeam, enemyTeam);
+        assertEquals(prevHealth, monster.getCurrentHealth());
 
-        }
-        assertEquals(expectedTriggered, actualTriggered);
-
-        // Does damage to monster without ONHURT doesn't rebound
-        enemy.setTrigger(Trigger.NOABILITY);
-        monster.restore();
-        enemy.restore();
-        triggered = monster;
-        actualTriggered.clear();
-        while (triggered != null) {
-            actualTriggered.add(triggered);
-            if (allyTeam.getMonsters().contains(triggered)) {
-                triggered = triggered.ability(allyTeam, enemyTeam);
-            } else {
-                triggered = triggered.ability(enemyTeam, allyTeam);
-            }
-        }
-        assertTrue(actualTriggered.size() == 1);
-        assertTrue(actualTriggered.contains(monster));
     }
 }
