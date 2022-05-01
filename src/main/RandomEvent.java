@@ -30,11 +30,11 @@ public class RandomEvent {
 
         for (Monster monster : team.getMonsters()) {
             double probabilityBound = RandomEventConstants.STATBOOSTPROBABILITY;
-            // TODO: adjust probability
             probabilityBound += ((double) currentDay - (double) monster.getFaintCount())
                     * RandomEventConstants.MODIFIERMULTIPLIER;
             probabilityBound *= 1 /
                     Difficulty.getDifficultyMultiplier(difficulty);
+
             if (probabilityBound > 1) {
                 probabilityBound = 1;
             } else if (probabilityBound < 0) {
@@ -65,9 +65,9 @@ public class RandomEvent {
         ArrayList<Monster> monsters = new ArrayList<Monster>(team.getMonsters());
         for (Monster monster : monsters) {
             double probabilityBound = RandomEventConstants.MONSTERLEAVEPROBABILITY;
-            // TODO: adjust probability
             probabilityBound += ((double) monster.getFaintCount()) * RandomEventConstants.MODIFIERMULTIPLIER;
             probabilityBound *= Difficulty.getDifficultyMultiplier(difficulty);
+
             if (probabilityBound > 1) {
                 probabilityBound = 1;
             }
@@ -94,8 +94,6 @@ public class RandomEvent {
      */
     public static String randomMonsterJoin(Team team, Difficulty difficulty) {
         double probabilityBound = RandomEventConstants.MONSTERJOINPROBABILITY;
-
-        // TODO: adjust probability
         probabilityBound += (Team.getMaxTeamSize() - team.getTeamSize() - 1) * RandomEventConstants.MODIFIERMULTIPLIER;
         probabilityBound *= 1 / Difficulty.getDifficultyMultiplier(difficulty);
 

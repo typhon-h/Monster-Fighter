@@ -1,9 +1,6 @@
 package monsters;
 
-import java.util.ArrayList;
-
 import main.Trigger;
-import main.GameEnvironment;
 import main.Team;
 
 /**
@@ -19,23 +16,26 @@ public class JynxMonster extends Monster {
     public JynxMonster() {
         super(
                 "Jynx", // Name
-                "Highly trained assassin. *CLASSIFIED*", // Description
+                "Only as strong as...the strongest member???", // Description
                 MonsterConstants.JYNXRARITY, // Rarity
                 MonsterConstants.JYNXBASEATTACKDAMAGE, // Base AttackDamage
                 MonsterConstants.JYNXBASEHEALTH, // Base Health
-                "-1 Health to a random ENEMY",
+                "Copy HEALTH of healthiest enemy",
                 MonsterConstants.JYNXBASESPEED); // Base Speed
         this.setTrigger(Trigger.ONFAINT); // TODO decide trigger
     }
 
     public Monster ability(Team allyTeam, Team enemyTeam) {
-        // -1 Health to a random ENEMY
+        // Copy HEALTH of healthiest enemy
 
-        ArrayList<Monster> possibleMembers = enemyTeam.getAliveMonsters();
-        if (possibleMembers.size() > 0) {
-            Monster monsterToAdjust = possibleMembers.get(GameEnvironment.rng.nextInt(possibleMembers.size()));
-            return monsterToAdjust.takeDamage(1);
+        int mostHealth = this.getCurrentHealth();
+        for (Monster m : allyTeam.getAliveMonsters()) {
+            if (m.getCurrentHealth() > mostHealth) {
+                mostHealth = m.getCurrentHealth();
+            }
         }
+
+        this.setCurrentHealth(mostHealth);
 
         return null;
     }
