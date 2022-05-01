@@ -1,30 +1,23 @@
 package main;
 
-import monsters.Monster;
-
 /**
  * A class to store snapshots of events that occur during
  * a battle between the player and an opponent.
  *
  * @author Jackie Jone
- * @version 1.0, Apr 2022.
+ * @version 1.1, Apr 2022.
  */
 public class BattleEvent {
     /**
-     * {@link monsters.Monster Monster} which has been affected with it's updated
-     * variables
+     * snapshot of ally {@link main.Team Team}
      */
-    public Monster monster;
+    public Team allyTeam;
     /**
-     * Index/Position of the {@link monsters.Monster monster} that was affected
+     * snapshot of enemy {@link main.Team Team}
      */
-    public int monsterIndex;
+    public Team opponentTeam;
     /**
-     * The team in which the affected {@link monsters.Monster monster} belongs to
-     */
-    public boolean teamToAdjust;
-    /**
-     * Description of the event that occured
+     * Description of the event that occurred
      */
     public String description;
 
@@ -32,15 +25,27 @@ public class BattleEvent {
      * Constructor for BattleEvent. Sets the object's variables
      *
      * @param newMonster      The {@link monsters.Monster Monster} that was affected
-     * @param newMonsterIndex The index of the {@link monsters.Monster Monster} that was affected
      * @param newTeamToAdjust The team in which the affected {@link monsters.Monster Monster} was in
-     * @param newDescription  The description of the event that occured
+     * @param newDescription  The description of the event that occurred
      */
-    public BattleEvent(Monster newMonster, int newMonsterIndex,
-                       boolean newTeamToAdjust, String newDescription) {
-        monster = newMonster;
-        monsterIndex = newMonsterIndex;
-        teamToAdjust = newTeamToAdjust;
-        description = newDescription;
+
+    /**
+     * Constructor for BattleEvent. Sets the object's instance variables
+     *
+     * @param newAllyTeam     Ally team to take snapshot of
+     * @param newOpponentTeam Enemy team to take snapshot of
+     * @param newDescription  Description of the event that occurred
+     */
+    public BattleEvent(Team newAllyTeam, Team newOpponentTeam,
+                       String newDescription) {
+
+        try {
+            this.allyTeam = (Team) newAllyTeam.clone();
+            this.opponentTeam = (Team) newOpponentTeam.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+
+        this.description = newDescription;
     }
 }

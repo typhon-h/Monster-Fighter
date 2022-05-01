@@ -11,7 +11,7 @@ import main.Trigger;
  * @author Harrison Tyson
  * @version 1.3, Apr 2022.
  */
-public abstract class Monster extends Entity implements Cloneable {
+public abstract class Monster extends Entity {
     /**
      * Constant defining the total number of monsters
      * that exist in the game.

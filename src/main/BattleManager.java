@@ -196,8 +196,50 @@ public class BattleManager {
      * @param allyMonster  Ally monster that is currently fighting
      * @param enemyMonster Enemy monster that is currently fighting
      */
-    private BattleEvent fight(Monster allyMonster, Monster enemyMonster) {
+    private ArrayList<BattleEvent> fight(Monster allyMonster, Monster enemyMonster) {
+        ArrayList<BattleEvent> eventLog = new ArrayList<BattleEvent>();
 
+        Monster firstMonster;
+        Monster secondMonster;
+        if (allyMonster.getSpeed() >= enemyMonster.getSpeed()) {
+            firstMonster = allyMonster;
+            secondMonster = enemyMonster;
+        } else {
+            firstMonster = enemyMonster;
+            secondMonster = allyMonster;
+        }
+
+        Monster[][] monsterArray = new Monster[][] {
+            {firstMonster, secondMonster},
+            {secondMonster, firstMonster}};
+
+        for (Monster[] monster : monsterArray) {
+            Monster monster1 = monster[0];
+            Monster monster2 = monster[1];
+
+            /**
+             * 1. BEFOREATTACK trigger
+             * 2. First monster hits second monster
+             * 3. ONHURT trigger
+             * 4. ONFAINT trigger
+             * 5. After attack trigger
+             */
+
+            eventLog.addAll(runAbility(monster1, Trigger.BEFOREATTACK));
+            // If a monster is returned from takeDamage then the monsters trigger was activated
+            monster2.takeDamage(monster1.getCurrentAttackDamage());
+            // Monster took damage
+            eventLog.add(new BattleEvent(allyPlayer.getTeam(), currentOpponent.getTeam(), "damaged"));
+            // Check ONHURT trigger
+            eventLog.addAll(runAbility(monster2, Trigger.ONHURT));
+            // Check ONFAINT trigger
+            if (!monster2.getStatus()) {
+                eventLog.addAll(runAbility(monster2, Trigger.ONFAINT));
+            }
+            eventLog.addAll(runAbility(monster1, Trigger.AFTERATTACK));
+        }
+
+        return eventLog;
     }
 
     /**
@@ -206,8 +248,10 @@ public class BattleManager {
      * @param monster Monster to run ability on
      * @param trigger Current trigger that is checked for
      */
-    private BattleEvent runAbility(Monster monster, Trigger trigger) {
+    private ArrayList<BattleEvent> runAbility(Monster monster, Trigger trigger) {
+        ArrayList<BattleEvent> eventLog = new ArrayList<BattleEvent>();
 
+        return eventLog;
     }
 
     /**
@@ -215,7 +259,6 @@ public class BattleManager {
      * occurred during the battle. A ArrayList<BattleEvent> object should be returned, not void
      */
     public ArrayList<BattleEvent> simulateBattle() {
-
     }
 
 
