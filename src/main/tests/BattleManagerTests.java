@@ -3,7 +3,6 @@ package main.tests;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +11,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import items.ItemConstants;
 import main.*;
 import monsters.*;
 
@@ -37,7 +35,7 @@ class BattleManagerTests {
     }
 
     // /**
-    // * Testing that every monster is put in the team at
+    // * Testing that every monster is put in the team
     // */
     // @Test
     // public void getRandomMonsterTest() {
@@ -125,16 +123,11 @@ class BattleManagerTests {
                 baseMonster.getSpeed() < monster.getSpeed());
     }
 
-    // TODO: Test that the difficulty multiplier works.
-
     /**
      * Test for generating opponents
      */
     @Test
     public void generateOpponentsTest() {
-        /*
-         * TODO: Test that points and gold increases / decreases on difficulty
-         */
         battleManager.generateOpponents(1, 15, Difficulty.NORMAL);
         ArrayList<Player> opponents1 = battleManager.getOpponents();
         Player opponent1 = opponents1.get(0);
@@ -178,9 +171,9 @@ class BattleManagerTests {
     // /**
     // * Check ONHURT event is triggered
     // * Covers: takeDamage
-    // * Valid: recieves damage and has ONHURT
-    // * Invalid: recieves damage and has ONFAINT
-    // * Invalid: recieves damage and faints and has ONHURT
+    // * Valid: receives damage and has ONHURT
+    // * Invalid: receives damage and has ONFAINT
+    // * Invalid: receives damage and faints and has ONHURT
     // */
     // @Test
     // public void onHurtTriggerTest() {
@@ -205,9 +198,9 @@ class BattleManagerTests {
     // /**
     // * Check ONFAINT event is triggered
     // * Covers: takeDamage
-    // * Valid: recieves damage and faints and has ONFAINT
-    // * Invalid: recieves damage and has ONFAINT
-    // * Invalid: recieves damage and has ONHURT
+    // * Valid: receives damage and faints and has ONFAINT
+    // * Invalid: receives damage and has ONFAINT
+    // * Invalid: receives damage and has ONHURT
     // */
     // @Test
     // public void onFaintTriggerTest() {

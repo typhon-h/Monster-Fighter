@@ -76,7 +76,7 @@ public class GilMonsterTest {
      * Checks ability effect activates correctly
      * Covers: ability
      * Valid: Monster in front of Gil AttackDamage: 1
-     * Valid: Monster in fron of Gil AttackDamage: > 1
+     * Valid: Monster in front of Gil AttackDamage: > 1
      * Invalid: Gil is front of the team
      *
      * @throws DuplicateMonsterException if same monster is added more than once

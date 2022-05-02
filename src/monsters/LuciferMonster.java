@@ -29,7 +29,7 @@ public class LuciferMonster extends Monster {
 
     @Override
     public BattleEvent ability(Team allyTeam, Team enemyTeam) {
-        // SWAP Atack and Health
+        // SWAP Attack and Health
 
         int tempAttack = this.getCurrentAttackDamage();
         int tempHealth = this.getCurrentHealth();

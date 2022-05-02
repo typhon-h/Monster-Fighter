@@ -5,12 +5,10 @@ import monsters.*;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
-import main.Trigger;
-
 /**
  * Testing for generic monster class.
  * Covers all non trivial methods (not getters/setters)
- * 
+ *
  * @author Harrison Tyson
  * @version 1.0, Apr 2022.
  */
@@ -20,7 +18,7 @@ public class MonsterTest {
 
     /**
      * Set up a monster to test methods on before each test
-     * 
+     *
      * @throws Exception any error that occurs
      */
     @BeforeEach
@@ -29,14 +27,14 @@ public class MonsterTest {
     }
 
     /**
-     * Checks that monster recieves damage correctly
+     * Checks that monster receives damage correctly
      * Covers:
      * valid: 1
      * invalid: 0
      * invalid: -1
      */
     @Test
-    public void recieveDamageTest() {
+    public void receiveDamageTest() {
         monster.takeDamage(monster.getBaseHealth() - 1); // non lethal
         // Checks damage is dealt
         assertEquals(1, monster.getCurrentHealth());
@@ -61,8 +59,8 @@ public class MonsterTest {
     /**
      * Checks health cannot overflow to zero
      * Covers: takeDamage, setCurrentHealth
-     * monster recieves more damage than current health
-     * monster recieves damage with 0 health
+     * monster receives more damage than current health
+     * monster receives damage with 0 health
      * monster health is set negative
      */
     @Test

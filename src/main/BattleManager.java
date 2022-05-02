@@ -19,11 +19,11 @@ import static main.Difficulty.getDifficultyMultiplier;
  * @version 1.0, Apr 2022.
  */
 public class BattleManager {
+    // TODO: Comment these variables
     private Player allyPlayer;
     private ArrayList<Player> opponents;
     private Player currentOpponent = null;
     private BattleResult battleResult = BattleResult.NULL;
-    // TODO: use global random variable instead
     private ArrayList<BattleEvent> eventLog = new ArrayList<BattleEvent>();
     private int currentEventIndex = 0;
 
@@ -136,7 +136,7 @@ public class BattleManager {
      * @param maxDays    The maximum number of days any game can last.
      * @param difficulty The difficulty of the current game.
      */
-    // TODO: change all Difficulty to use difficulty constant in GameEnvironment
+    // TODO: change all Difficulty to use getDiffculty method in GameEnvironment
     public void generateOpponents(int currentDay, int maxDays, Difficulty difficulty) {
         // Reset current opponent to null.
         currentOpponent = null;

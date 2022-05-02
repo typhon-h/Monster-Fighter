@@ -36,7 +36,7 @@ public class Team implements Cloneable {
      * Constructor for Team. Creates a team with the starting monster/s
      *
      * @param newMonsters starting monster/s
-     * 
+     *
      * @throws TeamSizeException         team is full or empty
      * @throws DuplicateMonsterException monster already in team
      */
@@ -210,7 +210,6 @@ public class Team implements Cloneable {
 
             return teamCopy;
         } catch (TeamSizeException | DuplicateMonsterException e) { // won't happen since implements Cloneable
-            // TODO: figure out what to do about team exceptions
             e.printStackTrace();
             return null;
         }
