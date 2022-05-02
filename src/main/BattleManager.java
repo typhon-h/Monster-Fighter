@@ -24,7 +24,10 @@ public class BattleManager {
     private ArrayList<Player> opponents;
     private Player currentOpponent = null;
     private BattleResult battleResult = BattleResult.NULL;
+    // TODO: use global random variable instead
     private static Random rng = new Random();
+    private ArrayList<BattleEvent> eventLog = new ArrayList<BattleEvent>();
+    private int currentEventIndex = 0;
 
     /**
      * Constructor to for BattleManager, creates a new BattleManager
@@ -270,8 +273,10 @@ public class BattleManager {
     /**
      * Should return a BattleEvent object not void
      *
-     * @param monster Monster to run ability on
-     * @param trigger Current trigger that is checked for
+     * @param allyTeam  The ally team respective to the monster
+     * @param enemyTeam The enemy team respective to the monster
+     * @param monster   Monster to run ability of
+     * @param trigger   Current trigger that is checked for
      */
     private BattleEvent runAbility(Team allyTeam, Team enemyTeam, Monster monster, Trigger trigger) {
         if (monster.getTrigger() == trigger) {
@@ -282,12 +287,11 @@ public class BattleManager {
     }
 
     /**
-     * Simulates the battle then returns a history log of all the event that
-     * occurred during the battle. An ArrayList<BattleEvent> object should be
-     * returned, not void
+     * Simulates the battle and sets the eventLog of the battleManager with the
+     * events that occurred during the battle.
      */
-    public ArrayList<BattleEvent> simulateBattle() {
-        ArrayList<BattleEvent> eventLog = new ArrayList<BattleEvent>();
+    public void simulateBattle() {
+        ArrayList<BattleEvent> newEventLog = new ArrayList<BattleEvent>();
 
         Team allyTeamCopy;
         Team opponentTeamCopy;
@@ -298,30 +302,36 @@ public class BattleManager {
 
             // Check for START OF BATTLE triggers for ally team then opponent team
             for (Monster monster : allyTeamCopy.getAliveMonsters()) {
-                eventLog.add(runAbility(allyTeamCopy, opponentTeamCopy, monster, Trigger.STARTOFBATTLE));
+                newEventLog.add(runAbility(allyTeamCopy, opponentTeamCopy, monster, Trigger.STARTOFBATTLE));
             }
 
             for (Monster monster : opponentTeamCopy.getAliveMonsters()) {
-                eventLog.add(runAbility(opponentTeamCopy, allyTeamCopy, monster, Trigger.STARTOFBATTLE));
+                newEventLog.add(runAbility(opponentTeamCopy, allyTeamCopy, monster, Trigger.STARTOFBATTLE));
             }
 
             while (!allyTeamCopy.getAliveMonsters().isEmpty() && !opponentTeamCopy.getAliveMonsters().isEmpty()) {
-
+                newEventLog.addAll(fight(allyTeamCopy, opponentTeamCopy));
             }
 
         } catch (CloneNotSupportedException e) { // Should never happen as clone is implemented
             e.printStackTrace();
         }
 
-        return eventLog;
+        this.eventLog = newEventLog;
+        this.currentEventIndex = 0;
     }
 
     /**
-     * Gets the next event from the event log after simulating the battle.
-     * Should return a BattleEvent object, no void
+     * Gets the next event in the event log.
+     *
+     * @return Next available event in the event log or null if there is no event.
      */
     public BattleEvent nextEvent() {
+        if (this.currentEventIndex < this.eventLog.size()) {
+            return this.eventLog.get(this.currentEventIndex++);
+        }
 
+        return null;
     }
 
     /**
