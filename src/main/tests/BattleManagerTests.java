@@ -61,15 +61,14 @@ class BattleManagerTests {
     private static Stream<Arguments> dayAndMonsterNum() {
         return Stream.of(
                 Arguments.arguments(1, 1),
-                Arguments.arguments(3, 2),
-                Arguments.arguments(6, 3),
-                Arguments.arguments(6, 3),
-                Arguments.arguments(8, 4),
-                Arguments.arguments(10, 4),
-                Arguments.arguments(11, 5),
-                Arguments.arguments(12, 5),
-                Arguments.arguments(13, 6),
-                Arguments.arguments(15, 6));
+                Arguments.arguments(3, 1),
+                Arguments.arguments(6, 2),
+                Arguments.arguments(8, 3),
+                Arguments.arguments(10, 3),
+                Arguments.arguments(11, 3),
+                Arguments.arguments(12, 4),
+                Arguments.arguments(13, 4),
+                Arguments.arguments(15, 4));
     }
 
     /**

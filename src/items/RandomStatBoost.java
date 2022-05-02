@@ -1,10 +1,9 @@
 package items;
 
+import main.GameEnvironment;
 import main.Rarity;
 import monsters.Monster;
 import monsters.MonsterConstants;
-
-import java.util.Random;
 
 /**
  * An item that increases a random stat of a {@link monsters.Monster}.
@@ -13,39 +12,47 @@ import java.util.Random;
  * @version 1.2, Apr 2022
  */
 public class RandomStatBoost extends Item {
-    Random rng;
-
     /**
      * Constructor for RandomStatBoost item.
      *
-     * @param newName        name of the item.
-     * @param newDescription description of the item.
-     * @param newRarity      {@link main.Rarity} of the item.
+     * @param newRarity {@link main.Rarity} of the item.
      */
-    public RandomStatBoost(String newName, String newDescription, Rarity newRarity) {
-        super(newName, newDescription, newRarity);
-        rng = new Random(); // Seed it? or have a global rng?
+    public RandomStatBoost(Rarity newRarity) {
+        super("Random Stat Boost",
+                ItemConstants.RANDOMBOOSTDESC + Item.getStatBoostAmount(newRarity),
+                newRarity);
     }
 
     /**
      * Randomly boosts either the base health or base attack damage of a monster.
-     * The amount boosted is based on the {@link main.Rarity} of the {@link items.Item}.
+     * The amount boosted is based on the {@link main.Rarity} of the
+     * {@link items.Item}.
      *
      * @param monster The {@link monsters.Monster} to boost the stat of.
+     * @return string describing item effect
      */
-    public void use(Monster monster) {
+    public String use(Monster monster) {
+        String statChanged;
         // Adjust probability that each stat will increase
-        switch (rng.nextInt(MonsterConstants.NUMBEROFSTATS)) {
+        switch (GameEnvironment.rng.nextInt(MonsterConstants.NUMBEROFSTATS)) {
             case 0:
+                statChanged = "HEALTH";
                 monster.increaseBaseHealth(getStatBoostAmount());
                 monster.setCurrentHealth(monster.getBaseHealth());
                 break;
             case 1:
+                statChanged = "ATTACK";
                 monster.increaseBaseAttackDamage(getStatBoostAmount());
                 break;
             case 2:
+                statChanged = "SPEED";
                 monster.increaseSpeed(getStatBoostAmount());
+                break;
+            default:
+                statChanged = "NULL";
         }
         monster.increaseSellPrice(this.getSellPrice());
+
+        return String.format(ItemConstants.RANDOMBOOSTFEEDBACK, monster.getName(), statChanged, getStatBoostAmount());
     }
 }

@@ -1,7 +1,5 @@
 package monsters;
 
-import java.util.Random;
-
 import main.Trigger;
 import main.BattleEvent;
 import main.Team;
@@ -14,30 +12,33 @@ import main.Team;
  */
 public class JynxMonster extends Monster {
     /**
-     * Random number generator
-     */
-    Random rng = new Random();
-
-    /**
      * Creates a new Monster with specified base stats
      */
     public JynxMonster() {
         super(
                 "Jynx", // Name
-                "Highly trained assassin. *CLASSIFIED*", // Description
+                "Only as strong as...the strongest member???", // Description
                 MonsterConstants.JYNXRARITY, // Rarity
                 MonsterConstants.JYNXBASEATTACKDAMAGE, // Base AttackDamage
                 MonsterConstants.JYNXBASEHEALTH, // Base Health
-                "-1 Health to a random ENEMY",
+                "Copy HEALTH of healthiest ally",
                 MonsterConstants.JYNXBASESPEED); // Base Speed
         this.setTrigger(Trigger.ONFAINT); // TODO decide trigger
     }
 
-    @Override
     public BattleEvent ability(Team allyTeam, Team enemyTeam) {
-        // TODO: new ability is on GAME-MANAGER Branch
+        // Copy HEALTH of healthiest enemy
 
-        return null;
+        int mostHealth = this.getCurrentHealth();
+        for (Monster m : allyTeam.getAliveMonsters()) {
+            if (m.getCurrentHealth() > mostHealth) {
+                mostHealth = m.getCurrentHealth();
+            }
+        }
+
+        this.setCurrentHealth(mostHealth);
+
+        return null; // TODO: return BattleEvent
     }
 
 }

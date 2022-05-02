@@ -1,4 +1,4 @@
-package items.itemsTests;
+package items.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -36,17 +36,16 @@ class HealthBoostTest {
     @ParameterizedTest
     @MethodSource("rarityAndBoost")
     void useHealthBoostTest(Rarity rarity, int boost) {
-        HealthBoost testHealthBoost = new HealthBoost("Health Boost",
-                                                      "Description",
-                                                      rarity);
+        HealthBoost testHealthBoost = new HealthBoost(rarity);
 
-        // TODO: Change this to use getBaseHealth
         int prevMonsterBaseHealth = testMonster.getBaseHealth();
 
-        testHealthBoost.use(testMonster);
+        String message = testHealthBoost.use(testMonster);
 
         assertEquals(testMonster.getBaseHealth(),
-                     prevMonsterBaseHealth + boost);
+                prevMonsterBaseHealth + boost);
+        assertEquals(String.format(ItemConstants.HEALTHBOOSTFEEDBACK, testMonster.getName(),
+                testHealthBoost.getStatBoostAmount(), testMonster.getBaseHealth()), message);
     }
 
 }

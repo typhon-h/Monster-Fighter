@@ -2,7 +2,9 @@ package main;
 
 import java.util.ArrayList;
 import exceptions.InsufficientFundsException;
+import exceptions.UnusableItemException;
 import items.Item;
+import monsters.Monster;
 
 /**
  * A class for defining a player. Used to track the players information
@@ -191,6 +193,28 @@ public class Player {
      */
     public boolean removeItem(Item removeItem) {
         return inventory.remove(removeItem);
+    }
+
+    /**
+     * Uses item from player inventory on monster
+     * 
+     * @param itemToUse       item to be used
+     * @param monsterToEffect monster for the item to be used on
+     * @return string describing the result of the action
+     */
+    public String useItem(Item itemToUse, Monster monsterToEffect) {
+        try {
+            if (this.getInventory().contains(itemToUse)) {
+                String message = itemToUse.use(monsterToEffect);
+                this.incrementItemPoints(itemToUse.getStatBoostAmount());
+                this.removeItem(itemToUse);
+                return message;
+            }
+            return "Error: player does not possess this item";
+
+        } catch (UnusableItemException e) {
+            return e.getMessage();
+        }
     }
 
     /**

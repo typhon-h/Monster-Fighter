@@ -2,6 +2,7 @@ package monsters.tests;
 
 import monsters.*;
 import main.Rarity;
+import main.Team;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -9,6 +10,8 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import exceptions.*;
 
 import java.util.stream.Stream;
 
@@ -66,9 +69,44 @@ public class JynxMonsterTest {
         // Check buy/sell prices are set correctly
         assertEquals(buyPrice, monster.getBuyPrice());
         assertEquals(sellPrice, monster.getSellPrice());
+        assertEquals(MonsterConstants.JYNXBASESPEED, monster.getSpeed());
     }
 
-    // TODO: Ability test has been temporarily removed as will be replaced by
-    // updated ablility in other branch
+    /**
+     * Checks ability effect activates correctly
+     * Covers: ability
+     * Valid: random enemy has Health reduced
+     * Invalid: empty enemy team
+     * Randomness must be checked manually
+     * 
+     * @throws DuplicateMonsterException if same monster is added more than once
+     * @throws TeamSizeException         if more team members than max allowed
+     */
+    @Test
+    public void abilityTest() throws TeamSizeException, DuplicateMonsterException {
+        Team enemyTeam = new Team(new ClinkMonster());
+        Team allyTeam = new Team(monster, new ClinkMonster());
 
+        Monster allyMonster = allyTeam.getMonsters().get(1);
+
+        // Health stays same if Jynx has highest health
+        monster.setCurrentHealth(allyMonster.getCurrentHealth() + 1);
+        int prevHealth = monster.getCurrentHealth();
+        monster.ability(allyTeam, enemyTeam);
+        assertEquals(prevHealth, monster.getCurrentHealth());
+
+        // Health switches to highest health (not Jynx)
+        allyMonster.setCurrentHealth(monster.getCurrentHealth() + 1);
+        prevHealth = monster.getCurrentHealth();
+        int expectedHealth = allyMonster.getCurrentHealth();
+        monster.ability(allyTeam, enemyTeam);
+        assertNotEquals(prevHealth, monster.getCurrentHealth());
+        assertEquals(expectedHealth, monster.getCurrentHealth());
+
+        // Health stays same if whole team has same health
+        prevHealth = monster.getCurrentHealth();
+        monster.ability(allyTeam, enemyTeam);
+        assertEquals(prevHealth, monster.getCurrentHealth());
+
+    }
 }

@@ -119,7 +119,7 @@ public class BattleManager {
                         (float) allyPlayer.getGold() +
                         (float) allyPlayer.getItemPoints()));
         int expendedPoints = 0;
-        RandomStatBoost boost = new RandomStatBoost("Boost", "Desc", Rarity.COMMON);
+        RandomStatBoost boost = new RandomStatBoost(Rarity.COMMON);
 
         while (expendedPoints < totalPoints) {
             int MonsterIndex = rng.nextInt(team.getTeamSize());
@@ -200,12 +200,11 @@ public class BattleManager {
     /**
      * Should return a BattleEvent object not void
      *
-     * @param allyTeam  A copy of the ally team to fight
+     * @param allyTeam     A copy of the ally team to fight
      * @param opponentTeam A copy of the enemy team to fight
      */
     private ArrayList<BattleEvent> fight(Team allyTeam, Team opponentTeam) {
         ArrayList<BattleEvent> eventLog = new ArrayList<BattleEvent>();
-
 
         // Find fastest monster at the front of the team
         Team firstTeam;

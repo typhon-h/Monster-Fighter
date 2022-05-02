@@ -14,9 +14,9 @@ public class Team implements Cloneable {
     /**
      * Maximum team size
      *
-     * @default 6
+     * @default 4
      */
-    private final static int MAXTEAMSIZE = 6;
+    private final static int MAXTEAMSIZE = 4;
     /**
      * Minimum team size
      *
@@ -35,16 +35,16 @@ public class Team implements Cloneable {
     /**
      * Constructor for Team. Creates a team with the starting monster/s
      *
-     * @param monsters starting monster/s
-     *
+     * @param newMonsters starting monster/s
+     * 
      * @throws TeamSizeException         team is full or empty
      * @throws DuplicateMonsterException monster already in team
      */
     public Team(Monster... newMonsters) throws TeamSizeException, DuplicateMonsterException {
         if (newMonsters.length > MAXTEAMSIZE) {
-            throw new TeamSizeException("Team can only contain 6 Monsters");
+            throw new TeamSizeException("Team can only contain " + MAXTEAMSIZE + " Monsters");
         } else if (newMonsters.length < MINTEAMSIZE) {
-            throw new TeamSizeException("Team must contain at least one monster");
+            throw new TeamSizeException("Team must have at least " + MINTEAMSIZE + " monsters");
         }
 
         for (Monster monster : newMonsters) {
@@ -117,7 +117,7 @@ public class Team implements Cloneable {
      */
     public void removeMonster(Monster monster) throws TeamSizeException {
         if (monsters.size() == MINTEAMSIZE) {
-            throw new TeamSizeException("Team must have at least " + MINTEAMSIZE + " monster");
+            throw new TeamSizeException("Team must have at least " + MINTEAMSIZE + " monsters");
         } else {
             monsters.remove(monster);
             teamSize = monsters.size();
@@ -210,7 +210,7 @@ public class Team implements Cloneable {
 
             return teamCopy;
         } catch (TeamSizeException | DuplicateMonsterException e) { // won't happen since implements Cloneable
-            //TODO: figure out what to do about team exceptions
+            // TODO: figure out what to do about team exceptions
             e.printStackTrace();
             return null;
         }

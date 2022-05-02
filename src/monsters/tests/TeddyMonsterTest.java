@@ -1,20 +1,19 @@
 package monsters.tests;
 
-import monsters.*;
-import main.Rarity;
-import main.Team;
-import main.Trigger;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.*;
+import java.util.ArrayList;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.stream.Stream;
-
 import exceptions.*;
+import main.*;
+import monsters.*;
 
 /**
  * Testing for Teddy Monster class.
@@ -23,7 +22,18 @@ import exceptions.*;
  * @version 1.0, Apr 2022.
  */
 public class TeddyMonsterTest {
+    /**
+     * Monster to run tests on
+     */
     Monster monster;
+    /**
+     * Ally team for ability testing
+     */
+    Team allyTeam;
+    /**
+     * Enemy team for ability testing
+     */
+    Team enemyTeam;
 
     /**
      * Set up a monster to test methods on before each test
@@ -33,6 +43,8 @@ public class TeddyMonsterTest {
     @BeforeEach
     public void setUp() throws Exception {
         monster = new TeddyMonster();
+        allyTeam = new Team(monster, new ClinkMonster());
+        enemyTeam = new Team(new ClinkMonster());
     }
 
     /**
@@ -67,6 +79,7 @@ public class TeddyMonsterTest {
         // Check base stats are set correctly
         assertEquals(MonsterConstants.TEDDYBASEATTACKDAMAGE, monster.getBaseAttackDamage());
         assertEquals(MonsterConstants.TEDDYBASEHEALTH, monster.getBaseHealth());
+        assertEquals(MonsterConstants.TEDDYBASESPEED, monster.getSpeed());
         // Check buy/sell prices are set correctly
         assertEquals(buyPrice, monster.getBuyPrice());
         assertEquals(sellPrice, monster.getSellPrice());
@@ -84,27 +97,66 @@ public class TeddyMonsterTest {
      */
     @Test
     public void abilityTest() throws TeamSizeException, DuplicateMonsterException {
-        Team allyTeam = new Team(monster, new ClinkMonster());
-        Team enemyTeam = new Team(new ClinkMonster());
-
         // Check boosts health
         int startAllyTeamSumHealth = 0;
+        int startEnemyTeamSumHealth = 0;
         int endAllyTeamSumHealth = 0;
+        int endEnemyTeamSumHealth = 0;
+
         for (Monster m : allyTeam.getAliveMonsters()) {
             m.setTrigger(Trigger.NOABILITY);
             startAllyTeamSumHealth += m.getCurrentHealth();
         }
+        for (Monster m : enemyTeam.getAliveMonsters()) {
+            startEnemyTeamSumHealth += m.getCurrentHealth();
+        }
+
         monster.ability(allyTeam, enemyTeam);
+
         for (Monster m : allyTeam.getAliveMonsters()) {
             endAllyTeamSumHealth += m.getCurrentHealth();
         }
-        assertEquals(startAllyTeamSumHealth + 1, endAllyTeamSumHealth);
+        for (Monster m : enemyTeam.getAliveMonsters()) {
+            endEnemyTeamSumHealth += m.getCurrentHealth();
+        }
 
+        assertEquals(startAllyTeamSumHealth + 1, endAllyTeamSumHealth);
+        assertEquals(startEnemyTeamSumHealth, endEnemyTeamSumHealth);
+
+        // Check heals itself if only member
         monster.restore();
-        // Check does nothing with empty team
         allyTeam = new Team(monster);
-        // Faint whole team
         monster.ability(allyTeam, enemyTeam);
         assertEquals(monster.getBaseHealth() + 1, monster.getCurrentHealth());
     }
+
+    /**
+     * Checks targets every member of team
+     * Seed: 4119
+     * Generates: 0, 1, 2, 3
+     * 
+     * @throws DuplicateMonsterException monster already in team
+     * @throws TeamSizeException         too many members in team
+     */
+    @Test
+    public void abilityCoverageTest() throws TeamSizeException, DuplicateMonsterException {
+        GameEnvironment.setSeed(4119);
+        ArrayList<Integer> teamStartHealth = new ArrayList<Integer>();
+        // Fill team
+        while (allyTeam.getTeamSize() < Team.getMaxTeamSize()) {
+            allyTeam.addMonster(new ClinkMonster());
+        }
+
+        // Get start
+        for (Monster m : allyTeam.getMonsters()) {
+            teamStartHealth.add(m.getCurrentHealth());
+            monster.ability(allyTeam, enemyTeam);
+        }
+
+        for (int i = 0; i < allyTeam.getTeamSize(); i++) {
+            assertEquals(teamStartHealth.get(i) + 1, allyTeam.getMonsters().get(i).getCurrentHealth());
+        }
+
+    }
+
 }

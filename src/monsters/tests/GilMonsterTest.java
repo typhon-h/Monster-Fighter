@@ -69,6 +69,7 @@ public class GilMonsterTest {
         // Check buy/sell prices are set correctly
         assertEquals(buyPrice, monster.getBuyPrice());
         assertEquals(sellPrice, monster.getSellPrice());
+        assertEquals(MonsterConstants.GILBASESPEED, monster.getSpeed());
     }
 
     /**

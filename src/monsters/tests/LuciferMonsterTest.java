@@ -70,6 +70,7 @@ public class LuciferMonsterTest {
         // Check buy/sell prices are set correctly
         assertEquals(buyPrice, monster.getBuyPrice());
         assertEquals(sellPrice, monster.getSellPrice());
+        assertEquals(MonsterConstants.LUCIFERBASESPEED, monster.getSpeed());
     }
 
     /**
