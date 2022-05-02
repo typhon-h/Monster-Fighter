@@ -44,7 +44,7 @@ public class Team implements Cloneable {
         if (newMonsters.length > MAXTEAMSIZE) {
             throw new TeamSizeException("Team can only contain 6 Monsters");
         } else if (newMonsters.length < MINTEAMSIZE) {
-            throw new TeamSizeException("Team must contain atleast one monster");
+            throw new TeamSizeException("Team must contain at least one monster");
         }
 
         for (Monster monster : newMonsters) {
