@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 
 /**
  * Testing for Clink Monster class.
- * 
+ *
  * @author Harrison Tyson
  * @version 1.0, Apr 2022.
  */
@@ -28,7 +28,7 @@ public class ClinkMonsterTest {
 
     /**
      * Set up a monster to test methods on before each test
-     * 
+     *
      * @throws Exception any error that occurs
      */
     @BeforeEach
@@ -38,7 +38,7 @@ public class ClinkMonsterTest {
 
     /**
      * Test cases to check
-     * 
+     *
      * @return A stream of arguments as the test case
      */
     private static Stream<Arguments> rarityAndPrice() {
@@ -56,7 +56,7 @@ public class ClinkMonsterTest {
      * AttackDamage set to BaseAttackDamage
      * Health set to BaseHealth
      * BuyPrice and SellPrice set based on Rarity
-     * 
+     *
      * @param rarity    rarity to set the monster
      * @param buyPrice  expected buy price
      * @param sellPrice expected sell price
@@ -79,14 +79,14 @@ public class ClinkMonsterTest {
      * Covers: ability
      * Valid: effect occurs. Base stats not affected
      * Invalid: Attack is at minimum (1)
-     * 
+     *
      * @throws DuplicateMonsterException if same monster is added more than once
      * @throws TeamSizeException         if more team members than max allowed
      */
     @Test
     public void abilityTest() throws TeamSizeException, DuplicateMonsterException {
        //TODO: check returned battle event
-    	int startAttackDamage = monster.getCurrentAttackDamage();
+        int startAttackDamage = monster.getCurrentAttackDamage();
         int startHealth = monster.getCurrentHealth();
         Team allyTeam = new Team(monster);
         Team enemyTeam = new Team(new ClinkMonster());

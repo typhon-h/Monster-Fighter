@@ -17,7 +17,7 @@ import exceptions.*;
 
 /**
  * Testing for Gil Monster class.
- * 
+ *
  * @author Harrison Tyson
  * @version 1.0, Apr 2022.
  */
@@ -26,7 +26,7 @@ public class GilMonsterTest {
 
     /**
      * Set up a monster to test methods on before each test
-     * 
+     *
      * @throws Exception any error that occurs
      */
     @BeforeEach
@@ -36,7 +36,7 @@ public class GilMonsterTest {
 
     /**
      * Test cases to check
-     * 
+     *
      * @return A stream of arguments as the test case
      */
     private static Stream<Arguments> rarityAndPrice() {
@@ -54,7 +54,7 @@ public class GilMonsterTest {
      * AttackDamage set to BaseAttackDamage
      * Health set to BaseHealth
      * BuyPrice and SellPrice set based on Rarity
-     * 
+     *
      * @param rarity    rarity to set the monster
      * @param buyPrice  expected buy price
      * @param sellPrice expected sell price
@@ -78,14 +78,14 @@ public class GilMonsterTest {
      * Valid: Monster in front of Gil AttackDamage: 1
      * Valid: Monster in fron of Gil AttackDamage: > 1
      * Invalid: Gil is front of the team
-     * 
+     *
      * @throws DuplicateMonsterException if same monster is added more than once
      * @throws TeamSizeException         if more team members than max allowed
      */
     @Test
     public void abilityTest() throws TeamSizeException, DuplicateMonsterException {
         //TODO: add test for correct BattleEvent return
-    	// Initialize variables
+        // Initialize variables
         Team enemyTeam = new Team(new ClinkMonster()); // Arbitrary
         Monster ally = new ClinkMonster();
         Team allyTeam = new Team(ally, monster);

@@ -91,7 +91,6 @@ public class BattleManager {
      * @return A {@link main.Team Team} containing monsters.
      */
     public Team generateTeam(int currentDay, int maxDays, Difficulty difficulty) {
-        // TODO: change team size and update tests
         int teamSize = (int) Math.ceil(((double) currentDay * (double) Team.getMaxTeamSize()) / (double) maxDays);
 
         // Create a team with a size based on the current
