@@ -199,19 +199,19 @@ public class Team implements Cloneable {
      * Clones the team and all of the monsters
      * in the team
      */
-    public Object clone() throws CloneNotSupportedException{
+    public Object clone() throws CloneNotSupportedException {
         try {
             Team teamCopy = (Team) super.clone();
             teamCopy.monsters = new ArrayList<Monster>();
-            
-            for(Monster m : this.monsters) {
-            	teamCopy.addMonster((Monster) m.clone());
+
+            for (Monster m : this.monsters) {
+                teamCopy.addMonster((Monster) m.clone());
             }
 
             return teamCopy;
         } catch (TeamSizeException | DuplicateMonsterException e) { // won't happen since implements Cloneable
             //TODO: figure out what to do about team exceptions
-        	e.printStackTrace();
+            e.printStackTrace();
             return null;
         }
 

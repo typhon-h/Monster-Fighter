@@ -197,29 +197,35 @@ public class BattleManager {
     /**
      * Should return a BattleEvent object not void
      *
-     * @param allyMonster  Ally monster that is currently fighting
-     * @param enemyMonster Enemy monster that is currently fighting
+     * @param allyTeam  A copy of the ally team to fight
+     * @param opponentTeam A copy of the enemy team to fight
      */
-    private ArrayList<BattleEvent> fight(Monster allyMonster, Monster enemyMonster) {
+    private ArrayList<BattleEvent> fight(Team allyTeam, Team opponentTeam) {
         ArrayList<BattleEvent> eventLog = new ArrayList<BattleEvent>();
 
-        Monster firstMonster;
-        Monster secondMonster;
-        if (allyMonster.getSpeed() >= enemyMonster.getSpeed()) {
-            firstMonster = allyMonster;
-            secondMonster = enemyMonster;
+
+        // Find fastest monster at the front of the team
+        Team firstTeam;
+        Team secondTeam;
+        if (allyTeam.getFirstAliveMonster().getSpeed() >= opponentTeam.getFirstAliveMonster().getSpeed()) {
+            firstTeam = allyTeam;
+            secondTeam = opponentTeam;
         } else {
-            firstMonster = enemyMonster;
-            secondMonster = allyMonster;
+            firstTeam = opponentTeam;
+            secondTeam = allyTeam;
         }
 
-        Monster[][] monsterArray = new Monster[][] {
-                { firstMonster, secondMonster },
-                { secondMonster, firstMonster } };
+        // Run the monster attack in order of fastest speed
+        Team[][] teamOrder = new Team[][] {
+                { firstTeam, secondTeam },
+                { secondTeam, firstTeam } };
 
-        for (Monster[] monster : monsterArray) {
-            Monster monster1 = monster[0];
-            Monster monster2 = monster[1];
+        for (Team[] team : teamOrder) {
+            Team team1 = team[0];
+            Team team2 = team[1];
+
+            Monster monster1 = team1.getFirstAliveMonster();
+            Monster monster2 = team2.getFirstAliveMonster();
 
             // Does damage
             monster2.takeDamage(monster1.getCurrentAttackDamage());
@@ -229,7 +235,7 @@ public class BattleManager {
             BattleEvent ability;
 
             // Check BEFOREATTACK Trigger
-            ability = runAbility(monster2, Trigger.BEFOREATTACK);
+            ability = runAbility(team1, team2, monster1, Trigger.BEFOREATTACK);
             if (ability != null) {
                 eventLog.add(ability);
             }
@@ -243,15 +249,15 @@ public class BattleManager {
             }
 
             // Fight event
-            eventLog.add(new BattleEvent(allyPlayer.getTeam(), currentOpponent.getTeam(), description));
+            eventLog.add(new BattleEvent(allyTeam, opponentTeam, description));
             // Check ONHURT/ONFAINT Trigger
-            ability = runAbility(monster2, trigger);
+            ability = runAbility(team2, team1, monster2, trigger);
             if (ability != null) {
                 eventLog.add(ability);
             }
 
             // Check AFTERATTACK trigger
-            ability = runAbility(monster2, Trigger.AFTERATTACK);
+            ability = runAbility(team1, team2, monster1, Trigger.AFTERATTACK);
             if (ability != null) {
                 eventLog.add(ability);
             }
@@ -267,10 +273,9 @@ public class BattleManager {
      * @param monster Monster to run ability on
      * @param trigger Current trigger that is checked for
      */
-    private BattleEvent runAbility(Monster monster, Trigger trigger) {
-
+    private BattleEvent runAbility(Team allyTeam, Team enemyTeam, Monster monster, Trigger trigger) {
         if (monster.getTrigger() == trigger) {
-            return monster.ability(allyPlayer.getTeam(), currentOpponent.getTeam());
+            return monster.ability(allyTeam, enemyTeam);
         }
 
         return null;
@@ -282,9 +287,33 @@ public class BattleManager {
      * returned, not void
      */
     public ArrayList<BattleEvent> simulateBattle() {
-        /**
-         * While not whole team dead, fight
-         */
+        ArrayList<BattleEvent> eventLog = new ArrayList<BattleEvent>();
+
+        Team allyTeamCopy;
+        Team opponentTeamCopy;
+
+        try {
+            allyTeamCopy = (Team) allyPlayer.getTeam().clone();
+            opponentTeamCopy = (Team) currentOpponent.getTeam().clone();
+
+            // Check for START OF BATTLE triggers for ally team then opponent team
+            for (Monster monster : allyTeamCopy.getAliveMonsters()) {
+                eventLog.add(runAbility(allyTeamCopy, opponentTeamCopy, monster, Trigger.STARTOFBATTLE));
+            }
+
+            for (Monster monster : opponentTeamCopy.getAliveMonsters()) {
+                eventLog.add(runAbility(opponentTeamCopy, allyTeamCopy, monster, Trigger.STARTOFBATTLE));
+            }
+
+            while (!allyTeamCopy.getAliveMonsters().isEmpty() && !opponentTeamCopy.getAliveMonsters().isEmpty()) {
+
+            }
+
+        } catch (CloneNotSupportedException e) { // Should never happen as clone is implemented
+            e.printStackTrace();
+        }
+
+        return eventLog;
     }
 
     /**
