@@ -14,22 +14,26 @@ import monsters.Monster;
 import main.Trigger;
 
 class SelectTriggerTest {
+    /**
+     * {@link monsters.Monster Monster} to test {@link items.AttackBoost Attack
+     * Boost} on
+     */
     Monster testMonster;
 
     /**
-     * Setup before each test is run, creates a new monster to be tested on.
+     * Refreshes the test {@link monsters.Monster}
      * 
-     * @throws Exception
      */
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
         testMonster = new ClinkMonster();
     }
 
     /**
-     * Test that the item has the correct trigger that is given to it
+     * Test that the item has the correct {@link main.Trigger trigger} that is given
+     * to it
      * 
-     * @param trigger
+     * @param trigger {@link main.Trigger trigger} to be checked
      */
     @ParameterizedTest
     @EnumSource(Trigger.class)
@@ -42,8 +46,10 @@ class SelectTriggerTest {
     }
 
     /**
-     * Test that the item applies a given trigger effect onto the provided monster
-     * and that an exception is thrown at an appropriate time.
+     * Test that the item applies a given {@link main.Trigger trigger} effect onto
+     * the provided {@link monsters.Monster monster}
+     * and that a {@link exceptions.UnusableItemException exception} is thrown at an
+     * appropriate time.
      * 
      * @param trigger The {@link main.Trigger} enum value to be passed into the
      *                test.

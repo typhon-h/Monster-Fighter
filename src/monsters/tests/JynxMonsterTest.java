@@ -84,6 +84,7 @@ public class JynxMonsterTest {
      */
     @Test
     public void abilityTest() throws TeamSizeException, DuplicateMonsterException {
+        // TODO: add test for correct BattleEvent return
         Team enemyTeam = new Team(new ClinkMonster());
         Team allyTeam = new Team(monster, new ClinkMonster());
 

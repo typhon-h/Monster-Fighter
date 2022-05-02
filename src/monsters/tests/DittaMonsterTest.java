@@ -85,6 +85,7 @@ public class DittaMonsterTest {
      */
     @Test
     public void abilityTest() throws TeamSizeException, DuplicateMonsterException {
+        // TODO: add test for correct BattleEvent return
         Team allyTeam = new Team(monster);
         Team enemyTeam = new Team(new ClinkMonster());
         monster.ability(allyTeam, enemyTeam);

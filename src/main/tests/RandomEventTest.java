@@ -19,7 +19,7 @@ import monsters.ClinkMonster;
 import monsters.Monster;
 
 /**
- * Tests probabilities of all Random Events
+ * Tests probabilities of all {@link main.RandomEvent Random Events}
  *
  * @author Harrison Tyson
  * @version 1.0, Apr 2022.
@@ -31,13 +31,16 @@ public class RandomEventTest {
     Team team;
 
     /**
-     * Generates team with specified members and faint count for testing random
-     * events
+     * Generates {@link main.Team team} with specified members and faint count for
+     * testing {@link main.RandomEvent random events}
      *
-     * @param numMembers      number of monsters in team
-     * @param faintPerMonster faint count for each monster
-     * @throws TeamSizeException         too many members in team
-     * @throws DuplicateMonsterException monster already in team
+     * @param numMembers      number of {@link monsters.Monster monsters} in
+     *                        {@link main.Team team}
+     * @param faintPerMonster faint count for each {@link monsters.Monster monster}
+     * @throws TeamSizeException         too many {@link monsters.Monster monsters}
+     *                                   in {@link main.Team team}
+     * @throws DuplicateMonsterException {@link monsters.Monster monster} already in
+     *                                   {@link main.Team team}
      */
     private void resetTeam(int numMembers, int faintPerMonster)
             throws TeamSizeException, DuplicateMonsterException {
@@ -55,8 +58,10 @@ public class RandomEventTest {
     /**
      * Sets rng seed to achieve even distribution for testing
      *
-     * @throws DuplicateMonsterException monster already in team
-     * @throws TeamSizeException         too many members in team
+     * @throws TeamSizeException         too many {@link monsters.Monster monsters}
+     *                                   in {@link main.Team team}
+     * @throws DuplicateMonsterException {@link monsters.Monster monster} already in
+     *                                   {@link main.Team team}
      */
     @BeforeEach
     public void beforeEach() throws TeamSizeException, DuplicateMonsterException {
@@ -67,8 +72,10 @@ public class RandomEventTest {
     /**
      * Checks events returns correct feedback
      *
-     * @throws TeamSizeException         too many members in team
-     * @throws DuplicateMonsterException monster already in team
+     * @throws TeamSizeException         too many {@link monsters.Monster monsters}
+     *                                   in {@link main.Team team}
+     * @throws DuplicateMonsterException {@link monsters.Monster monster} already in
+     *                                   {@link main.Team team}
      */
     @Test
     public void randomBoostReturnTest() throws TeamSizeException, DuplicateMonsterException {
@@ -99,7 +106,9 @@ public class RandomEventTest {
     }
 
     /**
-     * Checks random stat boost occurs at base probability with no additional
+     * Checks {@link main.RandomEvent#randomBoost random stat boost} occurs at
+     * base
+     * probability with no additional
      * factors
      */
     @Test
@@ -127,8 +136,12 @@ public class RandomEventTest {
     }
 
     /**
-     * Checks random stat boost occurs with difficulty modifying probability of
+     * Checks {@link main.RandomEvent#randomBoost random stat boost} occurs with
+     * {@link main.Difficulty difficulty} modifying probability of
      * boost
+     * 
+     * @param difficulty game {@link main.Difficulty difficulty} to influence
+     *                   probability
      */
     @ParameterizedTest
     @EnumSource(Difficulty.class)
@@ -157,7 +170,9 @@ public class RandomEventTest {
     }
 
     /**
-     * Checks random stat boost occurs at base probability with current day modifier
+     * Checks {@link main.RandomEvent#randomBoost random stat boost} occurs at
+     * base
+     * probability with current day modifier
      */
     @Test
     public void randomBoostDayTest() {
@@ -210,7 +225,9 @@ public class RandomEventTest {
     }
 
     /**
-     * Checks random stat boost occurs at base probability with faint modifier
+     * Checks {@link main.RandomEvent#randomBoost random stat boost} occurs at
+     * base
+     * probability with faint modifier
      */
     @Test
     public void randomBoostFaintTest() {
@@ -271,8 +288,10 @@ public class RandomEventTest {
     /**
      * Checks event returns correct feedback
      *
-     * @throws TeamSizeException         too many members in team
-     * @throws DuplicateMonsterException monster already in team
+     * @throws TeamSizeException         too many {@link monsters.Monster monsters}
+     *                                   in {@link main.Team team}
+     * @throws DuplicateMonsterException {@link monsters.Monster monster} already in
+     *                                   {@link main.Team team}
      */
     @Test
     public void randomMonsterLeaveReturnTest() throws TeamSizeException, DuplicateMonsterException {
@@ -301,10 +320,14 @@ public class RandomEventTest {
     }
 
     /**
-     * Check monster leave occurs at base probability
+     * Check {@link main.RandomEvent#randomMonsterLeave random monster leave} occurs
+     * at
+     * base probability
      *
-     * @throws DuplicateMonsterException monster already in team
-     * @throws TeamSizeException         too many members in team
+     * @throws TeamSizeException         too many {@link monsters.Monster monsters}
+     *                                   in {@link main.Team team}
+     * @throws DuplicateMonsterException {@link monsters.Monster monster} already in
+     *                                   {@link main.Team team}
      */
     @Test
     public void randomMonsterLeaveBaseTest() throws TeamSizeException, DuplicateMonsterException {
@@ -339,11 +362,16 @@ public class RandomEventTest {
     }
 
     /**
-     * Checks random monster leave occurs with difficulty modifying probability of
+     * Checks {@link main.RandomEvent#randomMonsterLeave random monster leave}
+     * occurs with {@link main.Difficulty difficulty} modifying probability of
      * leave
      *
-     * @throws DuplicateMonsterException monster already in team
-     * @throws TeamSizeException         too many members in team
+     * @param difficulty the game {@link main.Difficulty difficulty} to influence
+     *                   probability
+     * @throws TeamSizeException         too many {@link monsters.Monster monsters}
+     *                                   in {@link main.Team team}
+     * @throws DuplicateMonsterException {@link monsters.Monster monster} already in
+     *                                   {@link main.Team team}
      */
     @ParameterizedTest
     @EnumSource(Difficulty.class)
@@ -386,11 +414,14 @@ public class RandomEventTest {
     }
 
     /**
-     * Checks random monster leave occurs with faint count modifying probability of
+     * Checks {@link main.RandomEvent#randomMonsterLeave random monster leave}
+     * occurs with faint count modifying probability of
      * leave
      *
-     * @throws DuplicateMonsterException monster already in team
-     * @throws TeamSizeException         too many members in team
+     * @throws TeamSizeException         too many {@link monsters.Monster monsters}
+     *                                   in {@link main.Team team}
+     * @throws DuplicateMonsterException {@link monsters.Monster monster} already in
+     *                                   {@link main.Team team}
      */
     @Test
     public void randomMonsterLeaveFaintTest() throws TeamSizeException, DuplicateMonsterException {
@@ -438,8 +469,10 @@ public class RandomEventTest {
     /**
      * Checks event returns correct feedback
      *
-     * @throws TeamSizeException         too many members in team
-     * @throws DuplicateMonsterException monster already in team
+     * @throws TeamSizeException         too many {@link monsters.Monster monsters}
+     *                                   in {@link main.Team team}
+     * @throws DuplicateMonsterException {@link monsters.Monster monster} already in
+     *                                   {@link main.Team team}
      */
     @Test
     public void randomMonsterJoinReturnTest() throws TeamSizeException, DuplicateMonsterException {
@@ -467,10 +500,13 @@ public class RandomEventTest {
     }
 
     /**
-     * Check monster join occurs at base probability
+     * Check {@link main.RandomEvent#randomMonsterJoin random monster join} occurs
+     * at base probability
      *
-     * @throws DuplicateMonsterException monster already in team
-     * @throws TeamSizeException         too many monsters in team
+     * @throws TeamSizeException         too many {@link monsters.Monster monsters}
+     *                                   in {@link main.Team team}
+     * @throws DuplicateMonsterException {@link monsters.Monster monster} already in
+     *                                   {@link main.Team team}
      */
     @Test
     public void randomMonsterJoinBaseTest() throws TeamSizeException, DuplicateMonsterException {
@@ -498,11 +534,18 @@ public class RandomEventTest {
     }
 
     /**
-     * Checks random monster leave occurs with difficulty modifying probability of
+     * Checks {@link main.RandomEvent#randomMonsterJoin random monster join} occurs
+     * with
+     * {@link main.Difficulty difficulty} modifying probability of
      * leave
      *
-     * @throws DuplicateMonsterException monster already in team
-     * @throws TeamSizeException         too many members in team
+     * @param difficulty the {@link main.Difficulty difficulty} to influence
+     *                   probability
+     * 
+     * @throws TeamSizeException         too many {@link monsters.Monster monsters}
+     *                                   in {@link main.Team team}
+     * @throws DuplicateMonsterException {@link monsters.Monster monster} already in
+     *                                   {@link main.Team team}
      */
     @ParameterizedTest
     @EnumSource(Difficulty.class)
@@ -534,11 +577,14 @@ public class RandomEventTest {
     }
 
     /**
-     * Checks random monster join occurs with team size modifying probability of
+     * Checks {@link main.RandomEvent#randomMonsterJoin random monster join} occurs
+     * with {@link main.Team team} size modifying probability of
      * join
      *
-     * @throws DuplicateMonsterException monster already in team
-     * @throws TeamSizeException         too many members in team
+     * @throws TeamSizeException         too many {@link monsters.Monster monsters}
+     *                                   in {@link main.Team team}
+     * @throws DuplicateMonsterException {@link monsters.Monster monster} already in
+     *                                   {@link main.Team team}
      */
     @Test
     public void randomMonsterJoinTeamSizeTest() throws TeamSizeException, DuplicateMonsterException {

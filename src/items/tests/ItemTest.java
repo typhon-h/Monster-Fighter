@@ -13,14 +13,20 @@ import main.Rarity;
 import items.*;
 
 /**
- * Tests for Item class, uses AttackBoost subclass to test as Item
- * is an abstract class and cannot be instantiated.
+ * Tests for Item class, uses {@link items.AttackBoost AttackBoost} subclass
+ * totest
  *
  * @author Jackie Jone
  * @version 1.0, Apr 2022.
  */
 class ItemTest {
 
+    /**
+     * Sets up the arguments for each test with {@link main.Rarity rarity} and
+     * associated sell price
+     * 
+     * @return A stream of arguments to be passed into the test
+     */
     private static Stream<Arguments> rarityAndSellPrice() {
         return Stream.of(
                 Arguments.arguments(Rarity.COMMON, ItemConstants.COMMONSELLPRICE),
@@ -41,6 +47,12 @@ class ItemTest {
         assertEquals(testItem.getSellPrice(), sellPrice);
     }
 
+    /**
+     * Sets up the arguments for each test with {@link main.Rarity rarity} and
+     * associated buy price
+     * 
+     * @return A stream of arguments to be passed into the test
+     */
     private static Stream<Arguments> rarityAndBuyPrice() {
         return Stream.of(
                 Arguments.arguments(Rarity.COMMON, ItemConstants.COMMONBUYPRICE),
@@ -61,6 +73,12 @@ class ItemTest {
         assertEquals(testItem.getBuyPrice(), buyPrice);
     }
 
+    /**
+     * Sets up the arguments for each test with {@link main.Rarity rarity} and
+     * associated boost amount
+     * 
+     * @return A stream of arguments to be passed into the test
+     */
     private static Stream<Arguments> rarityAndBoost() {
         return Stream.of(
                 Arguments.arguments(Rarity.COMMON, ItemConstants.COMMONSTATBOOST),

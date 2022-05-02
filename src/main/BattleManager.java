@@ -13,18 +13,40 @@ import static main.Difficulty.getDifficultyMultiplier;
 
 /**
  * A class for managing all the battles and functionality of battles
- * which a player can participate in.
+ * which a {@link main.Player player} can participate in.
  *
  * @author Jackie Jone
  * @version 1.0, Apr 2022.
  */
 public class BattleManager {
-    // TODO: Comment these variables
+
+    /**
+     * The {@link main.Player player} participating the battle
+     */
     private Player allyPlayer;
+    /**
+     * List of opponents for the {@link main.Player player} to chose from
+     */
     private ArrayList<Player> opponents;
+    /**
+     * Opponent {@link main.Player player} will battle against
+     * 
+     * @default null
+     */
     private Player currentOpponent = null;
+    /**
+     * Result of the battle
+     * 
+     * @default BattleResult.NULL
+     */
     private BattleResult battleResult = BattleResult.NULL;
+    /**
+     * ArrayList of BattleEvents detailing what happened during battle
+     */
     private ArrayList<BattleEvent> eventLog = new ArrayList<BattleEvent>();
+    /**
+     * Current position in the event log
+     */
     private int currentEventIndex = 0;
 
     /**
@@ -38,38 +60,18 @@ public class BattleManager {
     }
 
     /**
-     * Generates a random monster with different triggers based
-     * on the difficulty of the game.
+     * Generates a random {@link monsters.Monster mosnter} with different
+     * {@link main.Trigger triggers} based
+     * on the {@link main.Difficulty difficulty} of the game.
      *
-     * @param difficulty The difficulty of the game.
-     * @return A {@link monsters.Monster Monster} with a random trigger.
+     * @param difficulty The {@link main.Difficulty difficulty} of the game.
+     * @return A {@link monsters.Monster Monster} with a random {@link main.Trigger
+     *         trigger}.
      */
     private Monster getRandomMonster(Difficulty difficulty) {
 
         Monster monster = null;
-        switch (GameEnvironment.rng.nextInt(monsters.Monster.NUMMONSTERS)) {
-            case 0:
-                monster = new ClinkMonster();
-                break;
-            case 1:
-                monster = new DittaMonster();
-                break;
-            case 2:
-                monster = new GilMonster();
-                break;
-            case 3:
-                monster = new JynxMonster();
-                break;
-            case 4:
-                monster = new LuciferMonster();
-                break;
-            case 5:
-                monster = new TeddyMonster();
-                break;
-            default:
-                monster = new ClinkMonster();
-                break;
-        }
+        monster = GameEnvironment.generateMonsters().get(GameEnvironment.rng.nextInt(Monster.NUMMONSTERS));
 
         /*
          * Get the optimal triggers for the monster, select a random one
@@ -83,12 +85,13 @@ public class BattleManager {
     }
 
     /**
-     * Generates a team of monsters.
+     * Generates a {@link main.Team team} of {@link monsters.Monster monsters}.
      *
      * @param currentDay The current day in the game.
      * @param maxDays    The maximum number of days in the game.
-     * @param difficulty The difficulty of the game.
-     * @return A {@link main.Team Team} containing monsters.
+     * @param difficulty The {@link main.Difficulty difficulty} of the game.
+     * @return A {@link main.Team Team} containing {@link monsters.Monster
+     *         monsters}.
      */
     public Team generateTeam(int currentDay, int maxDays, Difficulty difficulty) {
         int teamSize = (int) Math.ceil(((double) currentDay * (double) Team.getMaxTeamSize()) / (double) maxDays);
@@ -130,19 +133,20 @@ public class BattleManager {
     }
 
     /**
-     * Generates the different opponents what the player can battle against.
+     * Generates the different {@link main.Player opponent} which the
+     * {@link main.Player player} can
+     * battle against.
      *
      * @param currentDay The current day of the game.
      * @param maxDays    The maximum number of days any game can last.
-     * @param difficulty The difficulty of the current game.
+     * @param difficulty The {@link main.Difficulty difficulty} of the current game.
      */
-    // TODO: change all Difficulty to use getDiffculty method in GameEnvironment
     public void generateOpponents(int currentDay, int maxDays, Difficulty difficulty) {
         // Reset current opponent to null.
         currentOpponent = null;
 
         // TODO: change magic numbers to constants
-        // gold = starting gold + goldPerDay * reverse of difficulty multiplier *
+        // gold = starting gold + goldPerDay * inverse of difficulty multiplier *
         // currentDay
         int gold = (int) (30f + (30f * (1f + 1f - getDifficultyMultiplier(difficulty)) * currentDay));
         // points = basePoints * 1.1 ^ day * difficulty multiplier
@@ -162,10 +166,12 @@ public class BattleManager {
     }
 
     /**
-     * Gets the possible opponents which the player can face against.
+     * Gets the {@link main.Player opponents} which the {@link main.Player player}
+     * can face
+     * against.
      *
-     * @return A list of {@link main.Player Opponents} that the player can face
-     *         against.
+     * @return A list of {@link main.Player Opponents} that the {@link main.Player
+     *         player} can face against.
      */
     public ArrayList<Player> getOpponents() {
         return opponents;
@@ -183,7 +189,8 @@ public class BattleManager {
     }
 
     /**
-     * Distributes rewards to the player if the player has defeated the opponent.
+     * Distributes rewards to the {@link main.Player player} if the
+     * {@link main.Player player} has defeated the {@link main.Player opponent}.
      */
     public void giveRewards() {
         if (battleResult == BattleResult.WIN && currentOpponent != null) {
@@ -195,10 +202,14 @@ public class BattleManager {
     }
 
     /**
-     * Should return a BattleEvent object not void
+     * Two {@link main.Team teams} fight by having first {@link monsters.Monster
+     * monsters} deal damage to each other
      *
-     * @param allyTeam     A copy of the ally team to fight
-     * @param opponentTeam A copy of the enemy team to fight
+     * @param allyTeam     A copy of the ally {@link main.Team team} to fight
+     * @param opponentTeam A copy of the enemy {@link main.Team team} to fight
+     * 
+     * @return ArrayList of {@link main.BattleEvent BattleEvents} describing what
+     *         happened
      */
     private ArrayList<BattleEvent> fight(Team allyTeam, Team opponentTeam) {
         ArrayList<BattleEvent> eventLog = new ArrayList<BattleEvent>();
@@ -267,12 +278,19 @@ public class BattleManager {
     }
 
     /**
-     * Should return a BattleEvent object not void
+     * Checks {@link monsters.Monster monster} has a {@link main.Team team} and runs
+     * their {@link monsters.Monster#ability}
      *
-     * @param allyTeam  The ally team respective to the monster
-     * @param enemyTeam The enemy team respective to the monster
-     * @param monster   Monster to run ability of
-     * @param trigger   Current trigger that is checked for
+     * @param allyTeam  The ally {@link main.Team team} respective to the
+     *                  {@link monsters.Monster monster}
+     * @param enemyTeam The enemy {@link main.Team team} respective to the
+     *                  {@link monsters.Monster monster}
+     * @param monster   {@link monsters.Monster Monster} to run
+     *                  {@link monsters.Monster#ability} of
+     * @param trigger   Current {@link main.Trigger trigger} that is checked for
+     * 
+     * @return {@link main.BattleEvent BattleEvent} describing the
+     *         {@link monsters.Monster#ability}
      */
     private BattleEvent runAbility(Team allyTeam, Team enemyTeam, Monster monster, Trigger trigger) {
         if (monster.getTrigger() == trigger) {
@@ -284,7 +302,7 @@ public class BattleManager {
 
     /**
      * Simulates the battle and sets the eventLog of the battleManager with the
-     * events that occurred during the battle.
+     * {@link main.BattleEvent events} that occurred during the battle.
      */
     public void simulateBattle() {
         ArrayList<BattleEvent> newEventLog = new ArrayList<BattleEvent>();
@@ -296,13 +314,20 @@ public class BattleManager {
             allyTeamCopy = (Team) allyPlayer.getTeam().clone();
             opponentTeamCopy = (Team) currentOpponent.getTeam().clone();
 
+            BattleEvent ability;
             // Check for START OF BATTLE triggers for ally team then opponent team
             for (Monster monster : allyTeamCopy.getAliveMonsters()) {
-                newEventLog.add(runAbility(allyTeamCopy, opponentTeamCopy, monster, Trigger.STARTOFBATTLE));
+                ability = runAbility(allyTeamCopy, opponentTeamCopy, monster, Trigger.STARTOFBATTLE);
+                if (ability != null) {
+                    eventLog.add(ability);
+                }
             }
 
             for (Monster monster : opponentTeamCopy.getAliveMonsters()) {
-                newEventLog.add(runAbility(opponentTeamCopy, allyTeamCopy, monster, Trigger.STARTOFBATTLE));
+                ability = runAbility(opponentTeamCopy, allyTeamCopy, monster, Trigger.STARTOFBATTLE);
+                if (ability != null) {
+                    eventLog.add(ability);
+                }
             }
 
             while (!allyTeamCopy.getAliveMonsters().isEmpty() && !opponentTeamCopy.getAliveMonsters().isEmpty()) {
@@ -318,9 +343,10 @@ public class BattleManager {
     }
 
     /**
-     * Gets the next event in the event log.
+     * Gets the next {@link main.BattleEvent event} in the event log.
      *
-     * @return Next available event in the event log or null if there is no event.
+     * @return Next available {@link main.BattleEvent event} in the event log or
+     *         null if there is no event.
      */
     public BattleEvent nextEvent() {
         if (this.currentEventIndex < this.eventLog.size()) {
@@ -331,7 +357,9 @@ public class BattleManager {
     }
 
     /**
-     * Gets the player in the BattleManager
+     * Gets the {@link main.Player player} in the BattleManager
+     * 
+     * @return the active {@link main.Player player}
      */
     public Player getPlayer() {
         return this.allyPlayer;

@@ -5,7 +5,8 @@ import exceptions.*;
 import monsters.Monster;
 
 /**
- * Team of monsters owned by the player
+ * Team of {@link monsters.Monster monsters} owned by the {@link main.Player
+ * player}
  *
  * @author Harrison Tyson
  * @version 1.2, Apr 2022.
@@ -24,7 +25,7 @@ public class Team implements Cloneable {
      */
     private final static int MINTEAMSIZE = 1;
     /**
-     * ArrayList of monsters in team
+     * ArrayList of {@link monsters.Monster monsters} in team
      */
     private ArrayList<Monster> monsters = new ArrayList<Monster>();
     /**
@@ -33,12 +34,13 @@ public class Team implements Cloneable {
     private int teamSize = monsters.size();
 
     /**
-     * Constructor for Team. Creates a team with the starting monster/s
+     * Creates a new team with starting {@link monsters.Monster monsters}
      *
-     * @param newMonsters starting monster/s
+     * @param newMonsters starting {@link monsters.Monster monsters/s}
      *
      * @throws TeamSizeException         team is full or empty
-     * @throws DuplicateMonsterException monster already in team
+     * @throws DuplicateMonsterException {@link monsters.Monster monster} already in
+     *                                   team
      */
     public Team(Monster... newMonsters) throws TeamSizeException, DuplicateMonsterException {
         if (newMonsters.length > MAXTEAMSIZE) {
@@ -54,9 +56,10 @@ public class Team implements Cloneable {
     }
 
     /**
-     * Gets the first monster in the team that has not fainted
+     * Gets the first {@link monsters.Monster monster} in the team that has not
+     * fainted
      *
-     * @return the first available monster
+     * @return the first available {@link monsters.Monster monster}
      */
     public Monster getFirstAliveMonster() {
         for (Monster monster : monsters) {
@@ -68,9 +71,9 @@ public class Team implements Cloneable {
     }
 
     /**
-     * Get all alive monsters
+     * Get all alive {@link monsters.Monster monsters}
      *
-     * @return ArrayList of alive monsters
+     * @return ArrayList of alive {@link monsters.Monster monsters}
      */
     public ArrayList<Monster> getAliveMonsters() {
         ArrayList<Monster> aliveMonsters = new ArrayList<Monster>();
@@ -83,20 +86,22 @@ public class Team implements Cloneable {
     }
 
     /**
-     * Gets the current monsters in the team
+     * Gets the current {@link monsters.Monster monsters} in the team
      *
-     * @return ArrayList of current monsters in team
+     * @return {@link ArrayList ArrayList} of current {@link monsters.Monster
+     *         monsters} in team
      */
     public ArrayList<Monster> getMonsters() {
         return this.monsters;
     }
 
     /**
-     * Adds a monster to the team if there is space
+     * Adds a {@link monsters.Monster monster} to the team if there is space
      *
-     * @param monster monster to be added
+     * @param monster {@link monsters.Monster monster} to be added
      * @throws TeamSizeException         team is full
-     * @throws DuplicateMonsterException monster already in team
+     * @throws DuplicateMonsterException {@link monsters.Monster monster} already in
+     *                                   team
      */
     public void addMonster(Monster monster) throws TeamSizeException, DuplicateMonsterException {
         if (monsters.size() == MAXTEAMSIZE) {
@@ -110,9 +115,9 @@ public class Team implements Cloneable {
     }
 
     /**
-     * Remove a monster from the team
+     * Remove a {@link monsters.Monster monster} from the team
      *
-     * @param monster monster to be removed
+     * @param monster {@link monsters.Monster monster} to be removed
      * @throws TeamSizeException team is at minimum size
      */
     public void removeMonster(Monster monster) throws TeamSizeException {
@@ -126,9 +131,9 @@ public class Team implements Cloneable {
 
     // TODO: test this overloaded method
     /**
-     * Remove a monster from the team
+     * Remove a {@link monsters.Monster monster} from the team
      *
-     * @param monster monster to be removed
+     * @param index index of {@link monsters.Monster monster} to be removed
      * @throws TeamSizeException team is at minimum size
      */
     public void removeMonster(int index) throws TeamSizeException {
@@ -141,9 +146,9 @@ public class Team implements Cloneable {
     }
 
     /**
-     * Move a monster up a position in the team
+     * Move a {@link monsters.Monster monster} up a position in the team
      *
-     * @param monster monster to be moved
+     * @param monster {@link monsters.Monster monster} to be moved
      */
     public void moveMonsterUp(Monster monster) {
         int currentIndex = monsters.indexOf(monster);
@@ -154,9 +159,9 @@ public class Team implements Cloneable {
     }
 
     /**
-     * Move a monster down a position in the team
+     * Move a {@link monsters.Monster monster} down a position in the team
      *
-     * @param monster monster to be moved
+     * @param monster {@link monsters.Monster monster} to be moved
      */
     public void moveMonsterDown(Monster monster) {
         int currentIndex = monsters.indexOf(monster);
@@ -167,9 +172,9 @@ public class Team implements Cloneable {
     }
 
     /**
-     * Gets number of monsters in the team
+     * Gets number of {@link monsters.Monster monsters} in the team
      *
-     * @return teamSize - number of monsters in the team
+     * @return number of {@link monsters.Monster monsters} in the team
      */
     public int getTeamSize() {
         return this.monsters.size();
@@ -193,11 +198,10 @@ public class Team implements Cloneable {
         return Team.MINTEAMSIZE;
     }
 
-    // TODO: test that cloning works :)
     // TODO: test that the monsters that are cloned are actually clones
     /**
-     * Clones the team and all of the monsters
-     * in the team
+     * Performs a deep copy of the team, also making copies of all
+     * {@link monsters.Monster monsters}
      */
     public Object clone() throws CloneNotSupportedException {
         try {

@@ -97,6 +97,7 @@ public class TeddyMonsterTest {
      */
     @Test
     public void abilityTest() throws TeamSizeException, DuplicateMonsterException {
+        // TODO: add test for correct BattleEvent return
         // Check boosts health
         int startAllyTeamSumHealth = 0;
         int startEnemyTeamSumHealth = 0;

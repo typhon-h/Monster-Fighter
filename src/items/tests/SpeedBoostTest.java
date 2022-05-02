@@ -16,13 +16,26 @@ import items.ItemConstants;
 import main.Rarity;
 
 class SpeedBoostTest {
+    /**
+     * {@link monsters.Monster Monster} to test {@link items.AttackBoost Attack
+     * Boost} on
+     */
     Monster testMonster;
 
+    /**
+     * Refreshes the test {@link monsters.Monster}
+     * 
+     */
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
         testMonster = new ClinkMonster();
     }
 
+    /**
+     * Sets up the arguments for each test
+     * 
+     * @return A stream of arguments to be passed into the test
+     */
     private static Stream<Arguments> rarityAndBoost() {
         return Stream.of(
                 Arguments.arguments(Rarity.COMMON, ItemConstants.COMMONSTATBOOST),
@@ -31,7 +44,8 @@ class SpeedBoostTest {
     }
 
     /**
-     * Tests that the item boosts the Speed of a given monster
+     * Tests that the item boosts the speed of a given {@link monsters.Monster
+     * monster}
      */
     @ParameterizedTest
     @MethodSource("rarityAndBoost")

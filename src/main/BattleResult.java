@@ -12,11 +12,11 @@ public enum BattleResult {
      */
     NULL,
     /**
-     * Player has won the battle
+     * {@link main.Player Player} has won the battle
      */
     WIN,
     /**
-     * Player has lost the battle
+     * {@link main.Player Player} has lost the battle
      */
     LOSS
 }

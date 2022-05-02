@@ -7,7 +7,6 @@ import exceptions.UnusableItemException;
 
 /**
  * Generic Item.
- * Subclass of {@link main.Entity} and the superclass of specific items.
  * Used to define common traits between all the specific items.
  *
  * @author Jackie Jone
@@ -16,10 +15,9 @@ import exceptions.UnusableItemException;
 public abstract class Item extends Entity {
 
     /**
-     * Constructor to call the constructor of the superclass, Entity.
-     * Sets instance variables
+     * Creates a new Item using {@link main.Entity}
      *
-     * @param newName        The name of the player
+     * @param newName        The name of the {@link main.Player}
      * @param newDescription Description of the item
      * @param newRarity      {@link main.Rarity} of the item
      */
@@ -27,16 +25,17 @@ public abstract class Item extends Entity {
             String newDescription,
             Rarity newRarity) {
         super(newName, newDescription, newRarity);
-        // Might need to call setRarity(newRarity) here if the superclass implementation
-        // doesnt
-        // call the subclass's implementation which overrides the superclass
-        // implementation.
+        /**
+         * TODO: Might need to call setRarity(newRarity) here if the superclass
+         * implementation
+         * doesnt
+         * call the subclass's implementation which overrides the superclass
+         * implementation.
+         */
     }
 
     /**
-     * Sets the {@link main.Rarity} of the item.
-     * Overrides the superclass implementation but uses the superclass
-     * implementation.
+     * Creates new Item and Sets the {@link main.Rarity} of the item.
      *
      * @param rarity New {@link main.Rarity} of the item
      */
@@ -74,7 +73,7 @@ public abstract class Item extends Entity {
     }
 
     /**
-     * Returns the amount to increment a statistic of a {@link monsters.Monster}
+     * Returns the amount to increment a stat of a {@link monsters.Monster}
      * based on the {@link main.Rarity} of the item.
      *
      * @return The amount to increase the statistic by.
@@ -119,5 +118,5 @@ public abstract class Item extends Entity {
      * @throws UnusableItemException The item cannot be used.
      * @return string describing item effect
      */
-    public abstract String use(Monster monster) throws UnusableItemException; // Test this with the Exception
+    public abstract String use(Monster monster) throws UnusableItemException; // TODO: Test this with the Exception
 }

@@ -16,12 +16,15 @@ import monsters.Monster;
 public class RandomEvent {
 
     /**
-     * Randomly applies a boost to members of a team based on a probability constant
-     * probability based on current day and faint count
+     * Randomly applies a {@link items.RandomStatBoost boost} to members of a
+     * {@link main.Team team}
+     * based on a probability constant
+     * influenced by current day and faint count
      *
-     * @param team       team to apply the boost to
+     * @param team       {@link main.Team team} to apply the boost to
      * @param currentDay current day of the game, used to manipulate probability
-     * @param difficulty difficulty of the game
+     * @param difficulty {@link main.Difficulty difficulty} of the game
+     * 
      * @return ArrayList of String effects that occurred
      */
     public static ArrayList<String> randomBoost(Team team, int currentDay, Difficulty difficulty) {
@@ -53,11 +56,12 @@ public class RandomEvent {
     }
 
     /**
-     * Randomly removes monsters from a team based on a probability constant
-     * probability based on fain count
+     * Randomly removes {@link monsters.Monster monsters} from a {@link main.Team
+     * team} based on a probability constant influenced by faint count
      *
-     * @param team       team to remove monsters from
-     * @param difficulty difficulty of the game
+     * @param team       {@link main.Team team} to remove {@link monsters.Monster
+     *                   monsters} from
+     * @param difficulty {@link main.Difficulty difficulty} of the game
      * @return ArrayList of String effects that occurred
      */
     public static ArrayList<String> randomMonsterLeave(Team team, Difficulty difficulty) {
@@ -84,13 +88,14 @@ public class RandomEvent {
     }
 
     /**
-     * Randomly add a monster to a team based on a probability constant
-     * probability based on available spaces in team
+     * Randomly add a {@link monsters.Monster monster} to a {@link main.Team team}
+     * based on a probability constant
+     * influenced by available spaces in {@link main.Team team}
      *
-     * @param team       team to add monster to
-     * @param currentDay current day of game used to manipulate probability
-     * @param difficulty difficulty of the game
-     * @return String describing monster joining, else null
+     * @param team       {@link main.Team team} to add {@link monsters.Monster
+     *                   monster} to
+     * @param difficulty {@link main.Difficulty difficulty} of the game
+     * @return String describing {@link monsters.Monster monster} joining, else null
      */
     public static String randomMonsterJoin(Team team, Difficulty difficulty) {
         double probabilityBound = RandomEventConstants.MONSTERJOINPROBABILITY;

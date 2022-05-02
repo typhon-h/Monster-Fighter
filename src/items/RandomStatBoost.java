@@ -33,7 +33,6 @@ public class RandomStatBoost extends Item {
      */
     public String use(Monster monster) {
         String statChanged;
-        // Adjust probability that each stat will increase
         switch (GameEnvironment.rng.nextInt(MonsterConstants.NUMBEROFSTATS)) {
             case 0:
                 statChanged = "HEALTH";

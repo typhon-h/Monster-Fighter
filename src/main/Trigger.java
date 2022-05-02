@@ -1,6 +1,8 @@
 package main;
+
 /**
- * Different possible events that can trigger an ability in battle
+ * Different possible events that can trigger an {@link monsters.Monster#ability
+ * ability} in battle
  *
  * @author Harrison Tyson
  * @version 1.0, Apr 2022.

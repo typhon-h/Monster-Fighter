@@ -12,6 +12,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
+/**
+ * Tests for the {@link shop.BuyShop BuyShop} class.
+ * 
+ * @author Harrison Tyson
+ * @version 1.0, Apr 2022.
+ */
 public class BuyShopTest {
 
     /**

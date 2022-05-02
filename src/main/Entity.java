@@ -1,8 +1,10 @@
 package main;
 
+//TODO: implement a purchasable interface just so we can have one for marking sake??
 /**
  * Superclass for game objects.
- * An Entity is able to be possessed by a player and traded in shops
+ * An Entity is able to be possessed by a {@link main.Player player} and traded
+ * in {@link shop.Shop shops}
  *
  * @author Harrison Tyson
  * @version 1.3, Apr 2022.
@@ -25,13 +27,12 @@ public class Entity implements Cloneable {
      */
     private int sellPrice;
     /**
-     * The rarity of the entity
+     * The {@link main.Rarity rarity} of the entity
      */
     private Rarity rarity;
 
     /**
-     * Constructor to be invoked from subclasses
-     * Sets instance variables
+     * Create new Entity
      *
      * @param newName        Name of the entity
      * @param newDescription Description of the entity

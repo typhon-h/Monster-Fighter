@@ -1,7 +1,8 @@
 package exceptions;
 
 /**
- * Duplicate monster tried to be added to team
+ * Duplicate {@link monsters.Monster monster} tried to be added to
+ * {@link main.Team team}
  *
  * @author Harrison Tyson
  * @version 1.0, Apr 2022.
@@ -9,7 +10,7 @@ package exceptions;
 public class DuplicateMonsterException extends Exception {
 
     /**
-     * Constructor for DuplicateMonsterException
+     * Instantiate error with display message
      *
      * @param message message to be displayed
      */

@@ -17,17 +17,20 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 
 /**
- * Testing for Team class.
+ * Testing for {@link main.Team Team} class.
  *
  * @author Harrison Tyson
  * @version 1.0, Apr 2022.
  */
 public class TeamTest {
 
+    /**
+     * {@link main.Team Team to be tested}
+     */
     Team team;
 
     /**
-     * Set up a full team for testing
+     * Set up a full {@link main.Team Team to be tested} for testing
      *
      * @throws TeamSizeException         if too many team members
      * @throws DuplicateMonsterException if same monster is added twice
@@ -35,13 +38,14 @@ public class TeamTest {
     @BeforeEach
     public void setUp() throws TeamSizeException, DuplicateMonsterException {
         team = new Team(new ClinkMonster());
-        while(team.getTeamSize() < Team.getMaxTeamSize()) {
+        while (team.getTeamSize() < Team.getMaxTeamSize()) {
             team.addMonster(new ClinkMonster());
         }
     }
 
     /**
-     * Checks that a team cannot be created with more than
+     * Checks that a {@link main.Team Team to be tested} cannot be created with more
+     * than
      * {@link main.Team#MAXTEAMSIZE} and
      * less than {@link main.Team#MINTEAMSIZE} monsters.
      */
@@ -49,7 +53,7 @@ public class TeamTest {
     public void constructorTeamSizeTest() {
         TeamSizeException exception = assertThrows(TeamSizeException.class, () -> {
             team = new Team(new ClinkMonster());
-            while(team.getTeamSize() < Team.getMaxTeamSize()+1) {
+            while (team.getTeamSize() < Team.getMaxTeamSize() + 1) {
                 team.addMonster(new ClinkMonster());
             }
         });
@@ -74,16 +78,17 @@ public class TeamTest {
                 Arguments.arguments(new int[] { 3 }),
                 Arguments.arguments(new int[] { 0, 1 }),
                 Arguments.arguments(new int[] { 0, 1, 2 }),
-                Arguments.arguments(new int[] { 0, 1, 3}),
+                Arguments.arguments(new int[] { 0, 1, 3 }),
                 Arguments.arguments(new int[] { 2, 3 }));
     }
 
     /**
-     * Tests alive monsters are able to be retrieved with different combinations
-     * of fainted monsters
-     * Covers: getAliveMonsters, getFirstAliveMonster
+     * Tests alive {@link monsters.Monster monsters} are able to be retrieved with
+     * different combinations
+     * of fainted {@link monsters.Monster monsters}
      *
-     * @param positionsToFaint array of indexes of monsters to faint
+     * @param positionsToFaint array of indexes of {@link monsters.Monster monsters}
+     *                         to faint
      */
     @ParameterizedTest
     @MethodSource("positionsToTest")
@@ -101,8 +106,7 @@ public class TeamTest {
     }
 
     /**
-     * Tests exceptions are raised when all monsters have fainted
-     * Covers: getAliveMonsters, getFirstAliveMonster
+     * Tests when all {@link monsters.Monster monsters} have fainted
      */
     @Test
     public void noAliveMonsterTest() {
@@ -118,10 +122,7 @@ public class TeamTest {
     }
 
     /**
-     * Checks monsters are added correctly
-     * Covers: addMonster
-     * Valid: add monsters until full
-     * Invalid: adds additional monster
+     * Checks {@link monsters.Monster monsters} are added correctly
      *
      * @throws TeamSizeException         if too many team members
      * @throws DuplicateMonsterException if same monster is added twice
@@ -142,8 +143,8 @@ public class TeamTest {
     }
 
     /**
-     * Checks duplicate monsters cannot be added to a team
-     * Covers: addMonster, Constructor
+     * Checks duplicate {@link monsters.Monster monsters} cannot be added to a
+     * {@link main.Team team}
      *
      * @throws TeamSizeException         if too many team members
      * @throws DuplicateMonsterException if same monster is added twice
@@ -165,11 +166,13 @@ public class TeamTest {
     }
 
     /**
-     * Checks monsters are correctly removed from various positions in team
-     * Covers: removeMonster
+     * Checks {@link monsters.Monster monsters} are correctly removed from various
+     * positions in {@link main.Team team}
      *
-     * @param positionsToRemove array of indexes of monsters to remove
-     * @throws TeamSizeException if tries to remove more than minimum team size
+     * @param positionsToRemove array of indexes of {@link monsters.Monster
+     *                          monsters} to remove
+     * @throws TeamSizeException if tries to remove more than
+     *                           {@link main.Team#MINTEAMSIZE minimum team size}
      */
     @ParameterizedTest
     @MethodSource("positionsToTest")
@@ -186,10 +189,8 @@ public class TeamTest {
     }
 
     /**
-     * Checks monsters not in the team cannot be removed
-     * Covers: removeMonster
-     * Valid: removes until empty
-     * Invalid: removes when empty
+     * Checks {@link monsters.Monster monsters} not in the {@link main.Team team}
+     * cannot be removed
      *
      * @throws TeamSizeException if too many team members
      */
@@ -207,10 +208,8 @@ public class TeamTest {
     }
 
     /**
-     * Checks monster is able to be moved up in the team
-     * Covers: moveMonsterUp
-     * Valid: moved to top
-     * Invalid: cannot go further past top
+     * Checks {@link monsters.Monster monster} is able to be moved up in the
+     * {@link main.Team team}
      */
     @Test
     public void moveMonsterUpTest() {
@@ -233,10 +232,8 @@ public class TeamTest {
     }
 
     /**
-     * Checks monster is able to be moved down in the team
-     * Covers: moveMonsterDown
-     * Valid: moved to bottom
-     * Invalid: cannot go further past bottom
+     * Checks {@link monsters.Monster monster} is able to be moved down in the
+     * {@link main.Team team}
      */
     @Test
     public void moveMonsterDownTest() {

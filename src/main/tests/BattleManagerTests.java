@@ -21,10 +21,26 @@ import monsters.*;
  * @version 1.0, Apr 2022
  */
 class BattleManagerTests {
+    /**
+     * {@link main.Player Player} to test with
+     */
     Player player;
+    /**
+     * {@link main.Team team} of the {@link main.Player player} to be tested
+     */
     Team playerTeam;
+    /**
+     * {@link main.BattleMangager BattleManager} to be tested
+     */
     BattleManager battleManager;
 
+    /**
+     * Set up {@link main.BattleMangager BattleManager} before each test
+     * 
+     * @throws Exception general case if creating {@link main.Tean tean} or
+     *                   {@link main.BattleMangager BattleManager} causes an
+     *                   exception
+     */
     @BeforeEach
     void setUp() throws Exception {
         playerTeam = new Team(new ClinkMonster());
@@ -34,24 +50,9 @@ class BattleManagerTests {
         battleManager = new BattleManager(player);
     }
 
-    // /**
-    // * Testing that every monster is put in the team
-    // */
-    // @Test
-    // public void getRandomMonsterTest() {
-    // HashSet<Class<?>> monsterClasses = new HashSet<Class<?>>();
-
-    // int i = 0;
-    // while (monsterClasses.size() < Monster.NUMMONSTERS && i < 1000) {
-    // monsterClasses.add(battleManager.getRandomMonster(Difficulty.HARD).getClass());
-    // i++;
-    // }
-    // System.out.println(monsterClasses.toString());
-    // assertEquals(monsterClasses.size(), Monster.NUMMONSTERS);
-    // }
-
     /**
-     * Test cases containing the current day and the number of monsters
+     * Test cases containing the current day and the number of
+     * {@link monsters.Monster monsters}
      * that should be generated for that day
      *
      * @return A stream of day, monster number arguments
@@ -70,11 +71,13 @@ class BattleManagerTests {
     }
 
     /**
-     * Checks that the correct amount of monsters are generated
+     * Checks that the correct amount of {@link monsters.Monster monsters} are
+     * generated
      * for each day
      *
      * @param day         The day to check
-     * @param numMonsters The correct amount of monsters for the given day
+     * @param numMonsters The correct amount of {@link monsters.Monster monsters}
+     *                    for the given day
      */
     @ParameterizedTest
     @MethodSource("dayAndMonsterNum")
@@ -85,7 +88,8 @@ class BattleManagerTests {
     }
 
     /**
-     * Checks that items are used on the monsters in the team to
+     * Checks that {@link items.Item items} are used on the {@link monsters.Monster
+     * monsters} in the {@link main.Team team} to
      * boost their stats
      */
     @Test

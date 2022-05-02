@@ -20,19 +20,19 @@ import monsters.*;
  * Tests for the class {@link items.RandomStatBoost}
  *
  * @author Jackie Jone
- * @version 1.0, Apr 2022.
+ * @version 1.1, Apr 2022.
  */
 class RandomStatBoostTest {
     /**
-     * Monster for item to be tested on
+     * {@link monsters.Monster Monster} for {@link items.Item item} to be tested on
      */
     Monster testMonster;
 
     /**
-     * Creates new monster for each test to run on
+     * Creates new {@link monsters.Monster monster} for each test to run on
      */
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
         testMonster = new ClinkMonster();
     }
 
@@ -49,12 +49,12 @@ class RandomStatBoostTest {
     }
 
     /**
-     * Test that at least either the base health or base attack damage of the
-     * monster
-     * is increased and the other one remains constant.
+     * Test that at least either the base health, base attack damage, or base speed
+     * of the {@link monsters.Monster monster} is increased and the others remain
+     * constant.
      *
-     * @param rarity
-     * @param boostAmount
+     * @param rarity      {@link main.Rarity rarity} of the {@link items.Item item}
+     * @param boostAmount amount for the {@link items.Item item} to boost a stat
      */
     @ParameterizedTest
     @MethodSource("rarityAndBoost")

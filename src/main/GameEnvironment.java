@@ -16,7 +16,7 @@ import monsters.*;
  */
 public class GameEnvironment {
     /**
-     * Player playing the game
+     * {@link main.Player player} playing the game
      */
     private Player player;
 
@@ -33,7 +33,7 @@ public class GameEnvironment {
     private int currentDay = 1;;
 
     /**
-     * Difficulty of the game
+     * {@link main.Difficulty difficulty} of the game
      */
     private Difficulty difficulty;
 
@@ -45,17 +45,19 @@ public class GameEnvironment {
     private boolean gameOverStatus = false;
 
     /**
-     * Game sell shop where players can sell their entities
+     * Game {@link shop.SellShop sell shop} where {@link main.Player players} can
+     * sell their {@link main.Entity entities}
      */
     private SellShop sellShop;
 
     /**
-     * Game buy shop where players can buy new entities
+     * Game {@link shop.BuyShop buy shop} where {@link main.Player players} can
+     * sell their {@link main.Entity entities}
      */
     private BuyShop buyShop;
 
     /**
-     * Battle Manager to control battle events in game
+     * {@link main.BattleManager Battle Manager} to control battle events in game
      */
     private BattleManager battleState;
 
@@ -75,11 +77,11 @@ public class GameEnvironment {
     public static final int MINDAYS = 5;
 
     /**
-     * Constructor for GameEnvironment
+     * Create new GameEnvironment
      * 
-     * @param player     active player
+     * @param player     active {@link main.Player player}
      * @param totalDays  days game will last for
-     * @param difficulty difficulty of game
+     * @param difficulty {@link main.Difficulty difficulty} of game
      */
     public GameEnvironment(Player player, int totalDays, Difficulty difficulty) {
         this.player = player;
@@ -91,12 +93,12 @@ public class GameEnvironment {
     }
 
     /**
-     * Constructor for GameEnvironment
+     * Create new GameEnvironment with {@link Random Random} seed
      * 
-     * @param player     active player
+     * @param player     active {@link main.Player player}
      * @param totalDays  days game will last for
-     * @param difficulty difficulty of game
-     * @param seed       seed for the random generator
+     * @param difficulty {@link main.Difficulty difficulty} of game
+     * @param seed       seed for the {@link Random#Random} generator
      */
     public GameEnvironment(Player player, int totalDays, Difficulty difficulty, long seed) {
         this.player = player;
@@ -109,9 +111,9 @@ public class GameEnvironment {
     }
 
     /**
-     * Generates a list of all possible monster objects
+     * Generates a list of all possible {@link monsters.Monster monster} objects
      * 
-     * @return list of new monster objects
+     * @return list of new {@link monsters.Monster monster} objects
      */
     public static ArrayList<Monster> generateMonsters() {
         return new ArrayList<Monster>(Arrays.asList( // All Monsters
@@ -124,7 +126,10 @@ public class GameEnvironment {
     }
 
     /**
-     * Advances the day, updates shops, restores monsters, and runs random events
+     * Advances the day, {@link shop.BuyShop#setContent updates shops},
+     * {@link monsters.Monster#restore restores
+     * monsters}, and
+     * runs {@link main.RandomEvent random events}
      * 
      * @return ArrayList of strings describing all events that happened
      */
@@ -164,9 +169,9 @@ public class GameEnvironment {
     }
 
     /**
-     * Gets the active player
+     * Gets the active {@link main.Player player}
      * 
-     * @return the active player
+     * @return the active {@link main.Player player}
      */
     public Player getPlayer() {
         return this.player;
@@ -191,27 +196,27 @@ public class GameEnvironment {
     }
 
     /**
-     * Gets the difficulty of the game
+     * Gets the {@link main.Difficulty difficulty} of the game
      * 
-     * @return the difficulty of the game
+     * @return the {@link main.Difficulty difficulty} of the game
      */
     public Difficulty getDifficulty() {
         return difficulty;
     }
 
     /**
-     * Gets the sell shop of the game
+     * Gets the {@link shop.SellShop sell shop} of the game
      * 
-     * @return the sell shop state
+     * @return the {@link shop.SellShop sell shop} state
      */
     public SellShop getSellShop() {
         return sellShop;
     }
 
     /**
-     * Gets the buy shop of the game
+     * Gets the {@link shop.BuyShop buy shop} of the game
      * 
-     * @return the buy shop state
+     * @return the {@link shop.BuyShop buy shop} state
      */
     public BuyShop getBuyShop() {
         buyShop.setContent();
@@ -219,9 +224,9 @@ public class GameEnvironment {
     }
 
     /**
-     * Gets the battle state of the game
+     * Gets the {@link main.BattleManager battle state} of the game
      * 
-     * @return the battle state of the game
+     * @return the {@link main.BattleManager battle state} of the game
      */
     public BattleManager getBattleState() {
         return battleState;
@@ -237,9 +242,9 @@ public class GameEnvironment {
     }
 
     /**
-     * Sets the rng seed and refreshes variable
+     * Sets the {@link main.GameEnvironment#rng rng} seed and refreshes variable
      * 
-     * @param seed seed of the generator
+     * @param seed seed for the generator
      */
     public static void setSeed(long seed) {
         GameEnvironment.rng = new Random(seed);

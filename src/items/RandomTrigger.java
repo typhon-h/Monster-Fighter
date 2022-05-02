@@ -1,11 +1,14 @@
 package items;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import main.*;
 import monsters.Monster;
 
 /**
  * An item that gives a {@link monsters.Monster} a random {@link main.Trigger}
- * for their Ability Trigger
+ * for their {@link monsters.Monster#ability ability}
  * 
  * @author Jackie Jone
  * @version 1.1, Apr 2022
@@ -34,11 +37,11 @@ public class RandomTrigger extends Item {
     public String use(Monster monster) {
         Trigger randomTrigger = monster.getTrigger();
 
-        // Keep generating a new trigger that is not already owned by the monster and is
-        // not NOABILITY
-        do {
-            randomTrigger = Trigger.values()[GameEnvironment.rng.nextInt(Trigger.numTriggers - 1)];
-        } while (randomTrigger.equals(Trigger.NOABILITY) || randomTrigger.equals(monster.getTrigger()));
+        ArrayList<Trigger> possibleTriggers = new ArrayList<Trigger>(Arrays.asList(Trigger.values()));
+        possibleTriggers.remove(Trigger.NOABILITY);
+        possibleTriggers.remove(monster.getTrigger());
+
+        randomTrigger = possibleTriggers.get(GameEnvironment.rng.nextInt(possibleTriggers.size()));
 
         monster.setTrigger(randomTrigger);
         monster.increaseSellPrice(this.getSellPrice());

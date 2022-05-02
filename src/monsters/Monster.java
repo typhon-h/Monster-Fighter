@@ -97,7 +97,6 @@ public abstract class Monster extends Entity {
      *
      * @param damage amount of damage received
      * @throws IllegalArgumentException Argument must be positive
-     * @return itself if ability was triggered
      */
     public void takeDamage(int damage) throws IllegalArgumentException {
         if (damage <= 0) {

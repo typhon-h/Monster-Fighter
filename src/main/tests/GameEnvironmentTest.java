@@ -13,15 +13,26 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests for the {@link main.GameEnvironment GameEnvironment} Class
+ * 
+ * @author Harrison Tyson
+ * @version 1.0, Apr 2022.
+ */
 public class GameEnvironmentTest {
 
+    /**
+     * {@link main.GameEnvironment GameEnvironment} to be tested
+     */
     GameEnvironment game;
 
     /**
-     * Set up a Game Environment for Testing
+     * Set up a {@link main.GameEnvironment GameEnvironment} for Testing
      * 
-     * @throws TeamSizeException         if too many members added to team
-     * @throws DuplicateMonsterException if monster already in team
+     * @throws TeamSizeException         if too many members added to
+     *                                   {@link main.Team team}
+     * @throws DuplicateMonsterException if {@link monsters.Monster monster} already
+     *                                   in {@link main.Team team}
      */
     @BeforeEach
     public void setUp() throws TeamSizeException, DuplicateMonsterException {
@@ -31,7 +42,8 @@ public class GameEnvironmentTest {
     }
 
     /**
-     * Tests game environment can be set up with a distinguished seed
+     * Tests {@link main.GameEnvironment GameEnvironment} can be set up with a
+     * distinguished seed
      * Seed: 0
      * Generates: -1155484576, -723955400, 1033096058, -1690734402, -1557280266
      */
@@ -61,7 +73,7 @@ public class GameEnvironmentTest {
     }
 
     /**
-     * Checks sleeping updates the buy shop
+     * Checks sleeping updates the {@link shop.BuyShop BuyShop}
      */
     @Test
     public void sleepShopUpdateTest() {
@@ -71,7 +83,8 @@ public class GameEnvironmentTest {
     }
 
     /**
-     * Checks sleeping refreshes the battle state by generating new opponents
+     * Checks sleeping refreshes the {@link main.BattleManager battle state} by
+     * {@link main.BattleManager#generateOpponents generating new opponents}
      */
     // @Test
     // public void sleepGenerateOpponentsTest() {
@@ -81,7 +94,8 @@ public class GameEnvironmentTest {
     // }
 
     /**
-     * Checks sleeping restores all monsters in team
+     * Checks sleeping {@link monsters.Monster#restore restores} all
+     * {@link monsters.Monster monsters} in {@link main.Team team}
      */
     @Test
     public void sleepMonsterRestoreTest() {
@@ -104,7 +118,7 @@ public class GameEnvironmentTest {
     }
 
     /**
-     * Check random events do not occur with given setup
+     * Check {@link main.RandomEvent random events} do not occur with given setup
      * Seed: 61883 no events occur with base probability
      * Monster Boost: 20%
      * Monster Leave: 0%
@@ -121,7 +135,7 @@ public class GameEnvironmentTest {
     }
 
     /**
-     * Check random events do occur with given setup
+     * Check {@link main.RandomEvent random events} do occur with given setup
      * Seed: 1860048 all events occur with base probability
      * Monster Boost: 20%
      * Monster Leave with 1 faint: 0% + 5% = 5%
@@ -143,4 +157,6 @@ public class GameEnvironmentTest {
 
         assertEquals(expectedOutcome, eventOutcome);
     }
+
+    // TODO: Test battle state is updated
 }

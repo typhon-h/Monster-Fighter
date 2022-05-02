@@ -25,8 +25,7 @@ public class AttackBoost extends Item {
 
         /**
          * Increases the base attack damage of a given {@link monsters.Monster} by an
-         * amount
-         * based on the {@link main.Rarity} of the item.
+         * amount based on the {@link main.Rarity} of the item.
          *
          * @param monster The {@link monsters.Monster} to use the item on.
          * @return string describing item effect

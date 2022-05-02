@@ -24,38 +24,44 @@ class BattleConstantsTest {
 
     /**
      * Sets up the arguments for each test
+     * 
      * @return A stream of arguments to be passed into the test
      */
     private static Stream<Arguments> monsterAndTriggers() {
         return Stream.of(
                 Arguments.arguments(new ClinkMonster(),
-                                    new Trigger[] {Trigger.ONFAINT, Trigger.STARTOFBATTLE, Trigger.ONHURT},
-                                    Difficulty.HARD),
+                        new Trigger[] { Trigger.ONFAINT, Trigger.STARTOFBATTLE, Trigger.ONHURT },
+                        Difficulty.HARD),
                 Arguments.arguments(new DittaMonster(),
-                                    new Trigger[] {Trigger.ONFAINT, Trigger.STARTOFBATTLE, Trigger.ONHURT, Trigger.AFTERATTACK},
-                                    Difficulty.HARD),
+                        new Trigger[] { Trigger.ONFAINT, Trigger.STARTOFBATTLE, Trigger.ONHURT, Trigger.AFTERATTACK },
+                        Difficulty.HARD),
                 Arguments.arguments(new GilMonster(),
-                                    new Trigger[] {Trigger.ONFAINT, Trigger.STARTOFBATTLE},
-                                    Difficulty.HARD),
+                        new Trigger[] { Trigger.ONFAINT, Trigger.STARTOFBATTLE },
+                        Difficulty.HARD),
                 Arguments.arguments(new JynxMonster(),
-                                    new Trigger[] {Trigger.ONFAINT, Trigger.STARTOFBATTLE},
-                                    Difficulty.HARD),
+                        new Trigger[] { Trigger.ONFAINT, Trigger.STARTOFBATTLE },
+                        Difficulty.HARD),
                 Arguments.arguments(new LuciferMonster(),
-                                    new Trigger[] {Trigger.ONFAINT, Trigger.STARTOFBATTLE},
-                                    Difficulty.HARD),
+                        new Trigger[] { Trigger.ONFAINT, Trigger.STARTOFBATTLE },
+                        Difficulty.HARD),
                 Arguments.arguments(new TeddyMonster(),
-                                    new Trigger[] {Trigger.ONFAINT, Trigger.STARTOFBATTLE},
-                                    Difficulty.HARD));
+                        new Trigger[] { Trigger.ONFAINT, Trigger.STARTOFBATTLE },
+                        Difficulty.HARD));
     }
 
     /**
      * Tests that {@link BattleConstants#getTriggers(Monster) getTriggers(Monster)}
-     * returns the correct triggers for each monster.
+     * returns the correct {@link main.Trigger triggers} for each
+     * {@link monsters.Monster monster}.
      *
-     * @param testMonster  The monster to get the triggers for.
-     * @param testTriggers The expected triggers of the monster.
-     * @param difficulty   Difficulty of triggers we are looking for,
-     *                     {@link main.Difficulty#HARD hard} because we want all the triggers.
+     * @param testMonster  The {@link monsters.Monster monster} to get the
+     *                     {@link main.Trigger triggers} for.
+     * @param testTriggers The expected {@link main.Trigger triggers} of the
+     *                     {@link monsters.Monster monster}.
+     * @param difficulty   {@link main.Difficulty difficulty} of {@link main.Trigger
+     *                     triggers} we are looking for,
+     *                     {@link main.Difficulty#HARD hard} because we want all the
+     *                     {@link main.Trigger triggers}.
      */
     @ParameterizedTest
     @MethodSource("monsterAndTriggers")
@@ -66,12 +72,17 @@ class BattleConstantsTest {
 
     /**
      * Tests that {@link BattleConstants#getTriggers(Class) getTriggers(Class)}
-     * returns the correct triggers for each monster.
+     * returns the correct {@link main.Trigger triggers} for each
+     * {@link monsters.Monster monster}.
      *
-     * @param testMonster  The monster to get the triggers for.
-     * @param testTriggers The expected triggers of the monster.
-     * @param difficulty   Difficulty of triggers we are looking for,
-     *                     {@link main.Difficulty#HARD hard} because we want all the triggers.
+     * @param testMonster  The {@link monsters.Monster monster} to get the
+     *                     {@link main.Trigger triggers} for.
+     * @param testTriggers The expected {@link main.Trigger triggers} of the
+     *                     {@link monsters.Monster monster}.
+     * @param difficulty   {@link main.Difficulty difficulty} of {@link main.Trigger
+     *                     triggers} we are looking for,
+     *                     {@link main.Difficulty#HARD hard} because we want all the
+     *                     {@link main.Trigger triggers}.
      */
     @ParameterizedTest
     @MethodSource("monsterAndTriggers")
@@ -82,30 +93,36 @@ class BattleConstantsTest {
 
     /**
      * Sets up the arguments for each test
+     * 
      * @return A stream of arguments to be passed into the test
      */
     private static Stream<Arguments> monsterTriggersAndDifficulty() {
         return Stream.of(
                 Arguments.arguments(new ClinkMonster(),
-                                    new Trigger[] {Trigger.ONFAINT},
-                                    Difficulty.EASY),
+                        new Trigger[] { Trigger.ONFAINT },
+                        Difficulty.EASY),
                 Arguments.arguments(new ClinkMonster(),
-                                    new Trigger[] {Trigger.ONFAINT, Trigger.STARTOFBATTLE},
-                                    Difficulty.NORMAL),
+                        new Trigger[] { Trigger.ONFAINT, Trigger.STARTOFBATTLE },
+                        Difficulty.NORMAL),
                 Arguments.arguments(new ClinkMonster(),
-                                    new Trigger[] {Trigger.ONFAINT, Trigger.STARTOFBATTLE, Trigger.ONHURT},
-                                    Difficulty.HARD),
+                        new Trigger[] { Trigger.ONFAINT, Trigger.STARTOFBATTLE, Trigger.ONHURT },
+                        Difficulty.HARD),
                 Arguments.arguments(new DittaMonster(),
-                                    new Trigger[] {Trigger.ONFAINT, Trigger.STARTOFBATTLE, Trigger.ONHURT, Trigger.AFTERATTACK},
-                                    Difficulty.HARD));
+                        new Trigger[] { Trigger.ONFAINT, Trigger.STARTOFBATTLE, Trigger.ONHURT, Trigger.AFTERATTACK },
+                        Difficulty.HARD));
     }
 
     /**
-     * Testing that the triggers for a monster changes based on difficulty.
+     * Testing that the {@link main.Trigger triggers} for a {@link monsters.Monster
+     * monster} changes based on {@link main.Difficulty difficulty}.
      *
-     * @param testMonster  The monster to get the triggers for.
-     * @param testTriggers The expected triggers of the monster at a given difficulty.
-     * @param difficulty   Difficulty of triggers we are looking for.
+     * @param testMonster  The {@link monsters.Monster
+     *                     monster} to get the {@link main.Trigger triggers} for.
+     * @param testTriggers The expected {@link main.Trigger triggers} of the
+     *                     {@link monsters.Monster
+     *                     monster} at a given {@link main.Difficulty difficulty}.
+     * @param difficulty   {@link main.Difficulty difficulty} of {@link main.Trigger
+     *                     triggers} we are looking for.
      */
     @ParameterizedTest
     @MethodSource("monsterTriggersAndDifficulty")
@@ -115,8 +132,8 @@ class BattleConstantsTest {
     }
 
     /**
-     * Testing if an exception is thrown when an illegal class is passed
-     * as an argument into the method.
+     * Testing if an {@link IllegalArgumentException exception} is thrown when an
+     * illegal class is passed as an argument into the method.
      */
     @Test
     public void getTriggersIllegalArgumentTest() {

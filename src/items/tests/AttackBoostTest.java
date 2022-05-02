@@ -22,10 +22,18 @@ import items.ItemConstants;
  * @version 1.0, Apr 2022.
  */
 class AttackBoostTest {
+    /**
+     * {@link monsters.Monster Monster} to test {@link items.AttackBoost Attack
+     * Boost} on
+     */
     Monster testMonster;
 
+    /**
+     * Refreshes the test {@link monsters.Monster}
+     * 
+     */
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
         testMonster = new ClinkMonster();
     }
 
@@ -41,6 +49,13 @@ class AttackBoostTest {
                 Arguments.arguments(Rarity.LEGENDARY, ItemConstants.LEGENDARYSTATBOOST));
     }
 
+    /**
+     * Tests the boost amount of the {@link items.Item item} is consistent with the
+     * {@link main.Rarity rarity}
+     * 
+     * @param rarity
+     * @param boost
+     */
     @ParameterizedTest
     @MethodSource("rarityAndBoost")
     void itemBoostAmountTest(Rarity rarity, int boost) {
@@ -51,8 +66,9 @@ class AttackBoostTest {
     }
 
     /**
-     * Tests that the use method increases the base attack of a monster by the
-     * define damount
+     * Tests that the use method increases the base attack of a
+     * {@link monsters.Monster monster} by the
+     * defined amount
      */
     @ParameterizedTest
     @MethodSource("rarityAndBoost")

@@ -16,19 +16,23 @@ import java.util.stream.Stream;
 import exceptions.*;
 
 /**
- * Testing for Player Class
+ * Testing for {@link main.Player Player} Class
  * 
  * @author Harrison Tyson
  * @version 1.0, Apr 2022.
  */
 public class PlayerTest {
+    /**
+     * {@link main.Player Player} to be tested
+     */
     Player player;
 
     /**
-     * Create a player instance for testing
+     * Create a {@link main.Player Player} instance for testing
      * 
-     * @throws TeamSizeException         too many members in team
-     * @throws DuplicateMonsterException same monster added to team more than once
+     * @throws TeamSizeException         too many members in {@link main.Team team}
+     * @throws DuplicateMonsterException same {@link monsters.Monster monster} added
+     *                                   to {@link main.Team team} more than once
      */
     @BeforeEach
     public void setUp() throws TeamSizeException, DuplicateMonsterException {
@@ -39,8 +43,9 @@ public class PlayerTest {
     /**
      * Test constructors setup default variables correctly
      * 
-     * @throws DuplicateMonsterException if same monster is added more than once
-     * @throws TeamSizeException         if more team members than max allowed
+     * @throws TeamSizeException         too many members in {@link main.Team team}
+     * @throws DuplicateMonsterException same {@link monsters.Monster monster} added
+     *                                   to {@link main.Team team} more than once
      */
     @Test
     public void constructorTest() throws TeamSizeException, DuplicateMonsterException {
@@ -113,7 +118,8 @@ public class PlayerTest {
     }
 
     /**
-     * Checks items can be added to player inventory
+     * Checks {@link items.Item items} can be added to {@link main.Player player}
+     * inventory
      */
     @Test
     public void addItemTest() {
@@ -131,8 +137,8 @@ public class PlayerTest {
     }
 
     /**
-     * Checks removing items from player inventory
-     * Covers: removeItem
+     * Checks removing {@link items.Item items} from {@link main.Player player}
+     * inventory
      */
     @Test
     public void removeItem() {
@@ -180,7 +186,9 @@ public class PlayerTest {
     }
 
     /**
-     * Tests item can be used correctly
+     * Tests {@link items.Item item} can be used correctly
+     * 
+     * @param testItem {@link items.Item item} to be tested
      */
     @ParameterizedTest
     @MethodSource("itemsToTest")
@@ -203,6 +211,10 @@ public class PlayerTest {
         assertEquals("Error: player does not possess this item", message);
     }
 
+    /**
+     * Checks {@link exceptions.UnusableItemException exception} is thrown if item
+     * cannot be used
+     */
     @Test
     public void unusableItemTest() {
         Item testItem = new SelectTrigger(player.getTeam().getFirstAliveMonster().getTrigger());

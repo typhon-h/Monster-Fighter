@@ -12,7 +12,8 @@ public enum Difficulty {
      */
     EASY,
     /**
-     * Normal difficulty, default difficulty
+     * Normal difficulty
+     * DEFAULT
      */
     NORMAL,
     /**
@@ -20,6 +21,12 @@ public enum Difficulty {
      */
     HARD;
 
+    /**
+     * Gets the difficulty multiplier to influence game events
+     * 
+     * @param difficulty game difficulty
+     * @return multiplier value should be scaled by
+     */
     public static float getDifficultyMultiplier(Difficulty difficulty) {
         switch (difficulty) {
             case EASY:

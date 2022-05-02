@@ -7,7 +7,7 @@ import exceptions.UnusableItemException;
 
 /**
  * An item that gives a {@link monsters.Monster} a select {@link main.Trigger}
- * for their Ability Trigger
+ * for their {@link monsters.Monster#ability ability}
  *
  * @author Jackie Jone
  * @version 1.1, Apr 2022
@@ -34,7 +34,6 @@ public class SelectTrigger extends Item {
      * Sets the {@link main.Trigger} of the item to a given trigger.
      *
      * @param newTrigger The {@link main.Trigger} to set the item to.
-     * @return string describing item effect
      */
     public void setTrigger(Trigger newTrigger) {
         itemTrigger = newTrigger;
@@ -50,7 +49,7 @@ public class SelectTrigger extends Item {
     }
 
     /**
-     * Gives the applies the {@link main.Trigger} of the {@link items.Item} to a
+     * Applies the {@link main.Trigger} of the {@link items.Item} to a
      * {@link monsters.Monster}.
      *
      * @param monster The {@link monsters.Monster} to apply the {@link main.Trigger}

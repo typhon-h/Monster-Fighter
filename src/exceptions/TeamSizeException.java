@@ -1,14 +1,14 @@
 package exceptions;
 
 /**
- * Operation tried to mutate a team beyond its size boundaries
+ * Operation tried to mutate a {@link main.Team team} beyond its size boundaries
  *
  * @author Harrison Tyson
  * @version 1.0, Apr 2022.
  */
 public class TeamSizeException extends Exception {
     /**
-     * Constructor for TeamSizeException
+     * Instantiate error with display message
      *
      * @param message message to be displayed
      */

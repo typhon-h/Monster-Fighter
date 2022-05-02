@@ -34,7 +34,8 @@ public class Player {
     private ArrayList<Item> inventory = new ArrayList<Item>();
 
     /**
-     * The team of monsters which the player has
+     * The {@link main.Team team} of {@link monsters.Monster monsters} which the
+     * player has
      *
      */
     private Team team;
@@ -59,7 +60,7 @@ public class Player {
     private int itemPoints = 0;
 
     /**
-     * Constructor to create a player with a name and team
+     * Constructor to create a player with a name and {@link main.Team team}
      *
      * @param newTeam      The team to give to the player
      * @param startingGold Amount of gold to start off with
@@ -71,7 +72,8 @@ public class Player {
     }
 
     /**
-     * Constructor to create a player with a name, team, and starting gold
+     * Constructor to create a player with a name, {@link main.Team team}, and
+     * starting gold
      *
      * @param newName      Name of the player
      * @param newTeam      The team to give to the player
@@ -142,18 +144,18 @@ public class Player {
     }
 
     /**
-     * Gets the players team
+     * Gets the players {@link main.Team team}
      *
-     * @return Team object which contains the player's team
+     * @return The player's {@link main.Team team}
      */
     public Team getTeam() {
         return team;
     }
 
     /**
-     * Sets the player's team to a team object
+     * Sets the player's {@link main.Team team}
      *
-     * @param newTeam The team to give to the player
+     * @param newTeam The {@link main.Team team} to give to the player
      */
     public void setTeam(Team newTeam) {
         team = newTeam;
@@ -162,18 +164,19 @@ public class Player {
     /**
      * Gets the player's inventory
      *
-     * @return An array of the items which the player has
+     * @return An array of the {@link items.Item items} which the player has
      */
     public ArrayList<Item> getInventory() {
         return inventory;
     } // TODO: Get item method
 
     /**
-     * Adds an item to the player's inventory
+     * Adds an {@link items.Item item} to the player's inventory
      * If the inventory is full, returns false otherwise true
      *
-     * @param newItem The item to give to the player
-     * @return True if the item is successfully added to the inventory
+     * @param newItem The {@link items.Item item} to give to the player
+     * @return True if the {@link items.Item item} is successfully added to the
+     *         inventory
      */
     public boolean addItem(Item newItem) {
         if (this.getNumFreeSlots() > 0) {
@@ -184,11 +187,13 @@ public class Player {
     }
 
     /**
-     * Removes the given item from the player's inventory
+     * Removes the given {@link items.Item item} from the player's inventory
      * If the item is not in the inventory, then false is returned
      *
-     * @param removeItem item to remove from the player's inventory
-     * @return true if the item is successfully removed from the players inventory
+     * @param removeItem {@link items.Item item} to remove from the player's
+     *                   inventory
+     * @return true if the {@link items.Item item} is successfully removed from the
+     *         players inventory
      *         otherwise false
      */
     public boolean removeItem(Item removeItem) {
@@ -196,10 +201,12 @@ public class Player {
     }
 
     /**
-     * Uses item from player inventory on monster
+     * Uses {@link items.Item item} from player inventory on {@link monsters.Monster
+     * monster}
      * 
-     * @param itemToUse       item to be used
-     * @param monsterToEffect monster for the item to be used on
+     * @param itemToUse       {@link items.Item item} to be used
+     * @param monsterToEffect {@link monsters.Monster monster} for the
+     *                        {@link items.Item item} to be used on
      * @return string describing the result of the action
      */
     public String useItem(Item itemToUse, Monster monsterToEffect) {

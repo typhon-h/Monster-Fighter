@@ -9,7 +9,7 @@ package exceptions;
  */
 public class UnusableItemException extends Exception {
     /**
-     * Constructor for DuplicateTriggerException.
+     * Instantiate error with display message
      *
      * @param message The message to be displayed.
      */

@@ -17,22 +17,24 @@ import main.Trigger;
 
 class RandomTriggerTest {
     /**
-     * Monster for item to be tested on
+     * {@link monsters.Monster Monster} for item to be tested on
      */
     Monster testMonster;
 
     /**
-     * Creates new monster for each test to run on
+     * Creates new {@link monsters.Monster monster} for each test to run on
      */
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
         testMonster = new ClinkMonster();
     }
 
     /**
-     * Tests that the item gives the monster a new random ability. The ability
-     * cannot
-     * be NOABILITY nor can it be the ability that the monster already has.
+     * Tests that the {@link items.Item item} gives the {@link monsters.Monster
+     * monster} a new random {@link main.Trigger trigger}. The {@link main.Trigger
+     * trigger} cannot be {@link main.Trigger#NOABILITY} nor can it be the
+     * {@link main.Trigger trigger} that the {@link monsters.Monster monster}
+     * already has.
      */
     @Test
     void useItemTest() {
@@ -53,7 +55,8 @@ class RandomTriggerTest {
     }
 
     /**
-     * Tests that the all possible triggers are applied to the monster at least
+     * Tests that the all possible {@link main.Trigger trigger} are applied to the
+     * {@link monsters.Monster monster} at least
      * once.
      * Seed: 14
      * Generates: 0, 4, 2, 1, 3

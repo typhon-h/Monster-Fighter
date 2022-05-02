@@ -83,6 +83,7 @@ public class LuciferMonsterTest {
      */
     @Test
     public void abilityTest() throws TeamSizeException, DuplicateMonsterException {
+        // TODO: add test for correct BattleEvent return
         monster.setCurrentAttackDamage(2);
         monster.setCurrentHealth(1);
         int startAttackDamage = monster.getCurrentAttackDamage();
