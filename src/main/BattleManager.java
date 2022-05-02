@@ -1,7 +1,6 @@
 package main;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import exceptions.DuplicateMonsterException;
 import exceptions.TeamSizeException;
@@ -25,7 +24,6 @@ public class BattleManager {
     private Player currentOpponent = null;
     private BattleResult battleResult = BattleResult.NULL;
     // TODO: use global random variable instead
-    private static Random rng = new Random();
     private ArrayList<BattleEvent> eventLog = new ArrayList<BattleEvent>();
     private int currentEventIndex = 0;
 
@@ -49,7 +47,7 @@ public class BattleManager {
     private Monster getRandomMonster(Difficulty difficulty) {
 
         Monster monster = null;
-        switch (rng.nextInt(monsters.Monster.NUMMONSTERS)) {
+        switch (GameEnvironment.rng.nextInt(monsters.Monster.NUMMONSTERS)) {
             case 0:
                 monster = new ClinkMonster();
                 break;
@@ -78,7 +76,7 @@ public class BattleManager {
          * and apply it to the monster.
          */
         Trigger[] possibleTriggers = BattleConstants.getTriggers(monster, difficulty);
-        Trigger selectedTrigger = possibleTriggers[rng.nextInt(possibleTriggers.length)];
+        Trigger selectedTrigger = possibleTriggers[GameEnvironment.rng.nextInt(possibleTriggers.length)];
         monster.setTrigger(selectedTrigger);
 
         return monster;
@@ -122,7 +120,7 @@ public class BattleManager {
         RandomStatBoost boost = new RandomStatBoost(Rarity.COMMON);
 
         while (expendedPoints < totalPoints) {
-            int MonsterIndex = rng.nextInt(team.getTeamSize());
+            int MonsterIndex = GameEnvironment.rng.nextInt(team.getTeamSize());
             Monster monsterToUseItemOn = team.getMonsters().get(MonsterIndex);
             boost.use(monsterToUseItemOn);
 
