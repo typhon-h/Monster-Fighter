@@ -25,6 +25,8 @@ import java.util.stream.Stream;
  */
 public class ClinkMonsterTest {
     Monster monster;
+    Team allyTeam;
+    Team enemyTeam;
 
     /**
      * Set up a monster to test methods on before each test
@@ -34,6 +36,8 @@ public class ClinkMonsterTest {
     @BeforeEach
     public void setUp() throws Exception {
         monster = new ClinkMonster();
+        allyTeam = new Team(monster);
+        enemyTeam = new Team(new ClinkMonster());
     }
 
     /**
@@ -85,11 +89,8 @@ public class ClinkMonsterTest {
      */
     @Test
     public void abilityTest() throws TeamSizeException, DuplicateMonsterException {
-       //TODO: check returned battle event
         int startAttackDamage = monster.getCurrentAttackDamage();
         int startHealth = monster.getCurrentHealth();
-        Team allyTeam = new Team(monster);
-        Team enemyTeam = new Team(new ClinkMonster());
 
         monster.ability(allyTeam, enemyTeam);
 
@@ -111,5 +112,15 @@ public class ClinkMonsterTest {
         assertEquals(startAttackDamage, monster.getCurrentAttackDamage());
         assertEquals(startHealth, monster.getCurrentHealth());
 
+    }
+
+    /**
+     * Checks returns valid {@link main.BattleEvent battle event}
+     */
+    @Test
+    public void abilityReturnTest() {
+        BattleEvent ability = monster.ability(allyTeam, enemyTeam);
+        assertEquals(monster.getName() + "'s " + monster.getTrigger().name()
+                + " ability triggered. Lost 1 ATK and gained 1 HP", ability.description);
     }
 }

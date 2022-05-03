@@ -1,6 +1,7 @@
 package monsters.tests;
 
 import monsters.*;
+import main.BattleEvent;
 import main.Rarity;
 import main.Team;
 
@@ -24,6 +25,8 @@ import java.util.stream.Stream;
  */
 public class DittaMonsterTest {
     Monster monster;
+    Team allyTeam;
+    Team enemyTeam;
 
     /**
      * Set up a monster to test methods on before each test
@@ -33,6 +36,8 @@ public class DittaMonsterTest {
     @BeforeEach
     public void setUp() throws Exception {
         monster = new DittaMonster();
+        allyTeam = new Team(monster);
+        enemyTeam = new Team(new ClinkMonster());
     }
 
     /**
@@ -85,9 +90,6 @@ public class DittaMonsterTest {
      */
     @Test
     public void abilityTest() throws TeamSizeException, DuplicateMonsterException {
-        // TODO: add test for correct BattleEvent return
-        Team allyTeam = new Team(monster);
-        Team enemyTeam = new Team(new ClinkMonster());
         monster.ability(allyTeam, enemyTeam);
         Monster firstEnemy = enemyTeam.getFirstAliveMonster();
 
@@ -110,5 +112,16 @@ public class DittaMonsterTest {
         monster.ability(allyTeam, enemyTeam);
         assertEquals(monster.getBaseHealth(), monster.getCurrentHealth());
         assertEquals(monster.getBaseAttackDamage(), monster.getCurrentAttackDamage());
+    }
+
+    /**
+     * Checks returns valid {@link main.BattleEvent battle event}
+     */
+    @Test
+    public void abilityReturnTest() {
+        BattleEvent ability = monster.ability(allyTeam, enemyTeam);
+        assertEquals(monster.getName() + "'s " + monster.getTrigger().name()
+                + " ability triggered. " + monster.getName() + " copied " + enemyTeam.getFirstAliveMonster().getName()
+                + "'s stats.", ability.description);
     }
 }

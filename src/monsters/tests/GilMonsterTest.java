@@ -1,6 +1,7 @@
 package monsters.tests;
 
 import monsters.*;
+import main.BattleEvent;
 import main.Rarity;
 import main.Team;
 
@@ -23,6 +24,9 @@ import exceptions.*;
  */
 public class GilMonsterTest {
     Monster monster;
+    Monster ally;
+    Team allyTeam;
+    Team enemyTeam;
 
     /**
      * Set up a monster to test methods on before each test
@@ -32,6 +36,9 @@ public class GilMonsterTest {
     @BeforeEach
     public void setUp() throws Exception {
         monster = new GilMonster();
+        ally = new ClinkMonster();
+        allyTeam = new Team(ally, monster);
+        enemyTeam = new Team(new ClinkMonster()); // Arbitrary
     }
 
     /**
@@ -84,11 +91,6 @@ public class GilMonsterTest {
      */
     @Test
     public void abilityTest() throws TeamSizeException, DuplicateMonsterException {
-        //TODO: add test for correct BattleEvent return
-        // Initialize variables
-        Team enemyTeam = new Team(new ClinkMonster()); // Arbitrary
-        Monster ally = new ClinkMonster();
-        Team allyTeam = new Team(ally, monster);
 
         // Check Gil is in team
         int indexOfGil = allyTeam.getAliveMonsters().indexOf(monster);
@@ -125,5 +127,16 @@ public class GilMonsterTest {
         assertEquals(startAttackDamageGil, monster.getCurrentAttackDamage()); // Gil attack isn't changed
         assertEquals(startAttackDamageMonsterBehind, ally.getCurrentAttackDamage()); // Behind attack isn't changed'
 
+    }
+
+    /**
+     * Checks returns valid {@link main.BattleEvent battle event}
+     */
+    @Test
+    public void abilityReturnTest() {
+        BattleEvent ability = monster.ability(allyTeam, enemyTeam);
+        assertEquals(monster.getName() + "'s " + monster.getTrigger().name() + " ability triggered. "
+                + ally.getName() + "'s attack increased to "
+                + ally.getCurrentAttackDamage(), ability.description);
     }
 }

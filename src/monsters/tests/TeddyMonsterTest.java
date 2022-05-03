@@ -97,7 +97,6 @@ public class TeddyMonsterTest {
      */
     @Test
     public void abilityTest() throws TeamSizeException, DuplicateMonsterException {
-        // TODO: add test for correct BattleEvent return
         // Check boosts health
         int startAllyTeamSumHealth = 0;
         int startEnemyTeamSumHealth = 0;
@@ -158,6 +157,17 @@ public class TeddyMonsterTest {
             assertEquals(teamStartHealth.get(i) + 1, allyTeam.getMonsters().get(i).getCurrentHealth());
         }
 
+    }
+
+    /**
+     * Checks returns valid {@link main.BattleEvent battle event}
+     */
+    @Test
+    public void abilityReturnTest() {
+        GameEnvironment.setSeed(4119);
+        BattleEvent ability = monster.ability(allyTeam, enemyTeam);
+        assertEquals(monster.getName() + "'s " + monster.getTrigger().name()
+                + " ability triggered. " + monster.getName() + " gained 1 HP", ability.description);
     }
 
 }

@@ -1,6 +1,7 @@
 package monsters.tests;
 
 import monsters.*;
+import main.BattleEvent;
 import main.Rarity;
 import main.Team;
 
@@ -24,6 +25,8 @@ import java.util.stream.Stream;
  */
 public class LuciferMonsterTest {
     Monster monster;
+    Team allyTeam;
+    Team enemyTeam;
 
     /**
      * Set up a monster to test methods on before each test
@@ -33,6 +36,8 @@ public class LuciferMonsterTest {
     @BeforeEach
     public void setUp() throws Exception {
         monster = new LuciferMonster();
+        allyTeam = new Team(monster);
+        enemyTeam = new Team(new ClinkMonster()); // Arbitrary
     }
 
     /**
@@ -83,13 +88,10 @@ public class LuciferMonsterTest {
      */
     @Test
     public void abilityTest() throws TeamSizeException, DuplicateMonsterException {
-        // TODO: add test for correct BattleEvent return
         monster.setCurrentAttackDamage(2);
         monster.setCurrentHealth(1);
         int startAttackDamage = monster.getCurrentAttackDamage();
         int startHealth = monster.getCurrentHealth();
-        Team allyTeam = new Team(monster);
-        Team enemyTeam = new Team(new ClinkMonster()); // Arbitrary
         monster.ability(allyTeam, enemyTeam);
 
         assertEquals(startHealth, monster.getCurrentAttackDamage());
@@ -98,5 +100,15 @@ public class LuciferMonsterTest {
         // Check base stats are unchanged
         assertEquals(MonsterConstants.LUCIFERBASEHEALTH, monster.getBaseHealth());
         assertEquals(MonsterConstants.LUCIFERBASEATTACKDAMAGE, monster.getBaseAttackDamage());
+    }
+
+    /**
+     * Checks returns valid {@link main.BattleEvent battle event}
+     */
+    @Test
+    public void abilityReturnTest() {
+        BattleEvent ability = monster.ability(allyTeam, enemyTeam);
+        assertEquals(monster.getName() + "'s " + monster.getTrigger().name()
+                + " ability triggered. ATK and HP have been swapped", ability.description);
     }
 }

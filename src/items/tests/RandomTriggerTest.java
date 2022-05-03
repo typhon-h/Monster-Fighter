@@ -65,10 +65,10 @@ class RandomTriggerTest {
     void itemAppliesAllTriggers() {
         GameEnvironment.setSeed(14);
         RandomTrigger testItem = new RandomTrigger();
-
+        testMonster.setTrigger(Trigger.NOABILITY);
         ArrayList<Trigger> foundTriggers = new ArrayList<Trigger>();
-
-        for (int i = 0; i < Trigger.numTriggers - 1; i++) {
+        
+        for (int i = 0; i < Trigger.numTriggers; i++) {
             testItem.use(testMonster);
             if (!foundTriggers.contains(testMonster.getTrigger())) {
                 foundTriggers.add(testMonster.getTrigger());
