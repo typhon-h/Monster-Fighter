@@ -25,13 +25,6 @@ public abstract class Item extends Entity {
             String newDescription,
             Rarity newRarity) {
         super(newName, newDescription, newRarity);
-        /**
-         * TODO: Might need to call setRarity(newRarity) here if the superclass
-         * implementation
-         * doesnt
-         * call the subclass's implementation which overrides the superclass
-         * implementation.
-         */
     }
 
     /**
@@ -118,5 +111,5 @@ public abstract class Item extends Entity {
      * @throws UnusableItemException The item cannot be used.
      * @return string describing item effect
      */
-    public abstract String use(Monster monster) throws UnusableItemException; // TODO: Test this with the Exception
+    public abstract String use(Monster monster) throws UnusableItemException;
 }

@@ -99,7 +99,6 @@ public class MonsterTest {
 
     }
 
-
     /**
      * Checks restore sets instance variables correctly
      * Covers: restore
@@ -175,6 +174,31 @@ public class MonsterTest {
         });
         assertEquals("Argument must be positive", healthException.getMessage());
         assertEquals("Argument must be positive", attackDamageException.getMessage());
+    }
 
+    /**
+     * Test that a {@link monsters.Monster monster} can be {@link Cloneable cloned}
+     * 
+     * @throws CloneNotSupportedException if cannot be cloned
+     */
+    @Test
+    public void cloneTest() throws CloneNotSupportedException {
+        Monster clonedMonster = (Monster) monster.clone();
+        assertNotEquals(clonedMonster, monster);
+
+        assertEquals(monster.getName(), clonedMonster.getName());
+        assertEquals(monster.getAbilityDescription(), clonedMonster.getAbilityDescription());
+        assertEquals(monster.getBaseAttackDamage(), clonedMonster.getBaseAttackDamage());
+        assertEquals(monster.getBaseHealth(), clonedMonster.getBaseHealth());
+        assertEquals(monster.getBuyPrice(), clonedMonster.getBuyPrice());
+        assertEquals(monster.getCurrentAttackDamage(), clonedMonster.getCurrentAttackDamage());
+        assertEquals(monster.getCurrentHealth(), clonedMonster.getCurrentHealth());
+        assertEquals(monster.getDescription(), clonedMonster.getDescription());
+        assertEquals(monster.getFaintCount(), clonedMonster.getFaintCount());
+        assertEquals(monster.getRarity(), clonedMonster.getRarity());
+        assertEquals(monster.getSellPrice(), clonedMonster.getSellPrice());
+        assertEquals(monster.getSpeed(), clonedMonster.getSpeed());
+        assertEquals(monster.getStatus(), clonedMonster.getStatus());
+        assertEquals(monster.getTrigger(), clonedMonster.getTrigger());
     }
 }

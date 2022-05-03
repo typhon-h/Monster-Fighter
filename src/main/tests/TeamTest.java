@@ -255,4 +255,39 @@ public class TeamTest {
         assertEquals(startingTeam.subList(0, team.getTeamSize() - 2),
                 team.getMonsters().subList(0, team.getTeamSize() - 2));
     }
+
+    /**
+     * Check that cloning performs a deep copy
+     * 
+     * @throws CloneNotSupportedException cannot be cloned
+     */
+    @Test
+    public void cloneTest() throws CloneNotSupportedException {
+        Team clonedTeam = (Team) team.clone();
+
+        assertNotEquals(team, clonedTeam);
+
+        for (int i = 0; i < clonedTeam.getMonsters().size(); i++) {
+            Monster clonedMonster = clonedTeam.getMonsters().get(i);
+            Monster teamMonster = team.getMonsters().get(i);
+            assertNotEquals(clonedMonster, teamMonster);
+
+            assertEquals(teamMonster.getName(), clonedMonster.getName());
+            assertEquals(teamMonster.getAbilityDescription(), clonedMonster.getAbilityDescription());
+            assertEquals(teamMonster.getBaseAttackDamage(), clonedMonster.getBaseAttackDamage());
+            assertEquals(teamMonster.getBaseHealth(), clonedMonster.getBaseHealth());
+            assertEquals(teamMonster.getBuyPrice(), clonedMonster.getBuyPrice());
+            assertEquals(teamMonster.getCurrentAttackDamage(), clonedMonster.getCurrentAttackDamage());
+            assertEquals(teamMonster.getCurrentHealth(), clonedMonster.getCurrentHealth());
+            assertEquals(teamMonster.getDescription(), clonedMonster.getDescription());
+            assertEquals(teamMonster.getFaintCount(), clonedMonster.getFaintCount());
+            assertEquals(teamMonster.getRarity(), clonedMonster.getRarity());
+            assertEquals(teamMonster.getSellPrice(), clonedMonster.getSellPrice());
+            assertEquals(teamMonster.getSpeed(), clonedMonster.getSpeed());
+            assertEquals(teamMonster.getStatus(), clonedMonster.getStatus());
+            assertEquals(teamMonster.getTrigger(), clonedMonster.getTrigger());
+
+        }
+
+    }
 }
