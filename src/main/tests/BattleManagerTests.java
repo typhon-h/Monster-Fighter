@@ -47,7 +47,7 @@ class BattleManagerTests {
         player = new Player(playerTeam, 0);
         player.addGold(100);
 
-        battleManager = new BattleManager(player);
+        battleManager = new BattleManager(player, Difficulty.NORMAL, 15);
     }
 
     /**

@@ -89,7 +89,7 @@ public class GameEnvironment {
         this.difficulty = difficulty;
         sellShop = new SellShop(player);
         buyShop = new BuyShop(player);
-        battleState = new BattleManager(player);
+        battleState = new BattleManager(player, difficulty, totalDays);
     }
 
     /**
@@ -106,7 +106,7 @@ public class GameEnvironment {
         this.difficulty = difficulty;
         sellShop = new SellShop(player);
         buyShop = new BuyShop(player);
-        battleState = new BattleManager(player);
+        battleState = new BattleManager(player, difficulty, totalDays);
         rng = new Random(seed);
     }
 

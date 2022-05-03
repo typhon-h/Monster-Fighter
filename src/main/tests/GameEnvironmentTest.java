@@ -49,7 +49,7 @@ public class GameEnvironmentTest {
      */
     @Test
     public void gameEnvironmentSeedTest() {
-        new GameEnvironment(this.game.getPlayer(), 0, Difficulty.NORMAL, 0);
+        new GameEnvironment(this.game.getPlayer(), 1, Difficulty.NORMAL, 0);
         assertEquals(GameEnvironment.rng.nextInt(), -1155484576);
         assertEquals(GameEnvironment.rng.nextInt(), -723955400);
         assertEquals(GameEnvironment.rng.nextInt(), 1033096058);
@@ -158,5 +158,14 @@ public class GameEnvironmentTest {
         assertEquals(expectedOutcome, eventOutcome);
     }
 
-    // TODO: Test battle state is updated
+
+    /**
+     * Test that the {@link main.BattleManager battle state} is refreshed
+     */
+    @Test
+    public void sleepBattleRefreshTest() {
+        ArrayList<Player> prevOpponents = new ArrayList<Player>(game.getBattleState().getOpponents());
+        game.sleep();
+        assertNotEquals(prevOpponents, game.getBattleState().getOpponents());
+    }
 }

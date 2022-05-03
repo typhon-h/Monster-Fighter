@@ -55,8 +55,9 @@ public class BattleManager {
      *
      * @param player The player which the BattleManager is for.
      */
-    public BattleManager(Player player) {
+    public BattleManager(Player player, Difficulty difficulty, int maxDays) {
         allyPlayer = player;
+        generateOpponents(1, maxDays, difficulty);
     }
 
     /**
