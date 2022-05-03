@@ -198,7 +198,6 @@ public class Team implements Cloneable {
         return Team.MINTEAMSIZE;
     }
 
-    // TODO: test that the monsters that are cloned are actually clones
     /**
      * Performs a deep copy of the team, also making copies of all
      * {@link monsters.Monster monsters}
