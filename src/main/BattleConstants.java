@@ -110,22 +110,6 @@ public final class BattleConstants {
      * Gets the optimal {@link main.Trigger triggers} for a given
      * {@link monsters.Monster monster}.
      *
-     * @param monster    The {@link monsters.Monster monster} to get the
-     *                   {@link main.Trigger triggers} for.
-     * @param difficulty The {@link main.Difficulty difficulty} of the game
-     * @return An array of {@link main.Trigger trigger enum} values.
-     */
-    public static final Trigger[] getTriggers(Monster monster, Difficulty difficulty) {
-        Trigger[][] allTriggers = triggers.get(monster.getClass());
-        return getTriggerDifficulties(allTriggers, difficulty);
-    }
-
-    // TODO: can we remove the method above this and always pass the class using
-    // monster.getClass()
-    /**
-     * Gets the optimal {@link main.Trigger triggers} for a given
-     * {@link monsters.Monster monster}.
-     *
      * @param monsterClass The class of the {@link monsters.Monster monster} to get
      *                     the {@link main.Trigger triggers} for/
      * @param difficulty   The {@link main.Difficulty difficulty} of the game

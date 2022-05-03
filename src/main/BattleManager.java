@@ -77,7 +77,7 @@ public class BattleManager {
          * Get the optimal triggers for the monster, select a random one
          * and apply it to the monster.
          */
-        Trigger[] possibleTriggers = BattleConstants.getTriggers(monster, difficulty);
+        Trigger[] possibleTriggers = BattleConstants.getTriggers(monster.getClass(), difficulty);
         Trigger selectedTrigger = possibleTriggers[GameEnvironment.rng.nextInt(possibleTriggers.length)];
         monster.setTrigger(selectedTrigger);
 

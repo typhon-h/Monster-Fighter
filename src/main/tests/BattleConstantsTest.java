@@ -49,26 +49,6 @@ class BattleConstantsTest {
                         Difficulty.HARD));
     }
 
-    /**
-     * Tests that {@link BattleConstants#getTriggers(Monster) getTriggers(Monster)}
-     * returns the correct {@link main.Trigger triggers} for each
-     * {@link monsters.Monster monster}.
-     *
-     * @param testMonster  The {@link monsters.Monster monster} to get the
-     *                     {@link main.Trigger triggers} for.
-     * @param testTriggers The expected {@link main.Trigger triggers} of the
-     *                     {@link monsters.Monster monster}.
-     * @param difficulty   {@link main.Difficulty difficulty} of {@link main.Trigger
-     *                     triggers} we are looking for,
-     *                     {@link main.Difficulty#HARD hard} because we want all the
-     *                     {@link main.Trigger triggers}.
-     */
-    @ParameterizedTest
-    @MethodSource("monsterAndTriggers")
-    public void getTriggersObjectTest(Monster testMonster, Trigger[] testTriggers, Difficulty difficulty) {
-        Trigger[] monsterTriggersFromMethod = BattleConstants.getTriggers(testMonster, difficulty);
-        assertArrayEquals(monsterTriggersFromMethod, testTriggers);
-    }
 
     /**
      * Tests that {@link BattleConstants#getTriggers(Class) getTriggers(Class)}
