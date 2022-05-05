@@ -179,21 +179,8 @@ public class Player {
      * 
      * @return {@link items.Item item} at the index
      */
-    public Item getItem(int index) throws IndexOutOfBoundsException { // TODO: test this
+    public Item getItem(int index) throws IndexOutOfBoundsException {
         return inventory.get(index);
-    }
-
-    /**
-     * Gets {@link items.Item item} from {@link main.Player player} inventory
-     * 
-     * @param item {@link items.Item item} to get from inventory
-     * @throws IndexOutOfBoundsException {@link items.Item item} does not match an
-     *                                   inventory {@link items.Item item}
-     * 
-     * @return {@link items.Item item} from inventory
-     */
-    public Item getItem(Item item) throws IndexOutOfBoundsException { // TODO: test this
-        return inventory.get(inventory.indexOf(item));
     }
 
     /**

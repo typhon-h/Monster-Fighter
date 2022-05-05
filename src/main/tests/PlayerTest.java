@@ -11,6 +11,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import exceptions.*;
@@ -226,6 +227,54 @@ public class PlayerTest {
         assertTrue(player.getInventory().contains(testItem));
         assertEquals("Monster: " + player.getTeam().getFirstAliveMonster().getName() + " already has trigger + "
                 + player.getTeam().getFirstAliveMonster().getTrigger(), message);
+    }
+
+    /**
+     * Checks item can be retrieved from inventory
+     */
+    @Test
+    public void getItemTest() {
+        // Empty inventory
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            player.getItem(0);
+        });
+
+        Item item = new AttackBoost(Rarity.COMMON);
+
+        player.addItem(item);
+
+        // Valid item in inventory
+        assertEquals(item, player.getItem(0));
+
+        // Item not in inventory
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            player.getItem(1);
+        });
+
+        // Fill inventory with unique objects
+        while (player.getNumFreeSlots() > 0) {
+            player.addItem(new AttackBoost(Rarity.COMMON));
+        }
+
+        // Index out of range
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            player.getItem(-1);
+        });
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            player.getItem(player.getInventory().size());
+        });
+
+        // All items exist and can be accessed
+        ArrayList<Item> encounteredItems = new ArrayList<Item>();
+        for (int i = 0; i < player.getInventory().size(); i++) {
+            item = player.getItem(i);
+            if (encounteredItems.contains(item)) {
+                fail();
+            } else {
+                encounteredItems.add(item);
+            }
+        }
+
     }
 
 }
