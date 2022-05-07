@@ -340,4 +340,13 @@ public abstract class Monster extends Entity {
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
+
+    @Override
+    public String toString() {
+        return this.getName() + "\n" +
+                this.getCurrentAttackDamage() + " ATTACK | " + this.getCurrentHealth() + " HEALTH\n" +
+                this.getDescription() + '\n' +
+                this.getTrigger().name() + ": " + this.getAbilityDescription();
+
+    }
 }
