@@ -303,13 +303,15 @@ class BattleManagerTests {
 
         battleManager.setOpponent(opponent);
         battleManager.simulateBattle();
-        
+
         BattleEvent battleEvent = battleManager.nextEvent();
-        
+
         assertEquals("Monster 1 dealt 10 damage to Monster 2. Monster 2 fainted.",
                 battleEvent.getDescription());
         assertEquals(monsterHealth, battleEvent.getAllyTeam().getFirstAliveMonster().getCurrentHealth());
-        
+        battleEvent = battleManager.nextEvent();
+        assertEquals("Monster 1's AFTERATTACK ability triggered. Lost 1 ATK and gained 1 HP",
+                battleEvent.getDescription());
         assertNull(battleManager.nextEvent());
     }
 

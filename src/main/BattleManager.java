@@ -255,15 +255,6 @@ public class BattleManager {
             if (!monster2.getStatus()) {
                 trigger = Trigger.ONFAINT;
                 description += ". " + monster2.getName() + " fainted.";
-
-                // Stop fighting if one of the teams have no alive monsters
-                if (team1.getAliveMonsters().isEmpty() ||
-                    team2.getAliveMonsters().isEmpty()) {
-                        eventLog.add(new BattleEvent(allyTeam,
-                                                    opponentTeam,
-                                                    description));
-                        return eventLog;
-                    }
             } else {
                 trigger = Trigger.ONHURT;
             }
@@ -282,6 +273,10 @@ public class BattleManager {
                 eventLog.add(ability);
             }
 
+            if (team1.getAliveMonsters().isEmpty() ||
+                team2.getAliveMonsters().isEmpty()) {
+                return eventLog;
+            }
         }
 
         return eventLog;
