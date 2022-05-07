@@ -172,11 +172,10 @@ class BattleManagerTests {
         assertTrue(opponent1.getGold() < opponent2.getGold());
         assertTrue(opponent1.getScore() > opponent2.getScore());
     }
-
-    /* TODO: test that if the first monster KOs the enemy monster then the 2nd monster in the
-             enemy team fights
+    /*
        TODO: test that the fight ends when all the monsters on one team are fainted
-       TODO: test that the event log gives the correct output*/
+       TODO: test that the event log gives the correct output
+     */
 
     /**
      * Check that both monsters at the front of each team take damage and none of
@@ -190,6 +189,7 @@ class BattleManagerTests {
         int oppoMonsterDmg = 6;
         int monsterHealth  = 10;
 
+        // Setup teams and simulate the battle
         assertTrue(allyMonsterDmg < monsterHealth && oppoMonsterDmg < monsterHealth,
                 "Damage of both monsters must be less than the hp the opposing moster.");
 
@@ -199,7 +199,6 @@ class BattleManagerTests {
         allyMonster.setCurrentHealth(10);
         allyMonster.setCurrentAttackDamage(allyMonsterDmg);
 
-        // Create opponent
         Monster opponentMonster = new ClinkMonster();
         opponentMonster.setName("Monster 2");
         opponentMonster.setTrigger(Trigger.NOABILITY);
@@ -214,6 +213,7 @@ class BattleManagerTests {
         battleManager.setOpponent(opponent);
         battleManager.simulateBattle();
 
+        // Run tests
         BattleEvent event1 = battleManager.nextEvent();
         assertEquals("Monster 1 dealt " + allyMonsterDmg + " damage to Monster 2",
                 event1.getDescription());
@@ -226,6 +226,91 @@ class BattleManagerTests {
                 event2.getDescription());
         assertEquals(monsterHealth - oppoMonsterDmg,
                 event2.getAllyTeam().getFirstAliveMonster().getCurrentHealth());
+    }
+
+    /**
+     * Tests that if a monster faints then on the next attack round, the
+     * next alive monster attacks instead of the fainted monster
+     */
+    @Test
+    public void faintedMonsterTest() throws TeamSizeException, DuplicateMonsterException {
+        int allyMonsterDmg = 10;
+        int oppoMonsterDmg1 = 6;
+        int oppoMonsterDmg2 = 4;
+        int monsterHealth  = 10;
+
+        // Setup teams and simulate the battle
+        Monster allyMonster = battleManager.getPlayer().getTeam().getFirstAliveMonster();
+        allyMonster.setName("Ally Monster");
+        allyMonster.setTrigger(Trigger.NOABILITY);
+        allyMonster.setCurrentHealth(monsterHealth);
+        allyMonster.setCurrentAttackDamage(allyMonsterDmg);
+
+        Monster opponentMonster1 = new ClinkMonster();
+        opponentMonster1.setName("Opponent Monster 1");
+        opponentMonster1.setTrigger(Trigger.NOABILITY);
+        opponentMonster1.setCurrentHealth(monsterHealth);
+        opponentMonster1.setCurrentAttackDamage(oppoMonsterDmg1);
+
+        Monster opponentMonster2 = new ClinkMonster();
+        opponentMonster2.setName("Opponent Monster 2");
+        opponentMonster2.setTrigger(Trigger.NOABILITY);
+        opponentMonster2.setCurrentHealth(monsterHealth);
+        opponentMonster2.setCurrentAttackDamage(oppoMonsterDmg2);
+
+        Team opponentTeam = new Team(opponentMonster1, opponentMonster2);
+        Player opponent = new Player(opponentTeam, 100);
+
+        battleManager.setOpponent(opponent);
+        battleManager.simulateBattle();
+
+        // Run tests
+        BattleEvent currEvent = battleManager.nextEvent();
+        assertEquals("Ally Monster dealt 10 damage to Opponent Monster 1. Opponent Monster 1 fainted.",
+                    currEvent.getDescription());
+        assertEquals(opponentMonster2.getName(),
+                currEvent.getOpponentTeam().getFirstAliveMonster().getName());
+
+        currEvent = battleManager.nextEvent();
+        assertEquals("Opponent Monster 2 dealt 4 damage to Ally Monster",
+                currEvent.getDescription());
+        assertEquals(monsterHealth - oppoMonsterDmg2,
+                currEvent.getAllyTeam().getFirstAliveMonster().getCurrentHealth());
+
+    }
+
+    @Test
+    public void endAfterTeamWipe() throws TeamSizeException, DuplicateMonsterException {
+        int allyMonsterDmg = 10;
+        int monsterHealth  = 10;
+
+        // Setup teams and simulate the battle
+        Monster allyMonster = battleManager.getPlayer().getTeam().getFirstAliveMonster();
+        allyMonster.setName("Monster 1");
+        allyMonster.setTrigger(Trigger.AFTERATTACK);
+        allyMonster.setCurrentHealth(monsterHealth);
+        allyMonster.setCurrentAttackDamage(allyMonsterDmg);
+
+        Monster opponentMonster = new ClinkMonster();
+        opponentMonster.setName("Monster 2");
+        opponentMonster.setTrigger(Trigger.NOABILITY);
+        opponentMonster.setCurrentHealth(monsterHealth);
+        Team opponentTeam;
+
+        opponentTeam = new Team(opponentMonster);
+
+        Player opponent = new Player(opponentTeam, 100);
+
+        battleManager.setOpponent(opponent);
+        battleManager.simulateBattle();
+        
+        BattleEvent battleEvent = battleManager.nextEvent();
+        
+        assertEquals("Monster 1 dealt 10 damage to Monster 2. Monster 2 fainted.",
+                battleEvent.getDescription());
+        assertEquals(monsterHealth, battleEvent.getAllyTeam().getFirstAliveMonster().getCurrentHealth());
+        
+        assertNull(battleManager.nextEvent());
     }
 
     // TODO: Refactor this code to test FIGHT method. Stolen from Monster.takeDamage

@@ -109,6 +109,6 @@ public class LuciferMonsterTest {
     public void abilityReturnTest() {
         BattleEvent ability = monster.ability(allyTeam, enemyTeam);
         assertEquals(monster.getName() + "'s " + monster.getTrigger().name()
-                + " ability triggered. ATK and HP have been swapped", ability.description);
+                + " ability triggered. ATK and HP have been swapped", ability.getDescription());
     }
 }

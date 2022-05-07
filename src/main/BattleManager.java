@@ -257,8 +257,11 @@ public class BattleManager {
                 description += ". " + monster2.getName() + " fainted.";
 
                 // Stop fighting if one of the teams have no alive monsters
-                if (team1.getAliveMonsters().size() == 0 ||
-                    team2.getAliveMonsters().size() == 0) {
+                if (team1.getAliveMonsters().isEmpty() ||
+                    team2.getAliveMonsters().isEmpty()) {
+                        eventLog.add(new BattleEvent(allyTeam,
+                                                    opponentTeam,
+                                                    description));
                         return eventLog;
                     }
             } else {
@@ -340,6 +343,7 @@ public class BattleManager {
             while (!allyTeamCopy.getAliveMonsters().isEmpty() && !opponentTeamCopy.getAliveMonsters().isEmpty()) {
                 newEventLog.addAll(fight(allyTeamCopy, opponentTeamCopy));
             }
+
 
         } catch (CloneNotSupportedException e) { // Should never happen as clone is implemented
             e.printStackTrace();

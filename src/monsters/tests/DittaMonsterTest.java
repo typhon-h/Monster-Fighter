@@ -122,6 +122,6 @@ public class DittaMonsterTest {
         BattleEvent ability = monster.ability(allyTeam, enemyTeam);
         assertEquals(monster.getName() + "'s " + monster.getTrigger().name()
                 + " ability triggered. " + monster.getName() + " copied " + enemyTeam.getFirstAliveMonster().getName()
-                + "'s stats.", ability.description);
+                + "'s stats.", ability.getDescription());
     }
 }
