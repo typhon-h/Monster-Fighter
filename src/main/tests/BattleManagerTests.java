@@ -11,6 +11,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import exceptions.DuplicateMonsterException;
+import exceptions.TeamSizeException;
 import main.*;
 import monsters.*;
 
@@ -18,7 +20,7 @@ import monsters.*;
  * Testing {@link main.BattleManager BattleManager} class
  *
  * @author Jackie Jone
- * @version 1.0, Apr 2022
+ * @version 1.1, Apr 2022
  */
 class BattleManagerTests {
     /**
@@ -36,7 +38,7 @@ class BattleManagerTests {
 
     /**
      * Set up {@link main.BattleMangager BattleManager} before each test
-     * 
+     *
      * @throws Exception general case if creating {@link main.Tean tean} or
      *                   {@link main.BattleMangager BattleManager} causes an
      *                   exception
@@ -171,8 +173,63 @@ class BattleManagerTests {
         assertTrue(opponent1.getScore() > opponent2.getScore());
     }
 
+    /* TODO: test that if the first monster KOs the enemy monster then the 2nd monster in the
+             enemy team fights
+       TODO: test that the fight ends when all the monsters on one team are fainted
+       TODO: test that the event log gives the correct output*/
+
+    /**
+     * Check that both monsters at the front of each team take damage and none of
+     * the monsters faint. The method is tested through the information obtained by
+     * the event log (BattleEvent class).
+     * Covers: fight method (excluding ability) and simulateBattle method.
+     */
+    @Test
+    public void bothTeamsTakeDamage() throws TeamSizeException, DuplicateMonsterException {
+        int allyMonsterDmg = 3;
+        int oppoMonsterDmg = 6;
+        int monsterHealth  = 10;
+
+        assertTrue(allyMonsterDmg < monsterHealth && oppoMonsterDmg < monsterHealth,
+                "Damage of both monsters must be less than the hp the opposing moster.");
+
+        Monster allyMonster = battleManager.getPlayer().getTeam().getFirstAliveMonster();
+        allyMonster.setName("Monster 1");
+        allyMonster.setTrigger(Trigger.NOABILITY);
+        allyMonster.setCurrentHealth(10);
+        allyMonster.setCurrentAttackDamage(allyMonsterDmg);
+
+        // Create opponent
+        Monster opponentMonster = new ClinkMonster();
+        opponentMonster.setName("Monster 2");
+        opponentMonster.setTrigger(Trigger.NOABILITY);
+        opponentMonster.setCurrentHealth(10);
+        opponentMonster.setCurrentAttackDamage(oppoMonsterDmg);
+        Team opponentTeam;
+
+        opponentTeam = new Team(opponentMonster);
+
+        Player opponent = new Player(opponentTeam, 100);
+
+        battleManager.setOpponent(opponent);
+        battleManager.simulateBattle();
+
+        BattleEvent event1 = battleManager.nextEvent();
+        assertEquals("Monster 1 dealt " + allyMonsterDmg + " damage to Monster 2",
+                event1.getDescription());
+        assertEquals(monsterHealth - allyMonsterDmg,
+                event1.getOpponentTeam().getFirstAliveMonster().getCurrentHealth());
+
+
+        BattleEvent event2 = battleManager.nextEvent();
+        assertEquals("Monster 2 dealt " + oppoMonsterDmg + " damage to Monster 1",
+                event2.getDescription());
+        assertEquals(monsterHealth - oppoMonsterDmg,
+                event2.getAllyTeam().getFirstAliveMonster().getCurrentHealth());
+    }
+
     // TODO: Refactor this code to test FIGHT method. Stolen from Monster.takeDamage
-    // /**
+    /**
     // * Check ONHURT event is triggered
     // * Covers: takeDamage
     // * Valid: receives damage and has ONHURT
@@ -181,24 +238,25 @@ class BattleManagerTests {
     // */
     // @Test
     // public void onHurtTriggerTest() {
-    // monster.setTrigger(Trigger.ONHURT);
-    // Monster triggeredAbility = monster.takeDamage(monster.getBaseHealth() - 1);
-    // // Non lethal
-    // // Hurt ability was triggered
-    // assertEquals(monster, triggeredAbility);
-    //
-    // monster.restore();
-    // monster.setTrigger(Trigger.ONFAINT);
-    // triggeredAbility = monster.takeDamage(monster.getBaseHealth() - 1); // Non
-    // lethal
-    // // Hurt ability was not triggered
-    // assertNull(triggeredAbility);
-    //
-    // monster.restore();
-    // monster.setTrigger(Trigger.ONHURT);
-    // triggeredAbility = monster.takeDamage(monster.getBaseHealth() + 1); // Lethal
-    // assertNull(triggeredAbility);
+    //     monster.setTrigger(Trigger.ONHURT);
+    //     Monster triggeredAbility = monster.takeDamage(monster.getBaseHealth() - 1);
+    //     // Non lethal
+    //     // Hurt ability was triggered
+    //     assertEquals(monster, triggeredAbility);
+
+    //     monster.restore();
+    //     monster.setTrigger(Trigger.ONFAINT);
+    //     triggeredAbility = monster.takeDamage(monster.getBaseHealth() - 1); // Non
+    //     lethal
+    //     // Hurt ability was not triggered
+    //     assertNull(triggeredAbility);
+
+    //     monster.restore();
+    //     monster.setTrigger(Trigger.ONHURT);
+    //     triggeredAbility = monster.takeDamage(monster.getBaseHealth() + 1); // Lethal
+    //     assertNull(triggeredAbility);
     // }
+
     // /**
     // * Check ONFAINT event is triggered
     // * Covers: takeDamage
@@ -213,21 +271,20 @@ class BattleManagerTests {
     // // Faint ability was triggered
     // assertEquals(monster, triggeredAbility);
     // assertFalse(monster.getStatus()); // Check fainted
-    //
+
     // monster.restore();
     // triggeredAbility = monster.takeDamage(monster.getBaseHealth() - 1); // Non
     // lethal
     // // Faint ability was not triggered
     // assertNull(triggeredAbility);
     // assertTrue(monster.getStatus()); // Check fainted
-    //
+
     // monster.restore();
     // monster.setTrigger(Trigger.ONHURT);
     // triggeredAbility = monster.takeDamage(monster.getCurrentHealth());
     // // Hurt ability was not triggered
     // assertNull(triggeredAbility);
     // assertFalse(monster.getStatus()); // Check fainted
-    //
+
     // }
-    // ********************************************************************************
 }

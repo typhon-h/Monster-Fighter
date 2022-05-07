@@ -30,13 +30,13 @@ public class BattleManager {
     private ArrayList<Player> opponents;
     /**
      * Opponent {@link main.Player player} will battle against
-     * 
+     *
      * @default null
      */
     private Player currentOpponent = null;
     /**
      * Result of the battle
-     * 
+     *
      * @default BattleResult.NULL
      */
     private BattleResult battleResult = BattleResult.NULL;
@@ -208,7 +208,7 @@ public class BattleManager {
      *
      * @param allyTeam     A copy of the ally {@link main.Team team} to fight
      * @param opponentTeam A copy of the enemy {@link main.Team team} to fight
-     * 
+     *
      * @return ArrayList of {@link main.BattleEvent BattleEvents} describing what
      *         happened
      */
@@ -255,6 +255,12 @@ public class BattleManager {
             if (!monster2.getStatus()) {
                 trigger = Trigger.ONFAINT;
                 description += ". " + monster2.getName() + " fainted.";
+
+                // Stop fighting if one of the teams have no alive monsters
+                if (team1.getAliveMonsters().size() == 0 ||
+                    team2.getAliveMonsters().size() == 0) {
+                        return eventLog;
+                    }
             } else {
                 trigger = Trigger.ONHURT;
             }
@@ -289,7 +295,7 @@ public class BattleManager {
      * @param monster   {@link monsters.Monster Monster} to run
      *                  {@link monsters.Monster#ability} of
      * @param trigger   Current {@link main.Trigger trigger} that is checked for
-     * 
+     *
      * @return {@link main.BattleEvent BattleEvent} describing the
      *         {@link monsters.Monster#ability}
      */
@@ -351,18 +357,27 @@ public class BattleManager {
      */
     public BattleEvent nextEvent() {
         if (this.currentEventIndex < this.eventLog.size()) {
-            return this.eventLog.get(this.currentEventIndex++);
+            BattleEvent event = this.eventLog.get(this.currentEventIndex++);
+            return event;
         }
 
         return null;
     }
 
     /**
-     * Gets the {@link main.Player player} in the BattleManager
-     * 
-     * @return the active {@link main.Player player}
+     * Gets the {@link main.Player player} in the BattleManager.
+     *
+     * @return the active {@link main.Player player}.
      */
     public Player getPlayer() {
         return this.allyPlayer;
+    }
+
+    /**
+     * Gets the current {@link main.Player opponent} in the BattleManager.
+     * @return the current selected {@link main.Player opponent}.
+     */
+    public Player opponent() {
+        return this.currentOpponent;
     }
 }

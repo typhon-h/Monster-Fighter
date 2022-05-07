@@ -12,15 +12,15 @@ public class BattleEvent {
     /**
      * snapshot of ally {@link main.Team Team}
      */
-    public Team allyTeam;
+    private Team allyTeam;
     /**
      * snapshot of enemy {@link main.Team Team}
      */
-    public Team opponentTeam;
+    private Team opponentTeam;
     /**
      * Description of the event that occurred
      */
-    public String description;
+    private String description;
 
     /**
      * Constructor for BattleEvent. Sets the object's instance variables
@@ -40,5 +40,17 @@ public class BattleEvent {
         }
 
         this.description = newDescription;
+    }
+
+    public Team getAllyTeam() {
+        return allyTeam;
+    }
+
+    public Team getOpponentTeam() {
+        return opponentTeam;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }
