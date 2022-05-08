@@ -167,7 +167,7 @@ public class TeddyMonsterTest {
         GameEnvironment.setSeed(4119);
         BattleEvent ability = monster.ability(allyTeam, enemyTeam);
         assertEquals(monster.getName() + "'s " + monster.getTrigger().name()
-                + " ability triggered. " + monster.getName() + " gained 1 HP", ability.description);
+                + " ability triggered. " + monster.getName() + " gained 1 HP", ability.getDescription());
     }
 
 }

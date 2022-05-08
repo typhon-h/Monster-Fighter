@@ -120,6 +120,6 @@ public class JynxMonsterTest {
         BattleEvent ability = monster.ability(allyTeam, enemyTeam);
         assertEquals(monster.getName() + "'s " + monster.getTrigger().name()
                 + " ability triggered. " + monster.getName() + "'s new HP is " + monster.getCurrentHealth(),
-                ability.description);
+                ability.getDescription());
     }
 }

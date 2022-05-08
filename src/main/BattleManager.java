@@ -235,32 +235,29 @@ public class BattleManager {
             Team team1 = team[0];
             Team team2 = team[1];
 
-            Monster monster1 = team1.getFirstAliveMonster();
-            Monster monster2 = team2.getFirstAliveMonster();
+            Monster attackingMonster = team1.getFirstAliveMonster();
+            Monster receivingMonster = team2.getFirstAliveMonster();
 
-            // Does damage
-            monster2.takeDamage(monster1.getCurrentAttackDamage());
-
-            String description = monster1.getName() + " dealt " + monster1.getCurrentAttackDamage() + " damage to "
-                    + monster2.getName();
             BattleEvent ability;
-
             // Check BEFOREATTACK Trigger
-            ability = runAbility(team1, team2, monster1, Trigger.BEFOREATTACK);
+            ability = runAbility(team1, team2, attackingMonster, Trigger.BEFOREATTACK);
             if (ability != null) {
                 eventLog.add(ability);
             }
 
-            Trigger trigger;
-            if (!monster2.getStatus()) {
-                trigger = Trigger.ONFAINT;
-                description += ". " + monster2.getName() + " fainted.";
+            // Does damage
+            receivingMonster.takeDamage(attackingMonster.getCurrentAttackDamage());
 
-                // Stop fighting if one of the teams have no alive monsters
-                if (team1.getAliveMonsters().size() == 0 ||
-                    team2.getAliveMonsters().size() == 0) {
-                        return eventLog;
-                    }
+            String description = attackingMonster.getName() +
+                                " dealt " +
+                                attackingMonster.getCurrentAttackDamage() +
+                                " damage to " +
+                                receivingMonster.getName();
+
+            Trigger trigger;
+            if (!receivingMonster.getStatus()) {
+                trigger = Trigger.ONFAINT;
+                description += ". " + receivingMonster.getName() + " fainted.";
             } else {
                 trigger = Trigger.ONHURT;
             }
@@ -268,17 +265,21 @@ public class BattleManager {
             // Fight event
             eventLog.add(new BattleEvent(allyTeam, opponentTeam, description));
             // Check ONHURT/ONFAINT Trigger
-            ability = runAbility(team2, team1, monster2, trigger);
+            ability = runAbility(team2, team1, receivingMonster, trigger);
             if (ability != null) {
                 eventLog.add(ability);
             }
 
             // Check AFTERATTACK trigger
-            ability = runAbility(team1, team2, monster1, Trigger.AFTERATTACK);
+            ability = runAbility(team1, team2, attackingMonster, Trigger.AFTERATTACK);
             if (ability != null) {
                 eventLog.add(ability);
             }
 
+            if (team1.getAliveMonsters().isEmpty() ||
+                team2.getAliveMonsters().isEmpty()) {
+                return eventLog;
+            }
         }
 
         return eventLog;
@@ -326,20 +327,21 @@ public class BattleManager {
             for (Monster monster : allyTeamCopy.getAliveMonsters()) {
                 ability = runAbility(allyTeamCopy, opponentTeamCopy, monster, Trigger.STARTOFBATTLE);
                 if (ability != null) {
-                    eventLog.add(ability);
+                    newEventLog.add(ability);
                 }
             }
 
             for (Monster monster : opponentTeamCopy.getAliveMonsters()) {
                 ability = runAbility(opponentTeamCopy, allyTeamCopy, monster, Trigger.STARTOFBATTLE);
                 if (ability != null) {
-                    eventLog.add(ability);
+                    newEventLog.add(ability);
                 }
             }
 
             while (!allyTeamCopy.getAliveMonsters().isEmpty() && !opponentTeamCopy.getAliveMonsters().isEmpty()) {
                 newEventLog.addAll(fight(allyTeamCopy, opponentTeamCopy));
             }
+
 
         } catch (CloneNotSupportedException e) { // Should never happen as clone is implemented
             e.printStackTrace();
