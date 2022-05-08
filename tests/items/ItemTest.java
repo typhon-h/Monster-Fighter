@@ -1,4 +1,4 @@
-package items.tests;
+package items;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -10,7 +10,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import main.Rarity;
-import items.*;
 
 /**
  * Tests for Item class, uses {@link items.AttackBoost AttackBoost} subclass

@@ -1,6 +1,5 @@
-package main.tests;
+package main;
 
-import main.*;
 import monsters.*;
 import items.*;
 

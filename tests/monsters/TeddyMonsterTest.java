@@ -1,4 +1,4 @@
-package monsters.tests;
+package monsters;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,7 +13,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import exceptions.*;
 import main.*;
-import monsters.*;
 
 /**
  * Testing for Teddy Monster class.

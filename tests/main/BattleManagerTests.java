@@ -1,4 +1,4 @@
-package main.tests;
+package main;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,7 +13,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import exceptions.DuplicateMonsterException;
 import exceptions.TeamSizeException;
-import main.*;
 import monsters.*;
 
 /**
