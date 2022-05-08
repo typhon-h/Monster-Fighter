@@ -28,23 +28,24 @@ class BattleManagerTests {
      */
     Player player;
     /**
-     * {@link main.Team team} of the {@link main.Player player} to be tested
+     * {@link main.Team Team} of the {@link main.Player player} to be tested
      */
     Team playerTeam;
     /**
-     * {@link main.BattleMangager BattleManager} to be tested
+     * {@link main.BattleManager BattleManager} to be tested
      */
     BattleManager battleManager;
 
     /**
      * Set up {@link main.BattleMangager BattleManager} before each test
      *
-     * @throws Exception general case if creating {@link main.Tean tean} or
+     * @throws Exception general case if creating {@link main.Team team} or
      *                   {@link main.BattleMangager BattleManager} causes an
      *                   exception
      */
     @BeforeEach
     void setUp() throws Exception {
+        // Create a new battle manager
         playerTeam = new Team(new ClinkMonster());
         player = new Player(playerTeam, 0);
         player.addGold(100);
@@ -172,10 +173,9 @@ class BattleManagerTests {
         assertTrue(opponent1.getGold() < opponent2.getGold());
         assertTrue(opponent1.getScore() > opponent2.getScore());
     }
-    /*
-       TODO: test that the fight ends when all the monsters on one team are fainted
-       TODO: test that the event log gives the correct output
-     */
+
+    /* --------------------------------------------------------
+    Tests for simulate battle, fight, runAbility, and nextEvent */
 
     /**
      * Check that both monsters at the front of each team take damage and none of
@@ -276,9 +276,15 @@ class BattleManagerTests {
                 currEvent.getDescription());
         assertEquals(monsterHealth - oppoMonsterDmg2,
                 currEvent.getAllyTeam().getFirstAliveMonster().getCurrentHealth());
-
     }
 
+    /**
+     * Tests that the simulation ends after one of the teams have no alive monsters
+     * and that all triggers have been processed.
+     *
+     * @throws TeamSizeException
+     * @throws DuplicateMonsterException
+     */
     @Test
     public void endAfterTeamWipe() throws TeamSizeException, DuplicateMonsterException {
         int allyMonsterDmg = 10;
@@ -315,63 +321,90 @@ class BattleManagerTests {
         assertNull(battleManager.nextEvent());
     }
 
-    // TODO: Refactor this code to test FIGHT method. Stolen from Monster.takeDamage
     /**
-    // * Check ONHURT event is triggered
-    // * Covers: takeDamage
-    // * Valid: receives damage and has ONHURT
-    // * Invalid: receives damage and has ONFAINT
-    // * Invalid: receives damage and faints and has ONHURT
-    // */
-    // @Test
-    // public void onHurtTriggerTest() {
-    //     monster.setTrigger(Trigger.ONHURT);
-    //     Monster triggeredAbility = monster.takeDamage(monster.getBaseHealth() - 1);
-    //     // Non lethal
-    //     // Hurt ability was triggered
-    //     assertEquals(monster, triggeredAbility);
+     * Test for checking that all the different triggers are activated at the right
+     * time during the battle simulation and the event logs are correct.
+     * The monsters a set up in in a way that all the triggers will be activated.
+     * The order in which the triggers for each monster are placed also contributes
+     * to this fact.
+     *
+     * @throws TeamSizeException
+     * @throws DuplicateMonsterException
+     */
+    @Test
+    public void triggersTests() throws TeamSizeException, DuplicateMonsterException {
+        // Set up monsters with one of every trigger
+        // STARTOFBATTLE, BEFOREATTACK, AFTERATTACK, ONHURT (monster must tank 1 attack),
+        // ONFAINT- No damage fast
+        // Enemy NOABILITY - heaps of damage, slow
 
-    //     monster.restore();
-    //     monster.setTrigger(Trigger.ONFAINT);
-    //     triggeredAbility = monster.takeDamage(monster.getBaseHealth() - 1); // Non
-    //     lethal
-    //     // Hurt ability was not triggered
-    //     assertNull(triggeredAbility);
+        // Setup ally team using clink monsters
+        Team allyTeam = null;
+        Team oppoTeam = null;
+        Player opponent;
+        ClinkMonster newMonster;
 
-    //     monster.restore();
-    //     monster.setTrigger(Trigger.ONHURT);
-    //     triggeredAbility = monster.takeDamage(monster.getBaseHealth() + 1); // Lethal
-    //     assertNull(triggeredAbility);
-    // }
+        // Set up ally team
+        int monsterNum = 1;
+        Trigger[] triggers = new Trigger[] {Trigger.STARTOFBATTLE,
+                                            Trigger.BEFOREATTACK,
+                                            Trigger.AFTERATTACK,
+                                            Trigger.ONHURT};
+        for (Trigger trigger : triggers) {
+            newMonster = new ClinkMonster();
+            newMonster.setCurrentHealth(9);
+            newMonster.setSpeed(10);
+            newMonster.setCurrentAttackDamage(2);
+            newMonster.setTrigger(trigger);
+            newMonster.setName("AllyMonster " + monsterNum++);
 
-    // /**
-    // * Check ONFAINT event is triggered
-    // * Covers: takeDamage
-    // * Valid: receives damage and faints and has ONFAINT
-    // * Invalid: receives damage and has ONFAINT
-    // * Invalid: receives damage and has ONHURT
-    // */
-    // @Test
-    // public void onFaintTriggerTest() {
-    // monster.setTrigger(Trigger.ONFAINT);
-    // Monster triggeredAbility = monster.takeDamage(monster.getCurrentHealth());
-    // // Faint ability was triggered
-    // assertEquals(monster, triggeredAbility);
-    // assertFalse(monster.getStatus()); // Check fainted
+            // Special case
+            if (trigger == Trigger.ONHURT) {
+                newMonster.setCurrentHealth(19);
+            }
 
-    // monster.restore();
-    // triggeredAbility = monster.takeDamage(monster.getBaseHealth() - 1); // Non
-    // lethal
-    // // Faint ability was not triggered
-    // assertNull(triggeredAbility);
-    // assertTrue(monster.getStatus()); // Check fainted
+            if (allyTeam == null) {
+                allyTeam = new Team(newMonster);
+            } else {
+                allyTeam.addMonster(newMonster);
+            }
+        }
 
-    // monster.restore();
-    // monster.setTrigger(Trigger.ONHURT);
-    // triggeredAbility = monster.takeDamage(monster.getCurrentHealth());
-    // // Hurt ability was not triggered
-    // assertNull(triggeredAbility);
-    // assertFalse(monster.getStatus()); // Check fainted
+        // Set up opponent team and player
+        newMonster = new ClinkMonster();
+        newMonster.setCurrentHealth(200);
+        newMonster.setCurrentAttackDamage(10);
+        newMonster.setSpeed(1);
+        newMonster.setTrigger(Trigger.NOABILITY);
+        newMonster.setName("OppoMonster");
+        oppoTeam = new Team(newMonster);
+        opponent = new Player(oppoTeam, 100);
 
-    // }
+        battleManager.getPlayer().setTeam(allyTeam);
+        battleManager.setOpponent(opponent);
+
+        battleManager.simulateBattle();
+
+        String[] expectedOutputArray = new String[] {
+            "AllyMonster 1's STARTOFBATTLE ability triggered. Lost 1 ATK and gained 1 HP",
+            "AllyMonster 1 dealt 1 damage to OppoMonster",
+            "OppoMonster dealt 10 damage to AllyMonster 1. AllyMonster 1 fainted.",
+            "AllyMonster 2's BEFOREATTACK ability triggered. Lost 1 ATK and gained 1 HP",
+            "AllyMonster 2 dealt 1 damage to OppoMonster",
+            "OppoMonster dealt 10 damage to AllyMonster 2. AllyMonster 2 fainted.",
+            "AllyMonster 3 dealt 2 damage to OppoMonster",
+            "AllyMonster 3's AFTERATTACK ability triggered. Lost 1 ATK and gained 1 HP",
+            "OppoMonster dealt 10 damage to AllyMonster 3. AllyMonster 3 fainted.",
+            "AllyMonster 4 dealt 2 damage to OppoMonster",
+            "OppoMonster dealt 10 damage to AllyMonster 4",
+            "AllyMonster 4's ONHURT ability triggered. Lost 1 ATK and gained 1 HP",
+            "AllyMonster 4 dealt 1 damage to OppoMonster",
+            "OppoMonster dealt 10 damage to AllyMonster 4. AllyMonster 4 fainted."
+        };
+
+        for (String expectedOutput : expectedOutputArray) {
+            assertEquals(expectedOutput, battleManager.nextEvent().getDescription());
+        }
+        assertNull(battleManager.nextEvent());
+    }
 }
