@@ -165,18 +165,69 @@ public class CommandLineInterface {
     }
 
     public void mainMenu() {
+        System.out.println("=====================================");
+        System.out.println("              Main Menu              ");
+        System.out.println("=====================================");
+        System.out.println(String.format(" Day: %d/%d     Score: %d      Gold: %d",
+                game.getCurrentDay(),
+                game.getTotalDays(),
+                game.getPlayer().getScore(),
+                game.getPlayer().getGold()));
 
+        ArrayList<String> options = new ArrayList<String>(Arrays.asList(
+                "Buy Shop", // 0
+                "Sell Shop", // 1
+                "View Team", // 2
+                "View Battles" // 3
+        ));
+        if (game.getBattleState().getResult() != BattleResult.NULL) {
+            options.add("Sleep"); // 4
+        }
+        int option = getOption(options);
+        switch (option) {
+            case 0: // Buy Shop
+                buyShopMenu();
+                break;
+            case 1: // Sell Shop
+                sellShopMenu();
+                break;
+            case 2: // View Team
+                viewTeamMenu();
+                break;
+            case 3: // View Battles
+                viewBattlesMenu();
+                break;
+            case 4: // Sleep
+                game.sleep();
+                System.out.println("\n\nYou have advanced to the next day\n");
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void viewBattlesMenu() { // TODO: implement
+    }
+
+    public void viewTeamMenu() {// TODO: implement
+    }
+
+    public void sellShopMenu() {// TODO: implement
+    }
+
+    public void buyShopMenu() {// TODO: implement
     }
 
     // ***************USED FOR DEVELOPMENT TESTING*********************
     public static void main(String args[]) {
         CommandLineInterface cli = new CommandLineInterface();
         cli.setUp();
-        System.out.println(cli.game.getPlayer().getName() + "\n" +
-                cli.game.getPlayer().getTeam().getFirstAliveMonster().getName() + "\n" +
-                cli.game.getPlayer().getTeam().getFirstAliveMonster().getClass() + "\n" +
-                cli.game.getDifficulty() + "\n" +
-                cli.game.getTotalDays());
+        cli.mainMenu();
+        // System.out.println(cli.game.getPlayer().getName() + "\n" +
+        // cli.game.getPlayer().getTeam().getFirstAliveMonster().getName() + "\n" +
+        // cli.game.getPlayer().getTeam().getFirstAliveMonster().getClass() + "\n" +
+        // cli.game.getDifficulty() + "\n" +
+        // cli.game.getTotalDays());
     }
     // ****************************************************************
 }

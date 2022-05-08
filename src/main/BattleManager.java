@@ -198,8 +198,6 @@ public class BattleManager {
             allyPlayer.addGold(currentOpponent.getGold());
             allyPlayer.incrementScore(currentOpponent.getScore());
         }
-
-        battleResult = BattleResult.NULL;
     }
 
     /**
@@ -249,10 +247,10 @@ public class BattleManager {
             receivingMonster.takeDamage(attackingMonster.getCurrentAttackDamage());
 
             String description = attackingMonster.getName() +
-                                " dealt " +
-                                attackingMonster.getCurrentAttackDamage() +
-                                " damage to " +
-                                receivingMonster.getName();
+                    " dealt " +
+                    attackingMonster.getCurrentAttackDamage() +
+                    " damage to " +
+                    receivingMonster.getName();
 
             Trigger trigger;
             if (!receivingMonster.getStatus()) {
@@ -277,7 +275,7 @@ public class BattleManager {
             }
 
             if (team1.getAliveMonsters().isEmpty() ||
-                team2.getAliveMonsters().isEmpty()) {
+                    team2.getAliveMonsters().isEmpty()) {
                 return eventLog;
             }
         }
@@ -314,7 +312,7 @@ public class BattleManager {
      */
     public void simulateBattle() {
         ArrayList<BattleEvent> newEventLog = new ArrayList<BattleEvent>();
-
+        battleResult = BattleResult.NULL; // TODO: this has been moved from giveRewards so tests might fail
         Team allyTeamCopy;
         Team opponentTeamCopy;
 
@@ -342,7 +340,7 @@ public class BattleManager {
                 newEventLog.addAll(fight(allyTeamCopy, opponentTeamCopy));
             }
 
-
+            // TODO: set battle result
         } catch (CloneNotSupportedException e) { // Should never happen as clone is implemented
             e.printStackTrace();
         }
@@ -377,9 +375,15 @@ public class BattleManager {
 
     /**
      * Gets the current {@link main.Player opponent} in the BattleManager.
+     * 
      * @return the current selected {@link main.Player opponent}.
      */
     public Player opponent() {
         return this.currentOpponent;
+    }
+
+    // TODO: add javadoc
+    public BattleResult getResult() {
+        return battleResult;
     }
 }
