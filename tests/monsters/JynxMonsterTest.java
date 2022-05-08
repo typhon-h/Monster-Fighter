@@ -1,6 +1,5 @@
-package monsters.tests;
+package monsters;
 
-import monsters.*;
 import main.BattleEvent;
 import main.Rarity;
 import main.Team;
@@ -10,39 +9,38 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import exceptions.DuplicateMonsterException;
-import exceptions.TeamSizeException;
-
 import static org.junit.jupiter.api.Assertions.*;
+
+import exceptions.*;
 
 import java.util.stream.Stream;
 
 /**
- * Testing for Clink Monster class.
- *
+ * Testing for Jynx Monster class.
+ * 
  * @author Harrison Tyson
  * @version 1.0, Apr 2022.
  */
-public class ClinkMonsterTest {
+public class JynxMonsterTest {
     Monster monster;
     Team allyTeam;
     Team enemyTeam;
 
     /**
      * Set up a monster to test methods on before each test
-     *
+     * 
      * @throws Exception any error that occurs
      */
     @BeforeEach
     public void setUp() throws Exception {
-        monster = new ClinkMonster();
-        allyTeam = new Team(monster);
+        monster = new JynxMonster();
         enemyTeam = new Team(new ClinkMonster());
+        allyTeam = new Team(monster, new ClinkMonster());
     }
 
     /**
      * Test cases to check
-     *
+     * 
      * @return A stream of arguments as the test case
      */
     private static Stream<Arguments> rarityAndPrice() {
@@ -60,7 +58,7 @@ public class ClinkMonsterTest {
      * AttackDamage set to BaseAttackDamage
      * Health set to BaseHealth
      * BuyPrice and SellPrice set based on Rarity
-     *
+     * 
      * @param rarity    rarity to set the monster
      * @param buyPrice  expected buy price
      * @param sellPrice expected sell price
@@ -70,48 +68,47 @@ public class ClinkMonsterTest {
     public void statsTest(Rarity rarity, int buyPrice, int sellPrice) {
         monster.setRarity(rarity);
         // Check base stats are set correctly
-        assertEquals(MonsterConstants.CLINKBASEATTACKDAMAGE, monster.getBaseAttackDamage());
-        assertEquals(MonsterConstants.CLINKBASEHEALTH, monster.getBaseHealth());
+        assertEquals(MonsterConstants.JYNXBASEATTACKDAMAGE, monster.getBaseAttackDamage());
+        assertEquals(MonsterConstants.JYNXBASEHEALTH, monster.getBaseHealth());
         // Check buy/sell prices are set correctly
         assertEquals(buyPrice, monster.getBuyPrice());
         assertEquals(sellPrice, monster.getSellPrice());
-        assertEquals(MonsterConstants.CLINKBASESPEED, monster.getSpeed());
+        assertEquals(MonsterConstants.JYNXBASESPEED, monster.getSpeed());
     }
 
     /**
      * Checks ability effect activates correctly
      * Covers: ability
-     * Valid: effect occurs. Base stats not affected
-     * Invalid: Attack is at minimum (1)
-     *
+     * Valid: random enemy has Health reduced
+     * Invalid: empty enemy team
+     * Randomness must be checked manually
+     * 
      * @throws DuplicateMonsterException if same monster is added more than once
      * @throws TeamSizeException         if more team members than max allowed
      */
     @Test
     public void abilityTest() throws TeamSizeException, DuplicateMonsterException {
-        int startAttackDamage = monster.getCurrentAttackDamage();
-        int startHealth = monster.getCurrentHealth();
 
+        Monster allyMonster = allyTeam.getMonsters().get(1);
+
+        // Health stays same if Jynx has highest health
+        monster.setCurrentHealth(allyMonster.getCurrentHealth() + 1);
+        int prevHealth = monster.getCurrentHealth();
         monster.ability(allyTeam, enemyTeam);
+        assertEquals(prevHealth, monster.getCurrentHealth());
 
-        // Attack damage is reduced
-        assertEquals(startAttackDamage - 1, monster.getCurrentAttackDamage());
-        // Base attack was not changed
-        assertEquals(MonsterConstants.CLINKBASEATTACKDAMAGE, monster.getBaseAttackDamage());
-
-        // Health was increased
-        assertEquals(startHealth + 1, monster.getCurrentHealth());
-        // Base health was not changed
-        assertEquals(MonsterConstants.CLINKBASEHEALTH, monster.getBaseHealth());
-
-        // Ability does nothing
-        monster.restore();
-        startAttackDamage = 1;
-        monster.setCurrentAttackDamage(startAttackDamage); // Minimum attack
+        // Health switches to highest health (not Jynx)
+        allyMonster.setCurrentHealth(monster.getCurrentHealth() + 1);
+        prevHealth = monster.getCurrentHealth();
+        int expectedHealth = allyMonster.getCurrentHealth();
         monster.ability(allyTeam, enemyTeam);
-        assertEquals(startAttackDamage, monster.getCurrentAttackDamage());
-        assertEquals(startHealth, monster.getCurrentHealth());
+        assertNotEquals(prevHealth, monster.getCurrentHealth());
+        assertEquals(expectedHealth, monster.getCurrentHealth());
 
+        // Health stays same if whole team has same health
+        prevHealth = monster.getCurrentHealth();
+        monster.ability(allyTeam, enemyTeam);
+        assertEquals(prevHealth, monster.getCurrentHealth());
     }
 
     /**
@@ -121,6 +118,7 @@ public class ClinkMonsterTest {
     public void abilityReturnTest() {
         BattleEvent ability = monster.ability(allyTeam, enemyTeam);
         assertEquals(monster.getName() + "'s " + monster.getTrigger().name()
-                + " ability triggered. Lost 1 ATK and gained 1 HP", ability.getDescription());
+                + " ability triggered. " + monster.getName() + "'s new HP is " + monster.getCurrentHealth(),
+                ability.getDescription());
     }
 }

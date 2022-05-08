@@ -1,9 +1,8 @@
-package main.tests;
+package main;
 
 import org.junit.jupiter.api.*;
 
 import exceptions.*;
-import main.*;
 import monsters.ClinkMonster;
 import monsters.GilMonster;
 import monsters.Monster;

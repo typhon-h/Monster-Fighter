@@ -1,6 +1,5 @@
-package monsters.tests;
+package monsters;
 
-import monsters.*;
 import main.BattleEvent;
 import main.Rarity;
 import main.Team;
