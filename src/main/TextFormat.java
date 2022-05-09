@@ -2,6 +2,9 @@ package main;
 
 /**
  * A class used to print out formatted text
+ *
+ * @author Jackie Jone
+ * @version 1.1, May 2022
  */
 public class TextFormat {
     /**
@@ -57,7 +60,6 @@ public class TextFormat {
         int headerWidth;
         System.out.println(text);
         String[] textArr = text.split(" ", 0);
-        for (String string : textArr) System.out.println(string);
         longestString = longestStringLen(textArr);
 
         maxTextWidth = longestString > maxTextWidth ? longestString : maxTextWidth;
@@ -65,23 +67,32 @@ public class TextFormat {
 
         for (int i = 0; i < headerWidth; i++) System.out.print("-");
         System.out.println();
+        String finalString = "";
 
-        String FinalString = "";
-        int currStringLen = 0;
-        for (String string : textArr) {
-            if (currStringLen + string.length() <= maxTextWidth) {
-                FinalString = FinalString.concat(string.concat(" "));
-                currStringLen += string.length();
+        int currWord = 0;
+        while (currWord < textArr.length) {
+            if (currWord == textArr.length - 1) {
+                if ((finalString.length() + textArr[currWord].length()) > maxTextWidth) {
+                    System.out.println("| " + centerText(finalString, maxTextWidth) + " |");
+                    finalString = "";
+                }
+                finalString = finalString.concat(textArr[currWord]);
+                System.out.println("| " + centerText(finalString, maxTextWidth) + " |");
+                finalString = "";
+
+            } else if ((finalString.length() + textArr[currWord].length()) == maxTextWidth) {
+                finalString = finalString.concat(textArr[currWord]);
+
+            } else if ((finalString.length() + textArr[currWord].length() + 1) < maxTextWidth) {
+                finalString = finalString.concat(textArr[currWord].concat(" "));
+
             } else {
-                FinalString = FinalString.concat("\n");
-                currStringLen = 0;
+                System.out.println("| " + centerText(finalString, maxTextWidth) + " |");
+
+                finalString = textArr[currWord] + (textArr[currWord].length() < maxTextWidth ? " " : "");
             }
+            currWord++;
         }
-
-        System.out.print("| ");
-        FinalString = centerText(FinalString, maxTextWidth);
-        System.out.print(FinalString + " |\n");
-
         for (int i = 0; i < headerWidth; i++) System.out.print("-");
         System.out.println();
     }
