@@ -10,7 +10,7 @@ import monsters.*;
  * each {@link monsters.Monster monster} in the game.
  *
  * @author Jackie Jone
- * @version 1.1, Apr 2022.
+ * @version 1.2, Apr 2022.
  */
 public final class BattleConstants {
     // TODO: Tweak the triggers for each monster
@@ -33,34 +33,34 @@ public final class BattleConstants {
     private static final Map<Class<?>, Trigger[][]> triggers = Map.ofEntries(
             // Optimal Triggers for Clink Monster.
             entry(ClinkMonster.class, new Trigger[][] {
-                    { Trigger.ONFAINT }, // Easy Triggers
-                    { Trigger.STARTOFBATTLE }, // Normal Triggers
-                    { Trigger.ONHURT } }), // Hard Triggers
+                    { Trigger.NOABILITY, Trigger.STARTOFBATTLE }, // Easy Triggers
+                    { Trigger.ONHURT }, // Normal Triggers
+                    { Trigger.BEFOREATTACK, Trigger.AFTERATTACK } }), // Hard Triggers
             // Optimal Triggers for Ditta Monster.
             entry(DittaMonster.class, new Trigger[][] {
-                    { Trigger.ONFAINT, Trigger.STARTOFBATTLE, Trigger.ONHURT },
-                    {},
-                    { Trigger.AFTERATTACK } }),
+                    { Trigger.NOABILITY, Trigger.STARTOFBATTLE },
+                    { Trigger.ONHURT},
+                    { Trigger.BEFOREATTACK } }),
             // Optimal Triggers for Gil Monster.
             entry(GilMonster.class, new Trigger[][] {
-                    { Trigger.ONFAINT, Trigger.STARTOFBATTLE },
-                    {},
-                    {} }),
+                    { Trigger.NOABILITY, Trigger.ONFAINT },
+                    { Trigger.STARTOFBATTLE },
+                    { Trigger.ONHURT, Trigger.BEFOREATTACK , Trigger.AFTERATTACK} }),
             // Optimal Triggers for Jynx Monster.
             entry(JynxMonster.class, new Trigger[][] {
-                    { Trigger.ONFAINT, Trigger.STARTOFBATTLE },
-                    {},
-                    {} }),
+                    { Trigger.NOABILITY, Trigger.STARTOFBATTLE},
+                    { },
+                    { Trigger.BEFOREATTACK} }),
             // Optimal Triggers for Lucifer Monster.
             entry(LuciferMonster.class, new Trigger[][] {
-                    { Trigger.ONFAINT, Trigger.STARTOFBATTLE },
-                    {},
-                    {} }),
+                    { Trigger.NOABILITY, Trigger.STARTOFBATTLE },
+                    { Trigger.ONHURT},
+                    { Trigger.AFTERATTACK, Trigger.AFTERATTACK} }),
             // Optimal Triggers for Teddy Monster.
             entry(TeddyMonster.class, new Trigger[][] {
-                    { Trigger.ONFAINT, Trigger.STARTOFBATTLE },
-                    {},
-                    {} }));
+                    { Trigger.NOABILITY, Trigger.STARTOFBATTLE},
+                    { Trigger.AFTERATTACK },
+                    { Trigger.BEFOREATTACK} }));
 
     /**
      * Concatenates two {@link main.Trigger trigger} arrays together.
@@ -113,7 +113,7 @@ public final class BattleConstants {
      * @param monsterClass The class of the {@link monsters.Monster monster} to get
      *                     the {@link main.Trigger triggers} for/
      * @param difficulty   The {@link main.Difficulty difficulty} of the game
-     * 
+     *
      * @return An array of {@link main.Trigger trigger enum} values.
      * @throws IllegalArgumentException if the given class is not a subclass of
      *                                  {@link monsters.Monster monster class}.
