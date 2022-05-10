@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests for the {@link main.GameEnvironment GameEnvironment} Class
- * 
+ *
  * @author Harrison Tyson
  * @version 1.0, Apr 2022.
  */
@@ -27,7 +27,7 @@ public class GameEnvironmentTest {
 
     /**
      * Set up a {@link main.GameEnvironment GameEnvironment} for Testing
-     * 
+     *
      * @throws TeamSizeException         if too many members added to
      *                                   {@link main.Team team}
      * @throws DuplicateMonsterException if {@link monsters.Monster monster} already
@@ -139,7 +139,7 @@ public class GameEnvironmentTest {
      * Monster Boost: 20%
      * Monster Leave with 1 faint: 0% + 5% = 5%
      * Monster Join: 5%
-     * 
+     *
      */
     @Test
     public void sleepAllRandomEvents() {

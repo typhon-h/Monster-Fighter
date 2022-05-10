@@ -155,7 +155,7 @@ public class CommandLineInterface {
         // Set Game
         try {
             Team team = new Team(starter);
-            Player player = new Player(playerName, team, 1000); // TODO: make constant
+            Player player = new Player(playerName, team, 30); // TODO: make constant
             game = new GameEnvironment(player, numDays, gameDifficulty);
         } catch (TeamSizeException e) { // Will never occur
             e.printStackTrace();
@@ -166,42 +166,44 @@ public class CommandLineInterface {
     }
 
     public void mainMenu() {
-        TextFormat.printHeader("Main Menu", 4);
-        System.out.println(String.format(" Day: %d/%d     Score: %d      Gold: %d",
-                game.getCurrentDay(),
-                game.getTotalDays(),
-                game.getPlayer().getScore(),
-                game.getPlayer().getGold()));
+        while (true) {
+            TextFormat.printHeader("Main Menu", 4);
+            System.out.println(String.format(" Day: %d/%d     Score: %d      Gold: %d",
+                    game.getCurrentDay(),
+                    game.getTotalDays(),
+                    game.getPlayer().getScore(),
+                    game.getPlayer().getGold()));
 
-        ArrayList<String> options = new ArrayList<String>(Arrays.asList(
-                "Buy Shop", // 0
-                "Sell Shop", // 1
-                "View Team", // 2
-                "View Battles" // 3
-        ));
-        if (game.getBattleState().getResult() != BattleResult.NULL) {
-            options.add("Sleep"); // 4
-        }
-        int option = getOption(options);
-        switch (option) {
-            case 0: // Buy Shop
-                buyShopMenu();
-                break;
-            case 1: // Sell Shop
-                sellShopMenu();
-                break;
-            case 2: // View Team
-                viewTeamMenu();
-                break;
-            case 3: // View Battles
-                viewBattlesMenu();
-                break;
-            case 4: // Sleep
-                game.sleep();
-                System.out.println("\n\nYou have advanced to the next day\n");
-                break;
-            default:
-                break;
+            ArrayList<String> options = new ArrayList<String>(Arrays.asList(
+                    "Buy Shop", // 0
+                    "Sell Shop", // 1
+                    "View Team", // 2
+                    "View Battles" // 3
+            ));
+            if (game.getBattleState().getResult() != BattleResult.NULL) {
+                options.add("Sleep"); // 4
+            }
+            int option = getOption(options);
+            switch (option) {
+                case 0: // Buy Shop
+                    buyShopMenu();
+                    break;
+                case 1: // Sell Shop
+                    sellShopMenu();
+                    break;
+                case 2: // View Team
+                    viewTeamMenu();
+                    break;
+                case 3: // View Battles
+                    viewBattlesMenu();
+                    break;
+                case 4: // Sleep
+                    game.sleep();
+                    System.out.println("\n\nYou have advanced to the next day\n");
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -209,13 +211,53 @@ public class CommandLineInterface {
     }
 
     public void viewTeamMenu() {// TODO: implement
+        // TODO: view team and re-arrage
     }
 
     public void sellShopMenu() {// TODO: implement
+        ArrayList<Entity> playerContent;
+
+        while (true) {
+            TextFormat.printHeader("Sell Shop", 4);
+            System.out.println("Gold: " + game.getPlayer().getGold());
+
+            ArrayList<String> options = new ArrayList<String>(Arrays.asList(
+                    "Back"
+                    // --> all other items in the store added here
+            ));
+
+            playerContent = game.getSellShop().getContent();
+            for (Entity content : playerContent) {
+                String listing;
+                listing = content.getName() +
+                        "(" + content.getRarity() + ") " +
+                        content.getSellPrice() + "G";
+                options.add(listing);
+            }
+
+            int option = getOption(options);
+
+            String sellMessage;
+
+            if (option == 0) {
+                // TODO: Go back;
+                return;
+            } else {
+                if (game.getSellShop().getContent().get(option - 1) instanceof Item) {
+
+                    sellMessage = game.getSellShop().sell(
+                            (Item) game.getSellShop().getContent().get(option - 1));
+                } else {
+                    sellMessage = game.getSellShop().sell(
+                            (Monster) game.getSellShop().getContent().get(option - 1));
+                }
+                System.out.println(sellMessage);
+            }
+        }
     }
 
-    public void buyShopMenu() {// TODO: implement
-        ArrayList<Entity> shopItems;
+    public void buyShopMenu() {
+        ArrayList<Entity> shopContent;
 
         // TODO: do something about this so that the current menu is passed around so
         // that we only need one inf while loop instead of having many.
@@ -229,8 +271,8 @@ public class CommandLineInterface {
             ));
 
             // Add shop stock into options
-            shopItems = game.getBuyShop().getContent();
-            for (Entity stock : shopItems) {
+            shopContent = game.getBuyShop().getContent();
+            for (Entity stock : shopContent) {
                 String listing;
                 listing = stock.getName() +
                         "(" + stock.getRarity() + ") " +

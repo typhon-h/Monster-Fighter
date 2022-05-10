@@ -210,6 +210,7 @@ public class GameEnvironment {
      * @return the {@link shop.SellShop sell shop} state
      */
     public SellShop getSellShop() {
+        sellShop.setContent();
         return sellShop;
     }
 
