@@ -10,7 +10,7 @@ import monsters.*;
 /**
  * Game Environment class that serves as a container for all information related
  * to the active game environment
- * 
+ *
  * @author Harrison Tyson
  * @version 1.0, Apr 2022.
  */
@@ -27,7 +27,7 @@ public class GameEnvironment {
 
     /**
      * Current day of the game
-     * 
+     *
      * @default 1
      */
     private int currentDay = 1;;
@@ -39,7 +39,7 @@ public class GameEnvironment {
 
     /**
      * Represents whether the game should end
-     * 
+     *
      * @default false
      */
     private boolean gameOverStatus = false;
@@ -78,7 +78,7 @@ public class GameEnvironment {
 
     /**
      * Create new GameEnvironment
-     * 
+     *
      * @param player     active {@link main.Player player}
      * @param totalDays  days game will last for
      * @param difficulty {@link main.Difficulty difficulty} of game
@@ -94,7 +94,7 @@ public class GameEnvironment {
 
     /**
      * Create new GameEnvironment with {@link Random Random} seed
-     * 
+     *
      * @param player     active {@link main.Player player}
      * @param totalDays  days game will last for
      * @param difficulty {@link main.Difficulty difficulty} of game
@@ -112,7 +112,7 @@ public class GameEnvironment {
 
     /**
      * Generates a list of all possible {@link monsters.Monster monster} objects
-     * 
+     *
      * @return list of new {@link monsters.Monster monster} objects
      */
     public static ArrayList<Monster> generateMonsters() {
@@ -130,7 +130,7 @@ public class GameEnvironment {
      * {@link monsters.Monster#restore restores
      * monsters}, and
      * runs {@link main.RandomEvent random events}
-     * 
+     *
      * @return ArrayList of strings describing all events that happened
      */
     public ArrayList<String> sleep() {
@@ -170,7 +170,7 @@ public class GameEnvironment {
 
     /**
      * Gets the active {@link main.Player player}
-     * 
+     *
      * @return the active {@link main.Player player}
      */
     public Player getPlayer() {
@@ -179,7 +179,7 @@ public class GameEnvironment {
 
     /**
      * Gets maximum days the game will last for
-     * 
+     *
      * @return maximum number of days
      */
     public int getTotalDays() {
@@ -188,7 +188,7 @@ public class GameEnvironment {
 
     /**
      * Gets current day of the game
-     * 
+     *
      * @return the current day of the game
      */
     public int getCurrentDay() {
@@ -197,7 +197,7 @@ public class GameEnvironment {
 
     /**
      * Gets the {@link main.Difficulty difficulty} of the game
-     * 
+     *
      * @return the {@link main.Difficulty difficulty} of the game
      */
     public Difficulty getDifficulty() {
@@ -206,7 +206,7 @@ public class GameEnvironment {
 
     /**
      * Gets the {@link shop.SellShop sell shop} of the game
-     * 
+     *
      * @return the {@link shop.SellShop sell shop} state
      */
     public SellShop getSellShop() {
@@ -215,17 +215,16 @@ public class GameEnvironment {
 
     /**
      * Gets the {@link shop.BuyShop buy shop} of the game
-     * 
+     *
      * @return the {@link shop.BuyShop buy shop} state
      */
     public BuyShop getBuyShop() {
-        buyShop.setContent();
         return buyShop;
     }
 
     /**
      * Gets the {@link main.BattleManager battle state} of the game
-     * 
+     *
      * @return the {@link main.BattleManager battle state} of the game
      */
     public BattleManager getBattleState() {
@@ -234,7 +233,7 @@ public class GameEnvironment {
 
     /**
      * Gets boolean indicating whether the game should end
-     * 
+     *
      * @return boolean indicating whether the game should end
      */
     public boolean isGameOver() {
@@ -243,7 +242,7 @@ public class GameEnvironment {
 
     /**
      * Sets the {@link main.GameEnvironment#rng rng} seed and refreshes variable
-     * 
+     *
      * @param seed seed for the generator
      */
     public static void setSeed(long seed) {

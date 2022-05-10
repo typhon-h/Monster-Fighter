@@ -6,13 +6,14 @@ import java.util.Scanner;
 
 import exceptions.DuplicateMonsterException;
 import exceptions.TeamSizeException;
+import items.Item;
 import monsters.Monster;
 
 /**
  * Interface to communicate between a user and the game environment.
- * 
+ *
  * @author Harrison Tyson
- * @version 1.0, May 2022.
+ * @version 1.1, May 2022.
  */
 public class CommandLineInterface {
     /**
@@ -24,7 +25,7 @@ public class CommandLineInterface {
 
     /**
      * Displays the options on the command line
-     * 
+     *
      * @param options {@link ArrayList} of option strings
      */
     private void displayOptions(ArrayList<String> options) {
@@ -38,7 +39,7 @@ public class CommandLineInterface {
 
     /**
      * Prompts a user for an input from a set of options
-     * 
+     *
      * @param options list of options to choose from
      * @return index of the chosen option in the options list
      */
@@ -154,7 +155,7 @@ public class CommandLineInterface {
         // Set Game
         try {
             Team team = new Team(starter);
-            Player player = new Player(playerName, team, 30); // TODO: make constant
+            Player player = new Player(playerName, team, 1000); // TODO: make constant
             game = new GameEnvironment(player, numDays, gameDifficulty);
         } catch (TeamSizeException e) { // Will never occur
             e.printStackTrace();
@@ -165,9 +166,7 @@ public class CommandLineInterface {
     }
 
     public void mainMenu() {
-        System.out.println("=====================================");
-        System.out.println("              Main Menu              ");
-        System.out.println("=====================================");
+        TextFormat.printHeader("Main Menu", 4);
         System.out.println(String.format(" Day: %d/%d     Score: %d      Gold: %d",
                 game.getCurrentDay(),
                 game.getTotalDays(),
@@ -216,6 +215,49 @@ public class CommandLineInterface {
     }
 
     public void buyShopMenu() {// TODO: implement
+        ArrayList<Entity> shopItems;
+
+        // TODO: do something about this so that the current menu is passed around so
+        // that we only need one inf while loop instead of having many.
+        while (true) {
+            TextFormat.printHeader("Buy Shop", 4);
+            System.out.println("Gold: " + game.getPlayer().getGold());
+
+            ArrayList<String> options = new ArrayList<String>(Arrays.asList(
+                    "Back"
+                    // --> all other items in the store added here
+            ));
+
+            // Add shop stock into options
+            shopItems = game.getBuyShop().getContent();
+            for (Entity stock : shopItems) {
+                String listing;
+                listing = stock.getName() +
+                        "(" + stock.getRarity() + ") " +
+                        stock.getBuyPrice() + "G\n" +
+                        stock.getDescription();
+
+                options.add(listing);
+            }
+
+            int option = getOption(options);
+            String buyMessage;
+
+            if (option == 0) {
+                // TODO: Go back;
+                return;
+            } else {
+                if (game.getBuyShop().getContent().get(option - 1) instanceof Item) {
+
+                    buyMessage = game.getBuyShop().buy(
+                            (Item) game.getBuyShop().getContent().get(option - 1));
+                } else {
+                    buyMessage = game.getBuyShop().buy(
+                            (Monster) game.getBuyShop().getContent().get(option - 1));
+                }
+                System.out.println(buyMessage);
+            }
+        }
     }
 
     // ***************USED FOR DEVELOPMENT TESTING*********************

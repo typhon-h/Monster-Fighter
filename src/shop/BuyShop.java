@@ -27,7 +27,7 @@ public class BuyShop extends Shop {
     /**
      * Constructor for BuyShop
      * Assigns trading player, assigns total stock, sets current stock
-     * 
+     *
      * @param player player to trade with
      */
     public BuyShop(Player player) {
@@ -61,7 +61,7 @@ public class BuyShop extends Shop {
 
     /**
      * Filters ArrayList of entities by a rarity
-     * 
+     *
      * @param stock  entities to be filtered
      * @param rarity rarity to filter
      * @return filtered list of entities
@@ -98,7 +98,7 @@ public class BuyShop extends Shop {
 
     /**
      * Buys an item from the shop using gold and adds it to inventory
-     * 
+     *
      * @param item item to be bought
      * @return message detailing result of purchase
      */
@@ -116,13 +116,12 @@ public class BuyShop extends Shop {
                 return e.getMessage();
             }
         }
-
         return "Buy Error: item not found";
     }
 
     /**
      * Buys a monster from the shop using gold and adds it to team
-     * 
+     *
      * @param monster monster to be bought
      * @return message detailing result of purchase
      */
