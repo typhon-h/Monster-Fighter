@@ -92,6 +92,7 @@ public class CommandLineInterface {
     }
 
     public void setUp() {
+        TextFormat.printHeader("Game Setup", 4);
         // Name
         System.out.println("What is your name? ");
         String playerName = getString();
@@ -155,7 +156,7 @@ public class CommandLineInterface {
         // Set Game
         try {
             Team team = new Team(starter);
-            Player player = new Player(playerName, team, 30); // TODO: make constant
+            Player player = new Player(playerName, team, 3000); // TODO: make constant
             game = new GameEnvironment(player, numDays, gameDifficulty);
         } catch (TeamSizeException e) { // Will never occur
             e.printStackTrace();
@@ -211,7 +212,86 @@ public class CommandLineInterface {
     }
 
     public void viewTeamMenu() {// TODO: implement
-        // TODO: view team and re-arrage
+        while (true) {
+            TextFormat.printHeader("View Team", 4);
+            ArrayList<String> options = new ArrayList<String>(Arrays.asList(
+                    "Back",
+                    "Move Monster Up",
+                    "Move Monster Down",
+                    "Rename Monster"));
+
+            for (Monster m : game.getPlayer().getTeam().getMonsters()) {
+                options.add("View " + m.getName());
+            }
+
+            int option = getOption(options);
+
+            ArrayList<String> monsterOptions = new ArrayList<String>();
+            monsterOptions.add("Back");
+            int monsterOption;
+            Monster monsterToMove;
+            switch (option) {
+                case 0: // Back
+                    return;
+                case 1: // Move Monster Up
+                    TextFormat.printHeader("Select Monster to Move Up", 4);
+                    for (Monster m : game.getPlayer().getTeam().getMonsters()) {
+                        Monster firstMonster = game.getPlayer().getTeam().getMonsters().get(0);
+                        if (firstMonster == m) {
+                            monsterOptions.add(m.getName() + " (Already at top)");
+                        } else {
+                            monsterOptions.add(m.getName());
+                        }
+                    }
+                    monsterOption = getOption(monsterOptions);
+                    if (monsterOption == 0) {
+                        break;
+                    } else {
+                        monsterToMove = game.getPlayer().getTeam().getMonsters().get(monsterOption - 1);
+                        game.getPlayer().getTeam().moveMonsterUp(monsterToMove);
+                        break;
+                    }
+                case 2: // Move Monster Down
+                    TextFormat.printHeader("Select Monster to Move Down", 4);
+                    for (Monster m : game.getPlayer().getTeam().getMonsters()) {
+                        Monster lastMonster = game.getPlayer().getTeam().getMonsters()
+                                .get(game.getPlayer().getTeam().getMonsters().size() - 1); // TODO: Fix this - super
+                                                                                           // ugly
+                        if (lastMonster == m) {
+                            monsterOptions.add(m.getName() + " (Already at bottom)");
+                        } else {
+                            monsterOptions.add(m.getName());
+                        }
+                    }
+                    monsterOption = getOption(monsterOptions);
+                    if (monsterOption == 0) {
+                        break;
+                    } else {
+                        monsterToMove = game.getPlayer().getTeam().getMonsters().get(monsterOption - 1);
+                        game.getPlayer().getTeam().moveMonsterDown(monsterToMove);
+                        break;
+                    }
+                case 3: // Rename Monster
+                    TextFormat.printHeader("Select Monster to Give Nickname", 4);
+                    for (Monster m : game.getPlayer().getTeam().getMonsters()) {
+                        monsterOptions.add(m.getName());
+                    }
+                    monsterOption = getOption(monsterOptions);
+                    if (monsterOption == 0) {
+                        break;
+                    } else {
+                        Monster monsterToRename = game.getPlayer().getTeam().getMonsters().get(monsterOption - 1);
+                        String newName = getString();
+                        monsterToRename.setName(newName);
+                        break;
+                    }
+                default: // View Monster
+                    System.out.println(game.getPlayer().getTeam().getMonsters().get(option - 4));
+                    break;
+
+            }
+
+        }
     }
 
     public void sellShopMenu() {// TODO: implement
@@ -223,7 +303,7 @@ public class CommandLineInterface {
 
             ArrayList<String> options = new ArrayList<String>(Arrays.asList(
                     "Back"
-                    // --> all other items in the store added here
+            // --> all other items in the store added here
             ));
 
             playerContent = game.getSellShop().getContent();
@@ -267,7 +347,7 @@ public class CommandLineInterface {
 
             ArrayList<String> options = new ArrayList<String>(Arrays.asList(
                     "Back"
-                    // --> all other items in the store added here
+            // --> all other items in the store added here
             ));
 
             // Add shop stock into options
@@ -286,7 +366,6 @@ public class CommandLineInterface {
             String buyMessage;
 
             if (option == 0) {
-                // TODO: Go back;
                 return;
             } else {
                 if (game.getBuyShop().getContent().get(option - 1) instanceof Item) {
@@ -307,11 +386,7 @@ public class CommandLineInterface {
         CommandLineInterface cli = new CommandLineInterface();
         cli.setUp();
         cli.mainMenu();
-        // System.out.println(cli.game.getPlayer().getName() + "\n" +
-        // cli.game.getPlayer().getTeam().getFirstAliveMonster().getName() + "\n" +
-        // cli.game.getPlayer().getTeam().getFirstAliveMonster().getClass() + "\n" +
-        // cli.game.getDifficulty() + "\n" +
-        // cli.game.getTotalDays());
+
     }
     // ****************************************************************
 }
