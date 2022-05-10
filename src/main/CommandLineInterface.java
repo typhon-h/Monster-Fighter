@@ -156,11 +156,9 @@ public class CommandLineInterface {
         // Set Game
         try {
             Team team = new Team(starter);
-            Player player = new Player(playerName, team, 3000); // TODO: make constant
+            Player player = new Player(playerName, team, 30); // TODO: make constant
             game = new GameEnvironment(player, numDays, gameDifficulty);
-        } catch (TeamSizeException e) { // Will never occur
-            e.printStackTrace();
-        } catch (DuplicateMonsterException e) { // Will never occur
+        } catch (TeamSizeException | DuplicateMonsterException e) { // Will never occur
             e.printStackTrace();
         }
 
@@ -179,10 +177,11 @@ public class CommandLineInterface {
                     "Buy Shop", // 0
                     "Sell Shop", // 1
                     "View Team", // 2
-                    "View Battles" // 3
+                    "View Inventory", // 3
+                    "View Battles" // 4
             ));
             if (game.getBattleState().getResult() != BattleResult.NULL) {
-                options.add("Sleep"); // 4
+                options.add("Sleep"); // 5
             }
             int option = getOption(options);
             switch (option) {
@@ -195,10 +194,13 @@ public class CommandLineInterface {
                 case 2: // View Team
                     viewTeamMenu();
                     break;
-                case 3: // View Battles
+                case 3: // View Inventory
+                    viewInventoryMenu();
+                    break;
+                case 4: // View Battles
                     viewBattlesMenu();
                     break;
-                case 4: // Sleep
+                case 5: // Sleep
                     game.sleep();
                     System.out.println("\n\nYou have advanced to the next day\n");
                     break;
@@ -209,6 +211,45 @@ public class CommandLineInterface {
     }
 
     public void viewBattlesMenu() { // TODO: implement
+    }
+
+    public void viewInventoryMenu() {
+        ArrayList<Item> inventory = game.getPlayer().getInventory();
+        while (true) {
+            TextFormat.printHeader("View Inventory", 4);
+            System.out.println("Select Item to Use");
+            ArrayList<String> options = new ArrayList<String>(Arrays.asList(
+                    "Back"));
+
+            for (Item item : inventory) {
+                options.add(item.getRarity().name() + " " + item.getName());
+            }
+
+            int option = getOption(options);
+
+            if (option == 0) { // Back
+                return;
+            }
+            // Otherwise
+            Item itemToBeUsed = inventory.get(option - 1);
+
+            TextFormat.printHeader("Select Monster", 4);
+            ArrayList<String> monsterOptions = new ArrayList<String>(Arrays.asList(
+                    "Back"));
+            for (Monster m : game.getPlayer().getTeam().getMonsters()) {
+                monsterOptions.add(m.getName());
+            }
+
+            int monsterOption = getOption(monsterOptions);
+
+            if (monsterOption == 0) { // Back
+                continue;
+            }
+
+            Monster selectedMonster = game.getPlayer().getTeam().getMonsters().get(monsterOption - 1);
+            System.out.println(game.getPlayer().useItem(itemToBeUsed, selectedMonster));
+
+        }
     }
 
     public void viewTeamMenu() {// TODO: implement
@@ -320,7 +361,6 @@ public class CommandLineInterface {
             String sellMessage;
 
             if (option == 0) {
-                // TODO: Go back;
                 return;
             } else {
                 if (game.getSellShop().getContent().get(option - 1) instanceof Item) {
@@ -339,8 +379,6 @@ public class CommandLineInterface {
     public void buyShopMenu() {
         ArrayList<Entity> shopContent;
 
-        // TODO: do something about this so that the current menu is passed around so
-        // that we only need one inf while loop instead of having many.
         while (true) {
             TextFormat.printHeader("Buy Shop", 4);
             System.out.println("Gold: " + game.getPlayer().getGold());
@@ -354,7 +392,7 @@ public class CommandLineInterface {
             shopContent = game.getBuyShop().getContent();
             for (Entity stock : shopContent) {
                 String listing;
-                listing = stock.getName() +
+                listing = stock.getName() + // TODO: use toString methods
                         "(" + stock.getRarity() + ") " +
                         stock.getBuyPrice() + "G\n" +
                         stock.getDescription();
