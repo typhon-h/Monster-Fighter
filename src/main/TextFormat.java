@@ -4,7 +4,7 @@ package main;
  * A class used to print out formatted text
  *
  * @author Jackie Jone
- * @version 1.1, May 2022
+ * @version 1.2, May 2022
  */
 public class TextFormat {
     /**
@@ -52,18 +52,22 @@ public class TextFormat {
     /**
      * Prints out the text as a fancy header
      *
-     * @param text The text to be printed out
+     * @param text             The text to be printed out
+     * @param whiteSpaceBefore Amount of white space to be printed before the header
      */
-    public static void printHeader(String text) {
+    public static void printHeader(String text, int whiteSpaceBefore) {
         int maxTextWidth = 36; // header width - 4
         int longestString;
         int headerWidth;
-        System.out.println(text);
+
         String[] textArr = text.split(" ", 0);
         longestString = longestStringLen(textArr);
 
         maxTextWidth = longestString > maxTextWidth ? longestString : maxTextWidth;
         headerWidth = maxTextWidth + 4; // 4 char longer than maxTextWidth for border chars
+
+        // Print white space
+        for (int i = 0; i < whiteSpaceBefore; i++) System.out.println();
 
         for (int i = 0; i < headerWidth; i++) System.out.print("-");
         System.out.println();
