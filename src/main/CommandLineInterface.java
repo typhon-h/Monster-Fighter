@@ -3,6 +3,7 @@ package main;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 import exceptions.DuplicateMonsterException;
 import exceptions.TeamSizeException;
@@ -22,6 +23,22 @@ public class CommandLineInterface {
     private Scanner scanner = new Scanner(System.in);
 
     private GameEnvironment game;
+    /**
+     * Number of white spaces between menus
+     */
+    private static final int headerWhiteSpacing = 2;
+    /**
+     * Number of white spaces between messages
+     */
+    private static final int msgWhiteSpacing = 0;
+    /**
+     * Character used for the border of headers
+     */
+    private static final char headerChar = '-';
+    /**
+     * Character used for border of messages
+     */
+    private static final char msgChar = '*';
 
     /**
      * Displays the options on the command line
@@ -166,8 +183,8 @@ public class CommandLineInterface {
     }
 
     public void mainMenu() {
-        while (true) {
-            TextFormat.printHeader("Main Menu", 4);
+        while (!game.isGameOver()) {
+            TextFormat.printHeader("Main Menu", headerWhiteSpacing, headerChar);
             System.out.println(String.format(" Day: %d/%d     Score: %d      Gold: %d",
                     game.getCurrentDay(),
                     game.getTotalDays(),
@@ -199,16 +216,129 @@ public class CommandLineInterface {
                     break;
                 case 4: // Sleep
                     game.sleep();
-                    System.out.println("\n\nYou have advanced to the next day\n");
+                    TextFormat.printHeader("You have advanced to the next day",
+                                            msgWhiteSpacing,
+                                            msgChar);
                     break;
                 default:
                     break;
             }
         }
+
+        // TODO: End of game stuff here, or new method
+    }
+
+    /**
+     * Returns the details of player in a string format
+     *
+     * @param player
+     */
+    private String getPlayerDetails(Player player) {
+        String outputString;
+        ArrayList<Monster> playerMonsters;
+
+        outputString = player.getName() +
+                        "\nRewards: " + player.getGold() +
+                        "G | " + player.getScore() +
+                        " Points\n-----------------------------\n";
+
+        playerMonsters = player.getTeam().getMonsters();
+        for (int i = 0; i < playerMonsters.size(); i++) {
+            outputString += playerMonsters.get(i).getName();
+            if (i != playerMonsters.size() - 1) {
+                outputString += " | ";
+            }
+        }
+
+        return outputString;
     }
 
     public void viewBattlesMenu() { // TODO: implement
+        while (true) {
+            int confirm;
+            int option;
+            Player selectedOpponent;
+
+            TextFormat.printHeader("Battles", headerWhiteSpacing, headerChar);
+
+            ArrayList<String> options = new ArrayList<String>(Arrays.asList("Back"));
+
+            for (Player opponent : game.getBattleState().getOpponents()) {
+                options.add(getPlayerDetails(opponent));
+            }
+
+            option = getOption(options);
+
+            if (option == 0) {
+                return;
+
+            } else if (game.getPlayer().getTeam().getAliveMonsters().isEmpty()) {
+                try {
+                    TextFormat.printHeader("Unable to battle, all your monsters have fainted",
+                                            msgWhiteSpacing,
+                                            msgChar);
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                selectedOpponent = game.getBattleState().getOpponents().get(option - 1);
+                System.out.println("\nFight " + selectedOpponent.getName() + "?");
+                confirm = getOption(new ArrayList<String>(Arrays.asList("Yes", "No")));
+
+                if (confirm == 0) {
+                    game.getBattleState().setOpponent(selectedOpponent);
+                    displayBattle();
+                    // Start battle here
+                    return;
+                }
+            }
+        }
     }
+
+    private void displayBattle() {
+        BattleManager battle = game.getBattleState();
+        Player opponent = battle.getCurrOpponent();
+        battle.simulateBattle();
+        BattleEvent currState = battle.nextEvent();
+
+        try {
+            while (currState != null) {
+                System.out.println(currState.getDescription());
+                game.getPlayer().setTeam(currState.getAllyTeam());
+                TimeUnit.MILLISECONDS.sleep(300);
+                currState = battle.nextEvent();
+            }
+
+                // Rewards
+                switch (battle.getResult()) {
+                    case WIN:
+                        TextFormat.printHeader("You have won!", msgWhiteSpacing, msgChar);
+                        System.out.println("Rewards: " + opponent.getGold() + "G | " +
+                                        opponent.getScore() + " Points");
+                        battle.giveRewards();
+                        break;
+                    case LOSS:
+                        TextFormat.printHeader("You have lost!", msgWhiteSpacing, msgChar);
+                        break;
+                    default:
+                        break;
+            }
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+        // Set the player's team to the resulting team
+        // TODO: Problem the new team has the same current stats, i.e.
+        // stats could be more than base value.
+
+        // TODO: This is not updating the player's team to the current team
+        // game.getPlayer().setTeam(battle.getPlayer().getTeam());
+    }
+
+    // TODO: !!!!!!!!! VIEW INVENTORY !!!!!!!
 
     public void viewTeamMenu() {// TODO: implement
         // TODO: view team and re-arrage
@@ -218,13 +348,10 @@ public class CommandLineInterface {
         ArrayList<Entity> playerContent;
 
         while (true) {
-            TextFormat.printHeader("Sell Shop", 4);
+            TextFormat.printHeader("Sell Shop", headerWhiteSpacing, headerChar);
             System.out.println("Gold: " + game.getPlayer().getGold());
 
-            ArrayList<String> options = new ArrayList<String>(Arrays.asList(
-                    "Back"
-                    // --> all other items in the store added here
-            ));
+            ArrayList<String> options = new ArrayList<String>(Arrays.asList("Back"));
 
             playerContent = game.getSellShop().getContent();
             for (Entity content : playerContent) {
@@ -259,16 +386,11 @@ public class CommandLineInterface {
     public void buyShopMenu() {
         ArrayList<Entity> shopContent;
 
-        // TODO: do something about this so that the current menu is passed around so
-        // that we only need one inf while loop instead of having many.
         while (true) {
-            TextFormat.printHeader("Buy Shop", 4);
+            TextFormat.printHeader("Buy Shop", headerWhiteSpacing, headerChar);
             System.out.println("Gold: " + game.getPlayer().getGold());
 
-            ArrayList<String> options = new ArrayList<String>(Arrays.asList(
-                    "Back"
-                    // --> all other items in the store added here
-            ));
+            ArrayList<String> options = new ArrayList<String>(Arrays.asList("Back"));
 
             // Add shop stock into options
             shopContent = game.getBuyShop().getContent();
@@ -278,6 +400,8 @@ public class CommandLineInterface {
                         "(" + stock.getRarity() + ") " +
                         stock.getBuyPrice() + "G\n" +
                         stock.getDescription();
+                        // TODO: Use to string method of monster
+                        // TODO: Concat price to string repr
 
                 options.add(listing);
             }

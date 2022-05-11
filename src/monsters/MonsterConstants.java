@@ -116,7 +116,7 @@ public class MonsterConstants {
     /**
      * Constant defining the base Health of Lucifer
      */
-    public final static int LUCIFERBASEHEALTH = 1;
+    public final static int LUCIFERBASEHEALTH = 2;
     /**
      * Constant defining the base Rarity of Lucifer
      */

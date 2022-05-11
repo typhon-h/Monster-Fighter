@@ -54,8 +54,9 @@ public class TextFormat {
      *
      * @param text             The text to be printed out
      * @param whiteSpaceBefore Amount of white space to be printed before the header
+     * @param horizBorder      Character of the horizontal border of the header
      */
-    public static void printHeader(String text, int whiteSpaceBefore) {
+    public static void printHeader(String text, int whiteSpaceBefore, char horizBorder) {
         int maxTextWidth = 36; // header width - 4
         int longestString;
         int headerWidth;
@@ -69,7 +70,7 @@ public class TextFormat {
         // Print white space
         for (int i = 0; i < whiteSpaceBefore; i++) System.out.println();
 
-        for (int i = 0; i < headerWidth; i++) System.out.print("-");
+        for (int i = 0; i < headerWidth; i++) System.out.print(horizBorder);
         System.out.println();
         String finalString = "";
 
@@ -97,7 +98,7 @@ public class TextFormat {
             }
             currWord++;
         }
-        for (int i = 0; i < headerWidth; i++) System.out.print("-");
+        for (int i = 0; i < headerWidth; i++) System.out.print(horizBorder);
         System.out.println();
     }
 }
