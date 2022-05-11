@@ -48,17 +48,17 @@ public final class BattleConstants {
                     { Trigger.ONHURT, Trigger.BEFOREATTACK , Trigger.AFTERATTACK} }),
             // Optimal Triggers for Jynx Monster.
             entry(JynxMonster.class, new Trigger[][] {
-                    { Trigger.NOABILITY, Trigger.STARTOFBATTLE},
+                    { Trigger.NOABILITY, Trigger.STARTOFBATTLE },
                     { },
-                    { Trigger.BEFOREATTACK} }),
+                    { Trigger.BEFOREATTACK } }),
             // Optimal Triggers for Lucifer Monster.
             entry(LuciferMonster.class, new Trigger[][] {
                     { Trigger.NOABILITY, Trigger.STARTOFBATTLE }, // TODO: start of battle quite op, especially for early game
-                    { Trigger.ONHURT},
-                    { Trigger.AFTERATTACK, Trigger.AFTERATTACK} }),
+                    { Trigger.ONHURT },
+                    { Trigger.AFTERATTACK, Trigger.AFTERATTACK } }),
             // Optimal Triggers for Teddy Monster.
             entry(TeddyMonster.class, new Trigger[][] {
-                    { Trigger.NOABILITY, Trigger.STARTOFBATTLE},
+                    { Trigger.NOABILITY, Trigger.STARTOFBATTLE },
                     { Trigger.AFTERATTACK },
                     { Trigger.BEFOREATTACK} }));
 

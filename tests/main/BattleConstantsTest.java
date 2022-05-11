@@ -24,28 +24,32 @@ class BattleConstantsTest {
 
     /**
      * Sets up the arguments for each test
-     * 
+     *
      * @return A stream of arguments to be passed into the test
      */
     private static Stream<Arguments> monsterAndTriggers() {
         return Stream.of(
                 Arguments.arguments(new ClinkMonster(),
-                        new Trigger[] { Trigger.ONFAINT, Trigger.STARTOFBATTLE, Trigger.ONHURT },
+                        new Trigger[] { Trigger.NOABILITY, Trigger.STARTOFBATTLE, Trigger.ONHURT,
+                                        Trigger.BEFOREATTACK, Trigger.AFTERATTACK },
                         Difficulty.HARD),
                 Arguments.arguments(new DittaMonster(),
-                        new Trigger[] { Trigger.ONFAINT, Trigger.STARTOFBATTLE, Trigger.ONHURT, Trigger.AFTERATTACK },
+                        new Trigger[] { Trigger.NOABILITY, Trigger.STARTOFBATTLE, Trigger.ONHURT, Trigger.BEFOREATTACK },
                         Difficulty.HARD),
                 Arguments.arguments(new GilMonster(),
-                        new Trigger[] { Trigger.ONFAINT, Trigger.STARTOFBATTLE },
+                        new Trigger[] { Trigger.NOABILITY, Trigger.ONFAINT, Trigger.STARTOFBATTLE,
+                                        Trigger.ONHURT, Trigger.BEFOREATTACK , Trigger.AFTERATTACK },
                         Difficulty.HARD),
                 Arguments.arguments(new JynxMonster(),
-                        new Trigger[] { Trigger.ONFAINT, Trigger.STARTOFBATTLE },
+                        new Trigger[] { Trigger.NOABILITY, Trigger.STARTOFBATTLE, Trigger.BEFOREATTACK },
                         Difficulty.HARD),
                 Arguments.arguments(new LuciferMonster(),
-                        new Trigger[] { Trigger.ONFAINT, Trigger.STARTOFBATTLE },
+                        new Trigger[] { Trigger.NOABILITY, Trigger.STARTOFBATTLE, Trigger.ONHURT,
+                                        Trigger.AFTERATTACK, Trigger.AFTERATTACK },
                         Difficulty.HARD),
                 Arguments.arguments(new TeddyMonster(),
-                        new Trigger[] { Trigger.ONFAINT, Trigger.STARTOFBATTLE },
+                        new Trigger[] { Trigger.NOABILITY, Trigger.STARTOFBATTLE, Trigger.AFTERATTACK,
+                                        Trigger.BEFOREATTACK },
                         Difficulty.HARD));
     }
 
@@ -73,22 +77,23 @@ class BattleConstantsTest {
 
     /**
      * Sets up the arguments for each test
-     * 
+     *
      * @return A stream of arguments to be passed into the test
      */
     private static Stream<Arguments> monsterTriggersAndDifficulty() {
         return Stream.of(
                 Arguments.arguments(new ClinkMonster(),
-                        new Trigger[] { Trigger.ONFAINT },
+                        new Trigger[] { Trigger.NOABILITY, Trigger.STARTOFBATTLE },
                         Difficulty.EASY),
                 Arguments.arguments(new ClinkMonster(),
-                        new Trigger[] { Trigger.ONFAINT, Trigger.STARTOFBATTLE },
+                        new Trigger[] { Trigger.NOABILITY, Trigger.STARTOFBATTLE, Trigger.ONHURT },
                         Difficulty.NORMAL),
                 Arguments.arguments(new ClinkMonster(),
-                        new Trigger[] { Trigger.ONFAINT, Trigger.STARTOFBATTLE, Trigger.ONHURT },
+                        new Trigger[] { Trigger.NOABILITY, Trigger.STARTOFBATTLE, Trigger.ONHURT,
+                                        Trigger.BEFOREATTACK, Trigger.AFTERATTACK },
                         Difficulty.HARD),
                 Arguments.arguments(new DittaMonster(),
-                        new Trigger[] { Trigger.ONFAINT, Trigger.STARTOFBATTLE, Trigger.ONHURT, Trigger.AFTERATTACK },
+                        new Trigger[] { Trigger.NOABILITY, Trigger.STARTOFBATTLE, Trigger.ONHURT, Trigger.BEFOREATTACK },
                         Difficulty.HARD));
     }
 
