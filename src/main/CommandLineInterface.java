@@ -220,11 +220,11 @@ public class CommandLineInterface {
                 case 5: // Sleep
                     ArrayList<String> events = game.sleep();
                     for (String event : events) {
-                        System.out.println(event);
+                        TextFormat.printHeader(event, msgWhiteSpacing, msgChar);
                     }
                     TextFormat.printHeader("You have advanced to the next day",
-                                            msgWhiteSpacing,
-                                            msgChar);
+                            msgWhiteSpacing,
+                            msgChar);
                     break;
                 default:
                     break;
@@ -244,9 +244,9 @@ public class CommandLineInterface {
         ArrayList<Monster> playerMonsters;
 
         outputString = player.getName() +
-                        "\nRewards: " + player.getGold() +
-                        "G | " + player.getScore() +
-                        " Points\n-----------------------------\n";
+                "\nRewards: " + player.getGold() +
+                "G | " + player.getScore() +
+                " Points\n-----------------------------\n";
 
         playerMonsters = player.getTeam().getMonsters();
         for (int i = 0; i < playerMonsters.size(); i++) {
@@ -281,8 +281,8 @@ public class CommandLineInterface {
             } else if (game.getPlayer().getTeam().getAliveMonsters().isEmpty()) {
                 try {
                     TextFormat.printHeader("Unable to battle, all your monsters have fainted",
-                                            msgWhiteSpacing,
-                                            msgChar);
+                            msgWhiteSpacing,
+                            msgChar);
                     TimeUnit.SECONDS.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -316,25 +316,24 @@ public class CommandLineInterface {
                 currState = battle.nextEvent();
             }
 
-                // Rewards
-                switch (battle.getResult()) {
-                    case WIN:
-                        TextFormat.printHeader("You have won!", msgWhiteSpacing, msgChar);
-                        System.out.println("Rewards: " + opponent.getGold() + "G | " +
-                                        opponent.getScore() + " Points");
-                        battle.giveRewards();
-                        break;
-                    case LOSS:
-                        TextFormat.printHeader("You have lost!", msgWhiteSpacing, msgChar);
-                        break;
-                    default:
-                        break;
+            // Rewards
+            switch (battle.getResult()) {
+                case WIN:
+                    TextFormat.printHeader("You have won!", msgWhiteSpacing, msgChar);
+                    System.out.println("Rewards: " + opponent.getGold() + "G | " +
+                            opponent.getScore() + " Points");
+                    battle.giveRewards();
+                    break;
+                case LOSS:
+                    TextFormat.printHeader("You have lost!", msgWhiteSpacing, msgChar);
+                    break;
+                default:
+                    break;
             }
             TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
 
         // Set the player's team to the resulting team
         // TODO: Problem the new team has the same current stats, i.e.
@@ -344,7 +343,6 @@ public class CommandLineInterface {
         // game.getPlayer().setTeam(battle.getPlayer().getTeam());
     }
 
-    // TODO: !!!!!!!!! VIEW INVENTORY !!!!!!!
     public void viewInventoryMenu() {
         ArrayList<Item> inventory = game.getPlayer().getInventory();
         while (true) {
@@ -379,12 +377,12 @@ public class CommandLineInterface {
             }
 
             Monster selectedMonster = game.getPlayer().getTeam().getMonsters().get(monsterOption - 1);
-            System.out.println(game.getPlayer().useItem(itemToBeUsed, selectedMonster));
+            TextFormat.printHeader(game.getPlayer().useItem(itemToBeUsed, selectedMonster), msgWhiteSpacing, msgChar);
 
         }
     }
 
-    public void viewTeamMenu() {// TODO: implement
+    public void viewTeamMenu() {
         while (true) {
             TextFormat.printHeader("View Team", headerWhiteSpacing, headerChar);
             ArrayList<String> options = new ArrayList<String>(Arrays.asList(
@@ -500,14 +498,15 @@ public class CommandLineInterface {
                     sellMessage = game.getSellShop().sell(
                             (Monster) game.getSellShop().getContent().get(option - 1));
                 }
-                System.out.println(sellMessage);
+                TextFormat.printHeader(sellMessage, msgWhiteSpacing,
+                        msgChar);
+
             }
         }
     }
 
     public void buyShopMenu() {
         ArrayList<Entity> shopContent;
-
         while (true) {
             TextFormat.printHeader("Buy Shop", headerWhiteSpacing, headerChar);
             System.out.println("Gold: " + game.getPlayer().getGold());
@@ -522,8 +521,8 @@ public class CommandLineInterface {
                         "(" + stock.getRarity() + ") " +
                         stock.getBuyPrice() + "G\n" +
                         stock.getDescription();
-                        // TODO: Use to string method of monster
-                        // TODO: Concat price to string repr
+                // TODO: Use to string method of monster
+                // TODO: Concat price to string repr
 
                 options.add(listing);
             }
@@ -542,7 +541,7 @@ public class CommandLineInterface {
                     buyMessage = game.getBuyShop().buy(
                             (Monster) game.getBuyShop().getContent().get(option - 1));
                 }
-                System.out.println(buyMessage);
+                TextFormat.printHeader(buyMessage, msgWhiteSpacing, msgChar);
             }
         }
     }
