@@ -113,7 +113,7 @@ public class BattleManager {
                 e.printStackTrace();
             }
         }
-
+        // TODO: Fix this so its not as broken
         // Use boost item on random monsters in the team
         int totalPoints = (int) (Difficulty.getDifficultyMultiplier(difficulty) *
                 Math.ceil((float) ItemConstants.AVERAGEBOOSTPERBUYPRICE *

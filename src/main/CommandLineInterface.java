@@ -2,6 +2,7 @@ package main;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -157,11 +158,13 @@ public class CommandLineInterface {
             possibleStarters.remove(m);
         }
         // Starter - display/select
-        System.out.println("Select a starting monster");
+        TextFormat.printHeader("Select a starting monster",
+                                headerWhiteSpacing, headerChar);
         int starterChoice = getOption(options);
         Monster starter = availableStarters.get(starterChoice);
         // Starter - name
-        System.out.println("Do you want to give your monster a nickname? ");
+        TextFormat.printHeader("Do you want to give your monster a nickname?",
+        headerWhiteSpacing, headerChar);
         int setMonsterNickname = getOption(new ArrayList<String>(Arrays.asList(
                 "Yes", // 0
                 "No"))); // 1
@@ -275,15 +278,51 @@ public class CommandLineInterface {
         }
     }
 
+    private String printBothTeams(Team allyTeam, Team opponentTeam) {
+        String output = "| ";
+        Monster currMonster;
+
+        for (int i = allyTeam.getAliveMonsters().size() - 1; i >= 0; i--) {
+            currMonster = allyTeam.getAliveMonsters().get(i);
+            output = output + currMonster.getName() +
+                    "(" + currMonster.getCurrentHealth() + "/" + currMonster.getBaseHealth() +
+                    "|" + currMonster.getCurrentAttackDamage() + ")";
+
+            if (i != 0) {
+                output += " - ";
+            }
+        }
+
+        output += " >   < ";
+
+        for (int i = 0; i < opponentTeam.getAliveMonsters().size(); i++) {
+            currMonster = opponentTeam.getAliveMonsters().get(i);
+            output = output + currMonster.getName() +
+                    "(" + currMonster.getCurrentHealth() + "/" + currMonster.getBaseHealth() +
+                    "|" + currMonster.getCurrentAttackDamage() + ")";
+
+            if (i != opponentTeam.getAliveMonsters().size() - 1) {
+                output += " - ";
+            }
+        }
+        output += " |";
+        return output;
+    }
+
     private void displayBattle() {
         BattleManager battle = game.getBattleState();
         Player opponent = battle.getCurrOpponent();
         battle.simulateBattle();
         BattleEvent currState = battle.nextEvent();
 
+
+        System.out.println("\n" + printBothTeams(game.getPlayer().getTeam(),
+                                                opponent.getTeam()));
         try {
             while (currState != null) {
-                System.out.println(currState.getDescription());
+                System.out.println("\n" + currState.getDescription());
+                System.out.println(printBothTeams(currState.getAllyTeam(),
+                                                currState.getOpponentTeam()));
                 game.getPlayer().setTeam(currState.getAllyTeam());
                 TimeUnit.MILLISECONDS.sleep(300);
                 currState = battle.nextEvent();
@@ -423,6 +462,7 @@ public class CommandLineInterface {
                         break;
                     }
                 default: // View Monster
+                    for (int i = 0; i < msgWhiteSpacing; i++) System.out.println();
                     System.out.println(game.getPlayer().getTeam().getMonsters().get(option - 4));
                     break;
 
@@ -510,7 +550,7 @@ public class CommandLineInterface {
     public void gameOverScreen() {
         TextFormat.printHeader("Game Over", headerWhiteSpacing, headerChar);
         System.out.println(game.getPlayer().getName() + "'s Results:");
-        System.out.println("You lasted " + game.getCurrentDay() + "/" + game.getTotalDays());
+        System.out.println("You lasted " + (game.getCurrentDay() - 1) + "/" + game.getTotalDays());
         System.out.println("Final Gold: " + game.getPlayer().getGold());
         System.out.println("Final Score: " + game.getPlayer().getScore());
         System.out.println();

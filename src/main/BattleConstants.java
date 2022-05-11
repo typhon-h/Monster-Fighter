@@ -55,7 +55,7 @@ public final class BattleConstants {
             entry(LuciferMonster.class, new Trigger[][] {
                     { Trigger.NOABILITY, Trigger.STARTOFBATTLE }, // TODO: start of battle quite op, especially for early game
                     { Trigger.ONHURT },
-                    { Trigger.AFTERATTACK, Trigger.AFTERATTACK } }),
+                    { Trigger.AFTERATTACK } }),
             // Optimal Triggers for Teddy Monster.
             entry(TeddyMonster.class, new Trigger[][] {
                     { Trigger.NOABILITY, Trigger.STARTOFBATTLE },
