@@ -172,11 +172,11 @@ public class Player {
 
     /**
      * Gets {@link items.Item item} from {@link main.Player player} inventory
-     * 
+     *
      * @param index index of {@link items.Item item} in inventory
      * @throws IndexOutOfBoundsException index does not match an inventory
      *                                   {@link items.Item item}
-     * 
+     *
      * @return {@link items.Item item} at the index
      */
     public Item getItem(int index) throws IndexOutOfBoundsException {
@@ -216,7 +216,7 @@ public class Player {
     /**
      * Uses {@link items.Item item} from player inventory on {@link monsters.Monster
      * monster}
-     * 
+     *
      * @param itemToUse       {@link items.Item item} to be used
      * @param monsterToEffect {@link monsters.Monster monster} for the
      *                        {@link items.Item item} to be used on
@@ -287,5 +287,31 @@ public class Player {
      */
     public int getItemPoints() {
         return itemPoints;
+    }
+
+    /**
+     * Returns the details of player in a string format
+     *
+     * @return String format detailing the player
+     */
+    @Override
+    public String toString() {
+        String outputString;
+        ArrayList<Monster> playerMonsters;
+
+        outputString = this.getName() +
+                        "\nRewards: " + this.getGold() +
+                        "G | " + this.getScore() +
+                        " Points\n-----------------------------\n";
+
+        playerMonsters = this.getTeam().getMonsters();
+        for (int i = 0; i < playerMonsters.size(); i++) {
+            outputString += playerMonsters.get(i).getName();
+            if (i != playerMonsters.size() - 1) {
+                outputString += " | ";
+            }
+        }
+
+        return outputString;
     }
 }

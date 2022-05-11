@@ -230,36 +230,9 @@ public class CommandLineInterface {
                     break;
             }
         }
-
-        // TODO: End of game stuff here, or new method
     }
 
-    /**
-     * Returns the details of player in a string format
-     *
-     * @param player
-     */
-    private String getPlayerDetails(Player player) {
-        String outputString;
-        ArrayList<Monster> playerMonsters;
-
-        outputString = player.getName() +
-                        "\nRewards: " + player.getGold() +
-                        "G | " + player.getScore() +
-                        " Points\n-----------------------------\n";
-
-        playerMonsters = player.getTeam().getMonsters();
-        for (int i = 0; i < playerMonsters.size(); i++) {
-            outputString += playerMonsters.get(i).getName();
-            if (i != playerMonsters.size() - 1) {
-                outputString += " | ";
-            }
-        }
-
-        return outputString;
-    }
-
-    public void viewBattlesMenu() { // TODO: implement
+    public void viewBattlesMenu() {
         while (true) {
             int confirm;
             int option;
@@ -270,7 +243,7 @@ public class CommandLineInterface {
             ArrayList<String> options = new ArrayList<String>(Arrays.asList("Back"));
 
             for (Player opponent : game.getBattleState().getOpponents()) {
-                options.add(getPlayerDetails(opponent));
+                options.add(opponent.toString());
             }
 
             option = getOption(options);
@@ -542,7 +515,7 @@ public class CommandLineInterface {
                     buyMessage = game.getBuyShop().buy(
                             (Monster) game.getBuyShop().getContent().get(option - 1));
                 }
-                System.out.println(buyMessage);
+                TextFormat.printHeader(buyMessage, msgWhiteSpacing, msgChar);
             }
         }
     }
