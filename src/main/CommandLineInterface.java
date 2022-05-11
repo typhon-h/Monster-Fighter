@@ -285,8 +285,8 @@ public class CommandLineInterface {
         for (int i = allyTeam.getAliveMonsters().size() - 1; i >= 0; i--) {
             currMonster = allyTeam.getAliveMonsters().get(i);
             output = output + currMonster.getName() +
-                    "(" + currMonster.getCurrentHealth() + "/" + currMonster.getBaseHealth() +
-                    "|" + currMonster.getCurrentAttackDamage() + ")";
+                    "(" + currMonster.getCurrentAttackDamage() +
+                    "|" + currMonster.getCurrentHealth() + "/" + currMonster.getBaseHealth() + ")";
 
             if (i != 0) {
                 output += " - ";
@@ -298,8 +298,8 @@ public class CommandLineInterface {
         for (int i = 0; i < opponentTeam.getAliveMonsters().size(); i++) {
             currMonster = opponentTeam.getAliveMonsters().get(i);
             output = output + currMonster.getName() +
-                    "(" + currMonster.getCurrentHealth() + "/" + currMonster.getBaseHealth() +
-                    "|" + currMonster.getCurrentAttackDamage() + ")";
+                    "(" + currMonster.getCurrentAttackDamage() +
+                    "|" + currMonster.getCurrentHealth() + "/" + currMonster.getBaseHealth() + ")";
 
             if (i != opponentTeam.getAliveMonsters().size() - 1) {
                 output += " - ";
