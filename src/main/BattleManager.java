@@ -189,7 +189,7 @@ public class BattleManager {
         currentOpponent = opponent;
         if (!opponents.remove(opponent)) {
             System.out.println("Opponent does not exist");
-        };
+        }
 
     }
 
@@ -241,8 +241,10 @@ public class BattleManager {
             Monster receivingMonster = team2.getFirstAliveMonster();
 
             BattleEvent ability;
+            boolean isPlayerTeam;
             // Check BEFOREATTACK Trigger
-            ability = runAbility(team1, team2, attackingMonster, Trigger.BEFOREATTACK);
+            isPlayerTeam = (team1 == allyTeam) ? true : false;
+            ability = runAbility(isPlayerTeam, team1, team2, attackingMonster, Trigger.BEFOREATTACK);
             if (ability != null) {
                 eventLog.add(ability);
             }
@@ -267,13 +269,15 @@ public class BattleManager {
             // Fight event
             eventLog.add(new BattleEvent(allyTeam, opponentTeam, description));
             // Check ONHURT/ONFAINT Trigger
-            ability = runAbility(team2, team1, receivingMonster, trigger);
+            isPlayerTeam = (team1 == allyTeam) ? true : false;
+            ability = runAbility(isPlayerTeam, team2, team1, receivingMonster, trigger);
             if (ability != null) {
                 eventLog.add(ability);
             }
 
             // Check AFTERATTACK trigger
-            ability = runAbility(team1, team2, attackingMonster, Trigger.AFTERATTACK);
+            isPlayerTeam = (team1 == allyTeam) ? true : false;
+            ability = runAbility(isPlayerTeam, team1, team2, attackingMonster, Trigger.AFTERATTACK);
             if (ability != null) {
                 eventLog.add(ability);
             }
@@ -302,9 +306,15 @@ public class BattleManager {
      * @return {@link main.BattleEvent BattleEvent} describing the
      *         {@link monsters.Monster#ability}
      */
-    private BattleEvent runAbility(Team allyTeam, Team enemyTeam, Monster monster, Trigger trigger) {
+    private BattleEvent runAbility(boolean isPlayerTeam, Team allyTeam, Team enemyTeam, Monster monster,
+            Trigger trigger) {
         if (monster.getTrigger() == trigger) {
-            return monster.ability(allyTeam, enemyTeam);
+            if (isPlayerTeam) {
+                return monster.ability(allyTeam, enemyTeam);
+            } else {
+                return monster.ability(enemyTeam, allyTeam);
+            }
+
         }
 
         return null;
@@ -327,14 +337,14 @@ public class BattleManager {
             BattleEvent ability;
             // Check for START OF BATTLE triggers for ally team then opponent team
             for (Monster monster : allyTeamCopy.getAliveMonsters()) {
-                ability = runAbility(allyTeamCopy, opponentTeamCopy, monster, Trigger.STARTOFBATTLE);
+                ability = runAbility(true, allyTeamCopy, opponentTeamCopy, monster, Trigger.STARTOFBATTLE);
                 if (ability != null) {
                     newEventLog.add(ability);
                 }
             }
 
             for (Monster monster : opponentTeamCopy.getAliveMonsters()) {
-                ability = runAbility(opponentTeamCopy, allyTeamCopy, monster, Trigger.STARTOFBATTLE);
+                ability = runAbility(false, opponentTeamCopy, allyTeamCopy, monster, Trigger.STARTOFBATTLE);
                 if (ability != null) {
                     newEventLog.add(ability);
                 }
@@ -393,6 +403,7 @@ public class BattleManager {
 
     /**
      * Gets the result of a battle after the battle has been simulated
+     * 
      * @return Enum value defining wether the player has won or lost.
      */
     public BattleResult getResult() {
