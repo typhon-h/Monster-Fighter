@@ -23,7 +23,7 @@ public class ClinkMonster extends Monster {
                 MonsterConstants.CLINKBASEHEALTH, // Base Health
                 "-1 Attack and +1 Health (min 1 Attack)",
                 MonsterConstants.CLINKBASESPEED); // Base Speed
-        this.setTrigger(Trigger.AFTERATTACK); // TODO decide trigger
+        this.setTrigger(Trigger.AFTERATTACK);
     }
 
     @Override

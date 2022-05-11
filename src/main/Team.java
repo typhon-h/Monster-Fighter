@@ -129,7 +129,6 @@ public class Team implements Cloneable {
         }
     }
 
-    // TODO: test this overloaded method
     /**
      * Remove a {@link monsters.Monster monster} from the team
      *

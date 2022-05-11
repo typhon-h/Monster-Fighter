@@ -10,7 +10,7 @@ import exceptions.UnusableItemException;
  * Used to define common traits between all the specific items.
  *
  * @author Jackie Jone
- * @version 1.1, Apr 2022
+ * @version 1.2, Apr 2022
  */
 public abstract class Item extends Entity {
 
@@ -112,4 +112,19 @@ public abstract class Item extends Entity {
      * @return string describing item effect
      */
     public abstract String use(Monster monster) throws UnusableItemException;
+
+    /**
+     * Gets the string representation of the item
+     *
+     * @return The string representation of the item
+     */
+    @Override
+    public String toString() {
+        String output;
+        output = this.getName() + " (" +
+        this.getRarity() + ")\n" +
+        this.getDescription();
+
+        return output;
+    }
 }

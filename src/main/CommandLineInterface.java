@@ -230,36 +230,9 @@ public class CommandLineInterface {
                     break;
             }
         }
-
-        // TODO: End of game stuff here, or new method
     }
 
-    /**
-     * Returns the details of player in a string format
-     *
-     * @param player
-     */
-    private String getPlayerDetails(Player player) {
-        String outputString;
-        ArrayList<Monster> playerMonsters;
-
-        outputString = player.getName() +
-                "\nRewards: " + player.getGold() +
-                "G | " + player.getScore() +
-                " Points\n-----------------------------\n";
-
-        playerMonsters = player.getTeam().getMonsters();
-        for (int i = 0; i < playerMonsters.size(); i++) {
-            outputString += playerMonsters.get(i).getName();
-            if (i != playerMonsters.size() - 1) {
-                outputString += " | ";
-            }
-        }
-
-        return outputString;
-    }
-
-    public void viewBattlesMenu() { // TODO: implement
+    public void viewBattlesMenu() {
         while (true) {
             int confirm;
             int option;
@@ -270,7 +243,7 @@ public class CommandLineInterface {
             ArrayList<String> options = new ArrayList<String>(Arrays.asList("Back"));
 
             for (Player opponent : game.getBattleState().getOpponents()) {
-                options.add(getPlayerDetails(opponent));
+                options.add(opponent.toString());
             }
 
             option = getOption(options);
@@ -334,13 +307,6 @@ public class CommandLineInterface {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        // Set the player's team to the resulting team
-        // TODO: Problem the new team has the same current stats, i.e.
-        // stats could be more than base value.
-
-        // TODO: This is not updating the player's team to the current team
-        // game.getPlayer().setTeam(battle.getPlayer().getTeam());
     }
 
     public void viewInventoryMenu() {
@@ -465,7 +431,7 @@ public class CommandLineInterface {
         }
     }
 
-    public void sellShopMenu() {// TODO: implement
+    public void sellShopMenu() {
         ArrayList<Entity> playerContent;
 
         while (true) {
@@ -477,9 +443,8 @@ public class CommandLineInterface {
             playerContent = game.getSellShop().getContent();
             for (Entity content : playerContent) {
                 String listing;
-                listing = content.getName() +
-                        "(" + content.getRarity() + ") " +
-                        content.getSellPrice() + "G";
+                listing = content.getSellPrice() + "G " +
+                            content.toString();
                 options.add(listing);
             }
 
@@ -517,12 +482,8 @@ public class CommandLineInterface {
             shopContent = game.getBuyShop().getContent();
             for (Entity stock : shopContent) {
                 String listing;
-                listing = stock.getName() + // TODO: use toString methods
-                        "(" + stock.getRarity() + ") " +
-                        stock.getBuyPrice() + "G\n" +
-                        stock.getDescription();
-                // TODO: Use to string method of monster
-                // TODO: Concat price to string repr
+                listing = stock.getBuyPrice() + "G " +
+                            stock.toString();
 
                 options.add(listing);
             }

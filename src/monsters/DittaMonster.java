@@ -23,7 +23,7 @@ public class DittaMonster extends Monster {
                 MonsterConstants.DITTABASEHEALTH, // Base Health
                 "COPY the stats of the enemy in front",
                 MonsterConstants.DITTABASESPEED); // Base Speed
-        this.setTrigger(Trigger.STARTOFBATTLE); // TODO decide trigger
+        this.setTrigger(Trigger.STARTOFBATTLE);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class DittaMonster extends Monster {
         // COPY the stats of the enemy in front
 
         Monster monsterToCopy = enemyTeam.getFirstAliveMonster();
-        if (monsterToCopy != null) {
+        if (monsterToCopy != null && monsterToCopy.getClass() != DittaMonster.class) {
             this.setCurrentAttackDamage(monsterToCopy.getCurrentAttackDamage());
             this.setCurrentHealth(monsterToCopy.getCurrentHealth());
             return new BattleEvent(allyTeam, enemyTeam, this.getName() + "'s " + this.getTrigger().name()

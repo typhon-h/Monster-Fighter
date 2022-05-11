@@ -26,7 +26,7 @@ public class TeddyMonster extends Monster {
                 MonsterConstants.TEDDYBASEHEALTH, // Base Health
                 "+1 Health to a random ALLY",
                 MonsterConstants.TEDDYBASESPEED); // Base Speed
-        this.setTrigger(Trigger.BEFOREATTACK); // TODO decide trigger
+        this.setTrigger(Trigger.BEFOREATTACK);
     }
 
     @Override

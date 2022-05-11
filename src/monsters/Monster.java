@@ -10,7 +10,7 @@ import main.Trigger;
  * Generic Monster
  *
  * @author Harrison Tyson
- * @version 1.3, Apr 2022.
+ * @version 1.4, Apr 2022.
  */
 public abstract class Monster extends Entity {
     /**
@@ -347,10 +347,10 @@ public abstract class Monster extends Entity {
 
     @Override
     public String toString() {
-        return this.getName() + "\n" +
+        return this.getName() + " (" +
+                this.getRarity() + ")\n" +
                 this.getCurrentAttackDamage() + " ATTACK | " + this.getCurrentHealth() + " HEALTH\n" +
                 this.getDescription() + '\n' +
                 this.getTrigger().name() + ": " + this.getAbilityDescription();
-
     }
 }
