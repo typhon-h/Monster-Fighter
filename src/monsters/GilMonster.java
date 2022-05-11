@@ -27,7 +27,7 @@ public class GilMonster extends Monster {
     }
 
     @Override
-    public BattleEvent ability(Team allyTeam, Team enemyTeam) {
+    public BattleEvent ability(boolean inPlayerTeam, Team allyTeam, Team enemyTeam) {
         // Boosts attack of ALLY behind by 50% of my ATTACK
 
         int myPosition = allyTeam.getAliveMonsters().indexOf(this);
@@ -36,7 +36,10 @@ public class GilMonster extends Monster {
             monsterToAdjust = allyTeam.getAliveMonsters().get(myPosition + 1);
             monsterToAdjust.setCurrentAttackDamage(
                     monsterToAdjust.getCurrentAttackDamage() + (this.getCurrentAttackDamage() / 2));
-            return new BattleEvent(allyTeam, enemyTeam,
+
+            Team player = (inPlayerTeam) ? allyTeam : enemyTeam;
+            Team opponent = (inPlayerTeam) ? enemyTeam : allyTeam;
+            return new BattleEvent(player, opponent,
                     this.getName() + "'s " + this.getTrigger().name() + " ability triggered. "
                             + monsterToAdjust.getName() + "'s attack increased to "
                             + monsterToAdjust.getCurrentAttackDamage());

@@ -90,7 +90,7 @@ public abstract class Monster extends Entity {
      * @param enemyTeam Enemy team of the monster
      * @return a Monster whose ability gets triggered next
      */
-    public abstract BattleEvent ability(Team allyTeam, Team enemyTeam);
+    public abstract BattleEvent ability(boolean inPlayerTeam, Team allyTeam, Team enemyTeam);
 
     /**
      * Deals damage to the monster and triggers relevant events

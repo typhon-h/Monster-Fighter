@@ -28,14 +28,17 @@ public class LuciferMonster extends Monster {
     }
 
     @Override
-    public BattleEvent ability(Team allyTeam, Team enemyTeam) {
+    public BattleEvent ability(boolean inPlayerTeam, Team allyTeam, Team enemyTeam) {
         // SWAP Attack and Health
 
         int tempAttack = this.getCurrentAttackDamage();
         int tempHealth = this.getCurrentHealth();
         this.setCurrentAttackDamage(tempHealth);
         this.setCurrentHealth(tempAttack);
-        return new BattleEvent(allyTeam, enemyTeam,
+
+        Team player = (inPlayerTeam) ? allyTeam : enemyTeam;
+        Team opponent = (inPlayerTeam) ? enemyTeam : allyTeam;
+        return new BattleEvent(player, opponent,
                 this.getName() + "'s " + this.getTrigger().name() + " ability triggered. ATK and HP have been swapped");
     }
 

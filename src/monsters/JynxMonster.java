@@ -26,7 +26,7 @@ public class JynxMonster extends Monster {
         this.setTrigger(Trigger.STARTOFBATTLE);
     }
 
-    public BattleEvent ability(Team allyTeam, Team enemyTeam) {
+    public BattleEvent ability(boolean inPlayerTeam, Team allyTeam, Team enemyTeam) {
         // Copy HEALTH of healthiest ally
 
         int mostHealth = this.getCurrentHealth();
@@ -38,7 +38,9 @@ public class JynxMonster extends Monster {
 
         this.setCurrentHealth(mostHealth);
 
-        return new BattleEvent(allyTeam, enemyTeam, this.getName() + "'s " + this.getTrigger().name()
+        Team player = (inPlayerTeam) ? allyTeam : enemyTeam;
+        Team opponent = (inPlayerTeam) ? enemyTeam : allyTeam;
+        return new BattleEvent(player, opponent, this.getName() + "'s " + this.getTrigger().name()
                 + " ability triggered. " + this.getName() + "'s new HP is " + this.getCurrentHealth());
     }
 

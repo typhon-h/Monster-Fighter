@@ -27,12 +27,14 @@ public class ClinkMonster extends Monster {
     }
 
     @Override
-    public BattleEvent ability(Team allyTeam, Team enemyTeam) {
+    public BattleEvent ability(boolean inPlayerTeam, Team allyTeam, Team enemyTeam) {
         // -1 Attack and +1 Health (min 1 Attack)
         if (this.getCurrentAttackDamage() > 1) { // Attack can't go lower than 1
             this.setCurrentAttackDamage(this.getCurrentAttackDamage() - 1);
             this.setCurrentHealth(this.getCurrentHealth() + 1);
-            return new BattleEvent(allyTeam, enemyTeam, this.getName() + "'s " + this.getTrigger().name()
+            Team player = (inPlayerTeam) ? allyTeam : enemyTeam;
+            Team opponent = (inPlayerTeam) ? enemyTeam : allyTeam;
+            return new BattleEvent(player, opponent, this.getName() + "'s " + this.getTrigger().name()
                     + " ability triggered. Lost 1 ATK and gained 1 HP");
 
         }

@@ -285,7 +285,7 @@ public class CommandLineInterface {
             currMonster = allyTeam.getAliveMonsters().get(i);
             output = output + currMonster.getName() +
                     "(" + currMonster.getCurrentAttackDamage() +
-                    "|" + currMonster.getCurrentHealth() + "/" + currMonster.getBaseHealth() + ")";
+                    "/" + currMonster.getCurrentHealth() + ")";
 
             if (i != 0) {
                 output += " - ";
@@ -298,7 +298,7 @@ public class CommandLineInterface {
             currMonster = opponentTeam.getAliveMonsters().get(i);
             output = output + currMonster.getName() +
                     "(" + currMonster.getCurrentAttackDamage() +
-                    "|" + currMonster.getCurrentHealth() + "/" + currMonster.getBaseHealth() + ")";
+                    "/" + currMonster.getCurrentHealth() + ")";
 
             if (i != opponentTeam.getAliveMonsters().size() - 1) {
                 output += " - ";
@@ -455,6 +455,7 @@ public class CommandLineInterface {
                         break;
                     } else {
                         Monster monsterToRename = game.getPlayer().getTeam().getMonsters().get(monsterOption - 1);
+                        System.out.println("Enter Name: ");
                         String newName = getString();
                         monsterToRename.setName(newName);
                         break;

@@ -241,10 +241,10 @@ public class BattleManager {
             Monster receivingMonster = team2.getFirstAliveMonster();
 
             BattleEvent ability;
-            boolean isPlayerTeam;
             // Check BEFOREATTACK Trigger
-            isPlayerTeam = (team1 == allyTeam) ? true : false;
-            ability = runAbility(isPlayerTeam, team1, team2, attackingMonster, Trigger.BEFOREATTACK);
+
+            ability = runAbility(allyTeam.getMonsters().contains(attackingMonster), team1, team2,
+                    attackingMonster, Trigger.BEFOREATTACK);
             if (ability != null) {
                 eventLog.add(ability);
             }
@@ -269,15 +269,15 @@ public class BattleManager {
             // Fight event
             eventLog.add(new BattleEvent(allyTeam, opponentTeam, description));
             // Check ONHURT/ONFAINT Trigger
-            isPlayerTeam = (team1 == allyTeam) ? true : false;
-            ability = runAbility(isPlayerTeam, team2, team1, receivingMonster, trigger);
+            ability = runAbility(allyTeam.getMonsters().contains(receivingMonster), team2, team1,
+                    receivingMonster, trigger);
             if (ability != null) {
                 eventLog.add(ability);
             }
 
             // Check AFTERATTACK trigger
-            isPlayerTeam = (team1 == allyTeam) ? true : false;
-            ability = runAbility(isPlayerTeam, team1, team2, attackingMonster, Trigger.AFTERATTACK);
+            ability = runAbility(allyTeam.getMonsters().contains(attackingMonster), team1, team2,
+                    attackingMonster, Trigger.AFTERATTACK);
             if (ability != null) {
                 eventLog.add(ability);
             }
@@ -306,15 +306,10 @@ public class BattleManager {
      * @return {@link main.BattleEvent BattleEvent} describing the
      *         {@link monsters.Monster#ability}
      */
-    private BattleEvent runAbility(boolean isPlayerTeam, Team allyTeam, Team enemyTeam, Monster monster,
+    private BattleEvent runAbility(boolean isPlayer, Team allyTeam, Team enemyTeam, Monster monster,
             Trigger trigger) {
         if (monster.getTrigger() == trigger) {
-            if (isPlayerTeam) {
-                return monster.ability(allyTeam, enemyTeam);
-            } else {
-                return monster.ability(enemyTeam, allyTeam);
-            }
-
+            return monster.ability(isPlayer, allyTeam, enemyTeam);
         }
 
         return null;

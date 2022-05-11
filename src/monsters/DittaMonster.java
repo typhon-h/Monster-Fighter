@@ -27,14 +27,16 @@ public class DittaMonster extends Monster {
     }
 
     @Override
-    public BattleEvent ability(Team allyTeam, Team enemyTeam) {
+    public BattleEvent ability(boolean inPlayerTeam, Team allyTeam, Team enemyTeam) {
         // COPY the stats of the enemy in front
 
         Monster monsterToCopy = enemyTeam.getFirstAliveMonster();
         if (monsterToCopy != null && monsterToCopy.getClass() != DittaMonster.class) {
             this.setCurrentAttackDamage(monsterToCopy.getCurrentAttackDamage());
             this.setCurrentHealth(monsterToCopy.getCurrentHealth());
-            return new BattleEvent(allyTeam, enemyTeam, this.getName() + "'s " + this.getTrigger().name()
+            Team player = (inPlayerTeam) ? allyTeam : enemyTeam;
+            Team opponent = (inPlayerTeam) ? enemyTeam : allyTeam;
+            return new BattleEvent(player, opponent, this.getName() + "'s " + this.getTrigger().name()
                     + " ability triggered. " + this.getName() + " copied " + monsterToCopy.getName() + "'s stats.");
 
         }
