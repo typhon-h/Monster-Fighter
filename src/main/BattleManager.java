@@ -143,6 +143,7 @@ public class BattleManager {
      * @param difficulty The {@link main.Difficulty difficulty} of the current game.
      */
     public void generateOpponents(int currentDay, int maxDays, Difficulty difficulty) {
+        battleResult = BattleResult.NULL;
         // Reset current opponent to null.
         currentOpponent = null;
 
@@ -157,7 +158,7 @@ public class BattleManager {
         ArrayList<Player> newOpponents = new ArrayList<Player>();
         for (int i = 0; i < BattleConstants.NUMOPPONENTS; i++) {
             Team team = generateTeam(currentDay, maxDays, difficulty);
-            Player newOpponent = new Player(team, gold);
+            Player newOpponent = new Player("Battle " + (i + 1), team, gold);
             newOpponent.incrementScore(points);
 
             newOpponents.add(newOpponent);
@@ -186,7 +187,10 @@ public class BattleManager {
      */
     public void setOpponent(Player opponent) {
         currentOpponent = opponent;
-        opponents.remove(opponent);
+        if (!opponents.remove(opponent)) {
+            System.out.println("Opponent does not exist");
+        };
+
     }
 
     /**
@@ -311,8 +315,8 @@ public class BattleManager {
      * {@link main.BattleEvent events} that occurred during the battle.
      */
     public void simulateBattle() {
+        battleResult = BattleResult.NULL;
         ArrayList<BattleEvent> newEventLog = new ArrayList<BattleEvent>();
-        battleResult = BattleResult.NULL; // TODO: this has been moved from giveRewards so tests might fail
         Team allyTeamCopy;
         Team opponentTeamCopy;
 
@@ -340,7 +344,12 @@ public class BattleManager {
                 newEventLog.addAll(fight(allyTeamCopy, opponentTeamCopy));
             }
 
-            // TODO: set battle result
+            if (allyTeamCopy.getAliveMonsters().isEmpty()) {
+                battleResult = BattleResult.LOSS;
+            } else {
+                battleResult = BattleResult.WIN;
+            }
+
         } catch (CloneNotSupportedException e) { // Should never happen as clone is implemented
             e.printStackTrace();
         }
@@ -375,14 +384,17 @@ public class BattleManager {
 
     /**
      * Gets the current {@link main.Player opponent} in the BattleManager.
-     * 
+     *
      * @return the current selected {@link main.Player opponent}.
      */
-    public Player opponent() {
+    public Player getCurrOpponent() {
         return this.currentOpponent;
     }
 
-    // TODO: add javadoc
+    /**
+     * Gets the result of a battle after the battle has been simulated
+     * @return Enum value defining wether the player has won or lost.
+     */
     public BattleResult getResult() {
         return battleResult;
     }
