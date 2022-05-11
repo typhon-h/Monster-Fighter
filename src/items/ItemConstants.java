@@ -141,5 +141,5 @@ public final class ItemConstants {
         /**
          * Feedback message when {@link items.RandomTrigger random trigger} is used
          */
-        public static final String RANDOMTRIGGERFEEDBACK = "%%s's ability trigger was changed to %s";
+        public static final String RANDOMTRIGGERFEEDBACK = "%s's ability trigger was changed to %s";
 }

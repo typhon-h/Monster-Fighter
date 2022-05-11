@@ -76,6 +76,7 @@ public class CommandLineInterface {
         return input;
     }
 
+    // TODO: Doc String everything
     private int getInt() {
         int value;
         // Loop consuming tokens until int
@@ -175,7 +176,7 @@ public class CommandLineInterface {
         // Set Game
         try {
             Team team = new Team(starter);
-            Player player = new Player(playerName, team, 30); // TODO: make constant
+            Player player = new Player(playerName, team, 9999); // TODO: make constant
             game = new GameEnvironment(player, numDays, gameDifficulty);
         } catch (TeamSizeException | DuplicateMonsterException e) { // Will never occur
             e.printStackTrace();

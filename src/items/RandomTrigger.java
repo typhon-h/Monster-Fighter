@@ -9,7 +9,7 @@ import monsters.Monster;
 /**
  * An item that gives a {@link monsters.Monster} a random {@link main.Trigger}
  * for their {@link monsters.Monster#ability ability}
- * 
+ *
  * @author Jackie Jone
  * @version 1.1, Apr 2022
  */
@@ -46,6 +46,12 @@ public class RandomTrigger extends Item {
         monster.setTrigger(randomTrigger);
         monster.increaseSellPrice(this.getSellPrice());
 
+        // TODO: THIS IS BROKEN!!!!
+        // TODO: test random trigger feedback
+        // ****************************************
+        // |  %s's ability trigger was changed    |
+        // |                to Gil                |
+        // ****************************************
         return String.format(ItemConstants.RANDOMTRIGGERFEEDBACK, monster.getName(), monster.getTrigger().name());
     }
 }
