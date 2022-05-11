@@ -220,11 +220,11 @@ public class CommandLineInterface {
                 case 5: // Sleep
                     ArrayList<String> events = game.sleep();
                     for (String event : events) {
-                        System.out.println(event);
+                        TextFormat.printHeader(event, msgWhiteSpacing, msgChar);
                     }
                     TextFormat.printHeader("You have advanced to the next day",
-                                            msgWhiteSpacing,
-                                            msgChar);
+                            msgWhiteSpacing,
+                            msgChar);
                     break;
                 default:
                     break;
@@ -254,8 +254,8 @@ public class CommandLineInterface {
             } else if (game.getPlayer().getTeam().getAliveMonsters().isEmpty()) {
                 try {
                     TextFormat.printHeader("Unable to battle, all your monsters have fainted",
-                                            msgWhiteSpacing,
-                                            msgChar);
+                            msgWhiteSpacing,
+                            msgChar);
                     TimeUnit.SECONDS.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -289,19 +289,19 @@ public class CommandLineInterface {
                 currState = battle.nextEvent();
             }
 
-                // Rewards
-                switch (battle.getResult()) {
-                    case WIN:
-                        TextFormat.printHeader("You have won!", msgWhiteSpacing, msgChar);
-                        System.out.println("Rewards: " + opponent.getGold() + "G | " +
-                                        opponent.getScore() + " Points");
-                        battle.giveRewards();
-                        break;
-                    case LOSS:
-                        TextFormat.printHeader("You have lost!", msgWhiteSpacing, msgChar);
-                        break;
-                    default:
-                        break;
+            // Rewards
+            switch (battle.getResult()) {
+                case WIN:
+                    TextFormat.printHeader("You have won!", msgWhiteSpacing, msgChar);
+                    System.out.println("Rewards: " + opponent.getGold() + "G | " +
+                            opponent.getScore() + " Points");
+                    battle.giveRewards();
+                    break;
+                case LOSS:
+                    TextFormat.printHeader("You have lost!", msgWhiteSpacing, msgChar);
+                    break;
+                default:
+                    break;
             }
             TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException e) {
@@ -343,7 +343,7 @@ public class CommandLineInterface {
             }
 
             Monster selectedMonster = game.getPlayer().getTeam().getMonsters().get(monsterOption - 1);
-            System.out.println(game.getPlayer().useItem(itemToBeUsed, selectedMonster));
+            TextFormat.printHeader(game.getPlayer().useItem(itemToBeUsed, selectedMonster), msgWhiteSpacing, msgChar);
 
         }
     }
@@ -463,14 +463,15 @@ public class CommandLineInterface {
                     sellMessage = game.getSellShop().sell(
                             (Monster) game.getSellShop().getContent().get(option - 1));
                 }
-                System.out.println(sellMessage);
+                TextFormat.printHeader(sellMessage, msgWhiteSpacing,
+                        msgChar);
+
             }
         }
     }
 
     public void buyShopMenu() {
         ArrayList<Entity> shopContent;
-
         while (true) {
             TextFormat.printHeader("Buy Shop", headerWhiteSpacing, headerChar);
             System.out.println("Gold: " + game.getPlayer().getGold());
