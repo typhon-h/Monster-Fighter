@@ -113,7 +113,7 @@ public class MonsterConstants {
     /**
      * Constant defining the base AttackDamage of Lucifer
      */
-    public final static int LUCIFERBASEATTACKDAMAGE = 3;
+    public final static int LUCIFERBASEATTACKDAMAGE = 1;
     /**
      * Constant defining the base Health of Lucifer
      */
