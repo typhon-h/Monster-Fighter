@@ -23,7 +23,7 @@ public class JynxMonster extends Monster {
                 MonsterConstants.JYNXBASEHEALTH, // Base Health
                 "Copy HEALTH of healthiest ally",
                 MonsterConstants.JYNXBASESPEED); // Base Speed
-        this.setTrigger(Trigger.STARTOFBATTLE); // TODO decide trigger
+        this.setTrigger(Trigger.STARTOFBATTLE);
     }
 
     public BattleEvent ability(Team allyTeam, Team enemyTeam) {

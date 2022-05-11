@@ -307,17 +307,8 @@ public class CommandLineInterface {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-
-        // Set the player's team to the resulting team
-        // TODO: Problem the new team has the same current stats, i.e.
-        // stats could be more than base value.
-
-        // TODO: This is not updating the player's team to the current team
-        // game.getPlayer().setTeam(battle.getPlayer().getTeam());
     }
 
-    // TODO: !!!!!!!!! VIEW INVENTORY !!!!!!!
     public void viewInventoryMenu() {
         ArrayList<Item> inventory = game.getPlayer().getInventory();
         while (true) {
@@ -357,7 +348,7 @@ public class CommandLineInterface {
         }
     }
 
-    public void viewTeamMenu() {// TODO: implement
+    public void viewTeamMenu() {
         while (true) {
             TextFormat.printHeader("View Team", headerWhiteSpacing, headerChar);
             ArrayList<String> options = new ArrayList<String>(Arrays.asList(
@@ -440,7 +431,7 @@ public class CommandLineInterface {
         }
     }
 
-    public void sellShopMenu() {// TODO: implement
+    public void sellShopMenu() {
         ArrayList<Entity> playerContent;
 
         while (true) {
@@ -452,9 +443,8 @@ public class CommandLineInterface {
             playerContent = game.getSellShop().getContent();
             for (Entity content : playerContent) {
                 String listing;
-                listing = content.getName() +
-                        "(" + content.getRarity() + ") " +
-                        content.getSellPrice() + "G";
+                listing = content.getSellPrice() + "G " +
+                            content.toString();
                 options.add(listing);
             }
 
@@ -491,12 +481,8 @@ public class CommandLineInterface {
             shopContent = game.getBuyShop().getContent();
             for (Entity stock : shopContent) {
                 String listing;
-                listing = stock.getName() + // TODO: use toString methods
-                        "(" + stock.getRarity() + ") " +
-                        stock.getBuyPrice() + "G\n" +
-                        stock.getDescription();
-                        // TODO: Use to string method of monster
-                        // TODO: Concat price to string repr
+                listing = stock.getBuyPrice() + "G " +
+                            stock.toString();
 
                 options.add(listing);
             }

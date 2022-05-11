@@ -23,7 +23,7 @@ public class GilMonster extends Monster {
                 MonsterConstants.GILBASEHEALTH, // Base Health
                 "Boosts attack of ALLY behind by 50% of my ATTACK",
                 MonsterConstants.GILBASESPEED); // Base Speed
-        this.setTrigger(Trigger.ONFAINT); // TODO decide trigger
+        this.setTrigger(Trigger.ONFAINT);
     }
 
     @Override

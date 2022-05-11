@@ -23,7 +23,7 @@ public class DittaMonster extends Monster {
                 MonsterConstants.DITTABASEHEALTH, // Base Health
                 "COPY the stats of the enemy in front",
                 MonsterConstants.DITTABASESPEED); // Base Speed
-        this.setTrigger(Trigger.STARTOFBATTLE); // TODO decide trigger
+        this.setTrigger(Trigger.STARTOFBATTLE);
     }
 
     @Override
