@@ -46,12 +46,6 @@ public class RandomTrigger extends Item {
         monster.setTrigger(randomTrigger);
         monster.increaseSellPrice(this.getSellPrice());
 
-        // TODO: THIS IS BROKEN!!!!
-        // TODO: test random trigger feedback
-        // ****************************************
-        // |  %s's ability trigger was changed    |
-        // |                to Gil                |
-        // ****************************************
         return String.format(ItemConstants.RANDOMTRIGGERFEEDBACK, monster.getName(), monster.getTrigger().name());
     }
 }

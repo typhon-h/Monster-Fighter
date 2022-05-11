@@ -176,7 +176,7 @@ public class CommandLineInterface {
         // Set Game
         try {
             Team team = new Team(starter);
-            Player player = new Player(playerName, team, 9999); // TODO: make constant
+            Player player = new Player(playerName, team, GameEnvironment.STARTINGGOLD);
             game = new GameEnvironment(player, numDays, gameDifficulty);
         } catch (TeamSizeException | DuplicateMonsterException e) { // Will never occur
             e.printStackTrace();

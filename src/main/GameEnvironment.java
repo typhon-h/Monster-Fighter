@@ -45,6 +45,11 @@ public class GameEnvironment {
     private boolean gameOverStatus = false;
 
     /**
+     * Player starting gold constant
+     */
+    public static final int STARTINGGOLD = 30;
+
+    /**
      * Game {@link shop.SellShop sell shop} where {@link main.Player players} can
      * sell their {@link main.Entity entities}
      */

@@ -16,7 +16,7 @@ import static main.Difficulty.getDifficultyMultiplier;
  * which a {@link main.Player player} can participate in.
  *
  * @author Jackie Jone
- * @version 1.0, Apr 2022.
+ * @version 1.1, Apr 2022.
  */
 public class BattleManager {
 
@@ -116,9 +116,8 @@ public class BattleManager {
         // TODO: Fix this \/ so its not as broken
         // Use boost item on random monsters in the team
         int totalPoints = (int) (Difficulty.getDifficultyMultiplier(difficulty) *
-                Math.ceil((float) ItemConstants.AVERAGEBOOSTPERBUYPRICE *
-                        (float) allyPlayer.getGold() +
-                        (float) allyPlayer.getItemPoints()));
+                      Math.floor((float) ItemConstants.AVERAGEBOOSTPERBUYPRICE *
+                                (float) allyPlayer.getItemPoints()));
         int expendedPoints = 0;
         RandomStatBoost boost = new RandomStatBoost(Rarity.COMMON);
 

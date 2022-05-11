@@ -13,7 +13,6 @@ import monsters.*;
  * @version 1.2, Apr 2022.
  */
 public final class BattleConstants {
-    // TODO: Tweak the triggers for each monster
     /*
      * When triggers for a monster are changed, also make the same changes to
      * the test file.
@@ -53,8 +52,7 @@ public final class BattleConstants {
                     { Trigger.BEFOREATTACK } }),
             // Optimal Triggers for Lucifer Monster.
             entry(LuciferMonster.class, new Trigger[][] {
-                    { Trigger.NOABILITY, Trigger.STARTOFBATTLE }, // TODO: start of battle quite op, especially for
-                                                                  // early game
+                    { Trigger.NOABILITY, Trigger.STARTOFBATTLE },
                     { Trigger.ONHURT },
                     { Trigger.AFTERATTACK } }),
             // Optimal Triggers for Teddy Monster.
