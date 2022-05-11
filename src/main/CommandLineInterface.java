@@ -201,7 +201,10 @@ public class CommandLineInterface {
                     viewBattlesMenu();
                     break;
                 case 5: // Sleep
-                    game.sleep();
+                    ArrayList<String> events = game.sleep();
+                    for (String event : events) {
+                        System.out.println(event);
+                    }
                     System.out.println("\n\nYou have advanced to the next day\n");
                     break;
                 default:
@@ -419,12 +422,25 @@ public class CommandLineInterface {
         }
     }
 
+    public void gameOverScreen() {
+        TextFormat.printHeader("Game Over", 4);
+        System.out.println(game.getPlayer().getName() + "'s Results:");
+        System.out.println("You lasted " + game.getCurrentDay() + "/" + game.getTotalDays());
+        System.out.println("Final Gold: " + game.getPlayer().getGold());
+        System.out.println("Final Score: " + game.getPlayer().getScore());
+        System.out.println();
+    }
+
     // ***************USED FOR DEVELOPMENT TESTING*********************
     public static void main(String args[]) {
         CommandLineInterface cli = new CommandLineInterface();
         cli.setUp();
-        cli.mainMenu();
 
+        while (!cli.game.isGameOver()) {
+            cli.mainMenu();
+        }
+
+        cli.gameOverScreen();
     }
     // ****************************************************************
 }
