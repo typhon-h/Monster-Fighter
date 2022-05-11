@@ -76,7 +76,9 @@ public class CommandLineInterface {
         return input;
     }
 
-    // TODO: Doc String everything
+    /**
+     * Gets an integer from the standard input
+     */
     private int getInt() {
         int value;
         // Loop consuming tokens until int
@@ -92,6 +94,9 @@ public class CommandLineInterface {
         return value;
     }
 
+    /**
+     * Gets a string from the standard input
+     */
     private String getString() {
         String value;
 
@@ -109,6 +114,9 @@ public class CommandLineInterface {
         scanner = new Scanner(System.in);
     }
 
+    /**
+     * Set up a new game
+     */
     public void setUp() {
         TextFormat.printHeader("Game Setup", headerWhiteSpacing, headerChar);
         // Name
@@ -147,7 +155,7 @@ public class CommandLineInterface {
         }
 
         // Starter - generate
-        int numStarters = 3; // TODO: make constant
+        int numStarters = GameEnvironment.NUMSTARTERMONSTERS;
         ArrayList<Monster> possibleStarters = GameEnvironment.generateMonsters();
         ArrayList<Monster> availableStarters = new ArrayList<Monster>();
         ArrayList<String> options = new ArrayList<String>();
@@ -184,6 +192,9 @@ public class CommandLineInterface {
 
     }
 
+    /**
+     * Display the main menu of the game
+     */
     public void mainMenu() {
         while (!game.isGameOver()) {
             TextFormat.printHeader("Main Menu", headerWhiteSpacing, headerChar);
@@ -235,6 +246,9 @@ public class CommandLineInterface {
         }
     }
 
+    /**
+     * Display the battles available to the player
+     */
     public void viewBattlesMenu() {
         while (true) {
             int confirm;
@@ -278,49 +292,21 @@ public class CommandLineInterface {
         }
     }
 
-    private String printBothTeams(Team allyTeam, Team opponentTeam) {
-        String output = "| ";
-        Monster currMonster;
-
-        for (int i = allyTeam.getAliveMonsters().size() - 1; i >= 0; i--) {
-            currMonster = allyTeam.getAliveMonsters().get(i);
-            output = output + currMonster.getName() +
-                    "(" + currMonster.getCurrentAttackDamage() +
-                    "|" + currMonster.getCurrentHealth() + ")";
-
-            if (i != 0) {
-                output += " - ";
-            }
-        }
-
-        output += " >   < ";
-
-        for (int i = 0; i < opponentTeam.getAliveMonsters().size(); i++) {
-            currMonster = opponentTeam.getAliveMonsters().get(i);
-            output = output + currMonster.getName() +
-                    "(" + currMonster.getCurrentAttackDamage() +
-                    "|" + currMonster.getCurrentHealth() + ")";
-
-            if (i != opponentTeam.getAliveMonsters().size() - 1) {
-                output += " - ";
-            }
-        }
-        output += " |";
-        return output;
-    }
-
+    /**
+     * Display the simulated battle to the player
+     */
     private void displayBattle() {
         BattleManager battle = game.getBattleState();
         Player opponent = battle.getCurrOpponent();
         battle.simulateBattle();
         BattleEvent currState = battle.nextEvent();
 
-        System.out.println("\n" + printBothTeams(game.getPlayer().getTeam(),
+        System.out.println("\n" + TextFormat.printBothTeams(game.getPlayer().getTeam(),
                 opponent.getTeam()));
         try {
             while (currState != null) {
                 System.out.println("\n" + currState.getDescription());
-                System.out.println(printBothTeams(currState.getAllyTeam(),
+                System.out.println(TextFormat.printBothTeams(currState.getAllyTeam(),
                         currState.getOpponentTeam()));
                 game.getPlayer().setTeam(currState.getAllyTeam());
                 TimeUnit.MILLISECONDS.sleep(300);
@@ -347,6 +333,9 @@ public class CommandLineInterface {
         }
     }
 
+    /**
+     * Display the players inventory
+     */
     public void viewInventoryMenu() {
         ArrayList<Item> inventory = game.getPlayer().getInventory();
         while (true) {
@@ -386,6 +375,9 @@ public class CommandLineInterface {
         }
     }
 
+    /**
+     * Display the players team in order
+     */
     public void viewTeamMenu() {
         while (true) {
             TextFormat.printHeader("View Team", headerWhiteSpacing, headerChar);
@@ -429,9 +421,8 @@ public class CommandLineInterface {
                 case 2: // Move Monster Down
                     TextFormat.printHeader("Select Monster to Move Down", headerWhiteSpacing, headerChar);
                     for (Monster m : game.getPlayer().getTeam().getMonsters()) {
-                        Monster lastMonster = game.getPlayer().getTeam().getMonsters()
-                                .get(game.getPlayer().getTeam().getMonsters().size() - 1); // TODO: Fix this - super
-                                                                                           // ugly
+                        ArrayList<Monster> playerMonsters = game.getPlayer().getTeam().getMonsters();
+                        Monster lastMonster = playerMonsters.get(playerMonsters.size() - 1);
                         if (lastMonster == m) {
                             monsterOptions.add(m.getName() + " (Already at bottom)");
                         } else {
@@ -472,6 +463,9 @@ public class CommandLineInterface {
         }
     }
 
+    /**
+     * Display the sell shop menu
+     */
     public void sellShopMenu() {
         ArrayList<Entity> playerContent;
 
@@ -511,6 +505,9 @@ public class CommandLineInterface {
         }
     }
 
+    /**
+     * Display the buy shop menu
+     */
     public void buyShopMenu() {
         ArrayList<Entity> shopContent;
         while (true) {
@@ -548,6 +545,9 @@ public class CommandLineInterface {
         }
     }
 
+    /**
+     * Display the game over screen
+     */
     public void gameOverScreen() {
         TextFormat.printHeader("Game Over", headerWhiteSpacing, headerChar);
         System.out.println(game.getPlayer().getName() + "'s Results:");

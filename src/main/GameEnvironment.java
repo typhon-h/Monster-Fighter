@@ -50,6 +50,11 @@ public class GameEnvironment {
     public static final int STARTINGGOLD = 30;
 
     /**
+     * Number of starter monsters to generate
+     */
+    public static final int NUMSTARTERMONSTERS = 3;
+
+    /**
      * Game {@link shop.SellShop sell shop} where {@link main.Player players} can
      * sell their {@link main.Entity entities}
      */

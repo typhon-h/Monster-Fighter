@@ -6,7 +6,6 @@ import main.Rarity;
  * Class of constants monster generation stats
  */
 public class MonsterConstants {
-    // TODO: tweak these constants to balance game.
     /**
      * Constant defining the number of stats a {@link monsters.Monster monster} has
      */

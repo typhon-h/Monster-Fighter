@@ -61,7 +61,7 @@ public class BattleManager {
     }
 
     /**
-     * Generates a random {@link monsters.Monster mosnter} with different
+     * Generates a random {@link monsters.Monster monster} with different
      * {@link main.Trigger triggers} based
      * on the {@link main.Difficulty difficulty} of the game.
      *
@@ -113,7 +113,7 @@ public class BattleManager {
                 e.printStackTrace();
             }
         }
-        // TODO: Fix this \/ so its not as broken
+
         // Use boost item on random monsters in the team
         int totalPoints = (int) (Difficulty.getDifficultyMultiplier(difficulty) *
                       Math.floor((float) ItemConstants.AVERAGEBOOSTPERBUYPRICE *
@@ -146,13 +146,16 @@ public class BattleManager {
         // Reset current opponent to null.
         currentOpponent = null;
 
-        // TODO: change magic numbers to constants
         // gold = starting gold + goldPerDay * inverse of difficulty multiplier *
         // currentDay
-        int gold = (int) (30f + (30f * (1f + 1f - getDifficultyMultiplier(difficulty)) * currentDay));
+        int gold = (int) ((float) GameEnvironment.STARTINGGOLD +
+                          ((float) GameEnvironment.STARTINGGOLD *
+                          (1f + 1f - getDifficultyMultiplier(difficulty)) * currentDay));
+
         // points = basePoints * 1.1 ^ day * difficulty multiplier
         int points = (int) Math
-                .round(100f * (float) Math.pow(1.1, (double) currentDay) * getDifficultyMultiplier(difficulty));
+                .round(100f * (float) Math.pow(1.1, (double) currentDay) *
+                       getDifficultyMultiplier(difficulty));
 
         ArrayList<Player> newOpponents = new ArrayList<Player>();
         for (int i = 0; i < BattleConstants.NUMOPPONENTS; i++) {

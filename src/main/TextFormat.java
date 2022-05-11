@@ -1,5 +1,7 @@
 package main;
 
+import monsters.Monster;
+
 /**
  * A class used to print out formatted text
  *
@@ -100,5 +102,43 @@ public class TextFormat {
         }
         for (int i = 0; i < headerWidth; i++) System.out.print(horizBorder);
         System.out.println();
+    }
+
+    /**
+     * Gets a string format of two teams during a battle
+     *
+     * @param allyTeam     Ally team respective to the player
+     * @param opponentTeam Opponent team respective to the player
+     * @return             String format of both teams
+     */
+    public static String printBothTeams(Team allyTeam, Team opponentTeam) {
+        String output = "| ";
+        Monster currMonster;
+
+        for (int i = allyTeam.getAliveMonsters().size() - 1; i >= 0; i--) {
+            currMonster = allyTeam.getAliveMonsters().get(i);
+            output = output + currMonster.getName() +
+                    "(" + currMonster.getCurrentAttackDamage() +
+                    "|" + currMonster.getCurrentHealth() + ")";
+
+            if (i != 0) {
+                output += " - ";
+            }
+        }
+
+        output += " >   < ";
+
+        for (int i = 0; i < opponentTeam.getAliveMonsters().size(); i++) {
+            currMonster = opponentTeam.getAliveMonsters().get(i);
+            output = output + currMonster.getName() +
+                    "(" + currMonster.getCurrentAttackDamage() +
+                    "|" + currMonster.getCurrentHealth() + ")";
+
+            if (i != opponentTeam.getAliveMonsters().size() - 1) {
+                output += " - ";
+            }
+        }
+        output += " |";
+        return output;
     }
 }
