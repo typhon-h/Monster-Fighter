@@ -39,13 +39,13 @@ public final class BattleConstants {
             // Optimal Triggers for Ditta Monster.
             entry(DittaMonster.class, new Trigger[][] {
                     { Trigger.NOABILITY, Trigger.STARTOFBATTLE },
-                    { Trigger.ONHURT},
+                    { Trigger.ONHURT },
                     { Trigger.BEFOREATTACK } }),
             // Optimal Triggers for Gil Monster.
             entry(GilMonster.class, new Trigger[][] {
                     { Trigger.NOABILITY, Trigger.ONFAINT },
                     { Trigger.STARTOFBATTLE },
-                    { Trigger.ONHURT, Trigger.BEFOREATTACK , Trigger.AFTERATTACK} }),
+                    { Trigger.ONHURT, Trigger.BEFOREATTACK, Trigger.AFTERATTACK } }),
             // Optimal Triggers for Jynx Monster.
             entry(JynxMonster.class, new Trigger[][] {
                     { Trigger.NOABILITY, Trigger.STARTOFBATTLE },
@@ -60,7 +60,7 @@ public final class BattleConstants {
             entry(TeddyMonster.class, new Trigger[][] {
                     { Trigger.NOABILITY, Trigger.STARTOFBATTLE },
                     { Trigger.AFTERATTACK },
-                    { Trigger.BEFOREATTACK} }));
+                    { Trigger.BEFOREATTACK } }));
 
     /**
      * Concatenates two {@link main.Trigger trigger} arrays together.

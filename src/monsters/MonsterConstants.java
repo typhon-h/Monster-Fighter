@@ -37,7 +37,8 @@ public class MonsterConstants {
     public static final int RARESELLPRICE = 60;
 
     /**
-     * Constant defining the sell price of legendary {@link monsters.Monster monster}
+     * Constant defining the sell price of legendary {@link monsters.Monster
+     * monster}
      */
     public static final int LEGENDARYSELLPRICE = 80;
 
@@ -112,7 +113,7 @@ public class MonsterConstants {
     /**
      * Constant defining the base AttackDamage of Lucifer
      */
-    public final static int LUCIFERBASEATTACKDAMAGE = 1;
+    public final static int LUCIFERBASEATTACKDAMAGE = 3;
     /**
      * Constant defining the base Health of Lucifer
      */
