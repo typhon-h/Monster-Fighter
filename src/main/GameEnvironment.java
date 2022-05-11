@@ -106,7 +106,7 @@ public class GameEnvironment {
         this.difficulty = difficulty;
         sellShop = new SellShop(player);
         buyShop = new BuyShop(player);
-        battleState = new BattleManager(player, difficulty, totalDays);
+        battleState = new BattleManager(player, difficulty, GameEnvironment.MAXDAYS);
         rng = new Random(seed);
     }
 
@@ -158,7 +158,7 @@ public class GameEnvironment {
         buyShop.setContent();
 
         // Update battles
-        battleState.generateOpponents(currentDay, totalDays, difficulty);
+        battleState.generateOpponents(currentDay, GameEnvironment.MAXDAYS, difficulty);
 
         // Heal monsters
         for (Monster monster : player.getTeam().getMonsters()) {
