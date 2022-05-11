@@ -2,7 +2,6 @@ package main;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -159,12 +158,12 @@ public class CommandLineInterface {
         }
         // Starter - display/select
         TextFormat.printHeader("Select a starting monster",
-                                headerWhiteSpacing, headerChar);
+                headerWhiteSpacing, headerChar);
         int starterChoice = getOption(options);
         Monster starter = availableStarters.get(starterChoice);
         // Starter - name
         TextFormat.printHeader("Do you want to give your monster a nickname?",
-        headerWhiteSpacing, headerChar);
+                headerWhiteSpacing, headerChar);
         int setMonsterNickname = getOption(new ArrayList<String>(Arrays.asList(
                 "Yes", // 0
                 "No"))); // 1
@@ -315,14 +314,13 @@ public class CommandLineInterface {
         battle.simulateBattle();
         BattleEvent currState = battle.nextEvent();
 
-
         System.out.println("\n" + printBothTeams(game.getPlayer().getTeam(),
-                                                opponent.getTeam()));
+                opponent.getTeam()));
         try {
             while (currState != null) {
                 System.out.println("\n" + currState.getDescription());
                 System.out.println(printBothTeams(currState.getAllyTeam(),
-                                                currState.getOpponentTeam()));
+                        currState.getOpponentTeam()));
                 game.getPlayer().setTeam(currState.getAllyTeam());
                 TimeUnit.MILLISECONDS.sleep(300);
                 currState = battle.nextEvent();
@@ -357,7 +355,7 @@ public class CommandLineInterface {
                     "Back"));
 
             for (Item item : inventory) {
-                options.add(item.getRarity().name() + " " + item.getName());
+                options.add(item.toString());
             }
 
             int option = getOption(options);
@@ -462,7 +460,8 @@ public class CommandLineInterface {
                         break;
                     }
                 default: // View Monster
-                    for (int i = 0; i < msgWhiteSpacing; i++) System.out.println();
+                    for (int i = 0; i < msgWhiteSpacing; i++)
+                        System.out.println();
                     System.out.println(game.getPlayer().getTeam().getMonsters().get(option - 4));
                     break;
 
@@ -484,7 +483,7 @@ public class CommandLineInterface {
             for (Entity content : playerContent) {
                 String listing;
                 listing = content.getSellPrice() + "G " +
-                            content.toString();
+                        content.toString();
                 options.add(listing);
             }
 
@@ -523,7 +522,7 @@ public class CommandLineInterface {
             for (Entity stock : shopContent) {
                 String listing;
                 listing = stock.getBuyPrice() + "G " +
-                            stock.toString();
+                        stock.toString();
 
                 options.add(listing);
             }
