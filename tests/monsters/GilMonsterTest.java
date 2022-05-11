@@ -36,7 +36,7 @@ public class GilMonsterTest {
     public void setUp() throws Exception {
         monster = new GilMonster();
         ally = new ClinkMonster();
-        allyTeam = new Team(ally, monster);
+        allyTeam = new Team(monster, ally);
         enemyTeam = new Team(new ClinkMonster()); // Arbitrary
     }
 
@@ -81,9 +81,9 @@ public class GilMonsterTest {
     /**
      * Checks ability effect activates correctly
      * Covers: ability
-     * Valid: Monster in front of Gil AttackDamage: 1
-     * Valid: Monster in front of Gil AttackDamage: > 1
-     * Invalid: Gil is front of the team
+     * Valid: Monster behind of Gil AttackDamage: 1
+     * Valid: Monster behind of Gil AttackDamage: > 1
+     * Invalid: Gil is last of the team
      *
      * @throws DuplicateMonsterException if same monster is added more than once
      * @throws TeamSizeException         if more team members than max allowed
@@ -95,31 +95,31 @@ public class GilMonsterTest {
         int indexOfGil = allyTeam.getAliveMonsters().indexOf(monster);
         assertNotEquals(-1, indexOfGil); // monster exists in alive monsters
 
-        // Check the ally is in front of Gil
-        Monster monsterInFront = allyTeam.getAliveMonsters().get(indexOfGil - 1);
-        assertEquals(ally, monsterInFront); // Check positions are correct
+        // Check the ally is behind of Gil
+        Monster monsterBehind = allyTeam.getAliveMonsters().get(indexOfGil + 1);
+        assertEquals(ally, monsterBehind); // Check positions are correct
 
-        // Monster in front with Gil AttackDamage: 1
+        // Monster behind with Gil AttackDamage: 1
         monster.setCurrentAttackDamage(1);
-        int startAttackDamage = monsterInFront.getCurrentAttackDamage();
+        int startAttackDamage = monsterBehind.getCurrentAttackDamage();
         // Checks no additional abilities are triggered
         monster.ability(allyTeam, enemyTeam);
-        assertEquals(startAttackDamage, monsterInFront.getCurrentAttackDamage()); // 50% of 1 is 0 (rounded down)
+        assertEquals(startAttackDamage, monsterBehind.getCurrentAttackDamage()); // 50% of 1 is 0 (rounded down)
 
-        // Monster in front with Gil AttackDamage: 2
+        // Monster behind with Gil AttackDamage: 2
         monster.setCurrentAttackDamage(2);
-        monsterInFront.restore(); // Reset stats
-        startAttackDamage = monsterInFront.getCurrentAttackDamage();
+        monsterBehind.restore(); // Reset stats
+        startAttackDamage = monsterBehind.getCurrentAttackDamage();
         monster.ability(allyTeam, enemyTeam);
         assertEquals(startAttackDamage + (monster.getCurrentAttackDamage() / 2), // 50% of 2 is 1 (rounded down)
-                monsterInFront.getCurrentAttackDamage());
+                monsterBehind.getCurrentAttackDamage());
 
-        // Gil in front of team
+        // Gil behind of team
         monster.setCurrentAttackDamage(2);
-        allyTeam = new Team(monster);
-        allyTeam.addMonster(ally);
-        // Check Gil in front
-        assertEquals(monster, allyTeam.getFirstAliveMonster());
+        allyTeam = new Team(ally);
+        allyTeam.addMonster(monster);
+        // Check Gil behind
+        assertEquals(ally, allyTeam.getFirstAliveMonster());
         int startAttackDamageGil = monster.getCurrentAttackDamage();
         int startAttackDamageMonsterBehind = ally.getCurrentAttackDamage();
         monster.ability(allyTeam, enemyTeam);

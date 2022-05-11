@@ -109,6 +109,7 @@ public class CommandLineInterface {
     }
 
     public void setUp() {
+        TextFormat.printHeader("Game Setup", headerWhiteSpacing, headerChar);
         // Name
         System.out.println("What is your name? ");
         String playerName = getString();
@@ -174,9 +175,7 @@ public class CommandLineInterface {
             Team team = new Team(starter);
             Player player = new Player(playerName, team, 30); // TODO: make constant
             game = new GameEnvironment(player, numDays, gameDifficulty);
-        } catch (TeamSizeException e) { // Will never occur
-            e.printStackTrace();
-        } catch (DuplicateMonsterException e) { // Will never occur
+        } catch (TeamSizeException | DuplicateMonsterException e) { // Will never occur
             e.printStackTrace();
         }
 
@@ -195,10 +194,11 @@ public class CommandLineInterface {
                     "Buy Shop", // 0
                     "Sell Shop", // 1
                     "View Team", // 2
-                    "View Battles" // 3
+                    "View Inventory", // 3
+                    "View Battles" // 4
             ));
             if (game.getBattleState().getResult() != BattleResult.NULL) {
-                options.add("Sleep"); // 4
+                options.add("Sleep"); // 5
             }
             int option = getOption(options);
             switch (option) {
@@ -211,11 +211,17 @@ public class CommandLineInterface {
                 case 2: // View Team
                     viewTeamMenu();
                     break;
-                case 3: // View Battles
+                case 3: // View Inventory
+                    viewInventoryMenu();
+                    break;
+                case 4: // View Battles
                     viewBattlesMenu();
                     break;
-                case 4: // Sleep
-                    game.sleep();
+                case 5: // Sleep
+                    ArrayList<String> events = game.sleep();
+                    for (String event : events) {
+                        System.out.println(event);
+                    }
                     TextFormat.printHeader("You have advanced to the next day",
                                             msgWhiteSpacing,
                                             msgChar);
@@ -339,9 +345,126 @@ public class CommandLineInterface {
     }
 
     // TODO: !!!!!!!!! VIEW INVENTORY !!!!!!!
+    public void viewInventoryMenu() {
+        ArrayList<Item> inventory = game.getPlayer().getInventory();
+        while (true) {
+            TextFormat.printHeader("View Inventory", headerWhiteSpacing, headerChar);
+            System.out.println("Select Item to Use");
+            ArrayList<String> options = new ArrayList<String>(Arrays.asList(
+                    "Back"));
+
+            for (Item item : inventory) {
+                options.add(item.getRarity().name() + " " + item.getName());
+            }
+
+            int option = getOption(options);
+
+            if (option == 0) { // Back
+                return;
+            }
+            // Otherwise
+            Item itemToBeUsed = inventory.get(option - 1);
+
+            TextFormat.printHeader("Select Monster", headerWhiteSpacing, headerChar);
+            ArrayList<String> monsterOptions = new ArrayList<String>(Arrays.asList(
+                    "Back"));
+            for (Monster m : game.getPlayer().getTeam().getMonsters()) {
+                monsterOptions.add(m.getName());
+            }
+
+            int monsterOption = getOption(monsterOptions);
+
+            if (monsterOption == 0) { // Back
+                continue;
+            }
+
+            Monster selectedMonster = game.getPlayer().getTeam().getMonsters().get(monsterOption - 1);
+            System.out.println(game.getPlayer().useItem(itemToBeUsed, selectedMonster));
+
+        }
+    }
 
     public void viewTeamMenu() {// TODO: implement
-        // TODO: view team and re-arrage
+        while (true) {
+            TextFormat.printHeader("View Team", headerWhiteSpacing, headerChar);
+            ArrayList<String> options = new ArrayList<String>(Arrays.asList(
+                    "Back",
+                    "Move Monster Up",
+                    "Move Monster Down",
+                    "Rename Monster"));
+
+            for (Monster m : game.getPlayer().getTeam().getMonsters()) {
+                options.add("View " + m.getName());
+            }
+
+            int option = getOption(options);
+
+            ArrayList<String> monsterOptions = new ArrayList<String>();
+            monsterOptions.add("Back");
+            int monsterOption;
+            Monster monsterToMove;
+            switch (option) {
+                case 0: // Back
+                    return;
+                case 1: // Move Monster Up
+                    TextFormat.printHeader("Select Monster to Move Up", headerWhiteSpacing, headerChar);
+                    for (Monster m : game.getPlayer().getTeam().getMonsters()) {
+                        Monster firstMonster = game.getPlayer().getTeam().getMonsters().get(0);
+                        if (firstMonster == m) {
+                            monsterOptions.add(m.getName() + " (Already at top)");
+                        } else {
+                            monsterOptions.add(m.getName());
+                        }
+                    }
+                    monsterOption = getOption(monsterOptions);
+                    if (monsterOption == 0) {
+                        break;
+                    } else {
+                        monsterToMove = game.getPlayer().getTeam().getMonsters().get(monsterOption - 1);
+                        game.getPlayer().getTeam().moveMonsterUp(monsterToMove);
+                        break;
+                    }
+                case 2: // Move Monster Down
+                    TextFormat.printHeader("Select Monster to Move Down", headerWhiteSpacing, headerChar);
+                    for (Monster m : game.getPlayer().getTeam().getMonsters()) {
+                        Monster lastMonster = game.getPlayer().getTeam().getMonsters()
+                                .get(game.getPlayer().getTeam().getMonsters().size() - 1); // TODO: Fix this - super
+                                                                                           // ugly
+                        if (lastMonster == m) {
+                            monsterOptions.add(m.getName() + " (Already at bottom)");
+                        } else {
+                            monsterOptions.add(m.getName());
+                        }
+                    }
+                    monsterOption = getOption(monsterOptions);
+                    if (monsterOption == 0) {
+                        break;
+                    } else {
+                        monsterToMove = game.getPlayer().getTeam().getMonsters().get(monsterOption - 1);
+                        game.getPlayer().getTeam().moveMonsterDown(monsterToMove);
+                        break;
+                    }
+                case 3: // Rename Monster
+                    TextFormat.printHeader("Select Monster to Give Nickname", headerWhiteSpacing, headerChar);
+                    for (Monster m : game.getPlayer().getTeam().getMonsters()) {
+                        monsterOptions.add(m.getName());
+                    }
+                    monsterOption = getOption(monsterOptions);
+                    if (monsterOption == 0) {
+                        break;
+                    } else {
+                        Monster monsterToRename = game.getPlayer().getTeam().getMonsters().get(monsterOption - 1);
+                        String newName = getString();
+                        monsterToRename.setName(newName);
+                        break;
+                    }
+                default: // View Monster
+                    System.out.println(game.getPlayer().getTeam().getMonsters().get(option - 4));
+                    break;
+
+            }
+
+        }
     }
 
     public void sellShopMenu() {// TODO: implement
@@ -367,7 +490,6 @@ public class CommandLineInterface {
             String sellMessage;
 
             if (option == 0) {
-                // TODO: Go back;
                 return;
             } else {
                 if (game.getSellShop().getContent().get(option - 1) instanceof Item) {
@@ -396,7 +518,7 @@ public class CommandLineInterface {
             shopContent = game.getBuyShop().getContent();
             for (Entity stock : shopContent) {
                 String listing;
-                listing = stock.getName() +
+                listing = stock.getName() + // TODO: use toString methods
                         "(" + stock.getRarity() + ") " +
                         stock.getBuyPrice() + "G\n" +
                         stock.getDescription();
@@ -410,7 +532,6 @@ public class CommandLineInterface {
             String buyMessage;
 
             if (option == 0) {
-                // TODO: Go back;
                 return;
             } else {
                 if (game.getBuyShop().getContent().get(option - 1) instanceof Item) {
@@ -426,16 +547,25 @@ public class CommandLineInterface {
         }
     }
 
+    public void gameOverScreen() {
+        TextFormat.printHeader("Game Over", headerWhiteSpacing, headerChar);
+        System.out.println(game.getPlayer().getName() + "'s Results:");
+        System.out.println("You lasted " + game.getCurrentDay() + "/" + game.getTotalDays());
+        System.out.println("Final Gold: " + game.getPlayer().getGold());
+        System.out.println("Final Score: " + game.getPlayer().getScore());
+        System.out.println();
+    }
+
     // ***************USED FOR DEVELOPMENT TESTING*********************
     public static void main(String args[]) {
         CommandLineInterface cli = new CommandLineInterface();
         cli.setUp();
-        cli.mainMenu();
-        // System.out.println(cli.game.getPlayer().getName() + "\n" +
-        // cli.game.getPlayer().getTeam().getFirstAliveMonster().getName() + "\n" +
-        // cli.game.getPlayer().getTeam().getFirstAliveMonster().getClass() + "\n" +
-        // cli.game.getDifficulty() + "\n" +
-        // cli.game.getTotalDays());
+
+        while (!cli.game.isGameOver()) {
+            cli.mainMenu();
+        }
+
+        cli.gameOverScreen();
     }
     // ****************************************************************
 }
