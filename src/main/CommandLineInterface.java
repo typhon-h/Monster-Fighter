@@ -115,7 +115,7 @@ public class CommandLineInterface {
         String playerName = getString();
 
         // Difficulty
-        System.out.println("Select Difficulty");
+        TextFormat.printHeader("Select Difficulty", headerWhiteSpacing, headerChar);
         int difficultyChoice = getOption(new ArrayList<String>(Arrays.asList(
                 Difficulty.EASY.name(), // 0
                 Difficulty.NORMAL.name(), // 1
@@ -285,7 +285,7 @@ public class CommandLineInterface {
             currMonster = allyTeam.getAliveMonsters().get(i);
             output = output + currMonster.getName() +
                     "(" + currMonster.getCurrentAttackDamage() +
-                    "/" + currMonster.getCurrentHealth() + ")";
+                    "|" + currMonster.getCurrentHealth() + ")";
 
             if (i != 0) {
                 output += " - ";
@@ -298,7 +298,7 @@ public class CommandLineInterface {
             currMonster = opponentTeam.getAliveMonsters().get(i);
             output = output + currMonster.getName() +
                     "(" + currMonster.getCurrentAttackDamage() +
-                    "/" + currMonster.getCurrentHealth() + ")";
+                    "|" + currMonster.getCurrentHealth() + ")";
 
             if (i != opponentTeam.getAliveMonsters().size() - 1) {
                 output += " - ";
