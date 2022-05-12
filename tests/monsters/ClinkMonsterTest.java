@@ -91,7 +91,7 @@ public class ClinkMonsterTest {
         int startAttackDamage = monster.getCurrentAttackDamage();
         int startHealth = monster.getCurrentHealth();
 
-        monster.ability(allyTeam, enemyTeam);
+        monster.ability(true, allyTeam, enemyTeam);
 
         // Attack damage is reduced
         assertEquals(startAttackDamage - 1, monster.getCurrentAttackDamage());
@@ -107,7 +107,7 @@ public class ClinkMonsterTest {
         monster.restore();
         startAttackDamage = 1;
         monster.setCurrentAttackDamage(startAttackDamage); // Minimum attack
-        monster.ability(allyTeam, enemyTeam);
+        monster.ability(true, allyTeam, enemyTeam);
         assertEquals(startAttackDamage, monster.getCurrentAttackDamage());
         assertEquals(startHealth, monster.getCurrentHealth());
 
@@ -118,7 +118,7 @@ public class ClinkMonsterTest {
      */
     @Test
     public void abilityReturnTest() {
-        BattleEvent ability = monster.ability(allyTeam, enemyTeam);
+        BattleEvent ability = monster.ability(true, allyTeam, enemyTeam);
         assertEquals(monster.getName() + "'s " + monster.getTrigger().name()
                 + " ability triggered. Lost 1 ATK and gained 1 HP", ability.getDescription());
     }

@@ -110,7 +110,7 @@ public class TeddyMonsterTest {
             startEnemyTeamSumHealth += m.getCurrentHealth();
         }
 
-        monster.ability(allyTeam, enemyTeam);
+        monster.ability(true, allyTeam, enemyTeam);
 
         for (Monster m : allyTeam.getAliveMonsters()) {
             endAllyTeamSumHealth += m.getCurrentHealth();
@@ -125,7 +125,7 @@ public class TeddyMonsterTest {
         // Check heals itself if only member
         monster.restore();
         allyTeam = new Team(monster);
-        monster.ability(allyTeam, enemyTeam);
+        monster.ability(true, allyTeam, enemyTeam);
         assertEquals(monster.getBaseHealth() + 1, monster.getCurrentHealth());
     }
 
@@ -149,7 +149,7 @@ public class TeddyMonsterTest {
         // Get start
         for (Monster m : allyTeam.getMonsters()) {
             teamStartHealth.add(m.getCurrentHealth());
-            monster.ability(allyTeam, enemyTeam);
+            monster.ability(true, allyTeam, enemyTeam);
         }
 
         for (int i = 0; i < allyTeam.getTeamSize(); i++) {
@@ -164,7 +164,7 @@ public class TeddyMonsterTest {
     @Test
     public void abilityReturnTest() {
         GameEnvironment.setSeed(4119);
-        BattleEvent ability = monster.ability(allyTeam, enemyTeam);
+        BattleEvent ability = monster.ability(true, allyTeam, enemyTeam);
         assertEquals(monster.getName() + "'s " + monster.getTrigger().name()
                 + " ability triggered. " + monster.getName() + " gained 1 HP", ability.getDescription());
     }

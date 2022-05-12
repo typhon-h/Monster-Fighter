@@ -116,8 +116,9 @@ public class BattleManager {
 
         // Use boost item on random monsters in the team
         int totalPoints = (int) (Difficulty.getDifficultyMultiplier(difficulty) *
-                      Math.floor((float) ItemConstants.AVERAGEBOOSTPERBUYPRICE *
+                      Math.ceil((float) ItemConstants.AVERAGEBOOSTPERBUYPRICE *
                                 (float) allyPlayer.getItemPoints()));
+
         int expendedPoints = 0;
         RandomStatBoost boost = new RandomStatBoost(Rarity.COMMON);
 
@@ -189,10 +190,7 @@ public class BattleManager {
      */
     public void setOpponent(Player opponent) {
         currentOpponent = opponent;
-        if (!opponents.remove(opponent)) {
-            System.out.println("Opponent does not exist");
-        }
-
+        opponents.remove(opponent);
     }
 
     /**

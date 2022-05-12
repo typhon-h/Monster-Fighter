@@ -103,14 +103,14 @@ public class GilMonsterTest {
         monster.setCurrentAttackDamage(1);
         int startAttackDamage = monsterBehind.getCurrentAttackDamage();
         // Checks no additional abilities are triggered
-        monster.ability(allyTeam, enemyTeam);
+        monster.ability(true, allyTeam, enemyTeam);
         assertEquals(startAttackDamage, monsterBehind.getCurrentAttackDamage()); // 50% of 1 is 0 (rounded down)
 
         // Monster behind with Gil AttackDamage: 2
         monster.setCurrentAttackDamage(2);
         monsterBehind.restore(); // Reset stats
         startAttackDamage = monsterBehind.getCurrentAttackDamage();
-        monster.ability(allyTeam, enemyTeam);
+        monster.ability(true, allyTeam, enemyTeam);
         assertEquals(startAttackDamage + (monster.getCurrentAttackDamage() / 2), // 50% of 2 is 1 (rounded down)
                 monsterBehind.getCurrentAttackDamage());
 
@@ -122,7 +122,7 @@ public class GilMonsterTest {
         assertEquals(ally, allyTeam.getFirstAliveMonster());
         int startAttackDamageGil = monster.getCurrentAttackDamage();
         int startAttackDamageMonsterBehind = ally.getCurrentAttackDamage();
-        monster.ability(allyTeam, enemyTeam);
+        monster.ability(true, allyTeam, enemyTeam);
         assertEquals(startAttackDamageGil, monster.getCurrentAttackDamage()); // Gil attack isn't changed
         assertEquals(startAttackDamageMonsterBehind, ally.getCurrentAttackDamage()); // Behind attack isn't changed'
 
@@ -133,7 +133,7 @@ public class GilMonsterTest {
      */
     @Test
     public void abilityReturnTest() {
-        BattleEvent ability = monster.ability(allyTeam, enemyTeam);
+        BattleEvent ability = monster.ability(true, allyTeam, enemyTeam);
         assertEquals(monster.getName() + "'s " + monster.getTrigger().name() + " ability triggered. "
                 + ally.getName() + "'s attack increased to "
                 + ally.getCurrentAttackDamage(), ability.getDescription());

@@ -85,9 +85,10 @@ public abstract class Monster extends Entity {
 
     /**
      * Unique ability of the monster that has special effects in battle
-     *
-     * @param allyTeam  Friendly team of the monster
-     * @param enemyTeam Enemy team of the monster
+     * 
+     * @parm inPlayerTeam Team which the monster using the ability is in
+     * @param allyTeam    Friendly team of the monster
+     * @param enemyTeam   Enemy team of the monster
      * @return a Monster whose ability gets triggered next
      */
     public abstract BattleEvent ability(boolean inPlayerTeam, Team allyTeam, Team enemyTeam);

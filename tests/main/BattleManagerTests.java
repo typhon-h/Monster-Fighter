@@ -13,6 +13,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import exceptions.DuplicateMonsterException;
 import exceptions.TeamSizeException;
+import items.HealthBoost;
 import monsters.*;
 
 /**
@@ -45,9 +46,12 @@ class BattleManagerTests {
     @BeforeEach
     void setUp() throws Exception {
         // Create a new battle manager
+        HealthBoost item = new HealthBoost(Rarity.LEGENDARY);
         playerTeam = new Team(new ClinkMonster());
         player = new Player(playerTeam, 0);
         player.addGold(100);
+        player.addItem(item);
+        player.useItem(item, playerTeam.getFirstAliveMonster());
 
         battleManager = new BattleManager(player, Difficulty.NORMAL, 15);
     }
@@ -97,7 +101,7 @@ class BattleManagerTests {
     @Test
     public void itemsUsedOnTeam() {
         // Generate a team with one monster
-        Team team = battleManager.generateTeam(1, 15, Difficulty.NORMAL);
+        Team team = battleManager.generateTeam(1, 15, Difficulty.HARD);
 
         assertEquals(player, battleManager.getPlayer());
 
@@ -123,7 +127,7 @@ class BattleManagerTests {
             baseMonster = new ClinkMonster();
             fail("Provided monster was not matched.");
         }
-
+        
         assertTrue(baseMonster.getBaseAttackDamage() < monster.getBaseAttackDamage() ||
                 baseMonster.getBaseHealth() < monster.getBaseHealth() ||
                 baseMonster.getSpeed() < monster.getSpeed());

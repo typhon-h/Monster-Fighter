@@ -94,20 +94,20 @@ public class JynxMonsterTest {
         // Health stays same if Jynx has highest health
         monster.setCurrentHealth(allyMonster.getCurrentHealth() + 1);
         int prevHealth = monster.getCurrentHealth();
-        monster.ability(allyTeam, enemyTeam);
+        monster.ability(true, allyTeam, enemyTeam);
         assertEquals(prevHealth, monster.getCurrentHealth());
 
         // Health switches to highest health (not Jynx)
         allyMonster.setCurrentHealth(monster.getCurrentHealth() + 1);
         prevHealth = monster.getCurrentHealth();
         int expectedHealth = allyMonster.getCurrentHealth();
-        monster.ability(allyTeam, enemyTeam);
+        monster.ability(true, allyTeam, enemyTeam);
         assertNotEquals(prevHealth, monster.getCurrentHealth());
         assertEquals(expectedHealth, monster.getCurrentHealth());
 
         // Health stays same if whole team has same health
         prevHealth = monster.getCurrentHealth();
-        monster.ability(allyTeam, enemyTeam);
+        monster.ability(true, allyTeam, enemyTeam);
         assertEquals(prevHealth, monster.getCurrentHealth());
     }
 
@@ -116,7 +116,7 @@ public class JynxMonsterTest {
      */
     @Test
     public void abilityReturnTest() {
-        BattleEvent ability = monster.ability(allyTeam, enemyTeam);
+        BattleEvent ability = monster.ability(true, allyTeam, enemyTeam);
         assertEquals(monster.getName() + "'s " + monster.getTrigger().name()
                 + " ability triggered. " + monster.getName() + "'s new HP is " + monster.getCurrentHealth(),
                 ability.getDescription());

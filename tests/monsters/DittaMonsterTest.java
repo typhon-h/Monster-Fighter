@@ -89,7 +89,7 @@ public class DittaMonsterTest {
      */
     @Test
     public void abilityTest() throws TeamSizeException, DuplicateMonsterException {
-        monster.ability(allyTeam, enemyTeam);
+        monster.ability(true, allyTeam, enemyTeam);
         Monster firstEnemy = enemyTeam.getFirstAliveMonster();
 
         // Check stats are copied
@@ -100,7 +100,7 @@ public class DittaMonsterTest {
         monster.restore();
         firstEnemy.setCurrentAttackDamage(monster.getCurrentAttackDamage() + 1);
         firstEnemy.setCurrentHealth(monster.getCurrentHealth() + 1);
-        monster.ability(allyTeam, enemyTeam);
+        monster.ability(true, allyTeam, enemyTeam);
         assertEquals(firstEnemy.getCurrentHealth(), monster.getCurrentHealth());
         assertEquals(firstEnemy.getCurrentAttackDamage(), monster.getCurrentAttackDamage());
 
@@ -108,7 +108,7 @@ public class DittaMonsterTest {
         monster.restore();
         firstEnemy.takeDamage(firstEnemy.getCurrentHealth() + 1);
         assertEquals(0, enemyTeam.getAliveMonsters().size()); // All enemies fainted
-        monster.ability(allyTeam, enemyTeam);
+        monster.ability(true, allyTeam, enemyTeam);
         assertEquals(monster.getBaseHealth(), monster.getCurrentHealth());
         assertEquals(monster.getBaseAttackDamage(), monster.getCurrentAttackDamage());
     }
@@ -118,7 +118,7 @@ public class DittaMonsterTest {
      */
     @Test
     public void abilityReturnTest() {
-        BattleEvent ability = monster.ability(allyTeam, enemyTeam);
+        BattleEvent ability = monster.ability(true, allyTeam, enemyTeam);
         assertEquals(monster.getName() + "'s " + monster.getTrigger().name()
                 + " ability triggered. " + monster.getName() + " copied " + enemyTeam.getFirstAliveMonster().getName()
                 + "'s stats.", ability.getDescription());

@@ -45,7 +45,7 @@ class BattleConstantsTest {
                         Difficulty.HARD),
                 Arguments.arguments(new LuciferMonster(),
                         new Trigger[] { Trigger.NOABILITY, Trigger.STARTOFBATTLE, Trigger.ONHURT,
-                                        Trigger.AFTERATTACK, Trigger.AFTERATTACK },
+                                        Trigger.AFTERATTACK },
                         Difficulty.HARD),
                 Arguments.arguments(new TeddyMonster(),
                         new Trigger[] { Trigger.NOABILITY, Trigger.STARTOFBATTLE, Trigger.AFTERATTACK,

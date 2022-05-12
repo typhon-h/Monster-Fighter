@@ -91,7 +91,7 @@ public class LuciferMonsterTest {
         monster.setCurrentHealth(1);
         int startAttackDamage = monster.getCurrentAttackDamage();
         int startHealth = monster.getCurrentHealth();
-        monster.ability(allyTeam, enemyTeam);
+        monster.ability(true, allyTeam, enemyTeam);
 
         assertEquals(startHealth, monster.getCurrentAttackDamage());
         assertEquals(startAttackDamage, monster.getCurrentHealth());
@@ -106,7 +106,7 @@ public class LuciferMonsterTest {
      */
     @Test
     public void abilityReturnTest() {
-        BattleEvent ability = monster.ability(allyTeam, enemyTeam);
+        BattleEvent ability = monster.ability(true, allyTeam, enemyTeam);
         assertEquals(monster.getName() + "'s " + monster.getTrigger().name()
                 + " ability triggered. ATK and HP have been swapped", ability.getDescription());
     }
