@@ -6,7 +6,6 @@ import exceptions.*;
 import items.*;
 import main.*;
 import monsters.*;
-import shop.BuyShop;
 
 import static org.junit.jupiter.api.Assertions.*;
 

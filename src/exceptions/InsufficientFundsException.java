@@ -8,6 +8,11 @@ package exceptions;
  */
 public class InsufficientFundsException extends Exception {
     /**
+     * Serial version of class
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
      * Instantiate error with display message
      *
      * @param message message to be displayed

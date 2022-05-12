@@ -7,8 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
 import exceptions.UnusableItemException;
-import items.ItemConstants;
-import items.SelectTrigger;
+
 import monsters.ClinkMonster;
 import monsters.Monster;
 import main.Trigger;

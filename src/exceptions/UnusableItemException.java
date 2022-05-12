@@ -9,6 +9,11 @@ package exceptions;
  */
 public class UnusableItemException extends Exception {
     /**
+     * Serial version of class
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
      * Instantiate error with display message
      *
      * @param message The message to be displayed.

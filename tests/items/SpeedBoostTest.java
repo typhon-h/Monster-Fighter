@@ -11,8 +11,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import monsters.ClinkMonster;
 import monsters.Monster;
-import items.SpeedBoost;
-import items.ItemConstants;
+
 import main.Rarity;
 
 class SpeedBoostTest {

@@ -10,11 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import exceptions.DuplicateMonsterException;
 import exceptions.TeamSizeException;
 import items.ItemConstants;
-import main.Difficulty;
-import main.GameEnvironment;
-import main.RandomEvent;
-import main.RandomEventConstants;
-import main.Team;
 import monsters.ClinkMonster;
 import monsters.Monster;
 
@@ -56,7 +51,7 @@ public class RandomEventTest {
     }
 
     /**
-     * Sets rng seed to achieve even distribution for testing
+     * Sets RNG seed to achieve even distribution for testing
      *
      * @throws TeamSizeException         too many {@link monsters.Monster monsters}
      *                                   in {@link main.Team team}

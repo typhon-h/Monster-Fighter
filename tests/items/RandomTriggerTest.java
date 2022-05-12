@@ -9,9 +9,6 @@ import org.junit.jupiter.api.*;
 import monsters.ClinkMonster;
 import monsters.Monster;
 
-import items.ItemConstants;
-import items.RandomTrigger;
-
 import main.GameEnvironment;
 import main.Trigger;
 

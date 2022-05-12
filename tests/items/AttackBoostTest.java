@@ -9,11 +9,10 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import items.AttackBoost;
+
 import main.Rarity;
 import monsters.Monster;
 import monsters.ClinkMonster;
-import items.ItemConstants;
 
 /**
  * Tests for the class {@link items.AttackBoost}

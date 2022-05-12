@@ -7,7 +7,6 @@ import exceptions.*;
 import items.*;
 import monsters.*;
 import main.*;
-import shop.SellShop;
 
 /**
  * Testing for Sell Shop class.
