@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import main.GameEnvironment;
+
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -12,6 +15,11 @@ import java.awt.Dimension;
 public class MainContainer {
 
     private JFrame monsterGameFrame;
+    protected static GameEnvironment game;
+    protected static final int SCREENWIDTH = 960;
+    protected static final int SCREENHEIGHT = 540;
+    private static JPanel mainContainerPanel;
+    private static CardLayout cardLayout;
 
     /**
      * Launch the application.
@@ -43,21 +51,21 @@ public class MainContainer {
         monsterGameFrame = new JFrame();
         monsterGameFrame.setResizable(false);
         monsterGameFrame.setTitle("Monster Fighter");
-        monsterGameFrame.setMinimumSize(new Dimension(960, 575));
-        monsterGameFrame.setBounds(100, 100, 1000, 575);
+        monsterGameFrame.setMinimumSize(new Dimension(SCREENWIDTH, SCREENHEIGHT + 35));
+        monsterGameFrame.setBounds(100, 100, SCREENWIDTH, SCREENHEIGHT + 35);
         monsterGameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // TODO: Each menu panel needs to be its own class?
-        JPanel mainContainerPanel = new JPanel();
+        mainContainerPanel = new JPanel();
         monsterGameFrame.getContentPane().add(mainContainerPanel, BorderLayout.CENTER);
-        CardLayout cardLayout = new CardLayout(0, 0);
+        cardLayout = new CardLayout(0, 0);
         mainContainerPanel.setLayout(cardLayout);
 
         SetupPanel setUpPanel = new SetupPanel();
         mainContainerPanel.add(setUpPanel, "Setup");
 
         JPanel mainMenuPanel = new JPanel();
-        mainContainerPanel.add(mainMenuPanel, "Main menu");
+        mainContainerPanel.add(mainMenuPanel, "MainMenu");
         mainMenuPanel.setBackground(Color.orange);
 
         // TODO: Make this JPanel a new class that inherits JPanel with arguments
@@ -73,14 +81,12 @@ public class MainContainer {
         battlePanel.add(gameOverPanel);
 
         // Show default setup panel
-        cardLayout.show(mainContainerPanel, "Setup"); // <-- Change string arg to change JPanel shown
-
-        // TODO: Use this dummy panel to create UI then just copy paste code over to own
-        // panel classes for setup?
-        // Could do this whole thing another way if you would like
-        JPanel dummyDevPanel = new JPanel();
-        mainContainerPanel.add(dummyDevPanel, "name_22009086645600");
-
+        showScreen("Setup");
+    }
+    
+    
+    public static void showScreen(String screenName) {
+    	cardLayout.show(mainContainerPanel, screenName);
     }
 
 }
