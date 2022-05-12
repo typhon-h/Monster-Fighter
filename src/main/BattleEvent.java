@@ -41,15 +41,31 @@ public class BattleEvent {
 
         this.description = newDescription;
     }
-
+    
+    
+    /**
+     * Gets the team of the player
+     * 
+     * @return The ally team
+     */
     public Team getAllyTeam() {
         return allyTeam;
     }
-
+    
+    /**
+     * Gets the team of the opponent
+     * 
+     * @return The opponents team
+     */
     public Team getOpponentTeam() {
         return opponentTeam;
     }
-
+    
+    /**
+     * Gets the description of the battle event
+     * 
+     * @return The description of the event
+     */
     public String getDescription() {
         return description;
     }

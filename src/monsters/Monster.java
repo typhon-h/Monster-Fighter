@@ -86,9 +86,9 @@ public abstract class Monster extends Entity {
     /**
      * Unique ability of the monster that has special effects in battle
      * 
-     * @parm inPlayerTeam Team which the monster using the ability is in
-     * @param allyTeam    Friendly team of the monster
-     * @param enemyTeam   Enemy team of the monster
+     * @param inPlayerTeam Team which the monster using the ability is in
+     * @param allyTeam     Friendly team of the monster
+     * @param enemyTeam    Enemy team of the monster
      * @return a Monster whose ability gets triggered next
      */
     public abstract BattleEvent ability(boolean inPlayerTeam, Team allyTeam, Team enemyTeam);
@@ -311,7 +311,7 @@ public abstract class Monster extends Entity {
     /**
      * Sets the speed of the monster.
      *
-     * @param speed The new speed of the monster.
+     * @param newSpeed The new speed of the monster.
      */
     public void setSpeed(int newSpeed) {
         this.speed = newSpeed;

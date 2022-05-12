@@ -479,7 +479,7 @@ public class CommandLineInterface {
             for (Entity content : playerContent) {
                 String listing;
                 listing = content.getSellPrice() + "G " +
-                        content.toString();
+                          content.toString();
                 options.add(listing);
             }
 
@@ -558,6 +558,11 @@ public class CommandLineInterface {
     }
 
     // ***************USED FOR DEVELOPMENT TESTING*********************
+    /**
+     * Entry point for command line application
+     *
+     * @param args Arguments passed in when running program
+     */
     public static void main(String args[]) {
         CommandLineInterface cli = new CommandLineInterface();
         cli.setUp();

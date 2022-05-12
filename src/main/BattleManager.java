@@ -53,7 +53,9 @@ public class BattleManager {
      * Constructor to for BattleManager, creates a new BattleManager
      * for a given player.
      *
-     * @param player The player which the BattleManager is for.
+     * @param player     The player which the BattleManager is for.
+     * @param difficulty Difficulty of the game
+     * @param maxDays    Maximum number of days the player can select
      */
     public BattleManager(Player player, Difficulty difficulty, int maxDays) {
         allyPlayer = player;
