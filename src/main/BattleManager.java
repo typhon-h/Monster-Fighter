@@ -117,6 +117,7 @@ public class BattleManager {
         // Use boost item on random monsters in the team
         int totalPoints = (int) (Difficulty.getDifficultyMultiplier(difficulty) *
                       Math.ceil((float) ItemConstants.AVERAGEBOOSTPERBUYPRICE *
+                                (float) allyPlayer.getGold() * 0.5 +
                                 (float) allyPlayer.getItemPoints()));
 
         int expendedPoints = 0;
