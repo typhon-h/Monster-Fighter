@@ -20,6 +20,17 @@ public class MainContainer {
     protected static final int SCREENHEIGHT = 540;
     private static JPanel mainContainerPanel;
     private static CardLayout cardLayout;
+    
+    
+    private static SetupPanel setUpPanel;
+    private static BuyShopPanel buyShopPanel;
+ 
+    private static SellShopPanel sellShopPanel;
+
+    private static InventoryPanel inventoryPanel;
+    private static MainMenuPanel mainMenuPanel;
+    private static TeamPanel teamPanel;
+    private static BattleSelectionPanel battleSelectionPanel;
 
     /**
      * Launch the application.
@@ -61,24 +72,9 @@ public class MainContainer {
         cardLayout = new CardLayout(0, 0);
         mainContainerPanel.setLayout(cardLayout);
 
-        SetupPanel setUpPanel = new SetupPanel();
+        setUpPanel = new SetupPanel();
         mainContainerPanel.add(setUpPanel, "Setup");
 
-        JPanel mainMenuPanel = new JPanel();
-        mainContainerPanel.add(mainMenuPanel, "MainMenu");
-        mainMenuPanel.setBackground(Color.orange);
-
-        // TODO: Make this JPanel a new class that inherits JPanel with arguments
-        // for settings the content of the panel.
-        // TODO: dynamically rename this Panel
-        JPanel commonMenuPanel = new JPanel();
-        mainContainerPanel.add(commonMenuPanel, "Menu");
-
-        JPanel battlePanel = new JPanel();
-        mainContainerPanel.add(battlePanel, "Battle");
-
-        JPanel gameOverPanel = new JPanel();
-        battlePanel.add(gameOverPanel);
 
         // Show default setup panel
         showScreen("Setup");
@@ -87,6 +83,29 @@ public class MainContainer {
     
     public static void showScreen(String screenName) {
     	cardLayout.show(mainContainerPanel, screenName);
+    }
+    
+    public static void setUpScreens() {
+    	mainMenuPanel = new MainMenuPanel();
+        mainContainerPanel.add(mainMenuPanel, "MainMenu");
+
+        // TODO: Make this JPanel a new class that inherits JPanel with arguments
+        // for settings the content of the panel.
+        // TODO: dynamically rename this Panel
+        buyShopPanel = new BuyShopPanel();
+        mainContainerPanel.add(buyShopPanel, "BuyShop");
+        
+        sellShopPanel = new SellShopPanel();
+        mainContainerPanel.add(sellShopPanel, "SellShop");
+        
+        inventoryPanel = new InventoryPanel();
+        mainContainerPanel.add(inventoryPanel, "Inventory");
+        
+        teamPanel = new TeamPanel();
+        mainContainerPanel.add(teamPanel, "Team");
+
+        battleSelectionPanel = new BattleSelectionPanel();
+        mainContainerPanel.add(battleSelectionPanel, "BattleSelection");
     }
 
 }

@@ -288,6 +288,7 @@ public class SetupPanel extends JPanel {
             team = new Team(starter);
             Player player = new Player(playerName, team, GameEnvironment.STARTINGGOLD);
             MainContainer.game = new GameEnvironment(player, numDays, gameDifficulty);
+            MainContainer.setUpScreens();
             MainContainer.showScreen("MainMenu");
         } catch (TeamSizeException | DuplicateMonsterException e) {
             ErrorPopUp error = new ErrorPopUp(e.getMessage());
