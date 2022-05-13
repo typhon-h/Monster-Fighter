@@ -349,11 +349,11 @@ public abstract class Monster extends Entity {
     @Override
     public String toString() {
         return this.getName() + " (" +
-                this.getRarity() + ")\n" +
+                this.getRarity() + ")\n\n" +
                 this.getCurrentAttackDamage() + " ATTACK | " +
                 this.getCurrentHealth() + " HEALTH | " +
-                this.getSpeed() + " SPEED\n" +
-                this.getDescription() + '\n' +
+                this.getSpeed() + " SPEED\n\n" +
+                this.getDescription() + "\n\n" +
                 this.getTrigger().name() + ": " + this.getAbilityDescription();
     }
 }

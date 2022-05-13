@@ -479,7 +479,7 @@ public class CommandLineInterface {
             for (Entity content : playerContent) {
                 String listing;
                 listing = content.getSellPrice() + "G " +
-                          content.toString();
+                        content.toString();
                 options.add(listing);
             }
 

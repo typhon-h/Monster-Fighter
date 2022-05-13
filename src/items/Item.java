@@ -122,7 +122,7 @@ public abstract class Item extends Entity {
     public String toString() {
         String output;
         output = this.getName() + " (" +
-        this.getRarity() + ")\n" +
+        this.getRarity() + ")\n\n" +
         this.getDescription();
 
         return output;

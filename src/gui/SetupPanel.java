@@ -212,6 +212,7 @@ public class SetupPanel extends JPanel {
         jPanelMonsterInfo.add(lblSelectedMonsterImg);
 
         textPaneMonsterInfo = new JTextPane();
+        textPaneMonsterInfo.setEditable(false);
         textPaneMonsterInfo.setBackground(this.getBackground());
         textPaneMonsterInfo.setBounds(3, 159, 285, 186);
         jPanelMonsterInfo.add(textPaneMonsterInfo);

@@ -89,9 +89,6 @@ public class MainContainer {
     	mainMenuPanel = new MainMenuPanel();
         mainContainerPanel.add(mainMenuPanel, "MainMenu");
 
-        // TODO: Make this JPanel a new class that inherits JPanel with arguments
-        // for settings the content of the panel.
-        // TODO: dynamically rename this Panel
         buyShopPanel = new BuyShopPanel();
         mainContainerPanel.add(buyShopPanel, "BuyShop");
         
