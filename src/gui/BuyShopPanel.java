@@ -216,7 +216,7 @@ public class BuyShopPanel extends JPanel implements Updatable {
                 update();
         }
 
-        public void updateContent() {
+        private void updateContent() {
                 int commonItem = getEntity(Item.class, Rarity.COMMON);
                 updateEntity(rdBtnCommonItem, textPaneCommonItem, commonItem);
 
@@ -258,7 +258,7 @@ public class BuyShopPanel extends JPanel implements Updatable {
         }
 
         private void buyEntity() {
-                if (content.getSelection().getActionCommand() != "-1") {
+                if (content.getSelection() != null && content.getSelection().getActionCommand() != "-1") {
                         int index = Integer.parseInt(content.getSelection().getActionCommand());
                         Entity entityToBuy = shopContent.get(index);
                         InfoPopUp buyFeedback;
@@ -296,7 +296,7 @@ public class BuyShopPanel extends JPanel implements Updatable {
         }
 
         private void updatePreview() {
-                if (content.getSelection().getActionCommand() != "-1") {
+                if (content.getSelection() != null && content.getSelection().getActionCommand() != "-1") {
                         int index = Integer.parseInt(content.getSelection().getActionCommand());
                         Entity entity = shopContent.get(index);
                         lblPreviewEntityImg.setText(entity.getName() + " Image");

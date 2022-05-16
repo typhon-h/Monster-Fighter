@@ -13,7 +13,6 @@ import javax.swing.border.EtchedBorder;
 
 import items.Item;
 import main.Entity;
-import main.Rarity;
 import monsters.Monster;
 
 import javax.swing.SwingConstants;
@@ -21,8 +20,6 @@ import javax.swing.JTextPane;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.border.LineBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -355,29 +352,15 @@ public class SellShopPanel extends JPanel implements Updatable {
         update();
     }
 
-    public void updateContent() {
+    private void updateContent() {
         for (int i = contentButtons.size() - 1; i >= 0; i--) {
             updateEntity(contentButtons.get(i), contentDescriptions.get(i), i);
         }
-        textPaneEntity1.setCaretPosition(0);
+        textPaneEntity1.setCaretPosition(0); // Set scroll to position 0
     }
 
     private void selectFirstAvailableEntity() {
-        ArrayList<JRadioButton> options = new ArrayList<JRadioButton>(Arrays.asList(
-                rdBtnEntity1,
-                rdBtnEntity2,
-                rdBtnEntity3,
-                rdBtnEntity4,
-                rdBtnEntity5,
-                rdBtnEntity6,
-                rdBtnEntity7,
-                rdBtnEntity8,
-                rdBtnEntity9,
-                rdBtnEntity10,
-                rdBtnEntity11,
-                rdBtnEntity12));
-
-        for (JRadioButton btn : options) {
+        for (JRadioButton btn : contentButtons) {
             if (btn.getActionCommand() != "-1") {
                 btn.setSelected(true);
                 return;
@@ -389,7 +372,7 @@ public class SellShopPanel extends JPanel implements Updatable {
     }
 
     private void sellEntity() {
-        if (content.getSelection().getActionCommand() != "-1") {
+        if (content.getSelection() != null && content.getSelection().getActionCommand() != "-1") {
             int index = Integer.parseInt(content.getSelection().getActionCommand());
             Entity entityToSell = shopContent.get(index);
             InfoPopUp sellFeedback;
@@ -400,7 +383,6 @@ public class SellShopPanel extends JPanel implements Updatable {
             }
 
             sellFeedback.setVisible(true);
-            lblPlayerGold.setText("" + MainContainer.game.getPlayer().getGold());
             update();
 
         } else {
@@ -430,7 +412,7 @@ public class SellShopPanel extends JPanel implements Updatable {
     }
 
     private void updatePreview() {
-        if (content.getSelection().getActionCommand() != "-1") {
+        if (content.getSelection() != null && content.getSelection().getActionCommand() != "-1") {
             int index = Integer.parseInt(content.getSelection().getActionCommand());
             Entity entity = shopContent.get(index);
             lblPreviewEntityImg.setText(entity.getName() + " Image");
