@@ -20,11 +20,9 @@ import javax.swing.JTextPane;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.border.LineBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 
-public class BuyShopPanel extends JPanel {
+public class BuyShopPanel extends JPanel implements Updatable {
 
         private static final long serialVersionUID = 1L;
         private JRadioButton rdBtnCommonMonster;
@@ -215,9 +213,7 @@ public class BuyShopPanel extends JPanel {
                 lblPlayerGold.setBounds(881, 6, 61, 26);
                 add(lblPlayerGold);
 
-                updateContent();
-                selectFirstAvailableEntity();
-                updatePreview();
+                update();
         }
 
         public void updateContent() {
@@ -273,10 +269,7 @@ public class BuyShopPanel extends JPanel {
                         }
 
                         buyFeedback.setVisible(true);
-                        lblPlayerGold.setText("" + MainContainer.game.getPlayer().getGold());
-                        updateContent();
-                        selectFirstAvailableEntity();
-                        updatePreview();
+                        update();
 
                 } else {
                         ErrorPopUp noSelection = new ErrorPopUp("Select an Item/Monster");
@@ -325,5 +318,12 @@ public class BuyShopPanel extends JPanel {
                 }
 
                 return -1;
+        }
+
+        public void update() {
+                lblPlayerGold.setText("" + MainContainer.game.getPlayer().getGold());
+                updateContent();
+                selectFirstAvailableEntity();
+                updatePreview();
         }
 }

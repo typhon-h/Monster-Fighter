@@ -9,7 +9,7 @@ import main.GameEnvironment;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 
 public class MainContainer {
@@ -20,11 +20,10 @@ public class MainContainer {
     protected static final int SCREENHEIGHT = 540;
     private static JPanel mainContainerPanel;
     private static CardLayout cardLayout;
-    
-    
+
     private static SetupPanel setUpPanel;
     private static BuyShopPanel buyShopPanel;
- 
+
     private static SellShopPanel sellShopPanel;
 
     private static InventoryPanel inventoryPanel;
@@ -75,29 +74,35 @@ public class MainContainer {
         setUpPanel = new SetupPanel();
         mainContainerPanel.add(setUpPanel, "Setup");
 
-
         // Show default setup panel
         showScreen("Setup");
     }
-    
-    
+
     public static void showScreen(String screenName) {
-    	cardLayout.show(mainContainerPanel, screenName);
+        for (Component c : mainContainerPanel.getComponents()) {
+            if (c.getName() == screenName && c instanceof Updatable) {
+                ((Updatable) c).update();
+                break;
+            }
+
+        }
+
+        cardLayout.show(mainContainerPanel, screenName);
     }
-    
+
     public static void setUpScreens() {
-    	mainMenuPanel = new MainMenuPanel();
+        mainMenuPanel = new MainMenuPanel(); // TODO: extract menu names to constants
         mainContainerPanel.add(mainMenuPanel, "MainMenu");
 
         buyShopPanel = new BuyShopPanel();
         mainContainerPanel.add(buyShopPanel, "BuyShop");
-        
+
         sellShopPanel = new SellShopPanel();
         mainContainerPanel.add(sellShopPanel, "SellShop");
-        
+
         inventoryPanel = new InventoryPanel();
         mainContainerPanel.add(inventoryPanel, "Inventory");
-        
+
         teamPanel = new TeamPanel();
         mainContainerPanel.add(teamPanel, "Team");
 
