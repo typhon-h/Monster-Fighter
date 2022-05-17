@@ -387,10 +387,11 @@ public class InventoryPanel extends JPanel implements Updatable {
 
         private void updateEntity(JRadioButton image, JTextPane desc, Entity e) {
                 if (e == null) {
-                        desc.setText("\n\nEmpty");
+                        desc.setText("");
                         // TODO: Remove Image
                         image.setEnabled(false);
                         image.setActionCommand("-1");
+                        image.setVisible(false);
                 } else {
                         image.setEnabled(true);
                         image.setText(e.getName() + " Image");
@@ -398,6 +399,7 @@ public class InventoryPanel extends JPanel implements Updatable {
                         int index = (e instanceof Item) ? inventory.indexOf(e)
                                         : MainContainer.game.getPlayer().getTeam().getMonsters().indexOf(e);
                         image.setActionCommand("" + index);
+                        image.setVisible(true);
                 }
 
         }

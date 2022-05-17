@@ -27,14 +27,10 @@ public class TeamPanel extends JPanel implements Updatable {
         private JRadioButton rdBtnEntity2;
         private JRadioButton rdBtnEntity3;
         private JRadioButton rdBtnEntity4;
-        private JRadioButton rdBtnEntity5;
-        private JRadioButton rdBtnEntity6;
         private JTextPane textPaneEntity1;
         private JTextPane textPaneEntity2;
         private JTextPane textPaneEntity3;
         private JTextPane textPaneEntity4;
-        private JTextPane textPaneEntity5;
-        private JTextPane textPaneEntity6;
         // contentButtons maps 1-to-1 with contentDescriptions
         private ArrayList<JRadioButton> contentButtons;
         private ArrayList<JTextPane> contentDescriptions;
@@ -45,10 +41,6 @@ public class TeamPanel extends JPanel implements Updatable {
         private JLabel lblPreviewEntityImg;
         private JTextPane textPanePreviewEntityDesc;
         private JButton btnMoveDown;
-        private JLabel lblnum4;
-        private JLabel lblnum1;
-        private JLabel lblnum5;
-        private JLabel lblnum6;
 
         /**
          * Create the panel.
@@ -79,7 +71,7 @@ public class TeamPanel extends JPanel implements Updatable {
                 content.add(rdBtnEntity1);
                 rdBtnEntity1.setHorizontalAlignment(SwingConstants.CENTER);
                 rdBtnEntity1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-                rdBtnEntity1.setBounds(16, 6, 120, 120);
+                rdBtnEntity1.setBounds(23, 7, 120, 120);
                 shopContent.add(rdBtnEntity1);
 
                 rdBtnEntity2 = new JRadioButton("");
@@ -89,7 +81,7 @@ public class TeamPanel extends JPanel implements Updatable {
                 content.add(rdBtnEntity2);
                 rdBtnEntity2.setHorizontalAlignment(SwingConstants.CENTER);
                 rdBtnEntity2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-                rdBtnEntity2.setBounds(294, 6, 120, 120);
+                rdBtnEntity2.setBounds(23, 129, 120, 120);
                 shopContent.add(rdBtnEntity2);
 
                 rdBtnEntity3 = new JRadioButton("");
@@ -99,7 +91,7 @@ public class TeamPanel extends JPanel implements Updatable {
                 content.add(rdBtnEntity3);
                 rdBtnEntity3.setHorizontalAlignment(SwingConstants.CENTER);
                 rdBtnEntity3.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-                rdBtnEntity3.setBounds(16, 165, 120, 120);
+                rdBtnEntity3.setBounds(23, 250, 120, 120);
                 shopContent.add(rdBtnEntity3);
 
                 rdBtnEntity4 = new JRadioButton("");
@@ -109,110 +101,48 @@ public class TeamPanel extends JPanel implements Updatable {
                 content.add(rdBtnEntity4);
                 rdBtnEntity4.setHorizontalAlignment(SwingConstants.CENTER);
                 rdBtnEntity4.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-                rdBtnEntity4.setBounds(294, 165, 120, 120);
+                rdBtnEntity4.setBounds(23, 372, 120, 120);
                 shopContent.add(rdBtnEntity4);
-
-                rdBtnEntity5 = new JRadioButton("");
-                rdBtnEntity5.addActionListener(selected -> {
-                        updatePreview();
-                });
-                content.add(rdBtnEntity5);
-                rdBtnEntity5.setHorizontalAlignment(SwingConstants.CENTER);
-                rdBtnEntity5.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-                rdBtnEntity5.setBounds(16, 364, 120, 120);
-                shopContent.add(rdBtnEntity5);
-
-                rdBtnEntity6 = new JRadioButton("");
-                content.add(rdBtnEntity6);
-                rdBtnEntity6.addActionListener(selected -> {
-                        updatePreview();
-                });
-                rdBtnEntity6.setHorizontalAlignment(SwingConstants.CENTER);
-                rdBtnEntity6.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-                rdBtnEntity6.setBounds(294, 364, 120, 120);
-                shopContent.add(rdBtnEntity6);
 
                 textPaneEntity1 = new JTextPane();
                 textPaneEntity1.setEditable(false);
                 textPaneEntity1.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-                textPaneEntity1.setBounds(148, 6, 120, 120);
+                textPaneEntity1.setBounds(155, 7, 120, 120);
                 textPaneEntity1.setBackground(this.getBackground());
                 shopContent.add(textPaneEntity1);
 
                 textPaneEntity2 = new JTextPane();
                 textPaneEntity2.setEditable(false);
                 textPaneEntity2.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-                textPaneEntity2.setBounds(426, 6, 120, 120);
+                textPaneEntity2.setBounds(155, 129, 120, 120);
                 textPaneEntity2.setBackground(this.getBackground());
                 shopContent.add(textPaneEntity2);
 
                 textPaneEntity3 = new JTextPane();
                 textPaneEntity3.setEditable(false);
                 textPaneEntity3.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-                textPaneEntity3.setBounds(148, 165, 120, 120);
+                textPaneEntity3.setBounds(155, 250, 120, 120);
                 textPaneEntity3.setBackground(this.getBackground());
                 shopContent.add(textPaneEntity3);
 
                 textPaneEntity4 = new JTextPane();
                 textPaneEntity4.setEditable(false);
                 textPaneEntity4.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-                textPaneEntity4.setBounds(426, 165, 120, 120);
+                textPaneEntity4.setBounds(156, 373, 120, 120);
                 textPaneEntity4.setBackground(this.getBackground());
                 shopContent.add(textPaneEntity4);
 
-                textPaneEntity5 = new JTextPane();
-                textPaneEntity5.setEditable(false);
-                textPaneEntity5.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-                textPaneEntity5.setBounds(148, 364, 120, 120);
-                textPaneEntity5.setBackground(this.getBackground());
-                shopContent.add(textPaneEntity5);
-
-                textPaneEntity6 = new JTextPane();
-                textPaneEntity6.setEditable(false);
-                textPaneEntity6.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-                textPaneEntity6.setBounds(426, 364, 120, 120);
-                textPaneEntity6.setBackground(this.getBackground());
-                shopContent.add(textPaneEntity6);
-
-                contentButtons = new ArrayList<JRadioButton>(Arrays.asList(
+                contentButtons      = new ArrayList<JRadioButton>(Arrays.asList(
                                 rdBtnEntity1,
                                 rdBtnEntity2,
                                 rdBtnEntity3,
-                                rdBtnEntity4,
-                                rdBtnEntity5,
-                                rdBtnEntity6));
+                                rdBtnEntity4));
 
                 contentDescriptions = new ArrayList<JTextPane>(Arrays.asList(
                                 textPaneEntity1,
                                 textPaneEntity2,
                                 textPaneEntity3,
-                                textPaneEntity4,
-                                textPaneEntity5,
-                                textPaneEntity6));
-
-                JLabel lblnum2 = new JLabel("2:");
-                lblnum2.setBounds(270, 6, 20, 16);
-                shopContent.add(lblnum2);
-
-                lblnum4 = new JLabel("4:");
-                lblnum4.setBounds(270, 165, 20, 16);
-                shopContent.add(lblnum4);
-
-                JLabel lblnum3 = new JLabel("3:");
-                lblnum3.setBounds(6, 165, 20, 16);
-                shopContent.add(lblnum3);
-
-                lblnum1 = new JLabel("1:");
-                lblnum1.setBounds(0, 6, 20, 16);
-                shopContent.add(lblnum1);
-
-                lblnum5 = new JLabel("5:");
-                lblnum5.setBounds(6, 364, 20, 16);
-                shopContent.add(lblnum5);
-
-                lblnum6 = new JLabel("6:");
-                lblnum6.setBounds(270, 364, 20, 16);
-                shopContent.add(lblnum6);
+                                textPaneEntity4));
 
                 preview = new JPanel();
                 preview.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -324,16 +254,18 @@ public class TeamPanel extends JPanel implements Updatable {
 
         private void updateEntity(JRadioButton image, JTextPane desc, int index) {
                 if (index == -1 || index >= team.size()) {
-                        desc.setText("\n\nEmpty");
+                        desc.setText("");
                         // TODO: Remove Image
                         image.setEnabled(false);
                         image.setActionCommand("-1");
+                        image.setVisible(false);
                 } else {
                         image.setEnabled(true);
                         image.setText(team.get(index).getName() + " Image");
                         desc.setText("\n" + team.get(index).getRarity().name() + "\n"
                                         + team.get(index).getName());
                         image.setActionCommand("" + index);
+                        image.setVisible(true);
                 }
 
         }
