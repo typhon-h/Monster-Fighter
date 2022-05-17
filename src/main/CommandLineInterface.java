@@ -263,7 +263,7 @@ public class CommandLineInterface {
             ArrayList<String> options = new ArrayList<String>(Arrays.asList("Back"));
 
             for (Player opponent : game.getBattleState().getOpponents()) {
-                options.add(opponent.toString());
+                options.add(opponent.toCLIString());
             }
 
             option = getOption(options);
