@@ -1,5 +1,7 @@
 package main;
 
+import gui.Previewable;
+
 //TODO: implement a purchasable interface just so we can have one for marking sake??
 /**
  * Superclass for game objects.
@@ -9,7 +11,7 @@ package main;
  * @author Harrison Tyson
  * @version 1.3, Apr 2022.
  */
-public class Entity implements Cloneable {
+public class Entity implements Cloneable, Previewable {
     /**
      * The name of the entity
      */

@@ -23,16 +23,15 @@ import java.awt.Dimension;
 
 import static gui.MainContainer.game;
 
-
 public class BattleSelectionPanel extends JPanel implements Updatable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private JLabel lblPreviewEntityImg;
-	private JTextPane textPanePreviewEntityDesc;
-	private JButton btnBattle;
-	
-	private ButtonGroup battleButtons;
+    private JLabel lblPreviewEntityImg;
+    private JTextPane textPanePreviewEntityDesc;
+    private JButton btnBattle;
+
+    private ButtonGroup battleButtons;
 
     private final int radioButtonHeight = 120;
     private final int pnlBattlesHeight = 475;
@@ -41,10 +40,10 @@ public class BattleSelectionPanel extends JPanel implements Updatable {
 
     private JPanel pnlBattles;
 
-	/**
-	 * Create the panel.
-	 */
-	public BattleSelectionPanel() {
+    /**
+     * Create the panel.
+     */
+    public BattleSelectionPanel() {
         super();
         setName("BattleSelection");
         setMinimumSize(DEFAULTDIMENSION);
@@ -52,7 +51,6 @@ public class BattleSelectionPanel extends JPanel implements Updatable {
         setVerifyInputWhenFocusTarget(false);
         this.setBackground(Color.GRAY);
         setLayout(null);
-
 
         JLabel lblBattleSelectionTitle = new JLabel("Battle Selection");
         lblBattleSelectionTitle.setBounds(378, 6, 246, 37);
@@ -103,17 +101,16 @@ public class BattleSelectionPanel extends JPanel implements Updatable {
         FlowLayout pnlBattlesLayout = new FlowLayout(FlowLayout.CENTER, 0, 0);
         pnlBattles.setLayout(pnlBattlesLayout);
 
-	}
+    }
 
     public void update() {
         btnBattle.setEnabled(false);
-        
+
         // Clear preview
         lblPreviewEntityImg.setText("Selected Entity Image");
         lblPreviewEntityImg.setIcon(null);
         textPanePreviewEntityDesc.setText("");
-        
-        
+
         // Reset battles panel and re-populate it with the new data battles.
         // Remove old battles
         pnlBattles.removeAll();
@@ -121,13 +118,13 @@ public class BattleSelectionPanel extends JPanel implements Updatable {
         // Clear battleButtons group
         battleButtons = new ButtonGroup();
         ArrayList<Player> opponents = game.getBattleState().getOpponents();
-        
+
         buttonGap = (pnlBattlesHeight - (opponents.size() * radioButtonHeight)) / (opponents.size() + 1);
         ((FlowLayout) pnlBattles.getLayout()).setVgap(buttonGap);
         System.out.println(buttonGap);
-        
+
         for (Player opponent : opponents) {
-            JRadioButton oppButton = new JRadioButton(opponent.getGuiName());
+            JRadioButton oppButton = new JRadioButton(getOpponentDescription(opponent));
             oppButton.setActionCommand(String.valueOf(opponents.indexOf(opponent)));
             oppButton.addActionListener(selected -> {
                 updatePreview();
@@ -139,21 +136,27 @@ public class BattleSelectionPanel extends JPanel implements Updatable {
             oppButton.setBackground(Color.WHITE);
             oppButton.setFont(oppButton.getFont().deriveFont(25.0f));
             pnlBattles.add(oppButton);
-            
+
             battleButtons.add(oppButton);
         }
     }
-    
-    
+
+    private String getOpponentDescription(Player opponent) {
+        String outputString = opponent.getName() + ":  ";
+        outputString += opponent.getTeam().toString();
+
+        return outputString;
+    }
+
     private void updatePreview() {
         int battleIndex = Integer.parseInt(battleButtons.getSelection().getActionCommand());
         Player battle = game.getBattleState().getOpponents().get(battleIndex);
         lblPreviewEntityImg.setText(battle.getName() + " Image");
         // lblPreviewEntityImg.setIcon(battle.getImage());
-        textPanePreviewEntityDesc.setText(battle.toGuiString());
+        textPanePreviewEntityDesc.setText(battle.toString());
         btnBattle.setEnabled(true);
     }
-    
+
     private void goToBattle() {
         int battleIndex = Integer.parseInt(battleButtons.getSelection().getActionCommand());
         Player opponent = game.getBattleState().getOpponents().get(battleIndex);
