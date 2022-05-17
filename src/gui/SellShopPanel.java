@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -383,12 +384,25 @@ public class SellShopPanel extends JPanel implements Updatable {
             } else {
                 sellFeedback = new InfoPopUp(MainContainer.game.getSellShop().sell((Monster) entityToSell));
             }
-
+            Point point = this.getLocationOnScreen();
+            sellFeedback.setLocation(point.x +
+                              (gui.MainContainer.SCREENWIDTH / 2) -
+                              sellFeedback.getWidth() / 2,
+                              point.y +
+                              (gui.MainContainer.SCREENHEIGHT / 2) -
+                              sellFeedback.getHeight() / 2);
             sellFeedback.setVisible(true);
             update();
 
         } else {
             ErrorPopUp noSelection = new ErrorPopUp("Select an Item/Monster");
+            Point point = this.getLocationOnScreen();
+            noSelection.setLocation(point.x +
+                              (gui.MainContainer.SCREENWIDTH / 2) -
+                              noSelection.getWidth() / 2,
+                              point.y +
+                              (gui.MainContainer.SCREENHEIGHT / 2) -
+                              noSelection.getHeight() / 2);
             noSelection.setVisible(true);
         }
 

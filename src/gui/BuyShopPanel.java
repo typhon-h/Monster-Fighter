@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -174,7 +175,7 @@ public class BuyShopPanel extends JPanel implements Updatable {
 
                 preview = new JPanel();
                 preview.setBorder(new LineBorder(new Color(0, 0, 0)));
-                preview.setBounds(569, 44, 385, 490);
+                preview.setBounds(561, 44, 385, 490);
                 preview.setBackground(this.getBackground());
                 add(preview);
                 preview.setLayout(null);
@@ -194,7 +195,7 @@ public class BuyShopPanel extends JPanel implements Updatable {
                 btnBuy.addActionListener(buy -> {
                         buyEntity();
                 });
-                btnBuy.setBounds(6, 437, 379, 47);
+                btnBuy.setBounds(3, 439, 379, 47);
                 preview.add(btnBuy);
 
                 JButton btnBack = new JButton("Back");
@@ -268,12 +269,25 @@ public class BuyShopPanel extends JPanel implements Updatable {
                         } else {
                                 buyFeedback = new InfoPopUp(MainContainer.game.getBuyShop().buy((Monster) entityToBuy));
                         }
-
+                        Point point = this.getLocationOnScreen();
+                        buyFeedback.setLocation(point.x +
+                                          (gui.MainContainer.SCREENWIDTH / 2) -
+                                          buyFeedback.getWidth() / 2,
+                                          point.y +
+                                          (gui.MainContainer.SCREENHEIGHT / 2) -
+                                          buyFeedback.getHeight() / 2);
                         buyFeedback.setVisible(true);
                         update();
 
                 } else {
                         ErrorPopUp noSelection = new ErrorPopUp("Select an Item/Monster");
+                        Point point = this.getLocationOnScreen();
+                        noSelection.setLocation(point.x +
+                                          (gui.MainContainer.SCREENWIDTH / 2) -
+                                          noSelection.getWidth() / 2,
+                                          point.y +
+                                          (gui.MainContainer.SCREENHEIGHT / 2) -
+                                          noSelection.getHeight() / 2);
                         noSelection.setVisible(true);
                 }
 

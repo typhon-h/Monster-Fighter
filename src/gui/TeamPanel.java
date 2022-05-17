@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -220,12 +221,25 @@ public class TeamPanel extends JPanel implements Updatable {
                                 MainContainer.game.getPlayer().getTeam().moveMonsterUp(monsterToMove);
                                 moveFeedback = new InfoPopUp(monsterToMove.getName() + " has been moved up");
                         }
-
+                        Point point = this.getLocationOnScreen();
+                        moveFeedback.setLocation(point.x +
+                                          (gui.MainContainer.SCREENWIDTH / 2) -
+                                          moveFeedback.getWidth() / 2,
+                                          point.y +
+                                          (gui.MainContainer.SCREENHEIGHT / 2) -
+                                          moveFeedback.getHeight() / 2);
                         moveFeedback.setVisible(true);
                         update();
 
                 } else {
                         ErrorPopUp noSelection = new ErrorPopUp("Select a Monster");
+                        Point point = this.getLocationOnScreen();
+                        noSelection.setLocation(point.x +
+                                          (gui.MainContainer.SCREENWIDTH / 2) -
+                                          noSelection.getWidth() / 2,
+                                          point.y +
+                                          (gui.MainContainer.SCREENHEIGHT / 2) -
+                                          noSelection.getHeight() / 2);
                         noSelection.setVisible(true);
                 }
 
@@ -242,12 +256,26 @@ public class TeamPanel extends JPanel implements Updatable {
                                 MainContainer.game.getPlayer().getTeam().moveMonsterDown(monsterToMove);
                                 moveFeedback = new InfoPopUp(monsterToMove.getName() + " has been moved down");
                         }
-
+                        Point point = this.getLocationOnScreen();
+                        moveFeedback.setLocation(point.x +
+                                          (gui.MainContainer.SCREENWIDTH / 2) -
+                                          moveFeedback.getWidth() / 2,
+                                          point.y +
+                                          (gui.MainContainer.SCREENHEIGHT / 2) -
+                                          moveFeedback.getHeight() / 2);
+                        moveFeedback.setVisible(true);
                         moveFeedback.setVisible(true);
                         update();
 
                 } else {
                         ErrorPopUp noSelection = new ErrorPopUp("Select a Monster");
+                        Point point = this.getLocationOnScreen();
+                        noSelection.setLocation(point.x +
+                                          (gui.MainContainer.SCREENWIDTH / 2) -
+                                          noSelection.getWidth() / 2,
+                                          point.y +
+                                          (gui.MainContainer.SCREENHEIGHT / 2) -
+                                          noSelection.getHeight() / 2);
                         noSelection.setVisible(true);
                 }
 

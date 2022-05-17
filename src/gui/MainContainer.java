@@ -62,9 +62,9 @@ public class MainContainer {
         monsterGameFrame = new JFrame();
         monsterGameFrame.setResizable(false);
         monsterGameFrame.setTitle("Monster Fighter");
-        monsterGameFrame.setSize(new Dimension(SCREENWIDTH, SCREENHEIGHT + 35));
-        monsterGameFrame.setMinimumSize(new Dimension(SCREENWIDTH, SCREENHEIGHT + 35));
-        monsterGameFrame.setBounds(100, 100, SCREENWIDTH, SCREENHEIGHT + 35);
+        monsterGameFrame.setSize(new Dimension(SCREENWIDTH + 30, SCREENHEIGHT + 35));
+        monsterGameFrame.setMinimumSize(new Dimension(SCREENWIDTH + 30, SCREENHEIGHT + 35));
+        monsterGameFrame.setBounds(115, 100, SCREENWIDTH, SCREENHEIGHT + 35);
         monsterGameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // TODO: Each menu panel needs to be its own class?

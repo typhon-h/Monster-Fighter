@@ -5,6 +5,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import java.awt.Dimension;
+
 import javax.swing.JButton;
 
 public class InfoPopUp extends JFrame {
@@ -20,7 +23,8 @@ public class InfoPopUp extends JFrame {
 		setAlwaysOnTop(true);
 		setTitle("Info");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 350, 150);
+		setBounds(gui.MainContainer.SCREENWIDTH / 2, gui.MainContainer.SCREENHEIGHT / 2, 350, 150);
+		setSize(new Dimension(350, 150));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

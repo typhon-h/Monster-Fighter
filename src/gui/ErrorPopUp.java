@@ -20,7 +20,7 @@ public class ErrorPopUp extends JFrame {
 		setAlwaysOnTop(true);
 		setTitle("Error");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 350, 150);
+		setBounds(gui.MainContainer.SCREENWIDTH / 2, gui.MainContainer.SCREENHEIGHT / 2, 350, 150);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

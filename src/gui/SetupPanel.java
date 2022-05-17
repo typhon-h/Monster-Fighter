@@ -5,6 +5,8 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Font;
+import java.awt.Point;
+
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -248,6 +250,13 @@ public class SetupPanel extends JPanel {
         // Player Name
         if (textFieldPlayerName.getText().strip().length() < 1) {
             ErrorPopUp error = new ErrorPopUp("Name cannot be blank");
+            Point point = this.getLocationOnScreen();
+            error.setLocation(point.x +
+                              (gui.MainContainer.SCREENWIDTH / 2) -
+                              error.getWidth() / 2,
+                              point.y +
+                              (gui.MainContainer.SCREENHEIGHT / 2) -
+                              error.getHeight() / 2);
             error.setVisible(true);
             return;
         }
@@ -294,6 +303,13 @@ public class SetupPanel extends JPanel {
             MainContainer.showScreen("MainMenu");
         } catch (TeamSizeException | DuplicateMonsterException e) {
             ErrorPopUp error = new ErrorPopUp(e.getMessage());
+            Point point = this.getLocationOnScreen();
+            error.setLocation(point.x +
+                              (gui.MainContainer.SCREENWIDTH / 2) -
+                              error.getWidth() / 2,
+                              point.y +
+                              (gui.MainContainer.SCREENHEIGHT / 2) -
+                              error.getHeight() / 2);
             error.setVisible(true);
             return;
         }
