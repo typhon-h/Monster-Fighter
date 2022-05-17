@@ -1,4 +1,4 @@
-package main;
+package battle;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,13 +11,20 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import battle.BattleConstants;
+import battle.BattleEvent;
+import battle.BattleManager;
 import exceptions.DuplicateMonsterException;
 import exceptions.TeamSizeException;
 import items.HealthBoost;
+import main.Difficulty;
+import main.Player;
+import main.Rarity;
+import main.Team;
 import monsters.*;
 
 /**
- * Testing {@link main.BattleManager BattleManager} class
+ * Testing {@link battle.BattleManager BattleManager} class
  *
  * @author Jackie Jone
  * @version 1.1, Apr 2022
@@ -32,7 +39,7 @@ class BattleManagerTests {
      */
     Team playerTeam;
     /**
-     * {@link main.BattleManager BattleManager} to be tested
+     * {@link battle.BattleManager BattleManager} to be tested
      */
     BattleManager battleManager;
 
@@ -127,7 +134,7 @@ class BattleManagerTests {
             baseMonster = new ClinkMonster();
             fail("Provided monster was not matched.");
         }
-        
+
         assertTrue(baseMonster.getBaseAttackDamage() < monster.getBaseAttackDamage() ||
                 baseMonster.getBaseHealth() < monster.getBaseHealth() ||
                 baseMonster.getSpeed() < monster.getSpeed());
@@ -177,8 +184,10 @@ class BattleManagerTests {
         assertTrue(opponent1.getScore() > opponent2.getScore());
     }
 
-    /* --------------------------------------------------------
-    Tests for simulate battle, fight, runAbility, and nextEvent */
+    /*
+     * --------------------------------------------------------
+     * Tests for simulate battle, fight, runAbility, and nextEvent
+     */
 
     /**
      * Check that both monsters at the front of each team take damage and none of
@@ -190,7 +199,7 @@ class BattleManagerTests {
     public void bothTeamsTakeDamage() throws TeamSizeException, DuplicateMonsterException {
         int allyMonsterDmg = 3;
         int oppoMonsterDmg = 6;
-        int monsterHealth  = 10;
+        int monsterHealth = 10;
 
         // Setup teams and simulate the battle
         assertTrue(allyMonsterDmg < monsterHealth && oppoMonsterDmg < monsterHealth,
@@ -223,7 +232,6 @@ class BattleManagerTests {
         assertEquals(monsterHealth - allyMonsterDmg,
                 event1.getOpponentTeam().getFirstAliveMonster().getCurrentHealth());
 
-
         BattleEvent event2 = battleManager.nextEvent();
         assertEquals("Monster 2 dealt " + oppoMonsterDmg + " damage to Monster 1",
                 event2.getDescription());
@@ -240,7 +248,7 @@ class BattleManagerTests {
         int allyMonsterDmg = 10;
         int oppoMonsterDmg1 = 6;
         int oppoMonsterDmg2 = 4;
-        int monsterHealth  = 10;
+        int monsterHealth = 10;
 
         // Setup teams and simulate the battle
         Monster allyMonster = battleManager.getPlayer().getTeam().getFirstAliveMonster();
@@ -270,7 +278,7 @@ class BattleManagerTests {
         // Run tests
         BattleEvent currEvent = battleManager.nextEvent();
         assertEquals("Ally Monster dealt 10 damage to Opponent Monster 1. Opponent Monster 1 fainted.",
-                    currEvent.getDescription());
+                currEvent.getDescription());
         assertEquals(opponentMonster2.getName(),
                 currEvent.getOpponentTeam().getFirstAliveMonster().getName());
 
@@ -291,7 +299,7 @@ class BattleManagerTests {
     @Test
     public void endAfterTeamWipe() throws TeamSizeException, DuplicateMonsterException {
         int allyMonsterDmg = 10;
-        int monsterHealth  = 10;
+        int monsterHealth = 10;
 
         // Setup teams and simulate the battle
         Monster allyMonster = battleManager.getPlayer().getTeam().getFirstAliveMonster();
@@ -337,7 +345,8 @@ class BattleManagerTests {
     @Test
     public void triggersTests() throws TeamSizeException, DuplicateMonsterException {
         // Set up monsters with one of every trigger
-        // STARTOFBATTLE, BEFOREATTACK, AFTERATTACK, ONHURT (monster must tank 1 attack),
+        // STARTOFBATTLE, BEFOREATTACK, AFTERATTACK, ONHURT (monster must tank 1
+        // attack),
         // ONFAINT- No damage fast
         // Enemy NOABILITY - heaps of damage, slow
 
@@ -349,10 +358,10 @@ class BattleManagerTests {
 
         // Set up ally team
         int monsterNum = 1;
-        Trigger[] triggers = new Trigger[] {Trigger.STARTOFBATTLE,
-                                            Trigger.BEFOREATTACK,
-                                            Trigger.AFTERATTACK,
-                                            Trigger.ONHURT};
+        Trigger[] triggers = new Trigger[] { Trigger.STARTOFBATTLE,
+                Trigger.BEFOREATTACK,
+                Trigger.AFTERATTACK,
+                Trigger.ONHURT };
         for (Trigger trigger : triggers) {
             newMonster = new ClinkMonster();
             newMonster.setCurrentHealth(9);
@@ -389,20 +398,20 @@ class BattleManagerTests {
         battleManager.simulateBattle();
 
         String[] expectedOutputArray = new String[] {
-            "AllyMonster 1's STARTOFBATTLE ability triggered. Lost 1 ATK and gained 1 HP",
-            "AllyMonster 1 dealt 1 damage to OppoMonster",
-            "OppoMonster dealt 10 damage to AllyMonster 1. AllyMonster 1 fainted.",
-            "AllyMonster 2's BEFOREATTACK ability triggered. Lost 1 ATK and gained 1 HP",
-            "AllyMonster 2 dealt 1 damage to OppoMonster",
-            "OppoMonster dealt 10 damage to AllyMonster 2. AllyMonster 2 fainted.",
-            "AllyMonster 3 dealt 2 damage to OppoMonster",
-            "AllyMonster 3's AFTERATTACK ability triggered. Lost 1 ATK and gained 1 HP",
-            "OppoMonster dealt 10 damage to AllyMonster 3. AllyMonster 3 fainted.",
-            "AllyMonster 4 dealt 2 damage to OppoMonster",
-            "OppoMonster dealt 10 damage to AllyMonster 4",
-            "AllyMonster 4's ONHURT ability triggered. Lost 1 ATK and gained 1 HP",
-            "AllyMonster 4 dealt 1 damage to OppoMonster",
-            "OppoMonster dealt 10 damage to AllyMonster 4. AllyMonster 4 fainted."
+                "AllyMonster 1's STARTOFBATTLE ability triggered. Lost 1 ATK and gained 1 HP",
+                "AllyMonster 1 dealt 1 damage to OppoMonster",
+                "OppoMonster dealt 10 damage to AllyMonster 1. AllyMonster 1 fainted.",
+                "AllyMonster 2's BEFOREATTACK ability triggered. Lost 1 ATK and gained 1 HP",
+                "AllyMonster 2 dealt 1 damage to OppoMonster",
+                "OppoMonster dealt 10 damage to AllyMonster 2. AllyMonster 2 fainted.",
+                "AllyMonster 3 dealt 2 damage to OppoMonster",
+                "AllyMonster 3's AFTERATTACK ability triggered. Lost 1 ATK and gained 1 HP",
+                "OppoMonster dealt 10 damage to AllyMonster 3. AllyMonster 3 fainted.",
+                "AllyMonster 4 dealt 2 damage to OppoMonster",
+                "OppoMonster dealt 10 damage to AllyMonster 4",
+                "AllyMonster 4's ONHURT ability triggered. Lost 1 ATK and gained 1 HP",
+                "AllyMonster 4 dealt 1 damage to OppoMonster",
+                "OppoMonster dealt 10 damage to AllyMonster 4. AllyMonster 4 fainted."
         };
 
         for (String expectedOutput : expectedOutputArray) {

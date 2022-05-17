@@ -1,4 +1,4 @@
-package main;
+package battle;
 
 import java.util.ArrayList;
 
@@ -7,6 +7,11 @@ import exceptions.TeamSizeException;
 
 import items.ItemConstants;
 import items.RandomStatBoost;
+import main.Difficulty;
+import main.GameEnvironment;
+import main.Player;
+import main.Rarity;
+import main.Team;
 import monsters.*;
 
 import static main.Difficulty.getDifficultyMultiplier;
@@ -68,7 +73,8 @@ public class BattleManager {
      * on the {@link main.Difficulty difficulty} of the game.
      *
      * @param difficulty The {@link main.Difficulty difficulty} of the game.
-     * @return A {@link monsters.Monster Monster} with a random {@link monsters.Trigger
+     * @return A {@link monsters.Monster Monster} with a random
+     *         {@link monsters.Trigger
      *         trigger}.
      */
     private Monster getRandomMonster(Difficulty difficulty) {
@@ -118,9 +124,9 @@ public class BattleManager {
 
         // Use boost item on random monsters in the team
         int totalPoints = (int) (Difficulty.getDifficultyMultiplier(difficulty) *
-                      Math.ceil((float) ItemConstants.AVERAGEBOOSTPERBUYPRICE *
-                                (float) allyPlayer.getGold() * 0.5 +
-                                (float) allyPlayer.getItemPoints()));
+                Math.ceil((float) ItemConstants.AVERAGEBOOSTPERBUYPRICE *
+                        (float) allyPlayer.getGold() * 0.5 +
+                        (float) allyPlayer.getItemPoints()));
 
         int expendedPoints = 0;
         RandomStatBoost boost = new RandomStatBoost(Rarity.COMMON);
@@ -153,13 +159,13 @@ public class BattleManager {
         // gold = starting gold + goldPerDay * inverse of difficulty multiplier *
         // currentDay
         int gold = (int) ((float) GameEnvironment.STARTINGGOLD +
-                          ((float) GameEnvironment.STARTINGGOLD *
-                          (1f + 1f - getDifficultyMultiplier(difficulty)) * currentDay));
+                ((float) GameEnvironment.STARTINGGOLD *
+                        (1f + 1f - getDifficultyMultiplier(difficulty)) * currentDay));
 
         // points = basePoints * 1.1 ^ day * difficulty multiplier
         int points = (int) Math
                 .round(100f * (float) Math.pow(1.1, (double) currentDay) *
-                       getDifficultyMultiplier(difficulty));
+                        getDifficultyMultiplier(difficulty));
 
         ArrayList<Player> newOpponents = new ArrayList<Player>();
         for (int i = 0; i < BattleConstants.NUMOPPONENTS; i++) {
@@ -214,7 +220,7 @@ public class BattleManager {
      * @param allyTeam     A copy of the ally {@link main.Team team} to fight
      * @param opponentTeam A copy of the enemy {@link main.Team team} to fight
      *
-     * @return ArrayList of {@link main.BattleEvent BattleEvents} describing what
+     * @return ArrayList of {@link battle.BattleEvent BattleEvents} describing what
      *         happened
      */
     private ArrayList<BattleEvent> fight(Team allyTeam, Team opponentTeam) {
@@ -306,7 +312,7 @@ public class BattleManager {
      *                  {@link monsters.Monster#ability} of
      * @param trigger   Current {@link monsters.Trigger trigger} that is checked for
      *
-     * @return {@link main.BattleEvent BattleEvent} describing the
+     * @return {@link battle.BattleEvent BattleEvent} describing the
      *         {@link monsters.Monster#ability}
      */
     private BattleEvent runAbility(boolean isPlayer, Team allyTeam, Team enemyTeam, Monster monster,
@@ -320,7 +326,7 @@ public class BattleManager {
 
     /**
      * Simulates the battle and sets the eventLog of the battleManager with the
-     * {@link main.BattleEvent events} that occurred during the battle.
+     * {@link battle.BattleEvent events} that occurred during the battle.
      */
     public void simulateBattle() {
         battleResult = BattleResult.NULL;
@@ -367,9 +373,9 @@ public class BattleManager {
     }
 
     /**
-     * Gets the next {@link main.BattleEvent event} in the event log.
+     * Gets the next {@link battle.BattleEvent event} in the event log.
      *
-     * @return Next available {@link main.BattleEvent event} in the event log or
+     * @return Next available {@link battle.BattleEvent event} in the event log or
      *         null if there is no event.
      */
     public BattleEvent nextEvent() {

@@ -1,4 +1,6 @@
-package main;
+package battle;
+
+import main.Team;
 
 /**
  * A class to store snapshots of events that occur
@@ -41,8 +43,7 @@ public class BattleEvent {
 
         this.description = newDescription;
     }
-    
-    
+
     /**
      * Gets the team of the player
      * 
@@ -51,7 +52,7 @@ public class BattleEvent {
     public Team getAllyTeam() {
         return allyTeam;
     }
-    
+
     /**
      * Gets the team of the opponent
      * 
@@ -60,7 +61,7 @@ public class BattleEvent {
     public Team getOpponentTeam() {
         return opponentTeam;
     }
-    
+
     /**
      * Gets the description of the battle event
      * 

@@ -157,9 +157,8 @@ public class GameEnvironmentTest {
         assertEquals(expectedOutcome, eventOutcome);
     }
 
-
     /**
-     * Test that the {@link main.BattleManager battle state} is refreshed
+     * Test that the {@link battle.BattleManager battle state} is refreshed
      */
     @Test
     public void sleepBattleRefreshTest() {

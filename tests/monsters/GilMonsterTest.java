@@ -1,6 +1,5 @@
 package monsters;
 
-import main.BattleEvent;
 import main.Rarity;
 import main.Team;
 
@@ -8,6 +7,8 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+
+import battle.BattleEvent;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -129,7 +130,7 @@ public class GilMonsterTest {
     }
 
     /**
-     * Checks returns valid {@link main.BattleEvent battle event}
+     * Checks returns valid {@link battle.BattleEvent battle event}
      */
     @Test
     public void abilityReturnTest() {
