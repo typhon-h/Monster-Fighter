@@ -1,76 +1,14 @@
 package gui;
 
-import java.awt.Color;
-import java.awt.Font;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JButton;
 
-import static gui.MainContainer.DEFAULTDIMENSION;
-
-public class MainMenuPanel extends JPanel implements Updatable {
+public class MainMenuPanel extends EntityViewer implements Updatable {
 
         private static final long serialVersionUID = 1L;
 
-        private JLabel lblPlayerGold;
-        private JLabel lblPlayerScore;
-        private JLabel lblCurrentDay;
-
         public MainMenuPanel() {
-                super();
+                super(false);
                 setName("MainMenu");
-                setMinimumSize(DEFAULTDIMENSION);
-                setSize(DEFAULTDIMENSION);
-                setVerifyInputWhenFocusTarget(false);
-                this.setBackground(Color.GRAY);
-                setLayout(null);
-
-                JLabel lblMainMenuTitle = new JLabel("Main Menu");
-                lblMainMenuTitle.setBounds(378, 6, 193, 37);
-                lblMainMenuTitle.setFont(new Font("Lucida Grande", Font.BOLD, 30));
-                add(lblMainMenuTitle);
-
-                JLabel lblDay = new JLabel("Day:");
-                lblDay.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-                lblDay.setBounds(223, 6, 51, 21);
-                add(lblDay);
-
-                JLabel lblGold = new JLabel("Gold:");
-                lblGold.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-                lblGold.setBounds(838, 9, 61, 16);
-                add(lblGold);
-
-                JLabel lblName = new JLabel("Name: ");
-                lblName.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-                lblName.setBounds(6, 6, 70, 16);
-                add(lblName);
-
-                JLabel lblScore = new JLabel("Score: ");
-                lblScore.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-                lblScore.setBounds(583, 9, 70, 16);
-                add(lblScore);
-
-                lblPlayerGold = new JLabel("" + MainContainer.game.getPlayer().getGold());
-                lblPlayerGold.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-                lblPlayerGold.setBounds(893, 11, 61, 16);
-                add(lblPlayerGold);
-
-                lblPlayerScore = new JLabel("" + MainContainer.game.getPlayer().getScore());
-                lblPlayerScore.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-                lblPlayerScore.setBounds(644, 11, 61, 16);
-                add(lblPlayerScore);
-
-                lblCurrentDay = new JLabel(
-                                MainContainer.game.getCurrentDay() + "/" + MainContainer.game.getTotalDays());
-                lblCurrentDay.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-                lblCurrentDay.setBounds(269, 10, 61, 16);
-                add(lblCurrentDay);
-
-                JLabel lblPlayerName = new JLabel(MainContainer.game.getPlayer().getName());
-                lblPlayerName.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-                lblPlayerName.setBounds(74, 8, 166, 16);
-                add(lblPlayerName);
 
                 JButton btnBattles = new JButton("Battle");
                 btnBattles.addActionListener(battle -> {
@@ -109,8 +47,6 @@ public class MainMenuPanel extends JPanel implements Updatable {
         }
 
         public void update() {
-                lblPlayerGold.setText("" + MainContainer.game.getPlayer().getGold());
-                lblPlayerScore.setText("" + MainContainer.game.getPlayer().getScore());
-                lblCurrentDay.setText(MainContainer.game.getCurrentDay() + "/" + MainContainer.game.getTotalDays());
+                super.updatePlayerInfo();
         }
 }
