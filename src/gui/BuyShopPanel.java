@@ -295,7 +295,7 @@ public class BuyShopPanel extends JPanel implements Updatable {
 
         private void updateEntity(JRadioButton image, JTextPane desc, int index) {
                 if (index == -1) {
-                        desc.setText("\n\nPurchased");
+                        desc.setText("\n\nSold Out");
                         // TODO: Remove Image
                         image.setEnabled(false);
                         image.setActionCommand("-1");

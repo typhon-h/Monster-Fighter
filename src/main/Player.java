@@ -314,4 +314,39 @@ public class Player {
 
         return outputString;
     }
+    
+    public String toGuiString() {
+        String outputString;
+        ArrayList<Monster> playerMonsters;
+
+        outputString = this.getName() +
+                        "\nRewards: " + this.getGold() +
+                        "G | " + this.getScore() +
+                        " Points\n\nMonsters:\n";
+
+        playerMonsters = this.getTeam().getMonsters();
+        for (int i = 0; i < playerMonsters.size(); i++) {
+            outputString += playerMonsters.get(i).getName();
+            if (i != playerMonsters.size() - 1) {
+                outputString += " | ";
+            }
+        }
+
+        return outputString;
+    }
+    
+    public String getGuiName() {
+        String outputString = this.getName() + ":  ";
+        ArrayList<Monster> playerMonsters;
+        
+        playerMonsters = this.getTeam().getMonsters();
+        for (int i = 0; i < playerMonsters.size(); i++) {
+            outputString += playerMonsters.get(i).getName();
+            if (i != playerMonsters.size() - 1) {
+                outputString += "  ";
+            }
+        }
+
+        return outputString;
+    }
 }

@@ -423,6 +423,7 @@ public class SellShopPanel extends JPanel implements Updatable {
             // TODO: Remove Image
             image.setEnabled(false);
             image.setActionCommand("-1");
+            image.setText("");
         }
 
     }
