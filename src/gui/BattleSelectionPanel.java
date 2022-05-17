@@ -1,11 +1,12 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import static gui.MainContainer.DEFAULTDIMENSION;
 
 public class BattleSelectionPanel extends JPanel {
 
@@ -16,8 +17,9 @@ public class BattleSelectionPanel extends JPanel {
 	 */
 	public BattleSelectionPanel() {
         super();
+        setSize(DEFAULTDIMENSION);
         setName("BattleSelection");
-        setMinimumSize(new Dimension(MainContainer.SCREENWIDTH, MainContainer.SCREENHEIGHT));
+        setMinimumSize(DEFAULTDIMENSION);
         setVerifyInputWhenFocusTarget(false);
         this.setBackground(Color.GRAY);
         setLayout(null);

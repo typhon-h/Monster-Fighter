@@ -14,6 +14,7 @@ import javax.swing.border.EtchedBorder;
 import items.Item;
 import main.Entity;
 import monsters.Monster;
+import static gui.MainContainer.DEFAULTDIMENSION;
 
 import javax.swing.SwingConstants;
 import javax.swing.JTextPane;
@@ -51,18 +52,18 @@ public class SellShopPanel extends JPanel implements Updatable {
     private JButton btnSell;
     private JLabel lblGold;
     private JLabel lblPlayerGold;
-    private JTextPane textPaneEntity12;
-    private JRadioButton rdBtnEntity12;
-    private JRadioButton rdBtnEntity11;
-    private JTextPane textPaneEntity11;
-    private JRadioButton rdBtnEntity9;
-    private JTextPane textPaneEntity9;
-    private JRadioButton rdBtnEntity10;
-    private JTextPane textPaneEntity10;
-    private JTextPane textPaneEntity8;
-    private JRadioButton rdBtnEntity8;
     private JTextPane textPaneEntity7;
+    private JTextPane textPaneEntity8;
+    private JTextPane textPaneEntity9;
+    private JTextPane textPaneEntity10;
+    private JTextPane textPaneEntity11;
+    private JTextPane textPaneEntity12;
+    private JRadioButton rdBtnEntity8;
     private JRadioButton rdBtnEntity7;
+    private JRadioButton rdBtnEntity9;
+    private JRadioButton rdBtnEntity10;
+    private JRadioButton rdBtnEntity11;
+    private JRadioButton rdBtnEntity12;
     private JScrollPane scrollPane;
 
     /**
@@ -71,7 +72,8 @@ public class SellShopPanel extends JPanel implements Updatable {
     public SellShopPanel() {
         super();
         setName("SellShop");
-        setMinimumSize(new Dimension(MainContainer.SCREENWIDTH, MainContainer.SCREENHEIGHT));
+        setMinimumSize(DEFAULTDIMENSION);
+        setSize(DEFAULTDIMENSION);
         setVerifyInputWhenFocusTarget(false);
         this.setBackground(Color.GRAY);
         setLayout(null);
@@ -403,7 +405,7 @@ public class SellShopPanel extends JPanel implements Updatable {
             image.setActionCommand("" + index);
 
         } catch (IndexOutOfBoundsException e) {
-            desc.setText("\n\nEmpty");
+            desc.setText("");
             // TODO: Remove Image
             image.setEnabled(false);
             image.setActionCommand("-1");

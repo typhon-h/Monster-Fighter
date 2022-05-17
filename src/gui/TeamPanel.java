@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,6 +11,7 @@ import javax.swing.border.EtchedBorder;
 
 import main.Entity;
 import monsters.Monster;
+import static gui.MainContainer.DEFAULTDIMENSION;
 
 import javax.swing.SwingConstants;
 import javax.swing.JTextPane;
@@ -48,7 +48,8 @@ public class TeamPanel extends JPanel implements Updatable {
         public TeamPanel() {
                 super();
                 setName("Team");
-                setMinimumSize(new Dimension(MainContainer.SCREENWIDTH, MainContainer.SCREENHEIGHT));
+                setMinimumSize(DEFAULTDIMENSION);
+                setSize(DEFAULTDIMENSION);
                 setVerifyInputWhenFocusTarget(false);
                 this.setBackground(Color.GRAY);
                 setLayout(null);

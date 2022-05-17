@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,6 +13,7 @@ import items.Item;
 import main.Entity;
 import main.Rarity;
 import monsters.Monster;
+import static gui.MainContainer.DEFAULTDIMENSION;
 
 import javax.swing.SwingConstants;
 import javax.swing.JTextPane;
@@ -53,7 +53,8 @@ public class BuyShopPanel extends JPanel implements Updatable {
         public BuyShopPanel() {
                 super();
                 setName("BuyShop");
-                setMinimumSize(new Dimension(MainContainer.SCREENWIDTH, MainContainer.SCREENHEIGHT));
+                setMinimumSize(DEFAULTDIMENSION);
+                setSize(DEFAULTDIMENSION);
                 setVerifyInputWhenFocusTarget(false);
                 this.setBackground(Color.GRAY);
                 setLayout(null);

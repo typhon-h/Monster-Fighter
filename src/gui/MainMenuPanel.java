@@ -1,12 +1,13 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+
+import static gui.MainContainer.DEFAULTDIMENSION;
 
 public class MainMenuPanel extends JPanel implements Updatable {
 
@@ -19,7 +20,8 @@ public class MainMenuPanel extends JPanel implements Updatable {
         public MainMenuPanel() {
                 super();
                 setName("MainMenu");
-                setMinimumSize(new Dimension(MainContainer.SCREENWIDTH, MainContainer.SCREENHEIGHT));
+                setMinimumSize(DEFAULTDIMENSION);
+                setSize(DEFAULTDIMENSION);
                 setVerifyInputWhenFocusTarget(false);
                 this.setBackground(Color.GRAY);
                 setLayout(null);

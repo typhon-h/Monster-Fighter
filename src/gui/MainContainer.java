@@ -18,6 +18,7 @@ public class MainContainer {
     protected static GameEnvironment game;
     protected static final int SCREENWIDTH = 960;
     protected static final int SCREENHEIGHT = 540;
+    protected static final Dimension DEFAULTDIMENSION = new Dimension(SCREENWIDTH, SCREENHEIGHT);
     private static JPanel mainContainerPanel;
     private static CardLayout cardLayout;
 
@@ -61,6 +62,7 @@ public class MainContainer {
         monsterGameFrame = new JFrame();
         monsterGameFrame.setResizable(false);
         monsterGameFrame.setTitle("Monster Fighter");
+        monsterGameFrame.setSize(new Dimension(SCREENWIDTH, SCREENHEIGHT + 35));
         monsterGameFrame.setMinimumSize(new Dimension(SCREENWIDTH, SCREENHEIGHT + 35));
         monsterGameFrame.setBounds(100, 100, SCREENWIDTH, SCREENHEIGHT + 35);
         monsterGameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

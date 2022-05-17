@@ -4,7 +4,6 @@ import java.awt.Color;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
@@ -22,6 +21,7 @@ import main.GameEnvironment;
 import main.Player;
 import main.Team;
 import monsters.Monster;
+import static gui.MainContainer.DEFAULTDIMENSION;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.UIManager;
@@ -50,7 +50,8 @@ public class SetupPanel extends JPanel {
     public SetupPanel() {
         super();
         setName("Setup");
-        setMinimumSize(new Dimension(MainContainer.SCREENWIDTH, MainContainer.SCREENHEIGHT));
+        setMinimumSize(DEFAULTDIMENSION);
+        setSize(DEFAULTDIMENSION);
         setVerifyInputWhenFocusTarget(false);
         this.setBackground(Color.GRAY);
         setLayout(null);
