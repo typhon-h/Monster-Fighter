@@ -39,6 +39,7 @@ public class InfoPopUp extends JFrame {
 		btnOK.addActionListener(close -> {this.dispose();});
 		btnOK.setBounds(16, 87, 328, 29);
 		contentPane.add(btnOK);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
 }
