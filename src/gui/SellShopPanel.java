@@ -65,7 +65,7 @@ public class SellShopPanel extends EntityViewer implements Updatable {
      * Create the panel.
      */
     public SellShopPanel() {
-        super(true);
+        super(true, true);
         setName("SellShop");
 
         JLabel lblSellShopTitle = new JLabel("Sell Shop");
@@ -305,13 +305,6 @@ public class SellShopPanel extends EntityViewer implements Updatable {
         });
         btnSell.setBounds(690, 487, 295, 47);
         add(btnSell);
-
-        JButton btnBack = new JButton("Back");
-        btnBack.addActionListener(back -> {
-            MainContainer.showScreen("MainMenu");
-        });
-        btnBack.setBounds(6, 3, 82, 40);
-        add(btnBack);
 
         update();
     }

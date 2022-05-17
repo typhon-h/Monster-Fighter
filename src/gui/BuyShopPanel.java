@@ -42,7 +42,7 @@ public class BuyShopPanel extends EntityViewer implements Updatable {
          * Create the panel.
          */
         public BuyShopPanel() {
-                super(true);
+                super(true, true);
                 setName("BuyShop");
 
                 JLabel lblBuyShopTitle = new JLabel("Buy Shop");
@@ -157,13 +157,6 @@ public class BuyShopPanel extends EntityViewer implements Updatable {
                 textPaneLegendaryMonster.setBounds(416, 364, 120, 120);
                 textPaneLegendaryMonster.setBackground(this.getBackground());
                 shopContent.add(textPaneLegendaryMonster);
-
-                JButton btnBack = new JButton("Back");
-                btnBack.addActionListener(back -> {
-                        MainContainer.showScreen("MainMenu");
-                });
-                btnBack.setBounds(6, 6, 82, 40);
-                add(btnBack);
 
                 btnBuy = new JButton("Buy");
                 btnBuy.setBounds(690, 487, 295, 47);

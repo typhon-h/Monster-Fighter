@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
@@ -26,7 +27,9 @@ public class EntityViewer extends JPanel {
     private JLabel lblPreviewEntityImg;
     private JTextPane textPanePreviewEntityDesc;
 
-    public EntityViewer(boolean hasPreview) {
+    private JButton btnBack;
+
+    public EntityViewer(boolean hasPreview, boolean hasBack) {
         super();
         setMinimumSize(DEFAULTDIMENSION);
         setSize(DEFAULTDIMENSION);
@@ -37,6 +40,15 @@ public class EntityViewer extends JPanel {
 
         if (hasPreview) {
             initializePreview();
+        }
+
+        if (hasBack) {
+            btnBack = new JButton("Back");
+            btnBack.addActionListener(back -> {
+                MainContainer.showScreen("MainMenu");
+            });
+            btnBack.setBounds(6, 6, 82, 40);
+            add(btnBack);
         }
 
     }

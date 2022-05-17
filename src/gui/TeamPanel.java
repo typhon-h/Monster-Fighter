@@ -40,7 +40,7 @@ public class TeamPanel extends EntityViewer implements Updatable {
          * Create the panel.
          */
         public TeamPanel() {
-                super(true);
+                super(true, true);
                 setName("Team");
 
                 JLabel lblSellShopTitle = new JLabel("Team");
@@ -147,13 +147,6 @@ public class TeamPanel extends EntityViewer implements Updatable {
                 });
                 btnMoveUp.setBounds(848, 487, 137, 47);
                 add(btnMoveUp);
-
-                JButton btnBack = new JButton("Back");
-                btnBack.addActionListener(back -> {
-                        MainContainer.showScreen("MainMenu");
-                });
-                btnBack.setBounds(6, 3, 82, 40);
-                add(btnBack);
 
                 update();
         }

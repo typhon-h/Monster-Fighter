@@ -50,7 +50,7 @@ public class InventoryPanel extends EntityViewer implements Updatable {
          * Create the panel.
          */
         public InventoryPanel() {
-                super(true);
+                super(true, true);
                 setName("Inventory");
 
                 JLabel lblInventoryTitle = new JLabel("Inventory");
@@ -189,13 +189,6 @@ public class InventoryPanel extends EntityViewer implements Updatable {
                 });
                 btnUse.setBounds(690, 487, 295, 47);
                 add(btnUse);
-
-                JButton btnBack = new JButton("Back");
-                btnBack.addActionListener(back -> {
-                        MainContainer.showScreen("MainMenu");
-                });
-                btnBack.setBounds(6, 6, 82, 40);
-                add(btnBack);
 
                 JPanel teamMonsters = new JPanel();
                 teamMonsters.setBorder(new LineBorder(new Color(0, 0, 0)));

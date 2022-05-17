@@ -35,20 +35,13 @@ public class BattleSelectionPanel extends EntityViewer implements Updatable {
      * Create the panel.
      */
     public BattleSelectionPanel() {
-        super(true);
+        super(true, true);
         setName("BattleSelection");
 
         JLabel lblBattleSelectionTitle = new JLabel("Battle Selection");
         lblBattleSelectionTitle.setBounds(385, 6, 246, 37);
         lblBattleSelectionTitle.setFont(new Font("Lucida Grande", Font.BOLD, 30));
         add(lblBattleSelectionTitle);
-
-        JButton btnBack = new JButton("Back");
-        btnBack.addActionListener(back -> {
-            MainContainer.showScreen("MainMenu");
-        });
-        btnBack.setBounds(6, 6, 82, 40);
-        add(btnBack);
 
         btnBattle = new JButton("Battle");
         btnBattle.addActionListener(battle -> {
