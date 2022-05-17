@@ -166,7 +166,7 @@ public class BuyShopPanel extends EntityViewer implements Updatable {
                 add(btnBack);
 
                 btnBuy = new JButton("Buy");
-                btnBuy.setBounds(600, 487, 385, 47);
+                btnBuy.setBounds(690, 487, 295, 47);
                 add(btnBuy);
                 btnBuy.addActionListener(buy -> {
                         buyEntity();

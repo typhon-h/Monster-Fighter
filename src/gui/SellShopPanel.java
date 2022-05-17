@@ -303,7 +303,7 @@ public class SellShopPanel extends EntityViewer implements Updatable {
         btnSell.addActionListener(sell -> {
             sellEntity();
         });
-        btnSell.setBounds(600, 487, 385, 47);
+        btnSell.setBounds(690, 487, 295, 47);
         add(btnSell);
 
         JButton btnBack = new JButton("Back");

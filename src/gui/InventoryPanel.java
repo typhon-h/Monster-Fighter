@@ -6,22 +6,20 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 
 import items.Item;
 import main.Entity;
 import monsters.Monster;
-import static gui.MainContainer.DEFAULTDIMENSION;
 
-import javax.swing.SwingConstants;
-import javax.swing.JTextPane;
-import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
-import javax.swing.border.LineBorder;
-import javax.swing.JButton;
-
-public class InventoryPanel extends JPanel implements Updatable {
+public class InventoryPanel extends EntityViewer implements Updatable {
 
         private static final long serialVersionUID = 1L;
         private JRadioButton rdBtnEntity1;
@@ -45,9 +43,6 @@ public class InventoryPanel extends JPanel implements Updatable {
 
         private ArrayList<Item> inventory = MainContainer.game.getPlayer().getInventory();
         private final ButtonGroup content = new ButtonGroup();
-        private JPanel preview;
-        private JLabel lblPreviewEntityImg;
-        private JTextPane textPanePreviewEntityDesc;
         private JButton btnUse;
         private final ButtonGroup monsters = new ButtonGroup();
 
@@ -55,17 +50,12 @@ public class InventoryPanel extends JPanel implements Updatable {
          * Create the panel.
          */
         public InventoryPanel() {
-                super();
+                super(true);
                 setName("Inventory");
-                setMinimumSize(DEFAULTDIMENSION);
-                setSize(DEFAULTDIMENSION);
-                setVerifyInputWhenFocusTarget(false);
-                this.setBackground(Color.GRAY);
-                setLayout(null);
 
                 JLabel lblInventoryTitle = new JLabel("Inventory");
-                lblInventoryTitle.setBounds(332, 1, 150, 37);
-                lblInventoryTitle.setFont(new Font("Lucida Grande", Font.BOLD, 28));
+                lblInventoryTitle.setBounds(430, 6, 150, 37);
+                lblInventoryTitle.setFont(new Font("Lucida Grande", Font.BOLD, 30));
                 add(lblInventoryTitle);
 
                 JPanel inventoryContent = new JPanel();
@@ -77,7 +67,7 @@ public class InventoryPanel extends JPanel implements Updatable {
 
                 rdBtnEntity1 = new JRadioButton("");
                 rdBtnEntity1.addActionListener(selected -> {
-                        updatePreview();
+                        super.updatePreview(content, inventory.toArray());
                 });
                 content.add(rdBtnEntity1);
                 rdBtnEntity1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -87,7 +77,7 @@ public class InventoryPanel extends JPanel implements Updatable {
 
                 rdBtnEntity2 = new JRadioButton("");
                 rdBtnEntity2.addActionListener(selected -> {
-                        updatePreview();
+                        super.updatePreview(content, inventory.toArray());
                 });
                 content.add(rdBtnEntity2);
                 rdBtnEntity2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -97,7 +87,7 @@ public class InventoryPanel extends JPanel implements Updatable {
 
                 rdBtnEntity3 = new JRadioButton("");
                 rdBtnEntity3.addActionListener(selected -> {
-                        updatePreview();
+                        super.updatePreview(content, inventory.toArray());
                 });
                 content.add(rdBtnEntity3);
                 rdBtnEntity3.setHorizontalAlignment(SwingConstants.CENTER);
@@ -107,7 +97,7 @@ public class InventoryPanel extends JPanel implements Updatable {
 
                 rdBtnEntity4 = new JRadioButton("");
                 rdBtnEntity4.addActionListener(selected -> {
-                        updatePreview();
+                        super.updatePreview(content, inventory.toArray());
                 });
                 content.add(rdBtnEntity4);
                 rdBtnEntity4.setHorizontalAlignment(SwingConstants.CENTER);
@@ -117,7 +107,7 @@ public class InventoryPanel extends JPanel implements Updatable {
 
                 rdBtnEntity5 = new JRadioButton("");
                 rdBtnEntity5.addActionListener(selected -> {
-                        updatePreview();
+                        super.updatePreview(content, inventory.toArray());
                 });
                 content.add(rdBtnEntity5);
                 rdBtnEntity5.setHorizontalAlignment(SwingConstants.CENTER);
@@ -128,7 +118,7 @@ public class InventoryPanel extends JPanel implements Updatable {
                 rdBtnEntity6 = new JRadioButton("");
                 content.add(rdBtnEntity6);
                 rdBtnEntity6.addActionListener(selected -> {
-                        updatePreview();
+                        super.updatePreview(content, inventory.toArray());
                 });
                 rdBtnEntity6.setHorizontalAlignment(SwingConstants.CENTER);
                 rdBtnEntity6.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -138,7 +128,7 @@ public class InventoryPanel extends JPanel implements Updatable {
                 textPaneEntity1 = new JTextPane();
                 textPaneEntity1.setEditable(false);
                 textPaneEntity1.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-                textPaneEntity1.setBounds(88, 9, 265, 70);
+                textPaneEntity1.setBounds(88, 20, 265, 70);
                 textPaneEntity1.setBackground(this.getBackground());
                 inventoryContent.add(textPaneEntity1);
 
@@ -193,30 +183,12 @@ public class InventoryPanel extends JPanel implements Updatable {
                                 textPaneEntity5,
                                 textPaneEntity6));
 
-                preview = new JPanel();
-                preview.setBorder(new LineBorder(new Color(0, 0, 0)));
-                preview.setBounds(694, 50, 260, 490);
-                preview.setBackground(this.getBackground());
-                add(preview);
-                preview.setLayout(null);
-
-                lblPreviewEntityImg = new JLabel("Selected Entity Image");
-                lblPreviewEntityImg.setBounds(37, 6, 200, 200);
-                preview.add(lblPreviewEntityImg);
-
-                textPanePreviewEntityDesc = new JTextPane();
-                textPanePreviewEntityDesc.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-                textPanePreviewEntityDesc.setEditable(false);
-                textPanePreviewEntityDesc.setBounds(6, 249, 248, 176);
-                textPanePreviewEntityDesc.setBackground(this.getBackground());
-                preview.add(textPanePreviewEntityDesc);
-
                 btnUse = new JButton("Use");
                 btnUse.addActionListener(sell -> {
                         useItem();
                 });
-                btnUse.setBounds(6, 437, 248, 47);
-                preview.add(btnUse);
+                btnUse.setBounds(690, 487, 295, 47);
+                add(btnUse);
 
                 JButton btnBack = new JButton("Back");
                 btnBack.addActionListener(back -> {
@@ -278,7 +250,7 @@ public class InventoryPanel extends JPanel implements Updatable {
                 textPaneMonster1.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
                 textPaneMonster1.setEditable(false);
                 textPaneMonster1.setBackground(Color.GRAY);
-                textPaneMonster1.setBounds(88, 9, 200, 70);
+                textPaneMonster1.setBounds(88, 30, 200, 70);
                 teamMonsters.add(textPaneMonster1);
 
                 JTextPane textPaneMonster2 = new JTextPane();
@@ -333,12 +305,12 @@ public class InventoryPanel extends JPanel implements Updatable {
                                 textPaneMonster6));
 
                 JLabel lblMonsters = new JLabel("Target Monster");
-                lblMonsters.setBounds(506, 30, 101, 16);
-                add(lblMonsters);
+                lblMonsters.setBounds(135, 6, 101, 16);
+                inventoryContent.add(lblMonsters);
 
                 JLabel lblItems = new JLabel("Select Item");
-                lblItems.setBounds(148, 20, 76, 37);
-                add(lblItems);
+                lblItems.setBounds(135, 6, 76, 37);
+                teamMonsters.add(lblItems);
         }
 
         private void updateContent() {
@@ -347,19 +319,6 @@ public class InventoryPanel extends JPanel implements Updatable {
                                 updateEntity(contentButtons.get(i), contentDescriptions.get(i), null);
                         } else {
                                 updateEntity(contentButtons.get(i), contentDescriptions.get(i), inventory.get(i));
-                        }
-                }
-
-        }
-
-        private void selectFirstAvailableEntity() {
-
-                for (JRadioButton btn : contentButtons) {
-                        if (btn.getActionCommand() != "-1") {
-                                btn.setSelected(true);
-                                return;
-                        } else {
-                                content.clearSelection();
                         }
                 }
 
@@ -378,11 +337,11 @@ public class InventoryPanel extends JPanel implements Updatable {
                         useFeedback = new InfoPopUp(MainContainer.game.getPlayer().useItem(itemToUse, monsterAffected));
                         Point point = this.getLocationOnScreen();
                         useFeedback.setLocation(point.x +
-                                          (gui.MainContainer.SCREENWIDTH / 2) -
-                                          useFeedback.getWidth() / 2,
-                                          point.y +
-                                          (gui.MainContainer.SCREENHEIGHT / 2) -
-                                          useFeedback.getHeight() / 2);
+                                        (gui.MainContainer.SCREENWIDTH / 2) -
+                                        useFeedback.getWidth() / 2,
+                                        point.y +
+                                                        (gui.MainContainer.SCREENHEIGHT / 2) -
+                                                        useFeedback.getHeight() / 2);
                         useFeedback.setVisible(true);
                         update();
 
@@ -390,11 +349,11 @@ public class InventoryPanel extends JPanel implements Updatable {
                         ErrorPopUp noSelection = new ErrorPopUp("Select an Item/Monster");
                         Point point = this.getLocationOnScreen();
                         noSelection.setLocation(point.x +
-                                          (gui.MainContainer.SCREENWIDTH / 2) -
-                                          noSelection.getWidth() / 2,
-                                          point.y +
-                                          (gui.MainContainer.SCREENHEIGHT / 2) -
-                                          noSelection.getHeight() / 2);
+                                        (gui.MainContainer.SCREENWIDTH / 2) -
+                                        noSelection.getWidth() / 2,
+                                        point.y +
+                                                        (gui.MainContainer.SCREENHEIGHT / 2) -
+                                                        noSelection.getHeight() / 2);
                         noSelection.setVisible(true);
                 }
 
@@ -415,22 +374,6 @@ public class InventoryPanel extends JPanel implements Updatable {
                                         : MainContainer.game.getPlayer().getTeam().getMonsters().indexOf(e);
                         image.setActionCommand("" + index);
                         image.setVisible(true);
-                }
-
-        }
-
-        private void updatePreview() {
-
-                if (content.getSelection() != null && content.getSelection().getActionCommand() != "-1") {
-                        int index = Integer.parseInt(content.getSelection().getActionCommand());
-                        Entity entity = inventory.get(index);
-                        lblPreviewEntityImg.setText(entity.getName() + " Image");
-                        textPanePreviewEntityDesc.setText(entity.toString());
-                        btnUse.setEnabled(true);
-                } else {
-                        lblPreviewEntityImg.setText("Inventory is Empty");
-                        textPanePreviewEntityDesc.setText("");
-                        btnUse.setEnabled(false);
                 }
 
         }
@@ -456,9 +399,10 @@ public class InventoryPanel extends JPanel implements Updatable {
 
         public void update() {
                 updateContent();
-                selectFirstAvailableEntity();
+                super.updatePlayerInfo();
+                super.selectFirstAvailableButton(content);
                 updateTeam();
-                updatePreview();
+                super.updatePreview(content, inventory.toArray());
 
         }
 }

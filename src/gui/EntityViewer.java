@@ -88,19 +88,19 @@ public class EntityViewer extends JPanel {
     private void initializePreview() {
         JPanel preview = new JPanel();
         preview.setBorder(new LineBorder(new Color(0, 0, 0)));
-        preview.setBounds(600, 44, 385, 432);
+        preview.setBounds(690, 50, 295, 432);
         preview.setBackground(this.getBackground());
         add(preview);
         preview.setLayout(null);
 
         lblPreviewEntityImg = new JLabel("Selected Entity Image");
-        lblPreviewEntityImg.setBounds(98, 6, 200, 200);
+        lblPreviewEntityImg.setBounds(48, 6, 200, 200);
         preview.add(lblPreviewEntityImg);
 
         textPanePreviewEntityDesc = new JTextPane();
-        textPanePreviewEntityDesc.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+        textPanePreviewEntityDesc.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
         textPanePreviewEntityDesc.setEditable(false);
-        textPanePreviewEntityDesc.setBounds(6, 249, 373, 176);
+        textPanePreviewEntityDesc.setBounds(6, 249, 283, 176);
         textPanePreviewEntityDesc.setBackground(this.getBackground());
         preview.add(textPanePreviewEntityDesc);
     }
@@ -136,6 +136,8 @@ public class EntityViewer extends JPanel {
         List<AbstractButton> availableButtons = Collections.list(content.getElements());
         if (availableButtons.size() > 0) { // TODO: I think this will work once buttons are dynamic??
             availableButtons.get(0).setSelected(true);
+        } else {
+            content.clearSelection();
         }
 
     }
