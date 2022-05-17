@@ -8,9 +8,8 @@ import org.junit.jupiter.api.*;
 
 import monsters.ClinkMonster;
 import monsters.Monster;
-
+import monsters.Trigger;
 import main.GameEnvironment;
-import main.Trigger;
 
 class RandomTriggerTest {
     /**
@@ -28,9 +27,9 @@ class RandomTriggerTest {
 
     /**
      * Tests that the {@link items.Item item} gives the {@link monsters.Monster
-     * monster} a new random {@link main.Trigger trigger}. The {@link main.Trigger
-     * trigger} cannot be {@link main.Trigger#NOABILITY} nor can it be the
-     * {@link main.Trigger trigger} that the {@link monsters.Monster monster}
+     * monster} a new random {@link monsters.Trigger trigger}. The {@link monsters.Trigger
+     * trigger} cannot be {@link monsters.Trigger#NOABILITY} nor can it be the
+     * {@link monsters.Trigger trigger} that the {@link monsters.Monster monster}
      * already has.
      */
     @Test
@@ -52,7 +51,7 @@ class RandomTriggerTest {
     }
 
     /**
-     * Tests that the all possible {@link main.Trigger trigger} are applied to the
+     * Tests that the all possible {@link monsters.Trigger trigger} are applied to the
      * {@link monsters.Monster monster} at least
      * once.
      * Seed: 14

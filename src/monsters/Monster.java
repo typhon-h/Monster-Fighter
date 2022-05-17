@@ -4,7 +4,6 @@ import main.BattleEvent;
 import main.Entity;
 import main.Rarity;
 import main.Team;
-import main.Trigger;
 
 /**
  * Generic Monster

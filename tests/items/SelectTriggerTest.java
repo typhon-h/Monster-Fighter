@@ -10,7 +10,7 @@ import exceptions.UnusableItemException;
 
 import monsters.ClinkMonster;
 import monsters.Monster;
-import main.Trigger;
+import monsters.Trigger;
 
 class SelectTriggerTest {
     /**
@@ -29,10 +29,10 @@ class SelectTriggerTest {
     }
 
     /**
-     * Test that the item has the correct {@link main.Trigger trigger} that is given
+     * Test that the item has the correct {@link monsters.Trigger trigger} that is given
      * to it
      * 
-     * @param trigger {@link main.Trigger trigger} to be checked
+     * @param trigger {@link monsters.Trigger trigger} to be checked
      */
     @ParameterizedTest
     @EnumSource(Trigger.class)
@@ -45,12 +45,12 @@ class SelectTriggerTest {
     }
 
     /**
-     * Test that the item applies a given {@link main.Trigger trigger} effect onto
+     * Test that the item applies a given {@link monsters.Trigger trigger} effect onto
      * the provided {@link monsters.Monster monster}
      * and that a {@link exceptions.UnusableItemException exception} is thrown at an
      * appropriate time.
      * 
-     * @param trigger The {@link main.Trigger} enum value to be passed into the
+     * @param trigger The {@link monsters.Trigger} enum value to be passed into the
      *                test.
      */
     @ParameterizedTest

@@ -64,11 +64,11 @@ public class BattleManager {
 
     /**
      * Generates a random {@link monsters.Monster monster} with different
-     * {@link main.Trigger triggers} based
+     * {@link monsters.Trigger triggers} based
      * on the {@link main.Difficulty difficulty} of the game.
      *
      * @param difficulty The {@link main.Difficulty difficulty} of the game.
-     * @return A {@link monsters.Monster Monster} with a random {@link main.Trigger
+     * @return A {@link monsters.Monster Monster} with a random {@link monsters.Trigger
      *         trigger}.
      */
     private Monster getRandomMonster(Difficulty difficulty) {
@@ -304,7 +304,7 @@ public class BattleManager {
      *                  {@link monsters.Monster monster}
      * @param monster   {@link monsters.Monster Monster} to run
      *                  {@link monsters.Monster#ability} of
-     * @param trigger   Current {@link main.Trigger trigger} that is checked for
+     * @param trigger   Current {@link monsters.Trigger trigger} that is checked for
      *
      * @return {@link main.BattleEvent BattleEvent} describing the
      *         {@link monsters.Monster#ability}

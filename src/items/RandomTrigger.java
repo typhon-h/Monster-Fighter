@@ -5,9 +5,10 @@ import java.util.Arrays;
 
 import main.*;
 import monsters.Monster;
+import monsters.Trigger;
 
 /**
- * An item that gives a {@link monsters.Monster} a random {@link main.Trigger}
+ * An item that gives a {@link monsters.Monster} a random {@link monsters.Trigger}
  * for their {@link monsters.Monster#ability ability}
  *
  * @author Jackie Jone
@@ -27,10 +28,10 @@ public class RandomTrigger extends Item {
     }
 
     /**
-     * Sets the {@link main.Trigger} for a given {@link monsters.Monster} to a
+     * Sets the {@link monsters.Trigger} for a given {@link monsters.Monster} to a
      * random trigger.
      *
-     * @param monster The {@link monsters.Monster} to set the {@link main.Trigger}
+     * @param monster The {@link monsters.Monster} to set the {@link monsters.Trigger}
      *                for.
      * @return string describing item effect
      */

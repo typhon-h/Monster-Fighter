@@ -1,8 +1,8 @@
 package exceptions;
 
 /**
- * Applying a {@link main.Trigger} to a {@link monsters.Monster} that already
- * has the given {@link main.Trigger}.
+ * Applying a {@link monsters.Trigger} to a {@link monsters.Monster} that already
+ * has the given {@link monsters.Trigger}.
  *
  * @author Jackie Jone
  * @version 1.0, Apr 2022.

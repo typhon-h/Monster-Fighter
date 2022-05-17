@@ -6,7 +6,7 @@ import static java.util.Map.entry;
 import monsters.*;
 
 /**
- * Class defining the constants of the optimal {@link main.Trigger triggers} for
+ * Class defining the constants of the optimal {@link monsters.Trigger triggers} for
  * each {@link monsters.Monster monster} in the game.
  *
  * @author Jackie Jone
@@ -27,7 +27,7 @@ public final class BattleConstants {
 
     /**
      * A map mapping each subclass of the {@link monsters.Monster monster} class to
-     * an array of {@link main.Trigger triggers}.
+     * an array of {@link monsters.Trigger triggers}.
      */
     private static final Map<Class<?>, Trigger[][]> triggers = Map.ofEntries(
             // Optimal Triggers for Clink Monster.
@@ -62,7 +62,7 @@ public final class BattleConstants {
                     { Trigger.BEFOREATTACK } }));
 
     /**
-     * Concatenates two {@link main.Trigger trigger} arrays together.
+     * Concatenates two {@link monsters.Trigger trigger} arrays together.
      *
      * @param array1 First array to concatenate to.
      * @param array2 Second array to concatenate.
@@ -83,7 +83,7 @@ public final class BattleConstants {
     }
 
     /**
-     * Returns all the {@link main.Trigger triggers} as a one-dimensional array
+     * Returns all the {@link monsters.Trigger triggers} as a one-dimensional array
      * based on the
      * {@link main.Difficulty difficulty} of the game in order from easy to hard.
      *
@@ -106,14 +106,14 @@ public final class BattleConstants {
     }
 
     /**
-     * Gets the optimal {@link main.Trigger triggers} for a given
+     * Gets the optimal {@link monsters.Trigger triggers} for a given
      * {@link monsters.Monster monster}.
      *
      * @param monsterClass The class of the {@link monsters.Monster monster} to get
-     *                     the {@link main.Trigger triggers} for/
+     *                     the {@link monsters.Trigger triggers} for/
      * @param difficulty   The {@link main.Difficulty difficulty} of the game
      *
-     * @return An array of {@link main.Trigger trigger enum} values.
+     * @return An array of {@link monsters.Trigger trigger enum} values.
      * @throws IllegalArgumentException if the given class is not a subclass of
      *                                  {@link monsters.Monster monster class}.
      */

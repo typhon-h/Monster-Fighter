@@ -1,4 +1,4 @@
-package main;
+package monsters;
 
 /**
  * Different possible events that can trigger an {@link monsters.Monster#ability

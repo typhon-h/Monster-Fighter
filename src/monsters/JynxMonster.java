@@ -1,6 +1,5 @@
 package monsters;
 
-import main.Trigger;
 import main.BattleEvent;
 import main.Team;
 

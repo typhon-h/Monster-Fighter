@@ -2,7 +2,6 @@ package monsters;
 
 import java.util.ArrayList;
 
-import main.Trigger;
 import main.BattleEvent;
 import main.GameEnvironment;
 import main.Team;

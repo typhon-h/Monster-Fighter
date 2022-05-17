@@ -53,17 +53,17 @@ class BattleConstantsTest {
 
     /**
      * Tests that {@link BattleConstants#getTriggers(Class) getTriggers(Class)}
-     * returns the correct {@link main.Trigger triggers} for each
+     * returns the correct {@link monsters.Trigger triggers} for each
      * {@link monsters.Monster monster}.
      *
      * @param testMonster  The {@link monsters.Monster monster} to get the
-     *                     {@link main.Trigger triggers} for.
-     * @param testTriggers The expected {@link main.Trigger triggers} of the
+     *                     {@link monsters.Trigger triggers} for.
+     * @param testTriggers The expected {@link monsters.Trigger triggers} of the
      *                     {@link monsters.Monster monster}.
-     * @param difficulty   {@link main.Difficulty difficulty} of {@link main.Trigger
+     * @param difficulty   {@link main.Difficulty difficulty} of {@link monsters.Trigger
      *                     triggers} we are looking for,
      *                     {@link main.Difficulty#HARD hard} because we want all the
-     *                     {@link main.Trigger triggers}.
+     *                     {@link monsters.Trigger triggers}.
      */
     @ParameterizedTest
     @MethodSource("monsterAndTriggers")
@@ -95,15 +95,15 @@ class BattleConstantsTest {
     }
 
     /**
-     * Testing that the {@link main.Trigger triggers} for a {@link monsters.Monster
+     * Testing that the {@link monsters.Trigger triggers} for a {@link monsters.Monster
      * monster} changes based on {@link main.Difficulty difficulty}.
      *
      * @param testMonster  The {@link monsters.Monster
-     *                     monster} to get the {@link main.Trigger triggers} for.
-     * @param testTriggers The expected {@link main.Trigger triggers} of the
+     *                     monster} to get the {@link monsters.Trigger triggers} for.
+     * @param testTriggers The expected {@link monsters.Trigger triggers} of the
      *                     {@link monsters.Monster
      *                     monster} at a given {@link main.Difficulty difficulty}.
-     * @param difficulty   {@link main.Difficulty difficulty} of {@link main.Trigger
+     * @param difficulty   {@link main.Difficulty difficulty} of {@link monsters.Trigger
      *                     triggers} we are looking for.
      */
     @ParameterizedTest

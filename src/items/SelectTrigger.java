@@ -2,11 +2,11 @@ package items;
 
 import main.Rarity;
 import monsters.Monster;
-import main.Trigger;
+import monsters.Trigger;
 import exceptions.UnusableItemException;
 
 /**
- * An item that gives a {@link monsters.Monster} a select {@link main.Trigger}
+ * An item that gives a {@link monsters.Monster} a select {@link monsters.Trigger}
  * for their {@link monsters.Monster#ability ability}
  *
  * @author Jackie Jone
@@ -20,7 +20,7 @@ public class SelectTrigger extends Item {
      * Constructor for SelectTrigger Item,
      * the {@link main.Rarity} of this item is always {@link main.Rarity#LEGENDARY}.
      *
-     * @param newTrigger {@link main.Trigger} to give the item.
+     * @param newTrigger {@link monsters.Trigger} to give the item.
      */
     public SelectTrigger(Trigger newTrigger) {
         super(newTrigger.name() + " Ability Trigger",
@@ -31,32 +31,32 @@ public class SelectTrigger extends Item {
     }
 
     /**
-     * Sets the {@link main.Trigger} of the item to a given trigger.
+     * Sets the {@link monsters.Trigger} of the item to a given trigger.
      *
-     * @param newTrigger The {@link main.Trigger} to set the item to.
+     * @param newTrigger The {@link monsters.Trigger} to set the item to.
      */
     public void setTrigger(Trigger newTrigger) {
         itemTrigger = newTrigger;
     }
 
     /**
-     * Gets the {@link main.Trigger} of the SelectTrigger {@link items.Item}.
+     * Gets the {@link monsters.Trigger} of the SelectTrigger {@link items.Item}.
      *
-     * @return {@link main.Trigger} of the SelectTrigger {@link items.Item}.
+     * @return {@link monsters.Trigger} of the SelectTrigger {@link items.Item}.
      */
     public Trigger getTrigger() {
         return itemTrigger;
     }
 
     /**
-     * Applies the {@link main.Trigger} of the {@link items.Item} to a
+     * Applies the {@link monsters.Trigger} of the {@link items.Item} to a
      * {@link monsters.Monster}.
      *
-     * @param monster The {@link monsters.Monster} to apply the {@link main.Trigger}
+     * @param monster The {@link monsters.Monster} to apply the {@link monsters.Trigger}
      *                to
      * @throws UnusableItemException The {@link monsters.Monster} which the
      *                               {@link items.Item}
-     *                               is used on already has the {@link main.Trigger}
+     *                               is used on already has the {@link monsters.Trigger}
      *                               of the {@link items.Item}.
      */
     public String use(Monster monster) throws UnusableItemException {
