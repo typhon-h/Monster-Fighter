@@ -20,9 +20,9 @@ public class BattleSelectionPanel extends EntityViewer implements Updatable {
 
     private static final long serialVersionUID = 1L;
 
-    private JButton btnBattle;
+	private JButton btnBattle;
 
-    private ButtonGroup battleButtons;
+	private ButtonGroup battleButtons;
 
     private final int radioButtonHeight = 120;
     private final int pnlBattlesHeight = 475;
@@ -52,8 +52,6 @@ public class BattleSelectionPanel extends EntityViewer implements Updatable {
 
         // Init battles panel
         pnlBattles = new JPanel();
-        pnlBattles.setMinimumSize(new Dimension(pnlBattlesWidth, pnlBattlesHeight));
-        pnlBattles.setSize(new Dimension(pnlBattlesWidth, pnlBattlesHeight));
         pnlBattles.setBounds(16, 54, pnlBattlesWidth, pnlBattlesHeight);
         pnlBattles.setBackground(this.getBackground());
         add(pnlBattles);
@@ -66,6 +64,8 @@ public class BattleSelectionPanel extends EntityViewer implements Updatable {
     public void update() {
         btnBattle.setEnabled(false);
 
+        // TODO: Refactor code so instead creating new button group, just remove button from button
+        // group, remove button from pnlBattles and resize FlowLayout setVgap. - Need to reset when Opponents get generated
         // Reset battles panel and re-populate it with the new data battles.
         // Remove old battles
         pnlBattles.removeAll();
@@ -76,7 +76,6 @@ public class BattleSelectionPanel extends EntityViewer implements Updatable {
 
         buttonGap = (pnlBattlesHeight - (opponents.size() * radioButtonHeight)) / (opponents.size() + 1);
         ((FlowLayout) pnlBattles.getLayout()).setVgap(buttonGap);
-        System.out.println(buttonGap);
 
         for (Player opponent : opponents) {
             JRadioButton oppButton = new JRadioButton(getOpponentDescription(opponent));
@@ -84,15 +83,14 @@ public class BattleSelectionPanel extends EntityViewer implements Updatable {
             oppButton.addActionListener(selected -> {
                 super.updatePreview(battleButtons, opponents.toArray());
             });
-            oppButton.setMaximumSize(new Dimension(pnlBattlesWidth, radioButtonHeight));
-            oppButton.setMinimumSize(new Dimension(pnlBattlesWidth, radioButtonHeight));
+
             oppButton.setPreferredSize(new Dimension(pnlBattlesWidth, radioButtonHeight));
-            oppButton.setSize(new Dimension(pnlBattlesWidth, radioButtonHeight));
             oppButton.setBackground(Color.WHITE);
             oppButton.setFont(oppButton.getFont().deriveFont(25.0f));
             pnlBattles.add(oppButton);
 
             battleButtons.add(oppButton);
+            btnBattle.setEnabled(true);
         }
 
         super.updatePlayerInfo();
