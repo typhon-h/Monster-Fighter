@@ -41,6 +41,7 @@ public class SetupPanel extends EntityViewer {
     private JTextField textFieldMonsterNickname;
     private JSlider sliderDays;
     private ArrayList<Monster> availableStarters;
+    private String nameValidation = "[a-zA-Z]{3,15}";
 
     // TODO: Create panel, can make dummy using swing GUI thing and copy over code
 
@@ -215,12 +216,14 @@ public class SetupPanel extends EntityViewer {
 
     private void setUpGame() { // TODO: add proper name validation
         // Player Name
-        if (textFieldPlayerName.getText().strip().length() < 1) {
-            new PopUp("Error", "<html>Name must be 3-5 characters<br />No numbers or special characters</html>",
+        String playerName = textFieldPlayerName.getText();
+        if (!playerName.matches(nameValidation)) {
+            new PopUp("Error", "<html>Name must be 3-15 characters<br />No numbers or special characters</html>",
                     this.getLocationOnScreen());
+            textFieldPlayerName.setText("");
+            textFieldPlayerName.grabFocus();
             return;
         }
-        String playerName = textFieldPlayerName.getText().strip();
 
         // Difficulty
         Difficulty gameDifficulty;
@@ -241,9 +244,19 @@ public class SetupPanel extends EntityViewer {
         String selectedStarter = starterMonsters.getSelection().getActionCommand();
         int index = Integer.parseInt(selectedStarter);
         Monster starter = availableStarters.get(index);
+        String monsterName = textFieldMonsterNickname.getText().strip();
+        if (monsterName.length() > 0) {
+            if (!monsterName.matches(nameValidation)) {
+                new PopUp("Error",
+                        "<html>Monster name must be 3-15 characters<br />No numbers or special characters</html>",
+                        this.getLocationOnScreen());
+                textFieldMonsterNickname.setText("");
+                textFieldMonsterNickname.grabFocus();
+                return;
+            } else {
+                starter.setName(monsterName);
+            }
 
-        if (textFieldMonsterNickname.getText().strip().length() > 1) {
-            starter.setName(textFieldMonsterNickname.getText().strip());
         }
 
         // CREATE GAME

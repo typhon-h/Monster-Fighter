@@ -67,7 +67,6 @@ public class MainContainer {
         monsterGameFrame.setBounds(115, 100, SCREENWIDTH, SCREENHEIGHT + 35);
         monsterGameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // TODO: Each menu panel needs to be its own class?
         mainContainerPanel = new JPanel();
         monsterGameFrame.getContentPane().add(mainContainerPanel, BorderLayout.CENTER);
         cardLayout = new CardLayout(0, 0);
