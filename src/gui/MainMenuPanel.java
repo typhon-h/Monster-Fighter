@@ -7,7 +7,7 @@ public class MainMenuPanel extends EntityViewer implements Updatable {
         private static final long serialVersionUID = 1L;
 
         public MainMenuPanel() {
-                super(false, false);
+                super(true, false, false);
                 setName("MainMenu");
 
                 JButton btnBattles = new JButton("Battle");

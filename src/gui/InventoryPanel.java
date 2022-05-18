@@ -50,7 +50,7 @@ public class InventoryPanel extends EntityViewer implements Updatable {
          * Create the panel.
          */
         public InventoryPanel() {
-                super(true, true);
+                super(true, true, true);
                 setName("Inventory");
 
                 JLabel lblInventoryTitle = new JLabel("Inventory");

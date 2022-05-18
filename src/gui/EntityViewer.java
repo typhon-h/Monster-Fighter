@@ -29,14 +29,17 @@ public class EntityViewer extends JPanel {
 
     private JButton btnBack;
 
-    public EntityViewer(boolean hasPreview, boolean hasBack) {
+    public EntityViewer(boolean hasPlayerInfo, boolean hasPreview, boolean hasBack) {
         super();
         setMinimumSize(DEFAULTDIMENSION);
         setSize(DEFAULTDIMENSION);
         setVerifyInputWhenFocusTarget(false);
         this.setBackground(Color.GRAY);
         setLayout(null);
-        initializePlayerInfo();
+
+        if (hasPlayerInfo) {
+            initializePlayerInfo();
+        }
 
         if (hasPreview) {
             initializePreview();
@@ -56,24 +59,24 @@ public class EntityViewer extends JPanel {
     private void initializePlayerInfo() {
 
         JLabel lblName = new JLabel("Name: ");
-        lblName.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+        lblName.setFont(new Font("Lucida Grande", Font.BOLD, 19));
         lblName.setBounds(90, 6, 70, 21);
         add(lblName);
 
         JLabel lblPlayerName = new JLabel(MainContainer.game.getPlayer().getName());
-        lblPlayerName.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-        lblPlayerName.setBounds(160, 6, 166, 21);
+        lblPlayerName.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+        lblPlayerName.setBounds(150, 6, 166, 21);
         add(lblPlayerName);
 
         JLabel lblDay = new JLabel("Day:");
         lblDay.setFont(new Font("Lucida Grande", Font.BOLD, 20));
-        lblDay.setBounds(270, 6, 51, 21);
+        lblDay.setBounds(280, 6, 51, 21);
         add(lblDay);
 
         lblCurrentDay = new JLabel(
                 MainContainer.game.getCurrentDay() + "/" + MainContainer.game.getTotalDays());
         lblCurrentDay.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-        lblCurrentDay.setBounds(320, 6, 61, 20);
+        lblCurrentDay.setBounds(330, 6, 61, 20);
         add(lblCurrentDay);
 
         JLabel lblScore = new JLabel("Score: ");

@@ -35,7 +35,7 @@ public class BattleSelectionPanel extends EntityViewer implements Updatable {
      * Create the panel.
      */
     public BattleSelectionPanel() {
-        super(true, true);
+        super(true, true, true);
         setName("BattleSelection");
 
         JLabel lblBattleSelectionTitle = new JLabel("Battle Selection");

@@ -65,7 +65,7 @@ public class SellShopPanel extends EntityViewer implements Updatable {
      * Create the panel.
      */
     public SellShopPanel() {
-        super(true, true);
+        super(true, true, true);
         setName("SellShop");
 
         JLabel lblSellShopTitle = new JLabel("Sell Shop");

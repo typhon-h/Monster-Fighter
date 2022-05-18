@@ -40,7 +40,7 @@ public class TeamPanel extends EntityViewer implements Updatable {
          * Create the panel.
          */
         public TeamPanel() {
-                super(true, true);
+                super(true, true, true);
                 setName("Team");
 
                 JLabel lblSellShopTitle = new JLabel("Team");

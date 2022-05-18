@@ -42,7 +42,7 @@ public class BuyShopPanel extends EntityViewer implements Updatable {
          * Create the panel.
          */
         public BuyShopPanel() {
-                super(true, true);
+                super(true, true, true);
                 setName("BuyShop");
 
                 JLabel lblBuyShopTitle = new JLabel("Buy Shop");
