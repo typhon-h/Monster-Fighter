@@ -82,13 +82,42 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
         JScrollPane scroll = new JScrollPane(battleLogDisplay);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scroll.setBounds((MainContainer.SCREENWIDTH / 2 - 750 / 2), 280, 750, 200);
+        scroll.setBounds((MainContainer.SCREENWIDTH / 2 - 850 / 2), 280, 850, 200);
         this.add(scroll);
         
         // TODO: Create JCheckBox - Auto play
         // TODO: Create JButton   - Next event
         // TODO: Create JButton   - Skip to end
-
+        
+        JPanel pnlButtonsContainer = new JPanel();
+        pnlButtonsContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 0));
+        pnlButtonsContainer.setBounds((MainContainer.SCREENWIDTH / 2 - 850 / 2),
+                                      490, 850, 40);
+        setOpaque(false);
+        this.add(pnlButtonsContainer);
+        
+        
+        btnContinue = new JButton();
+        btnContinue.setBounds(0, 0, 850 / 2, 40);
+        btnContinue.setPreferredSize(new Dimension(850 / 2, 40));
+        btnContinue.setText("Continue");
+        // TODO: add event handler
+        pnlButtonsContainer.add(btnContinue);
+        
+        btnSkip = new JButton();
+        btnSkip.setPreferredSize(new Dimension(850 / 2 - 140, 40));
+        btnSkip.setText("Skip");
+        // TODO: add event handler
+        pnlButtonsContainer.add(btnSkip);
+        
+        chkAutoPlay = new JCheckBox();
+        chkAutoPlay.setPreferredSize(new Dimension(100, 40));
+        chkAutoPlay.setVerticalAlignment(SwingConstants.CENTER);
+        chkAutoPlay.setText("Auto Play");
+        chkAutoPlay.setFont(new Font("Lucida Grande", Font.BOLD, 15));
+        chkAutoPlay.setOpaque(false);
+        // TODO: add event handler
+        pnlButtonsContainer.add(chkAutoPlay);  
     }
 
     private void populateTeamPanel(JPanel panel, Team team, boolean reverse) {
@@ -155,7 +184,6 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
     public void update() {
         showTeams(game.getBattleState().getPlayer().getTeam(),
                   game.getBattleState().getCurrOpponent().getTeam());
-
     }
 
 }
