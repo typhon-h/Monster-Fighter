@@ -5,7 +5,6 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Font;
-import java.awt.Point;
 
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
@@ -217,15 +216,8 @@ public class SetupPanel extends EntityViewer {
     private void setUpGame() { // TODO: add proper name validation
         // Player Name
         if (textFieldPlayerName.getText().strip().length() < 1) {
-            ErrorPopUp error = new ErrorPopUp("Name cannot be blank");
-            Point point = this.getLocationOnScreen();
-            error.setLocation(point.x +
-                    (gui.MainContainer.SCREENWIDTH / 2) -
-                    error.getWidth() / 2,
-                    point.y +
-                            (gui.MainContainer.SCREENHEIGHT / 2) -
-                            error.getHeight() / 2);
-            error.setVisible(true);
+            new PopUp("Error", "<html>Name must be 3-5 characters<br />No numbers or special characters</html>",
+                    this.getLocationOnScreen());
             return;
         }
         String playerName = textFieldPlayerName.getText().strip();
@@ -263,15 +255,7 @@ public class SetupPanel extends EntityViewer {
             MainContainer.setUpScreens();
             MainContainer.showScreen("MainMenu");
         } catch (TeamSizeException | DuplicateMonsterException e) {
-            ErrorPopUp error = new ErrorPopUp(e.getMessage());
-            Point point = this.getLocationOnScreen();
-            error.setLocation(point.x +
-                    (gui.MainContainer.SCREENWIDTH / 2) -
-                    error.getWidth() / 2,
-                    point.y +
-                            (gui.MainContainer.SCREENHEIGHT / 2) -
-                            error.getHeight() / 2);
-            error.setVisible(true);
+            new PopUp("Error", e.getMessage(), this.getLocationOnScreen());
         }
 
     }

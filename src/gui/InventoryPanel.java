@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -326,28 +325,13 @@ public class InventoryPanel extends EntityViewer implements Updatable {
                         Item itemToUse = inventory.get(itemIndex);
                         Monster monsterAffected = MainContainer.game.getPlayer().getTeam().getMonsters()
                                         .get(monsterIndex);
-                        InfoPopUp useFeedback;
-                        useFeedback = new InfoPopUp(MainContainer.game.getPlayer().useItem(itemToUse, monsterAffected));
-                        Point point = this.getLocationOnScreen();
-                        useFeedback.setLocation(point.x +
-                                        (gui.MainContainer.SCREENWIDTH / 2) -
-                                        useFeedback.getWidth() / 2,
-                                        point.y +
-                                                        (gui.MainContainer.SCREENHEIGHT / 2) -
-                                                        useFeedback.getHeight() / 2);
-                        useFeedback.setVisible(true);
+                        new PopUp("Info", MainContainer.game.getPlayer().useItem(itemToUse, monsterAffected),
+                                        this.getLocationOnScreen());
+
                         update();
 
                 } else {
-                        ErrorPopUp noSelection = new ErrorPopUp("Select an Item/Monster");
-                        Point point = this.getLocationOnScreen();
-                        noSelection.setLocation(point.x +
-                                        (gui.MainContainer.SCREENWIDTH / 2) -
-                                        noSelection.getWidth() / 2,
-                                        point.y +
-                                                        (gui.MainContainer.SCREENHEIGHT / 2) -
-                                                        noSelection.getHeight() / 2);
-                        noSelection.setVisible(true);
+                        new PopUp("Error", "Select an Item/Monster", this.getLocationOnScreen());
                 }
 
         }

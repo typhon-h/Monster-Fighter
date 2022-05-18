@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.Font;
-import java.awt.Point;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
@@ -220,32 +219,20 @@ public class BuyShopPanel extends EntityViewer implements Updatable {
                 if (content.getSelection() != null && content.getSelection().getActionCommand() != "-1") {
                         int index = Integer.parseInt(content.getSelection().getActionCommand());
                         Entity entityToBuy = shopContent.get(index);
-                        InfoPopUp buyFeedback;
                         if (entityToBuy instanceof Item) {
-                                buyFeedback = new InfoPopUp(MainContainer.game.getBuyShop().buy((Item) entityToBuy));
+                                new PopUp("Info",
+                                                MainContainer.game.getBuyShop().buy((Item) entityToBuy),
+                                                this.getLocationOnScreen());
                         } else {
-                                buyFeedback = new InfoPopUp(MainContainer.game.getBuyShop().buy((Monster) entityToBuy));
+                                new PopUp("Info",
+                                                MainContainer.game.getBuyShop().buy((Monster) entityToBuy),
+                                                this.getLocationOnScreen());
                         }
-                        Point point = this.getLocationOnScreen();
-                        buyFeedback.setLocation(point.x +
-                                        (gui.MainContainer.SCREENWIDTH / 2) -
-                                        buyFeedback.getWidth() / 2,
-                                        point.y +
-                                                        (gui.MainContainer.SCREENHEIGHT / 2) -
-                                                        buyFeedback.getHeight() / 2);
-                        buyFeedback.setVisible(true);
+
                         update();
 
                 } else {
-                        ErrorPopUp noSelection = new ErrorPopUp("Select an Item/Monster");
-                        Point point = this.getLocationOnScreen();
-                        noSelection.setLocation(point.x +
-                                        (gui.MainContainer.SCREENWIDTH / 2) -
-                                        noSelection.getWidth() / 2,
-                                        point.y +
-                                                        (gui.MainContainer.SCREENHEIGHT / 2) -
-                                                        noSelection.getHeight() / 2);
-                        noSelection.setVisible(true);
+                        new PopUp("Error", "Select an Item/Monster", this.getLocationOnScreen());
                 }
 
         }

@@ -1,7 +1,7 @@
 package gui;
 
 import java.awt.Font;
-import java.awt.Point;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -162,33 +162,19 @@ public class TeamPanel extends EntityViewer implements Updatable {
                 if (content.getSelection() != null && content.getSelection().getActionCommand() != "-1") {
                         int index = Integer.parseInt(content.getSelection().getActionCommand());
                         Monster monsterToMove = team.get(index);
-                        InfoPopUp moveFeedback;
                         if (index == 0) {
-                                moveFeedback = new InfoPopUp(monsterToMove.getName() + " is already first");
+                                new PopUp("Info", monsterToMove.getName() + " is already first",
+                                                this.getLocationOnScreen());
                         } else {
                                 MainContainer.game.getPlayer().getTeam().moveMonsterUp(monsterToMove);
-                                moveFeedback = new InfoPopUp(monsterToMove.getName() + " has been moved up");
+                                new PopUp("Info", monsterToMove.getName() + " has been moved up",
+                                                this.getLocationOnScreen());
                         }
-                        Point point = this.getLocationOnScreen();
-                        moveFeedback.setLocation(point.x +
-                                        (gui.MainContainer.SCREENWIDTH / 2) -
-                                        moveFeedback.getWidth() / 2,
-                                        point.y +
-                                                        (gui.MainContainer.SCREENHEIGHT / 2) -
-                                                        moveFeedback.getHeight() / 2);
-                        moveFeedback.setVisible(true);
+
                         update();
 
                 } else {
-                        ErrorPopUp noSelection = new ErrorPopUp("Select a Monster");
-                        Point point = this.getLocationOnScreen();
-                        noSelection.setLocation(point.x +
-                                        (gui.MainContainer.SCREENWIDTH / 2) -
-                                        noSelection.getWidth() / 2,
-                                        point.y +
-                                                        (gui.MainContainer.SCREENHEIGHT / 2) -
-                                                        noSelection.getHeight() / 2);
-                        noSelection.setVisible(true);
+                        new PopUp("Error", "Select a Monster", this.getLocationOnScreen());
                 }
 
         }
@@ -197,34 +183,19 @@ public class TeamPanel extends EntityViewer implements Updatable {
                 if (content.getSelection() != null && content.getSelection().getActionCommand() != "-1") {
                         int index = Integer.parseInt(content.getSelection().getActionCommand());
                         Monster monsterToMove = team.get(index);
-                        InfoPopUp moveFeedback;
                         if (index == team.size() - 1) {
-                                moveFeedback = new InfoPopUp(monsterToMove.getName() + " is already last");
+                                new PopUp("Info", monsterToMove.getName() + " is already last",
+                                                this.getLocationOnScreen());
                         } else {
                                 MainContainer.game.getPlayer().getTeam().moveMonsterDown(monsterToMove);
-                                moveFeedback = new InfoPopUp(monsterToMove.getName() + " has been moved down");
+                                new PopUp("Info", monsterToMove.getName() + " has been moved down",
+                                                this.getLocationOnScreen());
                         }
-                        Point point = this.getLocationOnScreen();
-                        moveFeedback.setLocation(point.x +
-                                        (gui.MainContainer.SCREENWIDTH / 2) -
-                                        moveFeedback.getWidth() / 2,
-                                        point.y +
-                                                        (gui.MainContainer.SCREENHEIGHT / 2) -
-                                                        moveFeedback.getHeight() / 2);
-                        moveFeedback.setVisible(true);
-                        moveFeedback.setVisible(true);
+
                         update();
 
                 } else {
-                        ErrorPopUp noSelection = new ErrorPopUp("Select a Monster");
-                        Point point = this.getLocationOnScreen();
-                        noSelection.setLocation(point.x +
-                                        (gui.MainContainer.SCREENWIDTH / 2) -
-                                        noSelection.getWidth() / 2,
-                                        point.y +
-                                                        (gui.MainContainer.SCREENHEIGHT / 2) -
-                                                        noSelection.getHeight() / 2);
-                        noSelection.setVisible(true);
+                        new PopUp("Error", "Select a Monster", this.getLocationOnScreen());
                 }
 
         }
