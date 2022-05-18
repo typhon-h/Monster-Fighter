@@ -211,6 +211,7 @@ public class BattleManager {
             allyPlayer.addGold(currentOpponent.getGold());
             allyPlayer.incrementScore(currentOpponent.getScore());
         }
+        this.currentOpponent = null;
     }
 
     /**
@@ -364,8 +365,6 @@ public class BattleManager {
                 battleResult = BattleResult.WIN;
             }
 
-            this.currentOpponent = null;
-
         } catch (CloneNotSupportedException e) { // Should never happen as clone is implemented
             e.printStackTrace();
         }
@@ -410,7 +409,7 @@ public class BattleManager {
     /**
      * Gets the result of a battle after the battle has been simulated
      *
-     * @return Enum value defining wether the player has won or lost.
+     * @return Enumeration value defining whether the player has won or lost.
      */
     public BattleResult getResult() {
         return battleResult;

@@ -322,7 +322,6 @@ public class CommandLineInterface {
                     TextFormat.printHeader("You have won!", MSGWHITESPACING, MSGCHAR);
                     System.out.println("Rewards: " + opponent.getGold() + "G | " +
                             opponent.getScore() + " Points");
-                    battle.giveRewards();
                     break;
                 case LOSS:
                     TextFormat.printHeader("You have lost!", MSGWHITESPACING, MSGCHAR);
@@ -330,6 +329,7 @@ public class CommandLineInterface {
                 default:
                     break;
             }
+            battle.giveRewards();
             TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException e) {
             e.printStackTrace();

@@ -69,6 +69,7 @@ public class MainContainer {
         monsterGameFrame.setMinimumSize(new Dimension(SCREENWIDTH, SCREENHEIGHT));
         monsterGameFrame.setBounds(115, 100, SCREENWIDTH, SCREENHEIGHT);
         monsterGameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        monsterGameFrame.setLocationRelativeTo(null);
 
         mainContainerPanel = new JPanel();
         monsterGameFrame.getContentPane().add(mainContainerPanel, BorderLayout.CENTER);

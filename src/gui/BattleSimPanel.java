@@ -3,6 +3,8 @@ package gui;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -13,7 +15,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 
+import battle.BattleEvent;
 import main.Team;
 import monsters.Monster;
 
@@ -34,6 +38,24 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
     JButton    btnContinue;
     JButton    btnSkip;
     JCheckBox  chkAutoPlay;
+    
+    BattleEvent currEvent;
+    
+    Timer timer;
+    
+    ActionListener next = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            displayNextEvent();
+        }
+    };
+    
+    ActionListener mainMenu = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            MainContainer.showScreen("MainMenu");
+        }
+    };
 
     private int monsterDisplayWidth = 100;
     private int monsterIconHeight   = 100;
@@ -101,13 +123,17 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
         btnContinue.setBounds(0, 0, 850 / 2, 40);
         btnContinue.setPreferredSize(new Dimension(850 / 2, 40));
         btnContinue.setText("Continue");
-        // TODO: add event handler
+        btnContinue.setFocusable(false);
+        btnContinue.addActionListener(next);
         pnlButtonsContainer.add(btnContinue);
         
         btnSkip = new JButton();
         btnSkip.setPreferredSize(new Dimension(850 / 2 - 140, 40));
         btnSkip.setText("Skip");
-        // TODO: add event handler
+        btnSkip.setFocusable(false);
+        btnSkip.addActionListener(skip -> {
+            skipAllEvents();
+        });
         pnlButtonsContainer.add(btnSkip);
         
         chkAutoPlay = new JCheckBox();
@@ -116,7 +142,11 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
         chkAutoPlay.setText("Auto Play");
         chkAutoPlay.setFont(new Font("Lucida Grande", Font.BOLD, 15));
         chkAutoPlay.setOpaque(false);
+        chkAutoPlay.setFocusable(false);
         // TODO: add event handler
+        chkAutoPlay.addActionListener(auto -> {
+           autoPlay(); 
+        });
         pnlButtonsContainer.add(chkAutoPlay);  
     }
 
@@ -178,12 +208,101 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
         if (right != null) {
             populateTeamPanel(rightTeam, right, false);
         }
+        
+        leftTeam.updateUI();
+        rightTeam.updateUI();
     }
+    
+    private void checkSimulationOver() {
+        if (currEvent == null) {
+            btnSkip.setEnabled(false);
+            chkAutoPlay.setEnabled(false);
+            btnContinue.setEnabled(true);
+            btnContinue.setText("Main Menu");
+            btnContinue.addActionListener(mainMenu);
+            
+            // Distribute rewards
+            game.getBattleState().giveRewards();
+            updatePlayerInfo();
+        }
+    }
+    
+    private void displayNextEvent() {
+        if (currEvent != null) {
+            showTeams(currEvent.getAllyTeam(), currEvent.getOpponentTeam());
+            battleLogDisplay.setText(battleLogDisplay.getText() + "\n" +
+                                     currEvent.getDescription());
+            currEvent = game.getBattleState().nextEvent();
+        }
+        checkSimulationOver();
+    }
+    
+    private void skipAllEvents() {
+        BattleEvent prevEvent = currEvent;
+        while (currEvent != null) {
+            battleLogDisplay.setText(battleLogDisplay.getText() + "\n" +
+                    currEvent.getDescription());
+            prevEvent = currEvent;
+            currEvent = game.getBattleState().nextEvent();
+        }
+        game.getPlayer().setTeam(prevEvent.getAllyTeam());
+        showTeams(prevEvent.getAllyTeam(), prevEvent.getOpponentTeam());
+        
+        checkSimulationOver();
+    }
+    
+    private void autoPlay() {
+        if (chkAutoPlay.isSelected()) {
+            btnContinue.setEnabled(false);
+            btnSkip.setEnabled(false);
+            timer = new Timer(1000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (currEvent != null) {
+                    battleLogDisplay.setText(battleLogDisplay.getText() + "\n" +
+                            currEvent.getDescription());
+                    showTeams(currEvent.getAllyTeam(), currEvent.getOpponentTeam());
+                    currEvent = game.getBattleState().nextEvent();
+                    } else {
+                        timer.stop();
+                        chkAutoPlay.setSelected(false);
+                        chkAutoPlay.setEnabled(false);
+                        checkSimulationOver();
+                    }
+                }
+                
+            });
+            timer.start();
+        } else {
+            timer.stop();
+            btnContinue.setEnabled(true);
+            btnSkip.setEnabled(true);
+        }
 
+    }
+    
     @Override
     public void update() {
+        // Update team display
         showTeams(game.getBattleState().getPlayer().getTeam(),
                   game.getBattleState().getCurrOpponent().getTeam());
+        
+        // Reset buttons
+        btnSkip.setEnabled(true);
+        chkAutoPlay.setEnabled(true);
+        
+        for (ActionListener action : btnContinue.getActionListeners()) {
+            btnContinue.removeActionListener(action);
+        }
+        btnContinue.addActionListener(next);
+        btnContinue.setText("Continue");
+        
+        // Reset event log display
+        battleLogDisplay.setText(null);
+        
+        // Simulate battle, ready for display
+        game.getBattleState().simulateBattle();
+        currEvent = game.getBattleState().nextEvent();
     }
 
 }

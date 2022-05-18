@@ -64,6 +64,7 @@ public class BattleSelectionPanel extends EntityViewer implements Updatable {
     @Override
     public void update() {
         btnBattle.setEnabled(false);
+        btnBattle.setText("Battle");
 
         // TODO: Re-factor code so instead creating new button group, just remove button from button
         // group, remove button from pnlBattles and resize FlowLayout setVgap. - Need to reset when Opponents get generated
@@ -92,6 +93,11 @@ public class BattleSelectionPanel extends EntityViewer implements Updatable {
 
             battleButtons.add(oppButton);
             btnBattle.setEnabled(true);
+        }
+        
+        if (game.getPlayer().getTeam().getAliveMonsters().isEmpty()) {
+            btnBattle.setEnabled(false);
+            btnBattle.setText("All Monsters Fainted");
         }
 
         super.updatePlayerInfo();
