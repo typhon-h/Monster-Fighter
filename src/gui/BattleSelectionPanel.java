@@ -61,10 +61,11 @@ public class BattleSelectionPanel extends EntityViewer implements Updatable {
 
     }
 
+    @Override
     public void update() {
         btnBattle.setEnabled(false);
 
-        // TODO: Refactor code so instead creating new button group, just remove button from button
+        // TODO: Re-factor code so instead creating new button group, just remove button from button
         // group, remove button from pnlBattles and resize FlowLayout setVgap. - Need to reset when Opponents get generated
         // Reset battles panel and re-populate it with the new data battles.
         // Remove old battles
@@ -109,7 +110,6 @@ public class BattleSelectionPanel extends EntityViewer implements Updatable {
         int battleIndex = Integer.parseInt(battleButtons.getSelection().getActionCommand());
         Player opponent = game.getBattleState().getOpponents().get(battleIndex);
         game.getBattleState().setOpponent(opponent);
-        MainContainer.showScreen("MainMenu");
-        // MainContainer.showScreen("FightBattle");
+        MainContainer.showScreen("BattleSimulation");
     }
 }

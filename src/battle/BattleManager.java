@@ -364,6 +364,8 @@ public class BattleManager {
                 battleResult = BattleResult.WIN;
             }
 
+            this.currentOpponent = null;
+
         } catch (CloneNotSupportedException e) { // Should never happen as clone is implemented
             e.printStackTrace();
         }

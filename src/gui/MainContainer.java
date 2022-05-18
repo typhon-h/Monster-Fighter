@@ -16,8 +16,10 @@ public class MainContainer {
 
     private JFrame monsterGameFrame;
     protected static GameEnvironment game;
-    protected static final int SCREENWIDTH = 960;
-    protected static final int SCREENHEIGHT = 540;
+    private static final int TOPBARHEIGHT = 35;
+    private static final int SCREENWIDTADJUST = 50;
+    protected static final int SCREENWIDTH = 960 + SCREENWIDTADJUST;
+    protected static final int SCREENHEIGHT = 540 + TOPBARHEIGHT;
     protected static final Dimension DEFAULTDIMENSION = new Dimension(SCREENWIDTH, SCREENHEIGHT);
     private static JPanel mainContainerPanel;
     private static CardLayout cardLayout;
@@ -31,6 +33,7 @@ public class MainContainer {
     private static MainMenuPanel mainMenuPanel;
     private static TeamPanel teamPanel;
     private static BattleSelectionPanel battleSelectionPanel;
+    private static BattleSimPanel battleSimulationPanel;
 
     /**
      * Launch the application.
@@ -62,9 +65,9 @@ public class MainContainer {
         monsterGameFrame = new JFrame();
         monsterGameFrame.setResizable(false);
         monsterGameFrame.setTitle("Monster Fighter");
-        monsterGameFrame.setSize(new Dimension(SCREENWIDTH + 30, SCREENHEIGHT + 35));
-        monsterGameFrame.setMinimumSize(new Dimension(SCREENWIDTH + 30, SCREENHEIGHT + 35));
-        monsterGameFrame.setBounds(115, 100, SCREENWIDTH, SCREENHEIGHT + 35);
+        monsterGameFrame.setSize(new Dimension(SCREENWIDTH, SCREENHEIGHT));
+        monsterGameFrame.setMinimumSize(new Dimension(SCREENWIDTH, SCREENHEIGHT));
+        monsterGameFrame.setBounds(115, 100, SCREENWIDTH, SCREENHEIGHT);
         monsterGameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         mainContainerPanel = new JPanel();
@@ -109,6 +112,9 @@ public class MainContainer {
 
         battleSelectionPanel = new BattleSelectionPanel();
         mainContainerPanel.add(battleSelectionPanel, "BattleSelection");
+        
+        battleSimulationPanel = new BattleSimPanel();
+        mainContainerPanel.add(battleSimulationPanel, "BattleSimulation");
     }
 
 }
