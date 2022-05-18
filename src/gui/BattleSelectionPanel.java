@@ -1,14 +1,14 @@
 package gui;
 
+import static gui.MainContainer.DEFAULTDIMENSION;
+import static gui.MainContainer.game;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import static gui.MainContainer.DEFAULTDIMENSION;
-
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
@@ -21,8 +21,6 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
 
-import static gui.MainContainer.game;
-
 
 public class BattleSelectionPanel extends JPanel implements Updatable {
 
@@ -31,7 +29,7 @@ public class BattleSelectionPanel extends JPanel implements Updatable {
 	private JLabel lblPreviewEntityImg;
 	private JTextPane textPanePreviewEntityDesc;
 	private JButton btnBattle;
-	
+
 	private ButtonGroup battleButtons;
 
     private final int radioButtonHeight = 120;
@@ -94,8 +92,6 @@ public class BattleSelectionPanel extends JPanel implements Updatable {
 
         // Init battles panel
         pnlBattles = new JPanel();
-        pnlBattles.setMinimumSize(new Dimension(pnlBattlesWidth, pnlBattlesHeight));
-        pnlBattles.setSize(new Dimension(pnlBattlesWidth, pnlBattlesHeight));
         pnlBattles.setBounds(16, 54, pnlBattlesWidth, pnlBattlesHeight);
         pnlBattles.setBackground(Color.GRAY);
         add(pnlBattles);
@@ -107,13 +103,14 @@ public class BattleSelectionPanel extends JPanel implements Updatable {
 
     public void update() {
         btnBattle.setEnabled(false);
-        
+
         // Clear preview
         lblPreviewEntityImg.setText("Selected Entity Image");
         lblPreviewEntityImg.setIcon(null);
         textPanePreviewEntityDesc.setText("");
-        
-        
+
+        // TODO: Refactor code so instead creating new button group, just remove button from button
+        // group, remove button from pnlBattles and resize FlowLayout setVgap. - Need to reset when Opponents get generated
         // Reset battles panel and re-populate it with the new data battles.
         // Remove old battles
         pnlBattles.removeAll();
@@ -121,30 +118,27 @@ public class BattleSelectionPanel extends JPanel implements Updatable {
         // Clear battleButtons group
         battleButtons = new ButtonGroup();
         ArrayList<Player> opponents = game.getBattleState().getOpponents();
-        
+
         buttonGap = (pnlBattlesHeight - (opponents.size() * radioButtonHeight)) / (opponents.size() + 1);
         ((FlowLayout) pnlBattles.getLayout()).setVgap(buttonGap);
-        System.out.println(buttonGap);
-        
+
         for (Player opponent : opponents) {
             JRadioButton oppButton = new JRadioButton(opponent.getGuiName());
             oppButton.setActionCommand(String.valueOf(opponents.indexOf(opponent)));
             oppButton.addActionListener(selected -> {
                 updatePreview();
             });
-            oppButton.setMaximumSize(new Dimension(pnlBattlesWidth, radioButtonHeight));
-            oppButton.setMinimumSize(new Dimension(pnlBattlesWidth, radioButtonHeight));
+
             oppButton.setPreferredSize(new Dimension(pnlBattlesWidth, radioButtonHeight));
-            oppButton.setSize(new Dimension(pnlBattlesWidth, radioButtonHeight));
             oppButton.setBackground(Color.WHITE);
             oppButton.setFont(oppButton.getFont().deriveFont(25.0f));
             pnlBattles.add(oppButton);
-            
+
             battleButtons.add(oppButton);
         }
     }
-    
-    
+
+
     private void updatePreview() {
         int battleIndex = Integer.parseInt(battleButtons.getSelection().getActionCommand());
         Player battle = game.getBattleState().getOpponents().get(battleIndex);
@@ -153,7 +147,7 @@ public class BattleSelectionPanel extends JPanel implements Updatable {
         textPanePreviewEntityDesc.setText(battle.toGuiString());
         btnBattle.setEnabled(true);
     }
-    
+
     private void goToBattle() {
         int battleIndex = Integer.parseInt(battleButtons.getSelection().getActionCommand());
         Player opponent = game.getBattleState().getOpponents().get(battleIndex);
