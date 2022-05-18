@@ -93,7 +93,7 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
         pnlButtonsContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 0));
         pnlButtonsContainer.setBounds((MainContainer.SCREENWIDTH / 2 - 850 / 2),
                                       490, 850, 40);
-        setOpaque(false);
+        pnlButtonsContainer.setOpaque(false);
         this.add(pnlButtonsContainer);
         
         
