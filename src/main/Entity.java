@@ -2,7 +2,6 @@ package main;
 
 import gui.Previewable;
 
-//TODO: implement a purchasable interface just so we can have one for marking sake??
 /**
  * Superclass for game objects.
  * An Entity is able to be possessed by a {@link main.Player player} and traded

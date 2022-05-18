@@ -36,7 +36,7 @@ public enum Trigger {
     /**
      * Total number of triggers
      */
-    public static final int numTriggers;
+    public static int numTriggers;
     static {
         numTriggers = values().length;
     }

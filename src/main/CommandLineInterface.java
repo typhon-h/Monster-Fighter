@@ -29,19 +29,19 @@ public class CommandLineInterface {
     /**
      * Number of white spaces between menus
      */
-    private static final int headerWhiteSpacing = 2;
+    private static final int HEADERWHITESPACING = 2;
     /**
      * Number of white spaces between messages
      */
-    private static final int msgWhiteSpacing = 0;
+    private static final int MSGWHITESPACING = 0;
     /**
      * Character used for the border of headers
      */
-    private static final char headerChar = '-';
+    private static final char HEADERCHAR = '-';
     /**
      * Character used for border of messages
      */
-    private static final char msgChar = '*';
+    private static final char MSGCHAR = '*';
 
     /**
      * Displays the options on the command line
@@ -121,13 +121,13 @@ public class CommandLineInterface {
      * Set up a new game
      */
     public void setUp() {
-        TextFormat.printHeader("Game Setup", headerWhiteSpacing, headerChar);
+        TextFormat.printHeader("Game Setup", HEADERWHITESPACING, HEADERCHAR);
         // Name
         System.out.println("What is your name? ");
         String playerName = getString();
 
         // Difficulty
-        TextFormat.printHeader("Select Difficulty", headerWhiteSpacing, headerChar);
+        TextFormat.printHeader("Select Difficulty", HEADERWHITESPACING, HEADERCHAR);
         int difficultyChoice = getOption(new ArrayList<String>(Arrays.asList(
                 Difficulty.EASY.name(), // 0
                 Difficulty.NORMAL.name(), // 1
@@ -170,12 +170,12 @@ public class CommandLineInterface {
         }
         // Starter - display/select
         TextFormat.printHeader("Select a starting monster",
-                headerWhiteSpacing, headerChar);
+                HEADERWHITESPACING, HEADERCHAR);
         int starterChoice = getOption(options);
         Monster starter = availableStarters.get(starterChoice);
         // Starter - name
         TextFormat.printHeader("Do you want to give your monster a nickname?",
-                headerWhiteSpacing, headerChar);
+                HEADERWHITESPACING, HEADERCHAR);
         int setMonsterNickname = getOption(new ArrayList<String>(Arrays.asList(
                 "Yes", // 0
                 "No"))); // 1
@@ -200,7 +200,7 @@ public class CommandLineInterface {
      */
     public void mainMenu() {
         while (!game.isGameOver()) {
-            TextFormat.printHeader("Main Menu", headerWhiteSpacing, headerChar);
+            TextFormat.printHeader("Main Menu", HEADERWHITESPACING, HEADERCHAR);
             System.out.println(String.format(" Day: %d/%d     Score: %d      Gold: %d",
                     game.getCurrentDay(),
                     game.getTotalDays(),
@@ -237,11 +237,11 @@ public class CommandLineInterface {
                 case 5: // Sleep
                     ArrayList<String> events = game.sleep();
                     for (String event : events) {
-                        TextFormat.printHeader(event, msgWhiteSpacing, msgChar);
+                        TextFormat.printHeader(event, MSGWHITESPACING, MSGCHAR);
                     }
                     TextFormat.printHeader("You have advanced to the next day",
-                            msgWhiteSpacing,
-                            msgChar);
+                            MSGWHITESPACING,
+                            MSGCHAR);
                     break;
                 default:
                     break;
@@ -258,7 +258,7 @@ public class CommandLineInterface {
             int option;
             Player selectedOpponent;
 
-            TextFormat.printHeader("Battles", headerWhiteSpacing, headerChar);
+            TextFormat.printHeader("Battles", HEADERWHITESPACING, HEADERCHAR);
 
             ArrayList<String> options = new ArrayList<String>(Arrays.asList("Back"));
 
@@ -274,8 +274,8 @@ public class CommandLineInterface {
             } else if (game.getPlayer().getTeam().getAliveMonsters().isEmpty()) {
                 try {
                     TextFormat.printHeader("Unable to battle, all your monsters have fainted",
-                            msgWhiteSpacing,
-                            msgChar);
+                            MSGWHITESPACING,
+                            MSGCHAR);
                     TimeUnit.SECONDS.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -319,13 +319,13 @@ public class CommandLineInterface {
             // Rewards
             switch (battle.getResult()) {
                 case WIN:
-                    TextFormat.printHeader("You have won!", msgWhiteSpacing, msgChar);
+                    TextFormat.printHeader("You have won!", MSGWHITESPACING, MSGCHAR);
                     System.out.println("Rewards: " + opponent.getGold() + "G | " +
                             opponent.getScore() + " Points");
                     battle.giveRewards();
                     break;
                 case LOSS:
-                    TextFormat.printHeader("You have lost!", msgWhiteSpacing, msgChar);
+                    TextFormat.printHeader("You have lost!", MSGWHITESPACING, MSGCHAR);
                     break;
                 default:
                     break;
@@ -342,7 +342,7 @@ public class CommandLineInterface {
     public void viewInventoryMenu() {
         ArrayList<Item> inventory = game.getPlayer().getInventory();
         while (true) {
-            TextFormat.printHeader("View Inventory", headerWhiteSpacing, headerChar);
+            TextFormat.printHeader("View Inventory", HEADERWHITESPACING, HEADERCHAR);
             System.out.println("Select Item to Use");
             ArrayList<String> options = new ArrayList<String>(Arrays.asList(
                     "Back"));
@@ -359,7 +359,7 @@ public class CommandLineInterface {
             // Otherwise
             Item itemToBeUsed = inventory.get(option - 1);
 
-            TextFormat.printHeader("Select Monster", headerWhiteSpacing, headerChar);
+            TextFormat.printHeader("Select Monster", HEADERWHITESPACING, HEADERCHAR);
             ArrayList<String> monsterOptions = new ArrayList<String>(Arrays.asList(
                     "Back"));
             for (Monster m : game.getPlayer().getTeam().getMonsters()) {
@@ -373,7 +373,7 @@ public class CommandLineInterface {
             }
 
             Monster selectedMonster = game.getPlayer().getTeam().getMonsters().get(monsterOption - 1);
-            TextFormat.printHeader(game.getPlayer().useItem(itemToBeUsed, selectedMonster), msgWhiteSpacing, msgChar);
+            TextFormat.printHeader(game.getPlayer().useItem(itemToBeUsed, selectedMonster), MSGWHITESPACING, MSGCHAR);
 
         }
     }
@@ -383,7 +383,7 @@ public class CommandLineInterface {
      */
     public void viewTeamMenu() {
         while (true) {
-            TextFormat.printHeader("View Team", headerWhiteSpacing, headerChar);
+            TextFormat.printHeader("View Team", HEADERWHITESPACING, HEADERCHAR);
             ArrayList<String> options = new ArrayList<String>(Arrays.asList(
                     "Back",
                     "Move Monster Up",
@@ -404,7 +404,7 @@ public class CommandLineInterface {
                 case 0: // Back
                     return;
                 case 1: // Move Monster Up
-                    TextFormat.printHeader("Select Monster to Move Up", headerWhiteSpacing, headerChar);
+                    TextFormat.printHeader("Select Monster to Move Up", HEADERWHITESPACING, HEADERCHAR);
                     for (Monster m : game.getPlayer().getTeam().getMonsters()) {
                         Monster firstMonster = game.getPlayer().getTeam().getMonsters().get(0);
                         if (firstMonster == m) {
@@ -422,7 +422,7 @@ public class CommandLineInterface {
                         break;
                     }
                 case 2: // Move Monster Down
-                    TextFormat.printHeader("Select Monster to Move Down", headerWhiteSpacing, headerChar);
+                    TextFormat.printHeader("Select Monster to Move Down", HEADERWHITESPACING, HEADERCHAR);
                     for (Monster m : game.getPlayer().getTeam().getMonsters()) {
                         ArrayList<Monster> playerMonsters = game.getPlayer().getTeam().getMonsters();
                         Monster lastMonster = playerMonsters.get(playerMonsters.size() - 1);
@@ -441,7 +441,7 @@ public class CommandLineInterface {
                         break;
                     }
                 case 3: // Rename Monster
-                    TextFormat.printHeader("Select Monster to Give Nickname", headerWhiteSpacing, headerChar);
+                    TextFormat.printHeader("Select Monster to Give Nickname", HEADERWHITESPACING, HEADERCHAR);
                     for (Monster m : game.getPlayer().getTeam().getMonsters()) {
                         monsterOptions.add(m.getName());
                     }
@@ -456,7 +456,7 @@ public class CommandLineInterface {
                         break;
                     }
                 default: // View Monster
-                    for (int i = 0; i < msgWhiteSpacing; i++)
+                    for (int i = 0; i < MSGWHITESPACING; i++)
                         System.out.println();
                     System.out.println(game.getPlayer().getTeam().getMonsters().get(option - 4));
                     break;
@@ -473,7 +473,7 @@ public class CommandLineInterface {
         ArrayList<Entity> playerContent;
 
         while (true) {
-            TextFormat.printHeader("Sell Shop", headerWhiteSpacing, headerChar);
+            TextFormat.printHeader("Sell Shop", HEADERWHITESPACING, HEADERCHAR);
             System.out.println("Gold: " + game.getPlayer().getGold());
 
             ArrayList<String> options = new ArrayList<String>(Arrays.asList("Back"));
@@ -501,8 +501,8 @@ public class CommandLineInterface {
                     sellMessage = game.getSellShop().sell(
                             (Monster) game.getSellShop().getContent().get(option - 1));
                 }
-                TextFormat.printHeader(sellMessage, msgWhiteSpacing,
-                        msgChar);
+                TextFormat.printHeader(sellMessage, MSGWHITESPACING,
+                        MSGCHAR);
 
             }
         }
@@ -514,7 +514,7 @@ public class CommandLineInterface {
     public void buyShopMenu() {
         ArrayList<Entity> shopContent;
         while (true) {
-            TextFormat.printHeader("Buy Shop", headerWhiteSpacing, headerChar);
+            TextFormat.printHeader("Buy Shop", HEADERWHITESPACING, HEADERCHAR);
             System.out.println("Gold: " + game.getPlayer().getGold());
 
             ArrayList<String> options = new ArrayList<String>(Arrays.asList("Back"));
@@ -543,7 +543,7 @@ public class CommandLineInterface {
                     buyMessage = game.getBuyShop().buy(
                             (Monster) game.getBuyShop().getContent().get(option - 1));
                 }
-                TextFormat.printHeader(buyMessage, msgWhiteSpacing, msgChar);
+                TextFormat.printHeader(buyMessage, MSGWHITESPACING, MSGCHAR);
             }
         }
     }
@@ -552,7 +552,7 @@ public class CommandLineInterface {
      * Display the game over screen
      */
     public void gameOverScreen() {
-        TextFormat.printHeader("Game Over", headerWhiteSpacing, headerChar);
+        TextFormat.printHeader("Game Over", HEADERWHITESPACING, HEADERCHAR);
         System.out.println(game.getPlayer().getName() + "'s Results:");
         System.out.println("You lasted " + (game.getCurrentDay() - 1) + "/" + game.getTotalDays());
         System.out.println("Final Gold: " + game.getPlayer().getGold());
@@ -560,6 +560,7 @@ public class CommandLineInterface {
         System.out.println();
     }
 
+    // TODO: remove this
     // ***************USED FOR DEVELOPMENT TESTING*********************
     /**
      * Entry point for command line application
