@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
+import battle.BattleEvent;
+import battle.BattleManager;
+import battle.BattleResult;
 import exceptions.DuplicateMonsterException;
 import exceptions.TeamSizeException;
 import items.Item;
@@ -260,7 +263,7 @@ public class CommandLineInterface {
             ArrayList<String> options = new ArrayList<String>(Arrays.asList("Back"));
 
             for (Player opponent : game.getBattleState().getOpponents()) {
-                options.add(opponent.toString());
+                options.add(opponent.toCLIString());
             }
 
             option = getOption(options);

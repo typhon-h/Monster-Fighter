@@ -3,6 +3,7 @@ package main;
 import java.util.ArrayList;
 import exceptions.InsufficientFundsException;
 import exceptions.UnusableItemException;
+import gui.Previewable;
 import items.Item;
 import monsters.Monster;
 
@@ -14,7 +15,7 @@ import monsters.Monster;
  * @author Jackie Jone
  * @version 1.1, Apr 2022.
  */
-public class Player {
+public class Player implements Previewable {
 
     /**
      * Constant defining the maximum size of the inventory for all players
@@ -294,59 +295,30 @@ public class Player {
      *
      * @return String format detailing the player
      */
-    @Override
+    public String toCLIString() {
+        String outputString;
+
+        outputString = this.getName() +
+                "\nRewards: " + this.getGold() +
+                "G | " + this.getScore() +
+                " Points\n-----------------------------\n";
+
+        outputString += this.getTeam().toString();
+
+        return outputString;
+    }
+
     public String toString() {
         String outputString;
-        ArrayList<Monster> playerMonsters;
 
         outputString = this.getName() +
-                        "\nRewards: " + this.getGold() +
-                        "G | " + this.getScore() +
-                        " Points\n-----------------------------\n";
+                "\nRewards: " + this.getGold() +
+                "G | " + this.getScore() +
+                " Points\n\nMonsters:\n";
 
-        playerMonsters = this.getTeam().getMonsters();
-        for (int i = 0; i < playerMonsters.size(); i++) {
-            outputString += playerMonsters.get(i).getName();
-            if (i != playerMonsters.size() - 1) {
-                outputString += " | ";
-            }
-        }
+        outputString += this.getTeam().toString();
 
         return outputString;
     }
-    
-    public String toGuiString() {
-        String outputString;
-        ArrayList<Monster> playerMonsters;
 
-        outputString = this.getName() +
-                        "\nRewards: " + this.getGold() +
-                        "G | " + this.getScore() +
-                        " Points\n\nMonsters:\n";
-
-        playerMonsters = this.getTeam().getMonsters();
-        for (int i = 0; i < playerMonsters.size(); i++) {
-            outputString += playerMonsters.get(i).getName();
-            if (i != playerMonsters.size() - 1) {
-                outputString += " | ";
-            }
-        }
-
-        return outputString;
-    }
-    
-    public String getGuiName() {
-        String outputString = this.getName() + ":  ";
-        ArrayList<Monster> playerMonsters;
-        
-        playerMonsters = this.getTeam().getMonsters();
-        for (int i = 0; i < playerMonsters.size(); i++) {
-            outputString += playerMonsters.get(i).getName();
-            if (i != playerMonsters.size() - 1) {
-                outputString += "  ";
-            }
-        }
-
-        return outputString;
-    }
 }

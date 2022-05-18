@@ -1,4 +1,4 @@
-package main;
+package battle;
 
 /**
  * Different results which can occur from a battle.

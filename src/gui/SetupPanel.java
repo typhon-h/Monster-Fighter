@@ -5,7 +5,6 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Font;
-import java.awt.Point;
 
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
@@ -23,16 +22,14 @@ import main.GameEnvironment;
 import main.Player;
 import main.Team;
 import monsters.Monster;
-import static gui.MainContainer.DEFAULTDIMENSION;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import javax.swing.JTextPane;
 
-public class SetupPanel extends JPanel {
+public class SetupPanel extends EntityViewer {
 
     /**
      * Default serial version ID
@@ -43,24 +40,17 @@ public class SetupPanel extends JPanel {
     private final ButtonGroup starterMonsters = new ButtonGroup();
     private JTextField textFieldMonsterNickname;
     private JSlider sliderDays;
-    private JLabel lblSelectedMonsterImg;
-    private JTextPane textPaneMonsterInfo;
     private ArrayList<Monster> availableStarters;
+    private String nameValidation = "[a-zA-Z]{3,15}";
 
     // TODO: Create panel, can make dummy using swing GUI thing and copy over code
 
     public SetupPanel() {
-        super();
-        setName("Setup");
-        setMinimumSize(DEFAULTDIMENSION);
-        setSize(DEFAULTDIMENSION);
-        setVerifyInputWhenFocusTarget(false);
-        this.setBackground(Color.GRAY);
-        setLayout(null);
+        super(false, true, false);
 
         JLabel lblSetupTitle = new JLabel("Game Setup");
         lblSetupTitle.setFont(new Font("Lucida Grande", Font.BOLD, 30));
-        lblSetupTitle.setBounds(378, 6, 193, 37);
+        lblSetupTitle.setBounds(430, 6, 193, 37);
         add(lblSetupTitle);
 
         JPanel jPanelGameSettings = new JPanel();
@@ -94,18 +84,18 @@ public class SetupPanel extends JPanel {
         rdbtnDifficultyEasy.setBounds(10, 131, 141, 23);
         jPanelGameSettings.add(rdbtnDifficultyEasy);
 
-        JRadioButton rdbtnDifficultyHard = new JRadioButton("Hard");
-        rdbtnDifficultyHard.setMnemonic(KeyEvent.VK_H);
-        difficultyOptions.add(rdbtnDifficultyHard);
-        rdbtnDifficultyHard.setBounds(10, 236, 141, 23);
-        jPanelGameSettings.add(rdbtnDifficultyHard);
-
         JRadioButton rdbtnDifficultyNormal = new JRadioButton("Normal");
         rdbtnDifficultyNormal.setMnemonic(KeyEvent.VK_N);
         rdbtnDifficultyNormal.setSelected(true);
         difficultyOptions.add(rdbtnDifficultyNormal);
         rdbtnDifficultyNormal.setBounds(10, 185, 141, 23);
         jPanelGameSettings.add(rdbtnDifficultyNormal);
+
+        JRadioButton rdbtnDifficultyHard = new JRadioButton("Hard");
+        rdbtnDifficultyHard.setMnemonic(KeyEvent.VK_H);
+        difficultyOptions.add(rdbtnDifficultyHard);
+        rdbtnDifficultyHard.setBounds(10, 236, 141, 23);
+        jPanelGameSettings.add(rdbtnDifficultyHard);
 
         JLabel lblDays = new JLabel("Days: ");
         lblDays.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
@@ -156,9 +146,9 @@ public class SetupPanel extends JPanel {
 
         JRadioButton btnMonster1Img = new JRadioButton(availableStarters.get(0).getName() + " Image");
         btnMonster1Img.addActionListener(update -> {
-            updateMonsterPreview(availableStarters.get(0));
+            super.updatePreview(starterMonsters, availableStarters.toArray());
         });
-        btnMonster1Img.setActionCommand("1");
+        btnMonster1Img.setActionCommand("0");
         starterMonsters.add(btnMonster1Img);
         btnMonster1Img.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         btnMonster1Img.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
@@ -173,9 +163,9 @@ public class SetupPanel extends JPanel {
 
         JRadioButton btnMonster2Img = new JRadioButton(availableStarters.get(1).getName() + " Image");
         btnMonster2Img.addActionListener(update -> {
-            updateMonsterPreview(availableStarters.get(1));
+            super.updatePreview(starterMonsters, availableStarters.toArray());
         });
-        btnMonster2Img.setActionCommand("2");
+        btnMonster2Img.setActionCommand("1");
         starterMonsters.add(btnMonster2Img);
         btnMonster2Img.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
         btnMonster2Img.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -189,9 +179,9 @@ public class SetupPanel extends JPanel {
 
         JRadioButton btnMonster3Img = new JRadioButton(availableStarters.get(2).getName() + " Image");
         btnMonster3Img.addActionListener(update -> {
-            updateMonsterPreview(availableStarters.get(2));
+            super.updatePreview(starterMonsters, availableStarters.toArray());
         });
-        btnMonster3Img.setActionCommand("3");
+        btnMonster3Img.setActionCommand("2");
         starterMonsters.add(btnMonster3Img);
         btnMonster3Img.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
         btnMonster3Img.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -203,64 +193,37 @@ public class SetupPanel extends JPanel {
         lblMonster3Name.setBounds(6, 407, 165, 16);
         jPanelStarterMonsters.add(lblMonster3Name);
 
-        JPanel jPanelMonsterInfo = new JPanel();
-        jPanelMonsterInfo.setBorder(new LineBorder(new Color(0, 0, 0)));
-        jPanelMonsterInfo.setBounds(660, 56, 294, 415);
-        add(jPanelMonsterInfo);
-        jPanelMonsterInfo.setLayout(null);
-        jPanelMonsterInfo.setBackground(this.getBackground());
-
-        lblSelectedMonsterImg = new JLabel("Selected Monster Image");
-        lblSelectedMonsterImg.setBounds(78, 1, 150, 150);
-        jPanelMonsterInfo.add(lblSelectedMonsterImg);
-
-        textPaneMonsterInfo = new JTextPane();
-        textPaneMonsterInfo.setEditable(false);
-        textPaneMonsterInfo.setBackground(this.getBackground());
-        textPaneMonsterInfo.setBounds(3, 159, 285, 186);
-        jPanelMonsterInfo.add(textPaneMonsterInfo);
-
-        btnMonster1Img.setSelected(true); // DEFAULT SELECTED
-        updateMonsterPreview(availableStarters.get(0));
-
         JLabel lblNickname = new JLabel("Give Nickname (optional):");
-        lblNickname.setBounds(3, 357, 173, 16);
-        jPanelMonsterInfo.add(lblNickname);
+        lblNickname.setBounds(690, 500, 173, 16);
+        add(lblNickname);
 
         textFieldMonsterNickname = new JTextField();
         textFieldMonsterNickname.setBorder(new LineBorder(new Color(0, 0, 0)));
-        textFieldMonsterNickname.setBounds(6, 383, 282, 26);
-        jPanelMonsterInfo.add(textFieldMonsterNickname);
+        textFieldMonsterNickname.setBounds(865, 500, 120, 26);
+        add(textFieldMonsterNickname);
         textFieldMonsterNickname.setColumns(10);
 
         JButton btnStartGame = new JButton("Play");
         btnStartGame.addActionListener(setup -> {
             setUpGame();
         });
-        btnStartGame.setBounds(22, 489, 932, 45);
+        btnStartGame.setBounds(22, 489, 650, 45);
         add(btnStartGame);
+
+        super.selectFirstAvailableButton(starterMonsters);
+        super.updatePreview(starterMonsters, availableStarters.toArray());
     }
 
-    private void updateMonsterPreview(Monster monsterToPreview) {
-        lblSelectedMonsterImg.setText(monsterToPreview.getName() + " Image"); // TODO: change to image
-        textPaneMonsterInfo.setText(monsterToPreview.toString());
-    }
-
-    private void setUpGame() {
+    private void setUpGame() { // TODO: add proper name validation
         // Player Name
-        if (textFieldPlayerName.getText().strip().length() < 1) {
-            ErrorPopUp error = new ErrorPopUp("Name cannot be blank");
-            Point point = this.getLocationOnScreen();
-            error.setLocation(point.x +
-                              (gui.MainContainer.SCREENWIDTH / 2) -
-                              error.getWidth() / 2,
-                              point.y +
-                              (gui.MainContainer.SCREENHEIGHT / 2) -
-                              error.getHeight() / 2);
-            error.setVisible(true);
+        String playerName = textFieldPlayerName.getText();
+        if (!playerName.matches(nameValidation)) {
+            new PopUp("Error", "<html>Name must be 3-15 characters<br />No numbers or special characters</html>",
+                    this.getLocationOnScreen());
+            textFieldPlayerName.setText("");
+            textFieldPlayerName.grabFocus();
             return;
         }
-        String playerName = textFieldPlayerName.getText().strip();
 
         // Difficulty
         Difficulty gameDifficulty;
@@ -278,40 +241,34 @@ public class SetupPanel extends JPanel {
         int numDays = sliderDays.getValue();
 
         // Starter
-        Monster starter;
         String selectedStarter = starterMonsters.getSelection().getActionCommand();
+        int index = Integer.parseInt(selectedStarter);
+        Monster starter = availableStarters.get(index);
+        String monsterName = textFieldMonsterNickname.getText().strip();
+        if (monsterName.length() > 0) {
+            if (!monsterName.matches(nameValidation)) {
+                new PopUp("Error",
+                        "<html>Monster name must be 3-15 characters<br />No numbers or special characters</html>",
+                        this.getLocationOnScreen());
+                textFieldMonsterNickname.setText("");
+                textFieldMonsterNickname.grabFocus();
+                return;
+            } else {
+                starter.setName(monsterName);
+            }
 
-        if (selectedStarter == "2") {
-            starter = availableStarters.get(1);
-        } else if (selectedStarter == "3") {
-            starter = availableStarters.get(2);
-        } else { // DEFAULT
-            starter = availableStarters.get(0);
-        }
-
-        if (textFieldMonsterNickname.getText().strip().length() > 1) {
-            starter.setName(textFieldMonsterNickname.getText().strip());
         }
 
         // CREATE GAME
-        Team team;
+
         try {
-            team = new Team(starter);
+            Team team = new Team(starter);
             Player player = new Player(playerName, team, GameEnvironment.STARTINGGOLD);
             MainContainer.game = new GameEnvironment(player, numDays, gameDifficulty);
             MainContainer.setUpScreens();
             MainContainer.showScreen("MainMenu");
         } catch (TeamSizeException | DuplicateMonsterException e) {
-            ErrorPopUp error = new ErrorPopUp(e.getMessage());
-            Point point = this.getLocationOnScreen();
-            error.setLocation(point.x +
-                              (gui.MainContainer.SCREENWIDTH / 2) -
-                              error.getWidth() / 2,
-                              point.y +
-                              (gui.MainContainer.SCREENHEIGHT / 2) -
-                              error.getHeight() / 2);
-            error.setVisible(true);
-            return;
+            new PopUp("Error", e.getMessage(), this.getLocationOnScreen());
         }
 
     }

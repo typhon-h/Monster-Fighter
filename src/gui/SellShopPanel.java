@@ -4,7 +4,6 @@ import java.awt.Color;
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -15,7 +14,6 @@ import javax.swing.border.EtchedBorder;
 import items.Item;
 import main.Entity;
 import monsters.Monster;
-import static gui.MainContainer.DEFAULTDIMENSION;
 
 import javax.swing.SwingConstants;
 import javax.swing.JTextPane;
@@ -26,7 +24,7 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-public class SellShopPanel extends JPanel implements Updatable {
+public class SellShopPanel extends EntityViewer implements Updatable {
 
     private static final long serialVersionUID = 1L;
     private JRadioButton rdBtnEntity1;
@@ -47,12 +45,7 @@ public class SellShopPanel extends JPanel implements Updatable {
     private ArrayList<Entity> shopContent;
 
     private final ButtonGroup content = new ButtonGroup();
-    private JPanel preview;
-    private JLabel lblPreviewEntityImg;
-    private JTextPane textPanePreviewEntityDesc;
     private JButton btnSell;
-    private JLabel lblGold;
-    private JLabel lblPlayerGold;
     private JTextPane textPaneEntity7;
     private JTextPane textPaneEntity8;
     private JTextPane textPaneEntity9;
@@ -71,16 +64,11 @@ public class SellShopPanel extends JPanel implements Updatable {
      * Create the panel.
      */
     public SellShopPanel() {
-        super();
+        super(true, true, true);
         setName("SellShop");
-        setMinimumSize(DEFAULTDIMENSION);
-        setSize(DEFAULTDIMENSION);
-        setVerifyInputWhenFocusTarget(false);
-        this.setBackground(Color.GRAY);
-        setLayout(null);
 
         JLabel lblSellShopTitle = new JLabel("Sell Shop");
-        lblSellShopTitle.setBounds(395, 6, 150, 37);
+        lblSellShopTitle.setBounds(430, 6, 150, 37);
         lblSellShopTitle.setFont(new Font("Lucida Grande", Font.BOLD, 30));
         add(lblSellShopTitle);
 
@@ -98,7 +86,7 @@ public class SellShopPanel extends JPanel implements Updatable {
 
         rdBtnEntity1 = new JRadioButton("");
         rdBtnEntity1.addActionListener(selected -> {
-            updatePreview();
+            super.updatePreview(content, shopContent.toArray());
         });
         content.add(rdBtnEntity1);
         rdBtnEntity1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -108,7 +96,7 @@ public class SellShopPanel extends JPanel implements Updatable {
 
         rdBtnEntity2 = new JRadioButton("");
         rdBtnEntity2.addActionListener(selected -> {
-            updatePreview();
+            super.updatePreview(content, shopContent.toArray());
         });
         content.add(rdBtnEntity2);
         rdBtnEntity2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -118,7 +106,7 @@ public class SellShopPanel extends JPanel implements Updatable {
 
         rdBtnEntity3 = new JRadioButton("");
         rdBtnEntity3.addActionListener(selected -> {
-            updatePreview();
+            super.updatePreview(content, shopContent.toArray());
         });
         content.add(rdBtnEntity3);
         rdBtnEntity3.setHorizontalAlignment(SwingConstants.CENTER);
@@ -128,7 +116,7 @@ public class SellShopPanel extends JPanel implements Updatable {
 
         rdBtnEntity4 = new JRadioButton("");
         rdBtnEntity4.addActionListener(selected -> {
-            updatePreview();
+            super.updatePreview(content, shopContent.toArray());
         });
         content.add(rdBtnEntity4);
         rdBtnEntity4.setHorizontalAlignment(SwingConstants.CENTER);
@@ -138,7 +126,7 @@ public class SellShopPanel extends JPanel implements Updatable {
 
         rdBtnEntity5 = new JRadioButton("");
         rdBtnEntity5.addActionListener(selected -> {
-            updatePreview();
+            super.updatePreview(content, shopContent.toArray());
         });
         content.add(rdBtnEntity5);
         rdBtnEntity5.setHorizontalAlignment(SwingConstants.CENTER);
@@ -149,7 +137,7 @@ public class SellShopPanel extends JPanel implements Updatable {
         rdBtnEntity6 = new JRadioButton("");
         content.add(rdBtnEntity6);
         rdBtnEntity6.addActionListener(selected -> {
-            updatePreview();
+            super.updatePreview(content, shopContent.toArray());
         });
         rdBtnEntity6.setHorizontalAlignment(SwingConstants.CENTER);
         rdBtnEntity6.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -310,100 +298,40 @@ public class SellShopPanel extends JPanel implements Updatable {
                 textPaneEntity11,
                 textPaneEntity12));
 
-        preview = new JPanel();
-        preview.setBorder(new LineBorder(new Color(0, 0, 0)));
-        preview.setBounds(569, 44, 385, 490);
-        preview.setBackground(this.getBackground());
-        add(preview);
-        preview.setLayout(null);
-
-        lblPreviewEntityImg = new JLabel("Selected Entity Image");
-        lblPreviewEntityImg.setBounds(98, 6, 200, 200);
-        preview.add(lblPreviewEntityImg);
-
-        textPanePreviewEntityDesc = new JTextPane();
-        textPanePreviewEntityDesc.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-        textPanePreviewEntityDesc.setEditable(false);
-        textPanePreviewEntityDesc.setBounds(6, 249, 373, 176);
-        textPanePreviewEntityDesc.setBackground(this.getBackground());
-        preview.add(textPanePreviewEntityDesc);
-
         btnSell = new JButton("Sell");
         btnSell.addActionListener(sell -> {
             sellEntity();
         });
-        btnSell.setBounds(6, 437, 379, 47);
-        preview.add(btnSell);
-
-        JButton btnBack = new JButton("Back");
-        btnBack.addActionListener(back -> {
-            MainContainer.showScreen("MainMenu");
-        });
-        btnBack.setBounds(6, 3, 82, 40);
-        add(btnBack);
-
-        lblGold = new JLabel("Gold:");
-        lblGold.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-        lblGold.setBounds(818, 6, 51, 26);
-        add(lblGold);
-
-        lblPlayerGold = new JLabel("" + MainContainer.game.getPlayer().getGold());
-        lblPlayerGold.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-        lblPlayerGold.setBounds(881, 6, 61, 26);
-        add(lblPlayerGold);
+        btnSell.setBounds(690, 487, 295, 47);
+        add(btnSell);
 
         update();
     }
 
     private void updateContent() {
+        shopContent = MainContainer.game.getSellShop().getContent();
         for (int i = contentButtons.size() - 1; i >= 0; i--) {
             updateEntity(contentButtons.get(i), contentDescriptions.get(i), i);
         }
         textPaneEntity1.setCaretPosition(0); // Set scroll to position 0
     }
 
-    private void selectFirstAvailableEntity() {
-        for (JRadioButton btn : contentButtons) {
-            if (btn.getActionCommand() != "-1") {
-                btn.setSelected(true);
-                return;
-            } else {
-                btn.setSelected(false);
-            }
-        }
-
-    }
-
     private void sellEntity() {
         if (content.getSelection() != null && content.getSelection().getActionCommand() != "-1") {
             int index = Integer.parseInt(content.getSelection().getActionCommand());
             Entity entityToSell = shopContent.get(index);
-            InfoPopUp sellFeedback;
             if (entityToSell instanceof Item) {
-                sellFeedback = new InfoPopUp(MainContainer.game.getSellShop().sell((Item) entityToSell));
+                new PopUp("Info", MainContainer.game.getSellShop().sell((Item) entityToSell),
+                        this.getLocationOnScreen());
             } else {
-                sellFeedback = new InfoPopUp(MainContainer.game.getSellShop().sell((Monster) entityToSell));
+                new PopUp("Info", MainContainer.game.getSellShop().sell((Monster) entityToSell),
+                        this.getLocationOnScreen());
             }
-            Point point = this.getLocationOnScreen();
-            sellFeedback.setLocation(point.x +
-                              (gui.MainContainer.SCREENWIDTH / 2) -
-                              sellFeedback.getWidth() / 2,
-                              point.y +
-                              (gui.MainContainer.SCREENHEIGHT / 2) -
-                              sellFeedback.getHeight() / 2);
-            sellFeedback.setVisible(true);
+
             update();
 
         } else {
-            ErrorPopUp noSelection = new ErrorPopUp("Select an Item/Monster");
-            Point point = this.getLocationOnScreen();
-            noSelection.setLocation(point.x +
-                              (gui.MainContainer.SCREENWIDTH / 2) -
-                              noSelection.getWidth() / 2,
-                              point.y +
-                              (gui.MainContainer.SCREENHEIGHT / 2) -
-                              noSelection.getHeight() / 2);
-            noSelection.setVisible(true);
+            new PopUp("Error", "Select an Item/Monster", this.getLocationOnScreen());
         }
 
     }
@@ -428,26 +356,10 @@ public class SellShopPanel extends JPanel implements Updatable {
 
     }
 
-    private void updatePreview() {
-        if (content.getSelection() != null && content.getSelection().getActionCommand() != "-1") {
-            int index = Integer.parseInt(content.getSelection().getActionCommand());
-            Entity entity = shopContent.get(index);
-            lblPreviewEntityImg.setText(entity.getName() + " Image");
-            textPanePreviewEntityDesc.setText(entity.toString());
-            btnSell.setEnabled(true);
-        } else {
-            lblPreviewEntityImg.setText("Shop is Empty");
-            textPanePreviewEntityDesc.setText("");
-            btnSell.setEnabled(false);
-        }
-
-    }
-
     public void update() {
-        shopContent = MainContainer.game.getSellShop().getContent();
-        lblPlayerGold.setText("" + MainContainer.game.getPlayer().getGold());
         updateContent();
-        selectFirstAvailableEntity();
-        updatePreview();
+        super.updatePlayerInfo();
+        super.selectFirstAvailableButton(content);
+        super.updatePreview(content, shopContent.toArray());
     }
 }

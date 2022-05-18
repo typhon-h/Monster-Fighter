@@ -217,4 +217,17 @@ public class Team implements Cloneable {
         }
 
     }
+
+    @Override
+    public String toString() {
+        String outputString = "";
+        for (int i = 0; i < this.getTeamSize(); i++) {
+            outputString += this.getMonsters().get(i).getName();
+            if (i != this.getTeamSize() - 1) {
+                outputString += "  ";
+            }
+        }
+
+        return outputString;
+    }
 }

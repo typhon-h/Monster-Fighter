@@ -1,6 +1,6 @@
 package monsters;
 
-import main.BattleEvent;
+import battle.BattleEvent;
 import main.Team;
 
 /**

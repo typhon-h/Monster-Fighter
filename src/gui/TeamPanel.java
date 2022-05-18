@@ -1,27 +1,22 @@
 package gui;
 
-import java.awt.Color;
 import java.awt.Font;
-import java.awt.Point;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
-import main.Entity;
 import monsters.Monster;
-import static gui.MainContainer.DEFAULTDIMENSION;
 
-import javax.swing.SwingConstants;
-import javax.swing.JTextPane;
-import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
-import javax.swing.border.LineBorder;
-import javax.swing.JButton;
-
-public class TeamPanel extends JPanel implements Updatable {
+public class TeamPanel extends EntityViewer implements Updatable {
 
         private static final long serialVersionUID = 1L;
         private JRadioButton rdBtnEntity1;
@@ -38,25 +33,18 @@ public class TeamPanel extends JPanel implements Updatable {
 
         private ArrayList<Monster> team = MainContainer.game.getPlayer().getTeam().getMonsters();
         private final ButtonGroup content = new ButtonGroup();
-        private JPanel preview;
-        private JLabel lblPreviewEntityImg;
-        private JTextPane textPanePreviewEntityDesc;
         private JButton btnMoveDown;
+        private JButton btnMoveUp;
 
         /**
          * Create the panel.
          */
         public TeamPanel() {
-                super();
+                super(true, true, true);
                 setName("Team");
-                setMinimumSize(DEFAULTDIMENSION);
-                setSize(DEFAULTDIMENSION);
-                setVerifyInputWhenFocusTarget(false);
-                this.setBackground(Color.GRAY);
-                setLayout(null);
 
                 JLabel lblSellShopTitle = new JLabel("Team");
-                lblSellShopTitle.setBounds(395, 6, 150, 37);
+                lblSellShopTitle.setBounds(430, 6, 150, 37);
                 lblSellShopTitle.setFont(new Font("Lucida Grande", Font.BOLD, 30));
                 add(lblSellShopTitle);
 
@@ -68,7 +56,7 @@ public class TeamPanel extends JPanel implements Updatable {
 
                 rdBtnEntity1 = new JRadioButton("");
                 rdBtnEntity1.addActionListener(selected -> {
-                        updatePreview();
+                        super.updatePreview(content, team.toArray());
                 });
                 content.add(rdBtnEntity1);
                 rdBtnEntity1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -78,7 +66,7 @@ public class TeamPanel extends JPanel implements Updatable {
 
                 rdBtnEntity2 = new JRadioButton("");
                 rdBtnEntity2.addActionListener(selected -> {
-                        updatePreview();
+                        super.updatePreview(content, team.toArray());
                 });
                 content.add(rdBtnEntity2);
                 rdBtnEntity2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -88,7 +76,7 @@ public class TeamPanel extends JPanel implements Updatable {
 
                 rdBtnEntity3 = new JRadioButton("");
                 rdBtnEntity3.addActionListener(selected -> {
-                        updatePreview();
+                        super.updatePreview(content, team.toArray());
                 });
                 content.add(rdBtnEntity3);
                 rdBtnEntity3.setHorizontalAlignment(SwingConstants.CENTER);
@@ -98,7 +86,7 @@ public class TeamPanel extends JPanel implements Updatable {
 
                 rdBtnEntity4 = new JRadioButton("");
                 rdBtnEntity4.addActionListener(selected -> {
-                        updatePreview();
+                        super.updatePreview(content, team.toArray());
                 });
                 content.add(rdBtnEntity4);
                 rdBtnEntity4.setHorizontalAlignment(SwingConstants.CENTER);
@@ -134,7 +122,7 @@ public class TeamPanel extends JPanel implements Updatable {
                 textPaneEntity4.setBackground(this.getBackground());
                 shopContent.add(textPaneEntity4);
 
-                contentButtons      = new ArrayList<JRadioButton>(Arrays.asList(
+                contentButtons = new ArrayList<JRadioButton>(Arrays.asList(
                                 rdBtnEntity1,
                                 rdBtnEntity2,
                                 rdBtnEntity3,
@@ -146,48 +134,21 @@ public class TeamPanel extends JPanel implements Updatable {
                                 textPaneEntity3,
                                 textPaneEntity4));
 
-                preview = new JPanel();
-                preview.setBorder(new LineBorder(new Color(0, 0, 0)));
-                preview.setBounds(569, 44, 385, 490);
-                preview.setBackground(this.getBackground());
-                add(preview);
-                preview.setLayout(null);
-
-                lblPreviewEntityImg = new JLabel("Selected Entity Image");
-                lblPreviewEntityImg.setBounds(98, 6, 200, 200);
-                preview.add(lblPreviewEntityImg);
-
-                textPanePreviewEntityDesc = new JTextPane();
-                textPanePreviewEntityDesc.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-                textPanePreviewEntityDesc.setEditable(false);
-                textPanePreviewEntityDesc.setBounds(6, 249, 373, 176);
-                textPanePreviewEntityDesc.setBackground(this.getBackground());
-                preview.add(textPanePreviewEntityDesc);
-
                 btnMoveDown = new JButton("Move Down");
                 btnMoveDown.addActionListener(moveDown -> {
                         moveDown();
                 });
-                btnMoveDown.setBounds(33, 437, 137, 47);
-                preview.add(btnMoveDown);
+                btnMoveDown.setBounds(690, 487, 137, 47);
+                add(btnMoveDown);
 
-                JButton btnMoveUp = new JButton("Move Up");
-                btnMoveUp.setBounds(219, 437, 137, 47);
+                btnMoveUp = new JButton("Move Up");
                 btnMoveUp.addActionListener(moveUp -> {
                         moveUp();
                 });
-                preview.add(btnMoveUp);
+                btnMoveUp.setBounds(848, 487, 137, 47);
+                add(btnMoveUp);
 
-                JButton btnBack = new JButton("Back");
-                btnBack.addActionListener(back -> {
-                        MainContainer.showScreen("MainMenu");
-                });
-                btnBack.setBounds(6, 3, 82, 40);
-                add(btnBack);
-
-                updateContent();
-                selectFirstAvailableEntity();
-                updatePreview();
+                update();
         }
 
         public void updateContent() {
@@ -197,50 +158,23 @@ public class TeamPanel extends JPanel implements Updatable {
 
         }
 
-        private void selectFirstAvailableEntity() {
-
-                for (JRadioButton btn : contentButtons) {
-                        if (btn.getActionCommand() != "-1") {
-                                btn.setSelected(true);
-                                return;
-                        } else {
-                                content.clearSelection();
-                        }
-                }
-
-        }
-
         private void moveUp() {
                 if (content.getSelection() != null && content.getSelection().getActionCommand() != "-1") {
                         int index = Integer.parseInt(content.getSelection().getActionCommand());
                         Monster monsterToMove = team.get(index);
-                        InfoPopUp moveFeedback;
                         if (index == 0) {
-                                moveFeedback = new InfoPopUp(monsterToMove.getName() + " is already first");
+                                new PopUp("Info", monsterToMove.getName() + " is already first",
+                                                this.getLocationOnScreen());
                         } else {
                                 MainContainer.game.getPlayer().getTeam().moveMonsterUp(monsterToMove);
-                                moveFeedback = new InfoPopUp(monsterToMove.getName() + " has been moved up");
+                                new PopUp("Info", monsterToMove.getName() + " has been moved up",
+                                                this.getLocationOnScreen());
                         }
-                        Point point = this.getLocationOnScreen();
-                        moveFeedback.setLocation(point.x +
-                                          (gui.MainContainer.SCREENWIDTH / 2) -
-                                          moveFeedback.getWidth() / 2,
-                                          point.y +
-                                          (gui.MainContainer.SCREENHEIGHT / 2) -
-                                          moveFeedback.getHeight() / 2);
-                        moveFeedback.setVisible(true);
+
                         update();
 
                 } else {
-                        ErrorPopUp noSelection = new ErrorPopUp("Select a Monster");
-                        Point point = this.getLocationOnScreen();
-                        noSelection.setLocation(point.x +
-                                          (gui.MainContainer.SCREENWIDTH / 2) -
-                                          noSelection.getWidth() / 2,
-                                          point.y +
-                                          (gui.MainContainer.SCREENHEIGHT / 2) -
-                                          noSelection.getHeight() / 2);
-                        noSelection.setVisible(true);
+                        new PopUp("Error", "Select a Monster", this.getLocationOnScreen());
                 }
 
         }
@@ -249,34 +183,19 @@ public class TeamPanel extends JPanel implements Updatable {
                 if (content.getSelection() != null && content.getSelection().getActionCommand() != "-1") {
                         int index = Integer.parseInt(content.getSelection().getActionCommand());
                         Monster monsterToMove = team.get(index);
-                        InfoPopUp moveFeedback;
                         if (index == team.size() - 1) {
-                                moveFeedback = new InfoPopUp(monsterToMove.getName() + " is already last");
+                                new PopUp("Info", monsterToMove.getName() + " is already last",
+                                                this.getLocationOnScreen());
                         } else {
                                 MainContainer.game.getPlayer().getTeam().moveMonsterDown(monsterToMove);
-                                moveFeedback = new InfoPopUp(monsterToMove.getName() + " has been moved down");
+                                new PopUp("Info", monsterToMove.getName() + " has been moved down",
+                                                this.getLocationOnScreen());
                         }
-                        Point point = this.getLocationOnScreen();
-                        moveFeedback.setLocation(point.x +
-                                          (gui.MainContainer.SCREENWIDTH / 2) -
-                                          moveFeedback.getWidth() / 2,
-                                          point.y +
-                                          (gui.MainContainer.SCREENHEIGHT / 2) -
-                                          moveFeedback.getHeight() / 2);
-                        moveFeedback.setVisible(true);
-                        moveFeedback.setVisible(true);
+
                         update();
 
                 } else {
-                        ErrorPopUp noSelection = new ErrorPopUp("Select a Monster");
-                        Point point = this.getLocationOnScreen();
-                        noSelection.setLocation(point.x +
-                                          (gui.MainContainer.SCREENWIDTH / 2) -
-                                          noSelection.getWidth() / 2,
-                                          point.y +
-                                          (gui.MainContainer.SCREENHEIGHT / 2) -
-                                          noSelection.getHeight() / 2);
-                        noSelection.setVisible(true);
+                        new PopUp("Error", "Select a Monster", this.getLocationOnScreen());
                 }
 
         }
@@ -299,24 +218,10 @@ public class TeamPanel extends JPanel implements Updatable {
 
         }
 
-        private void updatePreview() {
-                if (content.getSelection() != null && content.getSelection().getActionCommand() != "-1") {
-                        int index = Integer.parseInt(content.getSelection().getActionCommand());
-                        Entity entity = team.get(index);
-                        lblPreviewEntityImg.setText(entity.getName() + " Image");
-                        textPanePreviewEntityDesc.setText(entity.toString());
-                        btnMoveDown.setEnabled(true);
-                } else {
-                        lblPreviewEntityImg.setText("Shop is Empty");
-                        textPanePreviewEntityDesc.setText("");
-                        btnMoveDown.setEnabled(false);
-                }
-
-        }
-
         public void update() {
                 updateContent();
-                selectFirstAvailableEntity();
-                updatePreview();
+                super.updatePlayerInfo();
+                super.selectFirstAvailableButton(content);
+                super.updatePreview(content, team.toArray());
         }
 }

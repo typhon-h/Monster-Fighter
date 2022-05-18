@@ -1,6 +1,6 @@
 package monsters;
 
-import main.BattleEvent;
+import battle.BattleEvent;
 import main.Entity;
 import main.Rarity;
 import main.Team;

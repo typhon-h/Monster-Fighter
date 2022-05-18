@@ -1,33 +1,25 @@
 package gui;
 
-import static gui.MainContainer.DEFAULTDIMENSION;
 import static gui.MainContainer.game;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.util.ArrayList;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JTextPane;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.border.LineBorder;
 
 import main.Player;
 
-import java.awt.Component;
-import java.awt.FlowLayout;
-import java.awt.Dimension;
+public class BattleSelectionPanel extends EntityViewer implements Updatable {
 
+    private static final long serialVersionUID = 1L;
 
-public class BattleSelectionPanel extends JPanel implements Updatable {
-
-	private static final long serialVersionUID = 1L;
-
-	private JLabel lblPreviewEntityImg;
-	private JTextPane textPanePreviewEntityDesc;
 	private JButton btnBattle;
 
 	private ButtonGroup battleButtons;
@@ -39,75 +31,38 @@ public class BattleSelectionPanel extends JPanel implements Updatable {
 
     private JPanel pnlBattles;
 
-	/**
-	 * Create the panel.
-	 */
-	public BattleSelectionPanel() {
-        super();
+    /**
+     * Create the panel.
+     */
+    public BattleSelectionPanel() {
+        super(true, true, true);
         setName("BattleSelection");
-        setMinimumSize(DEFAULTDIMENSION);
-        setSize(DEFAULTDIMENSION);
-        setVerifyInputWhenFocusTarget(false);
-        this.setBackground(Color.GRAY);
-        setLayout(null);
-
 
         JLabel lblBattleSelectionTitle = new JLabel("Battle Selection");
-        lblBattleSelectionTitle.setBounds(378, 6, 246, 37);
+        lblBattleSelectionTitle.setBounds(385, 6, 246, 37);
         lblBattleSelectionTitle.setFont(new Font("Lucida Grande", Font.BOLD, 30));
         add(lblBattleSelectionTitle);
-
-        JButton btnBack = new JButton("Back");
-        btnBack.addActionListener(back -> {
-            MainContainer.showScreen("MainMenu");
-        });
-        btnBack.setBounds(6, 6, 82, 40);
-        add(btnBack);
-
-        JPanel preview = new JPanel();
-        preview.setLayout(null);
-        preview.setBorder(new LineBorder(new Color(0, 0, 0)));
-        preview.setBackground(Color.GRAY);
-        preview.setBounds(561, 54, 385, 475);
-        add(preview);
-
-        lblPreviewEntityImg = new JLabel("Selected Entity Image");
-        lblPreviewEntityImg.setAlignmentX(Component.CENTER_ALIGNMENT);
-        lblPreviewEntityImg.setBounds(98, 6, 200, 200);
-        preview.add(lblPreviewEntityImg);
-
-        textPanePreviewEntityDesc = new JTextPane();
-        textPanePreviewEntityDesc.setFont(new Font("Dialog", Font.PLAIN, 20));
-        textPanePreviewEntityDesc.setEditable(false);
-        textPanePreviewEntityDesc.setBackground(Color.GRAY);
-        textPanePreviewEntityDesc.setBounds(6, 249, 373, 176);
-        preview.add(textPanePreviewEntityDesc);
 
         btnBattle = new JButton("Battle");
         btnBattle.addActionListener(battle -> {
             goToBattle();
         });
-        btnBattle.setBounds(4, 424, 379, 47);
-        preview.add(btnBattle);
+        btnBattle.setBounds(690, 487, 295, 47);
+        add(btnBattle);
 
         // Init battles panel
         pnlBattles = new JPanel();
         pnlBattles.setBounds(16, 54, pnlBattlesWidth, pnlBattlesHeight);
-        pnlBattles.setBackground(Color.GRAY);
+        pnlBattles.setBackground(this.getBackground());
         add(pnlBattles);
 
         FlowLayout pnlBattlesLayout = new FlowLayout(FlowLayout.CENTER, 0, 0);
         pnlBattles.setLayout(pnlBattlesLayout);
 
-	}
+    }
 
     public void update() {
         btnBattle.setEnabled(false);
-
-        // Clear preview
-        lblPreviewEntityImg.setText("Selected Entity Image");
-        lblPreviewEntityImg.setIcon(null);
-        textPanePreviewEntityDesc.setText("");
 
         // TODO: Refactor code so instead creating new button group, just remove button from button
         // group, remove button from pnlBattles and resize FlowLayout setVgap. - Need to reset when Opponents get generated
@@ -123,10 +78,10 @@ public class BattleSelectionPanel extends JPanel implements Updatable {
         ((FlowLayout) pnlBattles.getLayout()).setVgap(buttonGap);
 
         for (Player opponent : opponents) {
-            JRadioButton oppButton = new JRadioButton(opponent.getGuiName());
+            JRadioButton oppButton = new JRadioButton(getOpponentDescription(opponent));
             oppButton.setActionCommand(String.valueOf(opponents.indexOf(opponent)));
             oppButton.addActionListener(selected -> {
-                updatePreview();
+                super.updatePreview(battleButtons, opponents.toArray());
             });
 
             oppButton.setPreferredSize(new Dimension(pnlBattlesWidth, radioButtonHeight));
@@ -135,17 +90,19 @@ public class BattleSelectionPanel extends JPanel implements Updatable {
             pnlBattles.add(oppButton);
 
             battleButtons.add(oppButton);
+            btnBattle.setEnabled(true);
         }
+
+        super.updatePlayerInfo();
+        super.selectFirstAvailableButton(battleButtons);
+        super.updatePreview(battleButtons, opponents.toArray());
     }
 
+    private String getOpponentDescription(Player opponent) {
+        String outputString = opponent.getName() + ":  ";
+        outputString += opponent.getTeam().toString();
 
-    private void updatePreview() {
-        int battleIndex = Integer.parseInt(battleButtons.getSelection().getActionCommand());
-        Player battle = game.getBattleState().getOpponents().get(battleIndex);
-        lblPreviewEntityImg.setText(battle.getName() + " Image");
-        // lblPreviewEntityImg.setIcon(battle.getImage());
-        textPanePreviewEntityDesc.setText(battle.toGuiString());
-        btnBattle.setEnabled(true);
+        return outputString;
     }
 
     private void goToBattle() {

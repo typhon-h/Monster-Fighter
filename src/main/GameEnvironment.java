@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+import battle.BattleManager;
 import shop.*;
 import monsters.*;
 
@@ -67,7 +68,7 @@ public class GameEnvironment {
     private BuyShop buyShop;
 
     /**
-     * {@link main.BattleManager Battle Manager} to control battle events in game
+     * {@link battle.BattleManager Battle Manager} to control battle events in game
      */
     private BattleManager battleState;
 
@@ -234,9 +235,9 @@ public class GameEnvironment {
     }
 
     /**
-     * Gets the {@link main.BattleManager battle state} of the game
+     * Gets the {@link battle.BattleManager battle state} of the game
      *
-     * @return the {@link main.BattleManager battle state} of the game
+     * @return the {@link battle.BattleManager battle state} of the game
      */
     public BattleManager getBattleState() {
         return battleState;
