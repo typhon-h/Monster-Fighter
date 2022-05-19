@@ -204,13 +204,13 @@ public class TeamPanel extends EntityViewer implements Updatable {
         private void updateEntity(JRadioButton image, JTextPane desc, int index) {
                 if (index == -1 || index >= team.size()) {
                         desc.setText("");
-                        // TODO: Remove Image
                         image.setEnabled(false);
                         image.setActionCommand("-1");
                         image.setVisible(false);
                 } else {
                         image.setEnabled(true);
-                        image.setText(team.get(index).getName() + " Image");
+                        image.setIcon(MainContainer.imageResize(team.get(index).getImage(), image.getWidth(),
+                                        image.getHeight()));
                         desc.setText("\n" + team.get(index).getRarity().name() + "\n"
                                         + team.get(index).getName());
                         image.setActionCommand("" + index);

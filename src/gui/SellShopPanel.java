@@ -340,7 +340,8 @@ public class SellShopPanel extends EntityViewer implements Updatable {
         try {
             Entity entity = shopContent.get(index);
             image.setEnabled(true);
-            image.setText(entity.getName() + " Image");
+            image.setIcon(MainContainer.imageResize(entity.getImage(), image.getWidth(),
+                    image.getHeight()));
             desc.setText("\n" + entity.getSellPrice() + "G \n"
                     + entity.getRarity().name() + "\n"
                     + entity.getName());
@@ -348,7 +349,6 @@ public class SellShopPanel extends EntityViewer implements Updatable {
 
         } catch (IndexOutOfBoundsException e) {
             desc.setText("");
-            // TODO: Remove Image
             image.setEnabled(false);
             image.setActionCommand("-1");
             image.setText("");

@@ -1,7 +1,9 @@
 package gui;
 
 import java.awt.EventQueue;
+import java.awt.Image;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -103,7 +105,7 @@ public class MainContainer {
                 mainContainerPanel.remove(component);
             }
         }
-        
+
         mainMenuPanel = new MainMenuPanel(); // TODO: extract menu names to constants
         mainContainerPanel.add(mainMenuPanel, "MainMenu");
 
@@ -128,9 +130,15 @@ public class MainContainer {
         gameOverPanel = new GameOverPanel();
         mainContainerPanel.add(gameOverPanel, "GameOver");
     }
-    
+
     protected static void resetGame() {
         setUpPanel.resetGame();
         game = null;
+    }
+
+    protected static ImageIcon imageResize(ImageIcon image, int targetWidth, int targetHeight) {
+        Image tmp = image.getImage();
+        Image scaled = tmp.getScaledInstance(targetWidth, targetHeight, Image.SCALE_SMOOTH);
+        return new ImageIcon(scaled);
     }
 }

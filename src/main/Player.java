@@ -1,6 +1,9 @@
 package main;
 
 import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
+
 import exceptions.InsufficientFundsException;
 import exceptions.UnusableItemException;
 import gui.Previewable;
@@ -59,6 +62,11 @@ public class Player implements Previewable {
      * Number of item points the player has used
      */
     private int itemPoints = 0;
+
+    /**
+     * GUI image for opponents
+     */
+    private ImageIcon image = new ImageIcon("img/misc/battle.png");
 
     /**
      * Constructor to create a player with a name and {@link main.Team team}
@@ -321,4 +329,10 @@ public class Player implements Previewable {
         return outputString;
     }
 
+    /**
+     * Get image for GUI opponents
+     */
+    public ImageIcon getImage() {
+        return image;
+    }
 }

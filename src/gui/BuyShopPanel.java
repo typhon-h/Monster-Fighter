@@ -191,12 +191,12 @@ public class BuyShopPanel extends EntityViewer implements Updatable {
         private void updateEntity(JRadioButton image, JTextPane desc, int index) {
                 if (index == -1) {
                         desc.setText("\n\nSold Out");
-                        // TODO: Remove Image
                         image.setEnabled(false);
                         image.setActionCommand("-1");
                 } else {
                         image.setEnabled(true);
-                        image.setText(shopContent.get(index).getName() + " Image");
+                        image.setIcon(MainContainer.imageResize(shopContent.get(index).getImage(), image.getWidth(),
+                                        image.getHeight()));
                         desc.setText("\n" + shopContent.get(index).getBuyPrice() + "G \n"
                                         + shopContent.get(index).getRarity().name() + "\n"
                                         + shopContent.get(index).getName());

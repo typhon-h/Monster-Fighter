@@ -136,7 +136,7 @@ public class EntityViewer extends JPanel {
             }
             Object o = objects[index];
             if (o instanceof Previewable) {
-                lblPreviewEntityImg.setText(((Previewable) objects[index]).getName() + " Image");
+                lblPreviewEntityImg.setIcon(((Previewable) objects[index]).getImage());
                 textPanePreviewEntityDesc.setText(((Previewable) objects[index]).toString());
                 return;
             }
