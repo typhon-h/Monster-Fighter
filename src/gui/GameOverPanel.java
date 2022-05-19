@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.Font;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
@@ -99,8 +98,8 @@ public class GameOverPanel extends EntityViewer implements Updatable{
         lblScore.setHorizontalAlignment(SwingConstants.CENTER);
         lblScore.setVerticalAlignment(SwingConstants.CENTER);
         labelContainerPanel.add(lblScore);
-        
-        
+
+
         JButton btnPlayAgain = new JButton();
         btnPlayAgain.setText("Play Again");
         btnPlayAgain.setBounds((MainContainer.SCREENWIDTH - 2 * 350) / 3, 425, 350, 75);
@@ -108,13 +107,13 @@ public class GameOverPanel extends EntityViewer implements Updatable{
             MainContainer.resetGame();
         });
         this.add(btnPlayAgain);
-        
+
         JButton btnExit = new JButton();
         btnExit.setText("Exit");
         btnExit.setBounds(((MainContainer.SCREENWIDTH - 2 * 350) / 3) * 2 + 350,
                           425, 350, 75);
         btnExit.addActionListener(exit -> {
-           System.exit(0); 
+           System.exit(0);
         });
         this.add(btnExit);
     }
@@ -126,12 +125,12 @@ public class GameOverPanel extends EntityViewer implements Updatable{
         lblNumDays.setText("Days: " + String.valueOf(MainContainer.game.getTotalDays()));
         lblGold.setText("Gold: " + player.getGold() + "G");
         lblScore.setText("Score: " + String.valueOf(player.getScore()));
-        
+
         // Populate team display container
         monsterContainerPanel.removeAll();
         populateTeamPanel(monsterContainerPanel,
                           player.getTeam().getMonsters(),
                           false);
-        
+
     }
 }

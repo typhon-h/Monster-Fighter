@@ -63,11 +63,6 @@ public class BattleSelectionPanel extends EntityViewer implements Updatable {
     public void update() {
         btnBattle.setEnabled(false);
         btnBattle.setText("Battle");
-
-        // TODO: Re-factor code so instead creating new button group, just remove button from button
-        // group, remove button from pnlBattles and resize FlowLayout setVgap. - Need to reset when Opponents get generated
-        // Reset battles panel and re-populate it with the new data battles.
-        // Remove old battles
         pnlBattles.removeAll();
 
         // Clear battleButtons group

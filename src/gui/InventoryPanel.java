@@ -59,7 +59,7 @@ public class InventoryPanel extends EntityViewer implements Updatable {
 
                 JPanel inventoryContent = new JPanel();
                 inventoryContent.setBorder(new LineBorder(new Color(0, 0, 0)));
-                inventoryContent.setBounds(6, 50, 370, 490);
+                inventoryContent.setBounds(6, 50, 370, 488);
                 inventoryContent.setBackground(this.getBackground());
                 add(inventoryContent);
                 inventoryContent.setLayout(null);
@@ -193,7 +193,7 @@ public class InventoryPanel extends EntityViewer implements Updatable {
                 teamMonsters.setBorder(new LineBorder(new Color(0, 0, 0)));
                 teamMonsters.setLayout(null);
                 teamMonsters.setBackground(Color.GRAY);
-                teamMonsters.setBounds(387, 50, 296, 490);
+                teamMonsters.setBounds(380, 50, 300, 488);
                 add(teamMonsters);
 
                 JRadioButton rdBtnMonster1 = new JRadioButton("");
@@ -296,12 +296,14 @@ public class InventoryPanel extends EntityViewer implements Updatable {
                                 textPaneMonster5,
                                 textPaneMonster6));
 
-                JLabel lblMonsters = new JLabel("Target Monster");
-                lblMonsters.setBounds(135, 6, 101, 16);
+                JLabel lblMonsters = new JLabel("Select Item");
+                lblMonsters.setBounds(370 / 2 - 120 / 2, 0, 120, 30);
+                lblMonsters.setHorizontalAlignment(SwingConstants.CENTER);
                 inventoryContent.add(lblMonsters);
 
-                JLabel lblItems = new JLabel("Select Item");
-                lblItems.setBounds(135, 6, 76, 37);
+                JLabel lblItems = new JLabel("Target Monster");
+                lblItems.setHorizontalAlignment(SwingConstants.CENTER);
+                lblItems.setBounds(300 / 2 - 120 / 2, 0, 120, 30);
                 teamMonsters.add(lblItems);
         }
 

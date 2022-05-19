@@ -19,7 +19,6 @@ import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 import battle.BattleEvent;
-import battle.BattleManager;
 import battle.BattleResult;
 import main.Player;
 import main.Team;
@@ -150,7 +149,6 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
         chkAutoPlay.setFont(new Font("Lucida Grande", Font.BOLD, 15));
         chkAutoPlay.setOpaque(false);
         chkAutoPlay.setFocusable(false);
-        // TODO: add event handler
         chkAutoPlay.addActionListener(auto -> {
            autoPlay();
         });
