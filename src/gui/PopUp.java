@@ -44,6 +44,7 @@ public class PopUp extends JFrame {
             this.dispose();
         });
         btnOK.setPreferredSize(new Dimension(popUpWidth, (popUpHeight - 34) / 4));
+        btnOK.setFocusable(false);
         contentPane.add(btnOK);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 

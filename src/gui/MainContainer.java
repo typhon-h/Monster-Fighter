@@ -78,6 +78,7 @@ public class MainContainer {
         mainContainerPanel.setLayout(cardLayout);
 
         setUpPanel = new SetupPanel();
+        setUpPanel.setName("Setup");
         mainContainerPanel.add(setUpPanel, "Setup");
 
         // Show default setup panel
@@ -97,6 +98,12 @@ public class MainContainer {
     }
 
     public static void setUpScreens() {
+        for (Component component : mainContainerPanel.getComponents()) {
+            if (component.getName() != "Setup") {
+                mainContainerPanel.remove(component);
+            }
+        }
+        
         mainMenuPanel = new MainMenuPanel(); // TODO: extract menu names to constants
         mainContainerPanel.add(mainMenuPanel, "MainMenu");
 
@@ -121,5 +128,9 @@ public class MainContainer {
         gameOverPanel = new GameOverPanel();
         mainContainerPanel.add(gameOverPanel, "GameOver");
     }
-
+    
+    protected static void resetGame() {
+        setUpPanel.resetGame();
+        game = null;
+    }
 }

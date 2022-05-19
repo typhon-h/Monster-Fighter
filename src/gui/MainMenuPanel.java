@@ -5,9 +5,6 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
-import static gui.MainContainer.game;
-
 public class MainMenuPanel extends EntityViewer implements Updatable {
 
     private static final long serialVersionUID = 1L;
@@ -67,7 +64,7 @@ public class MainMenuPanel extends EntityViewer implements Updatable {
             String sleepEvents = String.join("<br>", MainContainer.game.sleep());
             String sleepMessage = "<html>You have advanced to the next day<br>" +
                        sleepEvents + "</html>";
-            if (game.isGameOver()) {
+            if (MainContainer.game.isGameOver()) {
                 MainContainer.showScreen("GameOver");
             } else {
                 new PopUp("Sleep", sleepMessage, this.getLocationOnScreen());

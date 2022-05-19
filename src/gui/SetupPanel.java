@@ -93,6 +93,8 @@ public class SetupPanel extends EntityViewer {
         rdbtnDifficultyEasy.setBorder(UIManager.getBorder("RadioButton.border"));
         difficultyOptions.add(rdbtnDifficultyEasy);
         rdbtnDifficultyEasy.setBounds(10, 131, 141, 23);
+        rdbtnDifficultyEasy.setOpaque(false);
+        rdbtnDifficultyEasy.setFocusable(false);
         jPanelGameSettings.add(rdbtnDifficultyEasy);
 
         rdbtnDifficultyNormal = new JRadioButton("Normal");
@@ -100,12 +102,16 @@ public class SetupPanel extends EntityViewer {
         rdbtnDifficultyNormal.setSelected(true);
         difficultyOptions.add(rdbtnDifficultyNormal);
         rdbtnDifficultyNormal.setBounds(10, 185, 141, 23);
+        rdbtnDifficultyNormal.setOpaque(false);
+        rdbtnDifficultyNormal.setFocusable(false);
         jPanelGameSettings.add(rdbtnDifficultyNormal);
 
         rdbtnDifficultyHard = new JRadioButton("Hard");
         rdbtnDifficultyHard.setMnemonic(KeyEvent.VK_H);
         difficultyOptions.add(rdbtnDifficultyHard);
         rdbtnDifficultyHard.setBounds(10, 236, 141, 23);
+        rdbtnDifficultyHard.setOpaque(false);
+        rdbtnDifficultyHard.setFocusable(false);
         jPanelGameSettings.add(rdbtnDifficultyHard);
 
         JLabel lblDays = new JLabel("Days: ");
@@ -122,6 +128,7 @@ public class SetupPanel extends EntityViewer {
         sliderDays.setMinimum(5);
         sliderDays.setMaximum(15);
         sliderDays.setBounds(6, 357, 265, 52);
+        sliderDays.setOpaque(false);
         jPanelGameSettings.add(sliderDays);
 
         JLabel lblNumDays = new JLabel("" + sliderDays.getValue());
@@ -158,8 +165,9 @@ public class SetupPanel extends EntityViewer {
         btnMonster1Img.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         btnMonster1Img.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
         btnMonster1Img.setBounds(39, 23, 100, 100);
-        jPanelStarterMonsters.add(btnMonster1Img);
+        btnMonster1Img.setFocusable(false);
         btnMonster1Img.setIcon(null);
+        jPanelStarterMonsters.add(btnMonster1Img);
 
         lblMonster1Name = new JLabel(availableStarters.get(0).getName());
         lblMonster1Name.setHorizontalAlignment(SwingConstants.CENTER);
@@ -175,6 +183,7 @@ public class SetupPanel extends EntityViewer {
         btnMonster2Img.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
         btnMonster2Img.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         btnMonster2Img.setBounds(39, 158, 100, 100);
+        btnMonster2Img.setFocusable(false);
         jPanelStarterMonsters.add(btnMonster2Img);
 
         lblMonster2Name = new JLabel(availableStarters.get(1).getName());
@@ -191,6 +200,7 @@ public class SetupPanel extends EntityViewer {
         btnMonster3Img.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
         btnMonster3Img.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         btnMonster3Img.setBounds(39, 300, 100, 100);
+        btnMonster3Img.setFocusable(false);
         jPanelStarterMonsters.add(btnMonster3Img);
 
         lblMonster3Name = new JLabel(availableStarters.get(2).getName());
@@ -213,13 +223,14 @@ public class SetupPanel extends EntityViewer {
             setUpGame();
         });
         btnStartGame.setBounds(22, 489, 650, 45);
+        btnStartGame.setFocusable(false);
         add(btnStartGame);
 
         super.selectFirstAvailableButton(starterMonsters);
         super.updatePreview(starterMonsters, availableStarters.toArray());
     }
 
-    public void resetGame() {
+    protected void resetGame() {
         this.sliderDays.setValue(10);
         this.textFieldPlayerName.setText(null);
         this.difficultyOptions.clearSelection();
@@ -228,7 +239,7 @@ public class SetupPanel extends EntityViewer {
         this.updateMonsterSelectionLabels();
         super.selectFirstAvailableButton(starterMonsters);
         super.updatePreview(starterMonsters, availableStarters.toArray());
-        MainContainer.showScreen("setup");
+        MainContainer.showScreen("Setup");
     }
 
     private void setStartMonsterSelection() {

@@ -152,6 +152,7 @@ public class TeamPanel extends EntityViewer implements Updatable {
         }
 
         public void updateContent() {
+                team = MainContainer.game.getPlayer().getTeam().getMonsters();
                 for (int i = 0; i < contentButtons.size(); i++) {
                         updateEntity(contentButtons.get(i), contentDescriptions.get(i), i);
                 }

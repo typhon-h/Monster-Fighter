@@ -1,7 +1,5 @@
 package gui;
 
-import static gui.MainContainer.game;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -74,7 +72,7 @@ public class BattleSelectionPanel extends EntityViewer implements Updatable {
 
         // Clear battleButtons group
         battleButtons = new ButtonGroup();
-        ArrayList<Player> opponents = game.getBattleState().getOpponents();
+        ArrayList<Player> opponents = MainContainer.game.getBattleState().getOpponents();
 
         buttonGap = (pnlBattlesHeight - (opponents.size() * radioButtonHeight)) / (opponents.size() + 1);
         ((FlowLayout) pnlBattles.getLayout()).setVgap(buttonGap);
@@ -94,8 +92,8 @@ public class BattleSelectionPanel extends EntityViewer implements Updatable {
             battleButtons.add(oppButton);
             btnBattle.setEnabled(true);
         }
-        
-        if (game.getPlayer().getTeam().getAliveMonsters().isEmpty()) {
+
+        if (MainContainer.game.getPlayer().getTeam().getAliveMonsters().isEmpty()) {
             btnBattle.setEnabled(false);
             btnBattle.setText("All Monsters Fainted");
         }
@@ -114,8 +112,8 @@ public class BattleSelectionPanel extends EntityViewer implements Updatable {
 
     private void goToBattle() {
         int battleIndex = Integer.parseInt(battleButtons.getSelection().getActionCommand());
-        Player opponent = game.getBattleState().getOpponents().get(battleIndex);
-        game.getBattleState().setOpponent(opponent);
+        Player opponent = MainContainer.game.getBattleState().getOpponents().get(battleIndex);
+        MainContainer.game.getBattleState().setOpponent(opponent);
         MainContainer.showScreen("BattleSimulation");
     }
 }

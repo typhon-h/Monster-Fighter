@@ -5,11 +5,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import static gui.MainContainer.game;
+import static gui.BattleSimPanel.populateTeamPanel;
 import main.Player;
 
 public class GameOverPanel extends EntityViewer implements Updatable{
@@ -55,8 +56,7 @@ public class GameOverPanel extends EntityViewer implements Updatable{
         monsterContainerPanel = new JPanel();
         monsterContainerPanel.setBounds((MainContainer.SCREENWIDTH / 2 - teamDisplayWidth / 2),
         200, teamDisplayWidth, teamDisplayHeight);
-        monsterContainerPanel.setOpaque(true);
-        monsterContainerPanel.setBackground(Color.ORANGE);
+        monsterContainerPanel.setOpaque(false);
         monsterContainerPanel.setLayout(monsterContainerLayout);
         add(monsterContainerPanel);
 
@@ -99,15 +99,39 @@ public class GameOverPanel extends EntityViewer implements Updatable{
         lblScore.setHorizontalAlignment(SwingConstants.CENTER);
         lblScore.setVerticalAlignment(SwingConstants.CENTER);
         labelContainerPanel.add(lblScore);
-
+        
+        
+        JButton btnPlayAgain = new JButton();
+        btnPlayAgain.setText("Play Again");
+        btnPlayAgain.setBounds((MainContainer.SCREENWIDTH - 2 * 350) / 3, 425, 350, 75);
+        btnPlayAgain.addActionListener(again -> {
+            MainContainer.resetGame();
+        });
+        this.add(btnPlayAgain);
+        
+        JButton btnExit = new JButton();
+        btnExit.setText("Exit");
+        btnExit.setBounds(((MainContainer.SCREENWIDTH - 2 * 350) / 3) * 2 + 350,
+                          425, 350, 75);
+        btnExit.addActionListener(exit -> {
+           System.exit(0); 
+        });
+        this.add(btnExit);
     }
 
     public void update() {
-        player = game.getPlayer();
+        player = MainContainer.game.getPlayer();
 
         lblPlayerName.setText(player.getName());
-        lblNumDays.setText("Days: " + String.valueOf(game.getTotalDays()));
+        lblNumDays.setText("Days: " + String.valueOf(MainContainer.game.getTotalDays()));
         lblGold.setText("Gold: " + player.getGold() + "G");
         lblScore.setText("Score: " + String.valueOf(player.getScore()));
+        
+        // Populate team display container
+        monsterContainerPanel.removeAll();
+        populateTeamPanel(monsterContainerPanel,
+                          player.getTeam().getMonsters(),
+                          false);
+        
     }
 }

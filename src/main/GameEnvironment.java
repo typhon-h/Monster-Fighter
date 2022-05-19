@@ -148,6 +148,11 @@ public class GameEnvironment {
         ArrayList<String> events = new ArrayList<String>();
         // Advance day and check end game
         if (++currentDay > totalDays) {
+            // Heal monsters for display at end of game
+            for (Monster monster : player.getTeam().getMonsters()) {
+                monster.restore();
+            }
+            
             gameOverStatus = true;
             currentDay = totalDays;
             events.add("Game has ended");
