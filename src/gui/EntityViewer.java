@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 
-//TODO: if all update methods end up being the same remove interface and make method here
+
 public class EntityViewer extends JPanel {
 
     private static final long serialVersionUID = 1L;

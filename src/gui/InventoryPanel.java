@@ -307,8 +307,6 @@ public class InventoryPanel extends EntityViewer implements Updatable {
                 teamMonsters.add(lblItems);
         }
 
-        // TODO: FIX ORDER OF ITEMS AND MONSTERS
-
         private void updateContent() {
                 for (int i = 0; i < contentButtons.size(); i++) {
                         if (i >= inventory.size()) {

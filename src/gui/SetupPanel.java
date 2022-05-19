@@ -53,9 +53,6 @@ public class SetupPanel extends EntityViewer {
     private JRadioButton rdbtnDifficultyNormal;
     private JRadioButton rdbtnDifficultyHard;
 
-
-    // TODO: Create panel, can make dummy using swing GUI thing and copy over code
-
     public SetupPanel() {
         super(false, true, false);
 
@@ -263,7 +260,7 @@ public class SetupPanel extends EntityViewer {
         lblMonster3Name.setText(availableStarters.get(2).getName());
     }
 
-    private void setUpGame() { // TODO: add proper name validation
+    private void setUpGame() {
         // Player Name
         String playerName = textFieldPlayerName.getText();
         if (!playerName.matches(nameValidation)) {
