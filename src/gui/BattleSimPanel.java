@@ -279,6 +279,7 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
             showTeams(currEvent.getAllyTeam(), currEvent.getOpponentTeam());
             battleLogDisplay.setText(battleLogDisplay.getText() + "\n" +
                                      currEvent.getDescription());
+            game.getPlayer().setTeam(currEvent.getAllyTeam());
             currEvent = battleManager.nextEvent();
         }
         checkSimulationOver();
@@ -315,6 +316,7 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
                     battleLogDisplay.setText(battleLogDisplay.getText() + "\n" +
                             currEvent.getDescription());
                     showTeams(currEvent.getAllyTeam(), currEvent.getOpponentTeam());
+                    game.getPlayer().setTeam(currEvent.getAllyTeam());
                     currEvent = battleManager.nextEvent();
                     } else {
                         timer.stop();
