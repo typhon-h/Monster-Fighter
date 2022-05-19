@@ -34,6 +34,7 @@ public class MainContainer {
     private static TeamPanel teamPanel;
     private static BattleSelectionPanel battleSelectionPanel;
     private static BattleSimPanel battleSimulationPanel;
+    private static GameOverPanel gameOverPanel;
 
     /**
      * Launch the application.
@@ -113,9 +114,12 @@ public class MainContainer {
 
         battleSelectionPanel = new BattleSelectionPanel();
         mainContainerPanel.add(battleSelectionPanel, "BattleSelection");
-        
+
         battleSimulationPanel = new BattleSimPanel();
         mainContainerPanel.add(battleSimulationPanel, "BattleSimulation");
+
+        gameOverPanel = new GameOverPanel();
+        mainContainerPanel.add(gameOverPanel, "GameOver");
     }
 
 }

@@ -45,16 +45,18 @@ public class PopUp extends JFrame {
         });
         btnOK.setPreferredSize(new Dimension(popUpWidth, (popUpHeight - 34) / 4));
         contentPane.add(btnOK);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        this.setLocation(location.x +
+        setLocation(location.x +
                 (gui.MainContainer.SCREENWIDTH / 2) -
                 this.getWidth() / 2,
                 location.y +
                         (gui.MainContainer.SCREENHEIGHT / 2) -
                         this.getHeight() / 2);
 
-        this.setVisible(true);
+        setVisible(true);
+        
+        this.getRootPane().setDefaultButton(btnOK);
     }
 
 }

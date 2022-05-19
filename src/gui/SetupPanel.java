@@ -43,6 +43,17 @@ public class SetupPanel extends EntityViewer {
     private ArrayList<Monster> availableStarters;
     private String nameValidation = "[a-zA-Z]{3,15}";
 
+    private JRadioButton btnMonster1Img;
+    private JRadioButton btnMonster2Img;
+    private JRadioButton btnMonster3Img;
+    private JLabel lblMonster1Name;
+    private JLabel lblMonster2Name;
+    private JLabel lblMonster3Name;
+    private JRadioButton rdbtnDifficultyEasy;
+    private JRadioButton rdbtnDifficultyNormal;
+    private JRadioButton rdbtnDifficultyHard;
+
+
     // TODO: Create panel, can make dummy using swing GUI thing and copy over code
 
     public SetupPanel() {
@@ -77,21 +88,21 @@ public class SetupPanel extends EntityViewer {
         jPanelGameSettings.add(textFieldPlayerName);
         jPanelGameSettings.add(lblPlayerName);
 
-        JRadioButton rdbtnDifficultyEasy = new JRadioButton("Easy");
+        rdbtnDifficultyEasy = new JRadioButton("Easy");
         rdbtnDifficultyEasy.setMnemonic(KeyEvent.VK_E);
         rdbtnDifficultyEasy.setBorder(UIManager.getBorder("RadioButton.border"));
         difficultyOptions.add(rdbtnDifficultyEasy);
         rdbtnDifficultyEasy.setBounds(10, 131, 141, 23);
         jPanelGameSettings.add(rdbtnDifficultyEasy);
 
-        JRadioButton rdbtnDifficultyNormal = new JRadioButton("Normal");
+        rdbtnDifficultyNormal = new JRadioButton("Normal");
         rdbtnDifficultyNormal.setMnemonic(KeyEvent.VK_N);
         rdbtnDifficultyNormal.setSelected(true);
         difficultyOptions.add(rdbtnDifficultyNormal);
         rdbtnDifficultyNormal.setBounds(10, 185, 141, 23);
         jPanelGameSettings.add(rdbtnDifficultyNormal);
 
-        JRadioButton rdbtnDifficultyHard = new JRadioButton("Hard");
+        rdbtnDifficultyHard = new JRadioButton("Hard");
         rdbtnDifficultyHard.setMnemonic(KeyEvent.VK_H);
         difficultyOptions.add(rdbtnDifficultyHard);
         rdbtnDifficultyHard.setBounds(10, 236, 141, 23);
@@ -123,14 +134,8 @@ public class SetupPanel extends EntityViewer {
             }
         });
 
-        int numStarters = GameEnvironment.NUMSTARTERMONSTERS;
-        ArrayList<Monster> possibleStarters = GameEnvironment.generateMonsters();
-        availableStarters = new ArrayList<Monster>();
-        for (int i = 0; i < numStarters; i++) {
-            Monster m = possibleStarters.get(GameEnvironment.rng.nextInt(possibleStarters.size()));
-            availableStarters.add(m);
-            possibleStarters.remove(m);
-        }
+        // starter monster selection
+        setStartMonsterSelection();
 
         JPanel jPanelStarterMonsters = new JPanel();
         jPanelStarterMonsters.setBorder(null);
@@ -144,7 +149,7 @@ public class SetupPanel extends EntityViewer {
         lblStarters.setBounds(6, 0, 165, 25);
         jPanelStarterMonsters.add(lblStarters);
 
-        JRadioButton btnMonster1Img = new JRadioButton(availableStarters.get(0).getName() + " Image");
+        btnMonster1Img = new JRadioButton(availableStarters.get(0).getName() + " Image");
         btnMonster1Img.addActionListener(update -> {
             super.updatePreview(starterMonsters, availableStarters.toArray());
         });
@@ -156,12 +161,12 @@ public class SetupPanel extends EntityViewer {
         jPanelStarterMonsters.add(btnMonster1Img);
         btnMonster1Img.setIcon(null);
 
-        JLabel lblMonster1Name = new JLabel(availableStarters.get(0).getName());
+        lblMonster1Name = new JLabel(availableStarters.get(0).getName());
         lblMonster1Name.setHorizontalAlignment(SwingConstants.CENTER);
         lblMonster1Name.setBounds(6, 130, 165, 16);
         jPanelStarterMonsters.add(lblMonster1Name);
 
-        JRadioButton btnMonster2Img = new JRadioButton(availableStarters.get(1).getName() + " Image");
+        btnMonster2Img = new JRadioButton(availableStarters.get(1).getName() + " Image");
         btnMonster2Img.addActionListener(update -> {
             super.updatePreview(starterMonsters, availableStarters.toArray());
         });
@@ -172,12 +177,12 @@ public class SetupPanel extends EntityViewer {
         btnMonster2Img.setBounds(39, 158, 100, 100);
         jPanelStarterMonsters.add(btnMonster2Img);
 
-        JLabel lblMonster2Name = new JLabel(availableStarters.get(1).getName());
+        lblMonster2Name = new JLabel(availableStarters.get(1).getName());
         lblMonster2Name.setHorizontalAlignment(SwingConstants.CENTER);
         lblMonster2Name.setBounds(6, 265, 165, 16);
         jPanelStarterMonsters.add(lblMonster2Name);
 
-        JRadioButton btnMonster3Img = new JRadioButton(availableStarters.get(2).getName() + " Image");
+        btnMonster3Img = new JRadioButton(availableStarters.get(2).getName() + " Image");
         btnMonster3Img.addActionListener(update -> {
             super.updatePreview(starterMonsters, availableStarters.toArray());
         });
@@ -188,7 +193,7 @@ public class SetupPanel extends EntityViewer {
         btnMonster3Img.setBounds(39, 300, 100, 100);
         jPanelStarterMonsters.add(btnMonster3Img);
 
-        JLabel lblMonster3Name = new JLabel(availableStarters.get(2).getName());
+        lblMonster3Name = new JLabel(availableStarters.get(2).getName());
         lblMonster3Name.setHorizontalAlignment(SwingConstants.CENTER);
         lblMonster3Name.setBounds(6, 407, 165, 16);
         jPanelStarterMonsters.add(lblMonster3Name);
@@ -212,6 +217,39 @@ public class SetupPanel extends EntityViewer {
 
         super.selectFirstAvailableButton(starterMonsters);
         super.updatePreview(starterMonsters, availableStarters.toArray());
+    }
+
+    public void resetGame() {
+        this.sliderDays.setValue(10);
+        this.textFieldPlayerName.setText(null);
+        this.difficultyOptions.clearSelection();
+        this.rdbtnDifficultyNormal.setSelected(true);
+        this.setStartMonsterSelection();
+        this.updateMonsterSelectionLabels();
+        super.selectFirstAvailableButton(starterMonsters);
+        super.updatePreview(starterMonsters, availableStarters.toArray());
+        MainContainer.showScreen("setup");
+    }
+
+    private void setStartMonsterSelection() {
+        int numStarters = GameEnvironment.NUMSTARTERMONSTERS;
+        ArrayList<Monster> possibleStarters = GameEnvironment.generateMonsters();
+        availableStarters = new ArrayList<Monster>();
+        for (int i = 0; i < numStarters; i++) {
+            Monster m = possibleStarters.get(GameEnvironment.rng.nextInt(possibleStarters.size()));
+            availableStarters.add(m);
+            possibleStarters.remove(m);
+        }
+    }
+
+    private void updateMonsterSelectionLabels() {
+        // TODO: change this to the sprites instead
+        btnMonster1Img.setText(availableStarters.get(0).getName() + " Image");
+        btnMonster2Img.setText(availableStarters.get(1).getName() + " Image");
+        btnMonster3Img.setText(availableStarters.get(2).getName() + " Image");
+        lblMonster1Name.setText(availableStarters.get(0).getName());
+        lblMonster2Name.setText(availableStarters.get(1).getName());
+        lblMonster3Name.setText(availableStarters.get(2).getName());
     }
 
     private void setUpGame() { // TODO: add proper name validation
@@ -260,7 +298,6 @@ public class SetupPanel extends EntityViewer {
         }
 
         // CREATE GAME
-
         try {
             Team team = new Team(starter);
             Player player = new Player(playerName, team, GameEnvironment.STARTINGGOLD);

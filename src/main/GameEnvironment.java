@@ -149,6 +149,7 @@ public class GameEnvironment {
         // Advance day and check end game
         if (++currentDay > totalDays) {
             gameOverStatus = true;
+            currentDay = totalDays;
             events.add("Game has ended");
             return events;
         }

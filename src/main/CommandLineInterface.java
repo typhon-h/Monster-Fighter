@@ -554,7 +554,7 @@ public class CommandLineInterface {
     public void gameOverScreen() {
         TextFormat.printHeader("Game Over", HEADERWHITESPACING, HEADERCHAR);
         System.out.println(game.getPlayer().getName() + "'s Results:");
-        System.out.println("You lasted " + (game.getCurrentDay() - 1) + "/" + game.getTotalDays());
+        System.out.println("You lasted " + game.getTotalDays());
         System.out.println("Final Gold: " + game.getPlayer().getGold());
         System.out.println("Final Score: " + game.getPlayer().getScore());
         System.out.println();
