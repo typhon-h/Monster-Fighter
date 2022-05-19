@@ -343,13 +343,13 @@ public class InventoryPanel extends EntityViewer implements Updatable {
         private void updateEntity(JRadioButton image, JTextPane desc, Entity e) {
                 if (e == null) {
                         desc.setText("");
-                        // TODO: Remove Image
                         image.setEnabled(false);
                         image.setActionCommand("-1");
                         image.setVisible(false);
                 } else {
                         image.setEnabled(true);
-                        image.setText(e.getName() + " Image");
+                        image.setIcon(MainContainer.imageResize(e.getImage(), image.getWidth(),
+                                        image.getHeight()));
                         desc.setText("\n" + e.getRarity().name() + " " + e.getName());
                         int index = (e instanceof Item) ? inventory.indexOf(e)
                                         : MainContainer.game.getPlayer().getTeam().getMonsters().indexOf(e);

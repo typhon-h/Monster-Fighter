@@ -31,17 +31,17 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
      */
     private static final long serialVersionUID = 1L;
 
-    FlowLayout  leftLayout;
-    FlowLayout  rightLayout;
-    JPanel      leftTeam;
-    JPanel      rightTeam;
-    JTextArea   battleLogDisplay;
-    JButton     btnContinue;
-    JButton     btnSkip;
-    JCheckBox   chkAutoPlay;
+    FlowLayout leftLayout;
+    FlowLayout rightLayout;
+    JPanel leftTeam;
+    JPanel rightTeam;
+    JTextArea battleLogDisplay;
+    JButton btnContinue;
+    JButton btnSkip;
+    JCheckBox chkAutoPlay;
 
     BattleEvent currEvent;
-    Timer       timer;
+    Timer timer;
     /**
      * ActionListener that displays the next event in the
      * simulation.
@@ -64,10 +64,10 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
     };
 
     private static int monsterDisplayWidth = 100;
-    private static int monsterIconHeight   = 100;
-    private static int monsterLabelHeight  = 20;
-    private static int teamDisplayHeight   = monsterIconHeight + monsterLabelHeight * 2;
-    private int teamDisplayWidth    = 450;
+    private static int monsterIconHeight = 100;
+    private static int monsterLabelHeight = 20;
+    private static int teamDisplayHeight = monsterIconHeight + monsterLabelHeight * 2;
+    private int teamDisplayWidth = 450;
 
     /**
      * Create the simulation panel
@@ -78,7 +78,7 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
 
         JLabel lblBattleSimTitle = new JLabel("Battle");
         lblBattleSimTitle.setBounds((MainContainer.SCREENWIDTH / 2 - 45),
-                                    6, 90, 37);
+                6, 90, 37);
         lblBattleSimTitle.setFont(new Font("Lucida Grande", Font.BOLD, 30));
         lblBattleSimTitle.setHorizontalAlignment(SwingConstants.CENTER);
         lblBattleSimTitle.setVerticalAlignment(SwingConstants.CENTER);
@@ -87,18 +87,17 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
         leftLayout = new FlowLayout(FlowLayout.RIGHT, 10, 0);
         rightLayout = new FlowLayout(FlowLayout.LEFT, 10, 0);
 
-
         leftTeam = new JPanel();
         leftTeam.setBounds((MainContainer.SCREENWIDTH / 4 - teamDisplayWidth / 2),
-                           130, teamDisplayWidth, teamDisplayHeight);
+                130, teamDisplayWidth, teamDisplayHeight);
         leftTeam.setOpaque(false);
         leftTeam.setLayout(leftLayout);
         this.add(leftTeam);
 
         rightTeam = new JPanel();
         rightTeam.setBounds((MainContainer.SCREENWIDTH / 2 +
-                            (MainContainer.SCREENWIDTH / 4 - teamDisplayWidth / 2)),
-                            130, teamDisplayWidth, teamDisplayHeight);
+                (MainContainer.SCREENWIDTH / 4 - teamDisplayWidth / 2)),
+                130, teamDisplayWidth, teamDisplayHeight);
         rightTeam.setOpaque(false);
         rightTeam.setLayout(rightLayout);
         this.add(rightTeam);
@@ -120,10 +119,9 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
         JPanel pnlButtonsContainer = new JPanel();
         pnlButtonsContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 0));
         pnlButtonsContainer.setBounds((MainContainer.SCREENWIDTH / 2 - 850 / 2),
-                                      490, 850, 40);
+                490, 850, 40);
         pnlButtonsContainer.setOpaque(false);
         this.add(pnlButtonsContainer);
-
 
         btnContinue = new JButton();
         btnContinue.setBounds(0, 0, 850 / 2, 40);
@@ -150,7 +148,7 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
         chkAutoPlay.setOpaque(false);
         chkAutoPlay.setFocusable(false);
         chkAutoPlay.addActionListener(auto -> {
-           autoPlay();
+            autoPlay();
         });
         pnlButtonsContainer.add(chkAutoPlay);
     }
@@ -163,38 +161,39 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
      * @param reverse Reverse the order which the team is displayed
      */
     protected static void populateTeamPanel(JPanel panel, ArrayList<Monster> team, boolean reverse) {
-        for (int i =0; i < team.size(); i++) {
-            Monster monster = team.get(!reverse ? i : team.size()- 1 - i);
+        for (int i = 0; i < team.size(); i++) {
+            Monster monster = team.get(!reverse ? i : team.size() - 1 - i);
             JPanel monsterContainer = new JPanel();
             monsterContainer.setPreferredSize(new Dimension(monsterDisplayWidth,
-                                                            teamDisplayHeight));
+                    teamDisplayHeight));
             monsterContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
             monsterContainer.setOpaque(false);
 
             JLabel monsterStatsLabel = new JLabel();
             monsterStatsLabel.setPreferredSize(new Dimension(monsterDisplayWidth,
-                                                             monsterLabelHeight));
+                    monsterLabelHeight));
             monsterStatsLabel.setBounds(0, 0, monsterDisplayWidth, monsterLabelHeight);
             monsterStatsLabel.setHorizontalAlignment(SwingConstants.CENTER);
             monsterStatsLabel.setVerticalAlignment(SwingConstants.CENTER);
             monsterStatsLabel.setText(monster.getCurrentAttackDamage() + " | " +
-                                      monster.getCurrentHealth());
+                    monster.getCurrentHealth());
 
             monsterStatsLabel.setOpaque(false);
-            monsterStatsLabel.setFont(new Font("Lucida Grande", Font.BOLD, 20));;
-
+            monsterStatsLabel.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+            ;
 
             JLabel monsterIcon = new JLabel();
             monsterIcon.setPreferredSize(new Dimension(monsterDisplayWidth,
-                                                       monsterIconHeight));
+                    monsterIconHeight));
             monsterIcon.setBounds(0, 0, monsterDisplayWidth, monsterIconHeight);
-            // monsterIcon.setIcon(new ImageIcon(**Url of icon**))
+            monsterIcon.setIcon(
+                    MainContainer.imageResize(monster.getImage(), monsterIcon.getWidth(), monsterIcon.getHeight()));
             monsterIcon.setText(monster.getName());
-            monsterIcon.setOpaque(true);
+            monsterIcon.setOpaque(false);
 
             JLabel monsterNameLabel = new JLabel();
             monsterNameLabel.setPreferredSize(new Dimension(monsterDisplayWidth,
-                                                             monsterLabelHeight));
+                    monsterLabelHeight));
             monsterNameLabel.setBounds(0, 0, monsterDisplayWidth, monsterLabelHeight);
             monsterNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
             monsterNameLabel.setVerticalAlignment(SwingConstants.CENTER);
@@ -245,19 +244,19 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
             }
             btnContinue.addActionListener(mainMenu);
 
-            Player battle =  MainContainer.game.getBattleState().getCurrOpponent();
+            Player battle = MainContainer.game.getBattleState().getCurrOpponent();
             String rewardsString = "Rewards: " + battle.getGold() + "G " + battle.getScore() + " Points";
-            if ( MainContainer.game.getBattleState().getResult() == BattleResult.WIN) {
-                 new PopUp("Winner", rewardsString, this.getLocationOnScreen());
-                 battleLogDisplay.setText(battleLogDisplay.getText() +
-                                          "\nAll the opponent monsters fainted\nYOU WON!\n" +
-                                          rewardsString);
-            } else if ( MainContainer.game.getBattleState().getResult() == BattleResult.LOSS) {
+            if (MainContainer.game.getBattleState().getResult() == BattleResult.WIN) {
+                new PopUp("Winner", rewardsString, this.getLocationOnScreen());
+                battleLogDisplay.setText(battleLogDisplay.getText() +
+                        "\nAll the opponent monsters fainted\nYOU WON!\n" +
+                        rewardsString);
+            } else if (MainContainer.game.getBattleState().getResult() == BattleResult.LOSS) {
                 battleLogDisplay.setText(battleLogDisplay.getText() +
                         "\nAll your monsters have fainted\nYOU LOST!");
             }
             // Distribute rewards
-             MainContainer.game.getBattleState().giveRewards();
+            MainContainer.game.getBattleState().giveRewards();
             updatePlayerInfo();
         }
     }
@@ -269,9 +268,9 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
         if (currEvent != null) {
             showTeams(currEvent.getAllyTeam(), currEvent.getOpponentTeam());
             battleLogDisplay.setText(battleLogDisplay.getText() + "\n" +
-                                     currEvent.getDescription());
+                    currEvent.getDescription());
             MainContainer.game.getPlayer().setTeam(currEvent.getAllyTeam());
-            currEvent =  MainContainer.game.getBattleState().nextEvent();
+            currEvent = MainContainer.game.getBattleState().nextEvent();
         }
         checkSimulationOver();
     }
@@ -285,7 +284,7 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
             battleLogDisplay.setText(battleLogDisplay.getText() + "\n" +
                     currEvent.getDescription());
             prevEvent = currEvent;
-            currEvent =  MainContainer.game.getBattleState().nextEvent();
+            currEvent = MainContainer.game.getBattleState().nextEvent();
         }
         MainContainer.game.getPlayer().setTeam(prevEvent.getAllyTeam());
         showTeams(prevEvent.getAllyTeam(), prevEvent.getOpponentTeam());
@@ -304,11 +303,11 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (currEvent != null) {
-                    battleLogDisplay.setText(battleLogDisplay.getText() + "\n" +
-                            currEvent.getDescription());
-                    showTeams(currEvent.getAllyTeam(), currEvent.getOpponentTeam());
-                    MainContainer.game.getPlayer().setTeam(currEvent.getAllyTeam());
-                    currEvent =  MainContainer.game.getBattleState().nextEvent();
+                        battleLogDisplay.setText(battleLogDisplay.getText() + "\n" +
+                                currEvent.getDescription());
+                        showTeams(currEvent.getAllyTeam(), currEvent.getOpponentTeam());
+                        MainContainer.game.getPlayer().setTeam(currEvent.getAllyTeam());
+                        currEvent = MainContainer.game.getBattleState().nextEvent();
                     } else {
                         timer.stop();
                         chkAutoPlay.setSelected(false);
@@ -334,8 +333,8 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
     @Override
     public void update() {
         // Update team display
-        showTeams( MainContainer.game.getBattleState().getPlayer().getTeam(),
-                   MainContainer.game.getBattleState().getCurrOpponent().getTeam());
+        showTeams(MainContainer.game.getBattleState().getPlayer().getTeam(),
+                MainContainer.game.getBattleState().getCurrOpponent().getTeam());
 
         // Reset buttons
         btnSkip.setEnabled(true);
@@ -351,8 +350,8 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
         battleLogDisplay.setText(null);
 
         // Simulate battle, ready for display
-         MainContainer.game.getBattleState().simulateBattle();
-        currEvent =  MainContainer.game.getBattleState().nextEvent();
+        MainContainer.game.getBattleState().simulateBattle();
+        currEvent = MainContainer.game.getBattleState().nextEvent();
     }
 
 }

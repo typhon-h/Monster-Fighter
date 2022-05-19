@@ -53,7 +53,6 @@ public class SetupPanel extends EntityViewer {
     private JRadioButton rdbtnDifficultyNormal;
     private JRadioButton rdbtnDifficultyHard;
 
-
     // TODO: Create panel, can make dummy using swing GUI thing and copy over code
 
     public SetupPanel() {
@@ -156,7 +155,7 @@ public class SetupPanel extends EntityViewer {
         lblStarters.setBounds(6, 0, 165, 25);
         jPanelStarterMonsters.add(lblStarters);
 
-        btnMonster1Img = new JRadioButton(availableStarters.get(0).getName() + " Image");
+        btnMonster1Img = new JRadioButton();
         btnMonster1Img.addActionListener(update -> {
             super.updatePreview(starterMonsters, availableStarters.toArray());
         });
@@ -174,7 +173,7 @@ public class SetupPanel extends EntityViewer {
         lblMonster1Name.setBounds(6, 130, 165, 16);
         jPanelStarterMonsters.add(lblMonster1Name);
 
-        btnMonster2Img = new JRadioButton(availableStarters.get(1).getName() + " Image");
+        btnMonster2Img = new JRadioButton();
         btnMonster2Img.addActionListener(update -> {
             super.updatePreview(starterMonsters, availableStarters.toArray());
         });
@@ -191,7 +190,7 @@ public class SetupPanel extends EntityViewer {
         lblMonster2Name.setBounds(6, 265, 165, 16);
         jPanelStarterMonsters.add(lblMonster2Name);
 
-        btnMonster3Img = new JRadioButton(availableStarters.get(2).getName() + " Image");
+        btnMonster3Img = new JRadioButton();
         btnMonster3Img.addActionListener(update -> {
             super.updatePreview(starterMonsters, availableStarters.toArray());
         });
@@ -226,6 +225,7 @@ public class SetupPanel extends EntityViewer {
         btnStartGame.setFocusable(false);
         add(btnStartGame);
 
+        updateMonsterSelectionLabels();
         super.selectFirstAvailableButton(starterMonsters);
         super.updatePreview(starterMonsters, availableStarters.toArray());
     }
@@ -255,9 +255,12 @@ public class SetupPanel extends EntityViewer {
 
     private void updateMonsterSelectionLabels() {
         // TODO: change this to the sprites instead
-        btnMonster1Img.setText(availableStarters.get(0).getName() + " Image");
-        btnMonster2Img.setText(availableStarters.get(1).getName() + " Image");
-        btnMonster3Img.setText(availableStarters.get(2).getName() + " Image");
+        btnMonster1Img.setIcon(MainContainer.imageResize(availableStarters.get(0).getImage(), btnMonster1Img.getWidth(),
+                btnMonster1Img.getWidth()));
+        btnMonster2Img.setIcon(MainContainer.imageResize(availableStarters.get(1).getImage(), btnMonster2Img.getWidth(),
+                btnMonster2Img.getWidth()));
+        btnMonster3Img.setIcon(MainContainer.imageResize(availableStarters.get(2).getImage(), btnMonster3Img.getWidth(),
+                btnMonster3Img.getWidth()));
         lblMonster1Name.setText(availableStarters.get(0).getName());
         lblMonster2Name.setText(availableStarters.get(1).getName());
         lblMonster3Name.setText(availableStarters.get(2).getName());
