@@ -80,7 +80,7 @@ public class BattleSelectionPanel extends EntityViewer implements Updatable {
             });
 
             oppButton.setPreferredSize(new Dimension(pnlBattlesWidth, radioButtonHeight));
-            oppButton.setBackground(Color.WHITE);
+            oppButton.setOpaque(false);
             oppButton.setFont(oppButton.getFont().deriveFont(25.0f));
             pnlBattles.add(oppButton);
 

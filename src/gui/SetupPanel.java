@@ -164,6 +164,7 @@ public class SetupPanel extends EntityViewer {
         btnMonster1Img.setBounds(39, 23, 100, 100);
         btnMonster1Img.setFocusable(false);
         btnMonster1Img.setIcon(null);
+        btnMonster1Img.setOpaque(false);
         jPanelStarterMonsters.add(btnMonster1Img);
 
         lblMonster1Name = new JLabel(availableStarters.get(0).getName());
@@ -181,6 +182,7 @@ public class SetupPanel extends EntityViewer {
         btnMonster2Img.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         btnMonster2Img.setBounds(39, 158, 100, 100);
         btnMonster2Img.setFocusable(false);
+        btnMonster2Img.setOpaque(false);
         jPanelStarterMonsters.add(btnMonster2Img);
 
         lblMonster2Name = new JLabel(availableStarters.get(1).getName());
@@ -198,6 +200,7 @@ public class SetupPanel extends EntityViewer {
         btnMonster3Img.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         btnMonster3Img.setBounds(39, 300, 100, 100);
         btnMonster3Img.setFocusable(false);
+        btnMonster3Img.setOpaque(false);
         jPanelStarterMonsters.add(btnMonster3Img);
 
         lblMonster3Name = new JLabel(availableStarters.get(2).getName());
