@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Point;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 
 /**
  * A class for creating new warning/error/information popups on the screen
@@ -34,7 +36,7 @@ public class PopUp extends JFrame {
         setResizable(false);
         setBounds(0, 0, popUpWidth, 150);
         contentPane = new JPanel();
-//        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        // contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setBounds(0, 0, popUpWidth, popUpHeight);
         contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
         setContentPane(contentPane);
@@ -62,7 +64,23 @@ public class PopUp extends JFrame {
                         this.getHeight() / 2);
 
         setVisible(true);
-        
+
+        // Closes when loses focus
+        this.addWindowFocusListener(new WindowFocusListener() {
+
+            @Override
+            public void windowLostFocus(WindowEvent e) {
+                e.getWindow().dispose();
+            }
+
+            @Override
+            public void windowGainedFocus(WindowEvent e) {
+                // Do Nothing
+
+            }
+
+        });
+
         this.getRootPane().setDefaultButton(btnOK);
     }
 
