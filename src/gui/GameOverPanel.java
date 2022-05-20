@@ -18,20 +18,20 @@ import main.Player;
  * @author Jackie Jone
  * @version 1.0 Mar, 2022
  */
-public class GameOverPanel extends EntityViewer implements Updatable{
+public class GameOverPanel extends EntityViewer implements Updatable {
     /**
-     *  Default serial version id
+     * Default serial version id
      */
     private static final long serialVersionUID = 1L;
 
     private int monsterDisplayWidth = 100;
-    private int monsterIconHeight   = 100;
-    private int monsterLabelHeight  = 20;
-    private int teamDisplayHeight   = monsterIconHeight + monsterLabelHeight * 2;
-    private int teamDisplayWidth    = (MainContainer.SCREENWIDTH * 3) / 4;
-    private int teamDisplayPadding  = (teamDisplayWidth - monsterDisplayWidth * 4) / 5;
-    private int commonLabelHeight   = 75;
-    private int commonLabelWidth    = 200;
+    private int monsterIconHeight = 100;
+    private int monsterLabelHeight = 20;
+    private int teamDisplayHeight = monsterIconHeight + monsterLabelHeight * 2;
+    private int teamDisplayWidth = (MainContainer.SCREENWIDTH * 3) / 4;
+    private int teamDisplayPadding = (teamDisplayWidth - monsterDisplayWidth * 4) / 5;
+    private int commonLabelHeight = 75;
+    private int commonLabelWidth = 200;
     private int commonLabelContainerWidth = (MainContainer.SCREENWIDTH * 6) / 7;
 
     private JPanel monsterContainerPanel;
@@ -40,29 +40,19 @@ public class GameOverPanel extends EntityViewer implements Updatable{
     private JLabel lblNumDays;
     private JLabel lblGold;
     private JLabel lblScore;
-    
-    
+
     /**
      * Initialize the game over panel with all the labels, panels, and buttons
      */
     public GameOverPanel() {
-        super(false, false, false);
+        super("Game Over", false, false, false);
         setName("GameOver");
 
-        JLabel lblGameOverTitle = new JLabel("Game Over");
-        lblGameOverTitle.setBounds((MainContainer.SCREENWIDTH / 2 - 100),
-                                    6, 200, 37);
-        lblGameOverTitle.setFont(new Font("Lucida Grande", Font.BOLD, 30));
-        lblGameOverTitle.setHorizontalAlignment(SwingConstants.CENTER);
-        lblGameOverTitle.setVerticalAlignment(SwingConstants.CENTER);
-        add(lblGameOverTitle);
-
-
         FlowLayout monsterContainerLayout = new FlowLayout(FlowLayout.CENTER,
-                                                           teamDisplayPadding, 0);
+                teamDisplayPadding, 0);
         monsterContainerPanel = new JPanel();
         monsterContainerPanel.setBounds((MainContainer.SCREENWIDTH / 2 - teamDisplayWidth / 2),
-        200, teamDisplayWidth, teamDisplayHeight);
+                200, teamDisplayWidth, teamDisplayHeight);
         monsterContainerPanel.setOpaque(false);
         monsterContainerPanel.setLayout(monsterContainerLayout);
         add(monsterContainerPanel);
@@ -81,9 +71,9 @@ public class GameOverPanel extends EntityViewer implements Updatable{
         lblPlayerName.setPreferredSize(new Dimension(commonLabelWidth, commonLabelHeight));
         lblPlayerName.setFont(new Font("Lucida Grande", Font.BOLD, 18));
         lblPlayerName.setHorizontalAlignment(SwingConstants.CENTER);
-        lblPlayerName.setVerticalAlignment(SwingConstants.CENTER);;
+        lblPlayerName.setVerticalAlignment(SwingConstants.CENTER);
+        ;
         labelContainerPanel.add(lblPlayerName);
-
 
         lblNumDays = new JLabel();
         lblNumDays.setPreferredSize(new Dimension(commonLabelWidth, commonLabelHeight));
@@ -91,7 +81,6 @@ public class GameOverPanel extends EntityViewer implements Updatable{
         lblNumDays.setHorizontalAlignment(SwingConstants.CENTER);
         lblNumDays.setVerticalAlignment(SwingConstants.CENTER);
         labelContainerPanel.add(lblNumDays);
-
 
         lblGold = new JLabel();
         lblGold.setPreferredSize(new Dimension(commonLabelWidth, commonLabelHeight));
@@ -107,7 +96,6 @@ public class GameOverPanel extends EntityViewer implements Updatable{
         lblScore.setVerticalAlignment(SwingConstants.CENTER);
         labelContainerPanel.add(lblScore);
 
-
         JButton btnPlayAgain = new JButton();
         btnPlayAgain.setText("Play Again");
         btnPlayAgain.setBounds((MainContainer.SCREENWIDTH - 2 * 350) / 3, 425, 350, 75);
@@ -119,9 +107,9 @@ public class GameOverPanel extends EntityViewer implements Updatable{
         JButton btnExit = new JButton();
         btnExit.setText("Exit");
         btnExit.setBounds(((MainContainer.SCREENWIDTH - 2 * 350) / 3) * 2 + 350,
-                          425, 350, 75);
+                425, 350, 75);
         btnExit.addActionListener(exit -> {
-           System.exit(0);
+            System.exit(0);
         });
         this.add(btnExit);
     }
@@ -140,8 +128,8 @@ public class GameOverPanel extends EntityViewer implements Updatable{
         // Populate team display container
         monsterContainerPanel.removeAll();
         populateTeamPanel(monsterContainerPanel,
-                          player.getTeam().getMonsters(),
-                          false);
+                player.getTeam().getMonsters(),
+                false);
 
     }
 }

@@ -2,12 +2,12 @@ package gui;
 
 import java.awt.Color;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Font;
 
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.JRadioButton;
@@ -31,6 +31,7 @@ import java.util.ArrayList;
 
 /**
  * Panel for setting up the game
+ * 
  * @author Harrison Tyson
  * @version 1.0 Mar, 2022
  */
@@ -57,17 +58,12 @@ public class SetupPanel extends EntityViewer {
     private JRadioButton rdbtnDifficultyEasy;
     private JRadioButton rdbtnDifficultyNormal;
     private JRadioButton rdbtnDifficultyHard;
-    
+
     /**
      * Set up the panel with all the fields to be entered in
      */
     public SetupPanel() {
-        super(false, true, false);
-
-        JLabel lblSetupTitle = new JLabel("Game Setup");
-        lblSetupTitle.setFont(new Font("Lucida Grande", Font.BOLD, 30));
-        lblSetupTitle.setBounds(430, 6, 193, 37);
-        add(lblSetupTitle);
+        super("Game Setup", false, true, false);
 
         JPanel jPanelGameSettings = new JPanel();
         jPanelGameSettings.setBorder(null);
@@ -238,7 +234,7 @@ public class SetupPanel extends EntityViewer {
         super.selectFirstAvailableButton(starterMonsters);
         super.updatePreview(starterMonsters, availableStarters.toArray());
     }
-    
+
     /**
      * reset the values on the setup screen back to default
      */

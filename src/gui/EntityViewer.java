@@ -4,6 +4,7 @@ import static gui.MainContainer.DEFAULTDIMENSION;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -12,12 +13,17 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 import javax.swing.JTextPane;
+
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+import main.Entity;
+
 /**
- * A superclass used to place the common elements of each panel onto the subclass panels
+ * A superclass used to place the common elements of each panel onto the
+ * subclass panels
  * 
  * @author Harrison Tyson
  * @version 1.0 Mar, 2022
@@ -34,7 +40,13 @@ public class EntityViewer extends JPanel {
     private JTextPane textPanePreviewEntityDesc;
 
     private JButton btnBack;
-    
+
+    public ArrayList<ContentPanel> contentPanels = new ArrayList<ContentPanel>();
+    public static final int DEFAULTCONTENTX = 6;
+    public static final int DEFAULTCONTENTY = 50;
+    public static final int DEFAULTCONTENTWIDTH = 600;
+    public static final int DEFAULTCONTENTHEIGHT = 480;
+
     /**
      * Create and place the common elements on the panel, called by the subclass
      * 
@@ -42,13 +54,18 @@ public class EntityViewer extends JPanel {
      * @param hasPreview    Flag for whether the panel needs a preview panel
      * @param hasBack       Flag for whether the panel needs a back button
      */
-    public EntityViewer(boolean hasPlayerInfo, boolean hasPreview, boolean hasBack) {
+    public EntityViewer(String title, boolean hasPlayerInfo, boolean hasPreview, boolean hasBack) {
         super();
         setMinimumSize(DEFAULTDIMENSION);
         setSize(DEFAULTDIMENSION);
         setVerifyInputWhenFocusTarget(false);
         this.setBackground(Color.GRAY);
         setLayout(null);
+
+        JLabel lblTitle = new JLabel(title);
+        lblTitle.setBounds(430, 6, 150, 37);
+        lblTitle.setFont(new Font("Lucida Grande", Font.BOLD, 30));
+        add(lblTitle);
 
         if (hasPlayerInfo) {
             initializePlayerInfo();
@@ -68,7 +85,7 @@ public class EntityViewer extends JPanel {
         }
 
     }
-    
+
     /**
      * Initialize the player information
      */
@@ -116,7 +133,7 @@ public class EntityViewer extends JPanel {
         add(lblPlayerGold);
 
     }
-    
+
     /**
      * Initialize the preview panel
      */
@@ -141,7 +158,7 @@ public class EntityViewer extends JPanel {
         textPanePreviewEntityDesc.setBackground(this.getBackground());
         preview.add(textPanePreviewEntityDesc);
     }
-    
+
     /**
      * Update the player information
      */
@@ -150,7 +167,7 @@ public class EntityViewer extends JPanel {
         lblPlayerScore.setText("" + MainContainer.game.getPlayer().getScore());
         lblCurrentDay.setText(MainContainer.game.getCurrentDay() + "/" + MainContainer.game.getTotalDays());
     }
-    
+
     /**
      * Update the preview panel
      * 
@@ -177,7 +194,7 @@ public class EntityViewer extends JPanel {
         lblPreviewEntityImg.setText("Nothing to do here");
         textPanePreviewEntityDesc.setText("");
     }
-    
+
     /**
      * Select the first button available in the button group
      * 
@@ -191,5 +208,32 @@ public class EntityViewer extends JPanel {
             content.clearSelection();
         }
 
+    }
+
+    protected void createContentPanel(ArrayList<Entity> contentToDisplay, int width, int height, int posX, int posY) {
+        ContentPanel panelToAdd = new ContentPanel(contentToDisplay, width, height, posX, posY, this.getBackground());
+        add(panelToAdd.getPanel());
+        contentPanels.add(panelToAdd);
+    }
+
+    protected void updateContentPanels() {
+        for (ContentPanel panel : contentPanels) {
+            panel.update(update -> {
+                updatePreview(panel.getButtons(), panel.getContent().toArray());
+            }, getDescriptions(panel.getContent()));
+        }
+    }
+
+    private ArrayList<String> getDescriptions(ArrayList<Entity> content) {
+        ArrayList<String> desc = new ArrayList<String>();
+        for (Entity e : content) {
+            if (this instanceof BuyShopPanel) {
+                desc.add("\n" + e.getBuyPrice() + "G \n"
+                        + e.getRarity().name() + "\n"
+                        + e.getName());
+            }
+        }
+
+        return desc;
     }
 }

@@ -21,7 +21,7 @@ import monsters.Monster;
 /**
  * JPanel for displaying inventory contents and using items
  * 
- * @author  Harrison Tyson
+ * @author Harrison Tyson
  * @version 1.0 Mar, 2022
  */
 public class InventoryPanel extends EntityViewer implements Updatable {
@@ -55,13 +55,8 @@ public class InventoryPanel extends EntityViewer implements Updatable {
          * Create the panel with all the buttons and labels for the items and monsters
          */
         public InventoryPanel() {
-                super(true, true, true);
+                super("Inventory", true, true, true);
                 setName("Inventory");
-
-                JLabel lblInventoryTitle = new JLabel("Inventory");
-                lblInventoryTitle.setBounds(430, 6, 150, 37);
-                lblInventoryTitle.setFont(new Font("Lucida Grande", Font.BOLD, 30));
-                add(lblInventoryTitle);
 
                 JPanel inventoryContent = new JPanel();
                 inventoryContent.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -312,8 +307,7 @@ public class InventoryPanel extends EntityViewer implements Updatable {
                 lblItems.setBounds(300 / 2 - 120 / 2, 0, 120, 30);
                 teamMonsters.add(lblItems);
         }
-        
-        
+
         /**
          * Populate the buttons with the contents in the players inventory
          */
@@ -350,7 +344,7 @@ public class InventoryPanel extends EntityViewer implements Updatable {
                 }
 
         }
-        
+
         /**
          * Update the the button and description of the entity
          * 
@@ -376,7 +370,7 @@ public class InventoryPanel extends EntityViewer implements Updatable {
                 }
 
         }
-        
+
         /**
          * Update the monster selection column of the inventory
          */
@@ -398,7 +392,7 @@ public class InventoryPanel extends EntityViewer implements Updatable {
                 }
 
         }
-        
+
         /**
          * Update the whole inventory display
          */

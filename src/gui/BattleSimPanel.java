@@ -48,7 +48,7 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
 
     BattleEvent currEvent;
     Timer timer;
-    
+
     /**
      * ActionListener that displays the next event in the
      * simulation.
@@ -81,16 +81,8 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
      * area which the monsters are displayed.
      */
     public BattleSimPanel() {
-        super(true, false, false);
+        super("Battle", true, false, false);
         setName("BattleSimulation");
-
-        JLabel lblBattleSimTitle = new JLabel("Battle");
-        lblBattleSimTitle.setBounds((MainContainer.SCREENWIDTH / 2 - 45),
-                6, 90, 37);
-        lblBattleSimTitle.setFont(new Font("Lucida Grande", Font.BOLD, 30));
-        lblBattleSimTitle.setHorizontalAlignment(SwingConstants.CENTER);
-        lblBattleSimTitle.setVerticalAlignment(SwingConstants.CENTER);
-        add(lblBattleSimTitle);
 
         leftLayout = new FlowLayout(FlowLayout.RIGHT, 10, 0);
         rightLayout = new FlowLayout(FlowLayout.LEFT, 10, 0);

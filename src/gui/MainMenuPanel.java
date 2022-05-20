@@ -19,19 +19,19 @@ public class MainMenuPanel extends EntityViewer implements Updatable {
 
     private int buttonsWidth = (MainContainer.SCREENWIDTH * 9) / 10;
     private int buttonsHeight = 45;
-    
+
     /**
      * Initialize the main menu with all the navigation buttons
      */
     public MainMenuPanel() {
-        super(true, false, false);
+        super("", true, false, false);
         setName("MainMenu");
 
         JPanel buttonsContainer = new JPanel();
         buttonsContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 0,
-            ((MainContainer.SCREENHEIGHT - 150) - buttonsHeight * 6) / 6));
+                ((MainContainer.SCREENHEIGHT - 150) - buttonsHeight * 6) / 6));
         buttonsContainer.setBounds(MainContainer.SCREENWIDTH / 2 - buttonsWidth / 2, 50,
-                     buttonsWidth, MainContainer.SCREENHEIGHT - 150);
+                buttonsWidth, MainContainer.SCREENHEIGHT - 150);
         buttonsContainer.setOpaque(false);
         this.add(buttonsContainer);
 
@@ -74,7 +74,7 @@ public class MainMenuPanel extends EntityViewer implements Updatable {
         btnSleep.addActionListener(sleep -> {
             String sleepEvents = String.join("<br>", MainContainer.game.sleep());
             String sleepMessage = "<html>You have advanced to the next day<br>" +
-                       sleepEvents + "</html>";
+                    sleepEvents + "</html>";
             if (MainContainer.game.isGameOver()) {
                 MainContainer.showScreen("GameOver");
             } else {
@@ -85,7 +85,7 @@ public class MainMenuPanel extends EntityViewer implements Updatable {
         btnSleep.setPreferredSize(new Dimension(buttonsWidth, buttonsHeight));
         buttonsContainer.add(btnSleep);
     }
-    
+
     /**
      * Update the information of the player on the panel
      */

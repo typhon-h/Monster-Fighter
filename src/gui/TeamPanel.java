@@ -8,7 +8,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
@@ -56,13 +55,8 @@ public class TeamPanel extends EntityViewer implements Updatable {
      * Create the panel with all the buttons and boxes without content
      */
     public TeamPanel() {
-        super(true, true, true);
+        super("team", true, true, true);
         setName("Team");
-
-        JLabel lblTeamTitle = new JLabel("Team");
-        lblTeamTitle.setBounds(430, 6, 150, 37);
-        lblTeamTitle.setFont(new Font("Lucida Grande", Font.BOLD, 30));
-        add(lblTeamTitle);
 
         FlowLayout entityContainerLayout = new FlowLayout(FlowLayout.LEFT,
                 entityContainerGap,
