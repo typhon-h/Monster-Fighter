@@ -33,17 +33,18 @@ public class ContentPanel extends JPanel {
     private static final int entityHeight = 120;
     private int panelWidth;
     private int panelHeight;
-    private int entityContainerWidth = entityWidth * 2;
+    private int entityContainerWidth;
     private int entityContainerGap;
     private Dimension entityDisplayDimension;
 
     public ContentPanel(int width, int height, int posX, int posY,
-            Color backgroundColor) {
+            int numDisplayWide, Color backgroundColor) {
         this.panelHeight = height;
         this.panelWidth = width;
         this.setBackground(backgroundColor);
+        entityContainerWidth = entityWidth * 2;
         entityContainerGap = (width -
-                (2 * entityContainerWidth)) / 4;
+                (numDisplayWide * entityContainerWidth)) / 4;
 
         FlowLayout entityContainerLayout = new FlowLayout(FlowLayout.LEFT,
                 entityContainerGap,

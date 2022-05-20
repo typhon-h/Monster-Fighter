@@ -46,6 +46,7 @@ public class EntityViewer extends JPanel {
     public static final int DEFAULTCONTENTY = 50;
     public static final int DEFAULTCONTENTWIDTH = 600;
     public static final int DEFAULTCONTENTHEIGHT = 480;
+    public static final int DEFAULTDISPLAYWIDE = 2;
 
     /**
      * Create and place the common elements on the panel, called by the subclass
@@ -63,8 +64,9 @@ public class EntityViewer extends JPanel {
         setLayout(null);
 
         JLabel lblTitle = new JLabel(title);
-        lblTitle.setBounds(430, 6, 150, 37);
-        lblTitle.setFont(new Font("Lucida Grande", Font.BOLD, 30));
+        lblTitle.setBounds(430, 0, 190, 37);
+        lblTitle.setFont(new Font("Lucida Grande", Font.BOLD, 23));
+        lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
         add(lblTitle);
 
         if (hasPlayerInfo) {
@@ -193,6 +195,7 @@ public class EntityViewer extends JPanel {
 
         lblPreviewEntityImg.setText("Nothing to do here");
         textPanePreviewEntityDesc.setText("");
+        lblPreviewEntityImg.setIcon(null);
     }
 
     /**
@@ -210,15 +213,15 @@ public class EntityViewer extends JPanel {
 
     }
 
-    protected void createContentPanel(int width, int height, int posX, int posY) {
-        ContentPanel panelToAdd = new ContentPanel(width, height, posX, posY, this.getBackground());
+    protected void createContentPanel(int width, int height, int posX, int posY, int numDisplayWide) {
+        ContentPanel panelToAdd = new ContentPanel(width, height, posX, posY, numDisplayWide, this.getBackground());
         add(panelToAdd.getPanel());
         contentPanels.add(panelToAdd);
     }
 
     protected void createContentPanel() {
         ContentPanel panelToAdd = new ContentPanel(DEFAULTCONTENTWIDTH, DEFAULTCONTENTHEIGHT, DEFAULTCONTENTX,
-                DEFAULTCONTENTY, this.getBackground());
+                DEFAULTCONTENTY, DEFAULTDISPLAYWIDE, this.getBackground());
         add(panelToAdd.getPanel());
         contentPanels.add(panelToAdd);
     }
@@ -231,9 +234,13 @@ public class EntityViewer extends JPanel {
             ContentPanel panel = contentPanels.get(i);
             Object[] contentOfPanel = content.get(i);
             panel.setContent(contentOfPanel);
-            panel.update(update -> {
-                updatePreview(panel.getButtons(), panel.getContent().toArray());
-            }, getDescriptions(panel.getContent()));
+            if (i == 0) {
+                panel.update(update -> {
+                    updatePreview(panel.getButtons(), panel.getContent().toArray());
+                }, getDescriptions(panel.getContent()));
+            } else {
+                panel.update(null, getDescriptions(panel.getContent()));
+            }
         }
     }
 
@@ -251,6 +258,8 @@ public class EntityViewer extends JPanel {
             } else if (this instanceof TeamPanel) {
                 desc.add("\nPosition: " + (MainContainer.game.getPlayer().getTeam().getMonsters().indexOf(e) + 1) + "\n"
                         + e.getName());
+            } else if (this instanceof InventoryPanel) {
+                desc.add("\n" + e.getRarity().name() + "\n" + e.getName());
             }
         }
 

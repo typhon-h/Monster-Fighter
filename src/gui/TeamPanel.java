@@ -31,7 +31,7 @@ public class TeamPanel extends EntityViewer implements Updatable {
         super("Team", true, true, true);
         setName("Team");
 
-        super.createContentPanel(600, 350, 30, 100);
+        super.createContentPanel(600, 350, 30, 100, 2);
 
         btnMoveDown = new JButton("Move Down");
         btnMoveDown.addActionListener(moveDown -> {
