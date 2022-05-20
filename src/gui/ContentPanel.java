@@ -129,6 +129,10 @@ public class ContentPanel extends JPanel {
         return contentToDisplay;
     }
 
+    public void setContent(ArrayList<Entity> content) {
+        contentToDisplay = content;
+    }
+
     public ButtonGroup getButtons() {
         return contentButtons;
     }

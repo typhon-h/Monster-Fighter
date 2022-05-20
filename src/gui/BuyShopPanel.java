@@ -69,11 +69,16 @@ public class BuyShopPanel extends EntityViewer implements Updatable {
      * Update the screen with the new information
      */
     public void update() {
-        super.updateContentPanels();
-        super.updatePlayerInfo();
         shopContent = MainContainer.game.getBuyShop().getContent();
+
+        ArrayList<ArrayList<Entity>> panelsContent = new ArrayList<ArrayList<Entity>>();
+        // Add in order of panel display
+        panelsContent.add(shopContent);
+
+        super.updateContentPanels(panelsContent);
+        super.updatePlayerInfo();
         contentButtons = super.contentPanels.get(0).getButtons();
         super.selectFirstAvailableButton(contentButtons);
-        super.updatePreview(contentButtons, MainContainer.game.getBuyShop().getContent().toArray());
+        super.updatePreview(contentButtons, shopContent.toArray());
     }
 }

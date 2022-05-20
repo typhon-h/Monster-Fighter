@@ -216,8 +216,14 @@ public class EntityViewer extends JPanel {
         contentPanels.add(panelToAdd);
     }
 
-    protected void updateContentPanels() {
-        for (ContentPanel panel : contentPanels) {
+    protected void updateContentPanels(ArrayList<ArrayList<Entity>> content) {
+        if (content.size() != contentPanels.size()) {
+            throw new RuntimeException("Available content does not match content panels");
+        }
+        for (int i = 0; i < contentPanels.size(); i++) {
+            ContentPanel panel = contentPanels.get(i);
+            ArrayList<Entity> contentOfPanel = content.get(i);
+            panel.setContent(contentOfPanel);
             panel.update(update -> {
                 updatePreview(panel.getButtons(), panel.getContent().toArray());
             }, getDescriptions(panel.getContent()));
@@ -229,6 +235,10 @@ public class EntityViewer extends JPanel {
         for (Entity e : content) {
             if (this instanceof BuyShopPanel) {
                 desc.add("\n" + e.getBuyPrice() + "G \n"
+                        + e.getRarity().name() + "\n"
+                        + e.getName());
+            } else if (this instanceof SellShopPanel) {
+                desc.add("\n" + e.getSellPrice() + "G \n"
                         + e.getRarity().name() + "\n"
                         + e.getName());
             }
