@@ -77,6 +77,8 @@ public class InventoryPanel extends EntityViewer implements Updatable {
             new PopUp("Error", "Select Item/Monster", this.getLocationOnScreen());
         }
 
+        update();
+
     }
 
     /**

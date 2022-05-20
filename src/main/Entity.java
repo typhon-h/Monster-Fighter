@@ -3,8 +3,6 @@ package main;
 import javax.swing.ImageIcon;
 
 import gui.Previewable;
-import items.Item;
-import monsters.Monster;
 
 /**
  * Superclass for game objects.
@@ -165,17 +163,12 @@ public class Entity implements Cloneable, Previewable {
      * Sets image of the entity
      */
     public void setImage() {
-        String imgUrl = "img/";
-        if (this instanceof Monster) {
-            imgUrl += "monsters/";
-        } else if (this instanceof Item) {
-            imgUrl += "items/";
-        }
+        String imgUrl = "/img/";
 
         String entityClass = this.getClass().toString();
         imgUrl += entityClass.substring(entityClass.lastIndexOf('.') + 1);
         imgUrl += ".png";
-        image = new ImageIcon(imgUrl);
+        image = new ImageIcon(Entity.class.getResource(imgUrl));
     }
 
     /**
