@@ -1,254 +1,212 @@
 package gui;
 
+import java.awt.Color;
+
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
-
+import java.awt.GridLayout;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextPane;
-import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
+import main.Entity;
 import monsters.Monster;
 
+import javax.swing.JTextPane;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
+import javax.swing.border.LineBorder;
+import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+
 /**
- * Panel to view all the monsters in the team and
- * to change the order which of the monsters in the team
+ * JPanel for displaying the contents of the player that can be sold
  * 
+ * @author Jackie Jone
  * @author Harrison Tyson
- * @version 1.0 Mar, 2022
+ * @version 1.1 Mar, 2022s
  */
 public class TeamPanel extends EntityViewer implements Updatable {
 
-        private static final long serialVersionUID = 1L;
-        private JRadioButton rdBtnEntity1;
-        private JRadioButton rdBtnEntity2;
-        private JRadioButton rdBtnEntity3;
-        private JRadioButton rdBtnEntity4;
-        private JTextPane textPaneEntity1;
-        private JTextPane textPaneEntity2;
-        private JTextPane textPaneEntity3;
-        private JTextPane textPaneEntity4;
-        // contentButtons maps 1-to-1 with contentDescriptions
-        private ArrayList<JRadioButton> contentButtons;
-        private ArrayList<JTextPane> contentDescriptions;
+    private static final long serialVersionUID = 1L;
 
-        private ArrayList<Monster> team = MainContainer.game.getPlayer().getTeam().getMonsters();
-        private final ButtonGroup content = new ButtonGroup();
-        private JButton btnMoveDown;
-        private JButton btnMoveUp;
+    private ArrayList<Monster> playerTeam;
 
-        /**
-         * Create the panel and with all the buttons for the monsters
-         */
-        public TeamPanel() {
-                super(true, true, true);
-                setName("Team");
+    private ButtonGroup contentButtons = new ButtonGroup();
+    private JScrollPane scrollPane;
+    private JButton btnMoveDown;
+    private JButton btnMoveUp;
 
-                JLabel lblSellShopTitle = new JLabel("Team");
-                lblSellShopTitle.setBounds(430, 6, 150, 37);
-                lblSellShopTitle.setFont(new Font("Lucida Grande", Font.BOLD, 30));
-                add(lblSellShopTitle);
+    private JPanel entityDisplay;
 
-                JPanel shopContent = new JPanel();
-                shopContent.setBounds(6, 44, 556, 490);
-                shopContent.setBackground(this.getBackground());
-                add(shopContent);
-                shopContent.setLayout(null);
+    private static final int entityDisplayWidth = 600;
+    private static final int entityDisplayHeight = 350;
+    private static final int entityWidth = 120;
+    private static final int entityHeight = 120;
+    private static final int entityContainerWidth = entityWidth * 2;
+    private static final int entityContainerGap = (entityDisplayWidth -
+            (2 * entityContainerWidth)) / 4;
+    private Dimension entityDisplayDimension;
 
-                rdBtnEntity1 = new JRadioButton("");
-                rdBtnEntity1.addActionListener(selected -> {
-                        super.updatePreview(content, team.toArray());
-                });
-                content.add(rdBtnEntity1);
-                rdBtnEntity1.setHorizontalAlignment(SwingConstants.CENTER);
-                rdBtnEntity1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-                rdBtnEntity1.setBounds(23, 7, 120, 120);
-                shopContent.add(rdBtnEntity1);
+    /**
+     * Create the panel with all the buttons and boxes without content
+     */
+    public TeamPanel() {
+        super(true, true, true);
+        setName("Team");
 
-                rdBtnEntity2 = new JRadioButton("");
-                rdBtnEntity2.addActionListener(selected -> {
-                        super.updatePreview(content, team.toArray());
-                });
-                content.add(rdBtnEntity2);
-                rdBtnEntity2.setHorizontalAlignment(SwingConstants.CENTER);
-                rdBtnEntity2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-                rdBtnEntity2.setBounds(23, 129, 120, 120);
-                shopContent.add(rdBtnEntity2);
+        JLabel lblTeamTitle = new JLabel("Team");
+        lblTeamTitle.setBounds(430, 6, 150, 37);
+        lblTeamTitle.setFont(new Font("Lucida Grande", Font.BOLD, 30));
+        add(lblTeamTitle);
 
-                rdBtnEntity3 = new JRadioButton("");
-                rdBtnEntity3.addActionListener(selected -> {
-                        super.updatePreview(content, team.toArray());
-                });
-                content.add(rdBtnEntity3);
-                rdBtnEntity3.setHorizontalAlignment(SwingConstants.CENTER);
-                rdBtnEntity3.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-                rdBtnEntity3.setBounds(23, 250, 120, 120);
-                shopContent.add(rdBtnEntity3);
+        FlowLayout entityContainerLayout = new FlowLayout(FlowLayout.LEFT,
+                entityContainerGap,
+                entityContainerGap);
+        entityDisplayDimension = new Dimension(entityDisplayWidth,
+                entityDisplayHeight);
+        entityDisplay = new JPanel();
+        entityDisplay.setLayout(entityContainerLayout);
+        entityDisplay.setMaximumSize(new Dimension(entityDisplayWidth, 2000));
+        entityDisplay.setPreferredSize(entityDisplayDimension);
+        entityDisplay.setBackground(getBackground());
 
-                rdBtnEntity4 = new JRadioButton("");
-                rdBtnEntity4.addActionListener(selected -> {
-                        super.updatePreview(content, team.toArray());
-                });
-                content.add(rdBtnEntity4);
-                rdBtnEntity4.setHorizontalAlignment(SwingConstants.CENTER);
-                rdBtnEntity4.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-                rdBtnEntity4.setBounds(23, 372, 120, 120);
-                shopContent.add(rdBtnEntity4);
+        scrollPane = new JScrollPane();
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setBorder(new LineBorder(new Color(0, 0, 0)));
+        scrollPane.setBounds(30, 100, entityDisplayWidth + 35, entityDisplayHeight);
+        scrollPane.setMaximumSize(scrollPane.getSize());
+        scrollPane.setViewportView(entityDisplay);
+        this.add(scrollPane);
 
-                textPaneEntity1 = new JTextPane();
-                textPaneEntity1.setEditable(false);
-                textPaneEntity1.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-                textPaneEntity1.setBounds(155, 7, 120, 120);
-                textPaneEntity1.setBackground(this.getBackground());
-                shopContent.add(textPaneEntity1);
+        btnMoveDown = new JButton("Move Down");
+        btnMoveDown.addActionListener(moveDown -> {
+            moveDown();
+        });
+        btnMoveDown.setBounds(690, 487, 137, 47);
+        add(btnMoveDown);
 
-                textPaneEntity2 = new JTextPane();
-                textPaneEntity2.setEditable(false);
-                textPaneEntity2.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-                textPaneEntity2.setBounds(155, 129, 120, 120);
-                textPaneEntity2.setBackground(this.getBackground());
-                shopContent.add(textPaneEntity2);
+        btnMoveUp = new JButton("Move Up");
+        btnMoveUp.addActionListener(moveUp -> {
+            moveUp();
+        });
+        btnMoveUp.setBounds(848, 487, 137, 47);
+        add(btnMoveUp);
+    }
 
-                textPaneEntity3 = new JTextPane();
-                textPaneEntity3.setEditable(false);
-                textPaneEntity3.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-                textPaneEntity3.setBounds(155, 250, 120, 120);
-                textPaneEntity3.setBackground(this.getBackground());
-                shopContent.add(textPaneEntity3);
+    /**
+     * Populate the content on the panel with entitys that can be sold
+     */
+    private void updateContent() {
+        btnMoveUp.setEnabled(false);
+        btnMoveDown.setEnabled(false);
+        entityDisplay.removeAll();
+        contentButtons = new ButtonGroup();
+        playerTeam = MainContainer.game.getPlayer().getTeam().getMonsters();
 
-                textPaneEntity4 = new JTextPane();
-                textPaneEntity4.setEditable(false);
-                textPaneEntity4.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-                textPaneEntity4.setBounds(156, 373, 120, 120);
-                textPaneEntity4.setBackground(this.getBackground());
-                shopContent.add(textPaneEntity4);
+        int height = (int) ((Math.ceil((float) playerTeam.size() / 2.0f)) *
+                (entityHeight + entityContainerGap));
+        height = height > entityDisplayHeight ? height : entityDisplayHeight;
+        entityDisplayDimension = new Dimension(entityDisplayWidth,
+                height);
+        entityDisplay.setPreferredSize(entityDisplayDimension);
+        entityDisplay.updateUI();
+        scrollPane.updateUI();
 
-                contentButtons = new ArrayList<JRadioButton>(Arrays.asList(
-                                rdBtnEntity1,
-                                rdBtnEntity2,
-                                rdBtnEntity3,
-                                rdBtnEntity4));
+        EtchedBorder entityContainerBorder = new EtchedBorder(EtchedBorder.LOWERED,
+                Color.black, null);
+        Dimension entityContainerDimension = new Dimension(entityContainerWidth,
+                entityHeight);
+        JPanel entityContainer;
+        JRadioButton entityButton;
+        JTextPane entityTextPane;
+        for (Entity entity : playerTeam) {
+            btnMoveUp.setEnabled(true);
+            btnMoveDown.setEnabled(true);
+            entityContainer = new JPanel();
+            entityContainer.setPreferredSize(entityContainerDimension);
+            entityContainer.setLayout(new GridLayout(1, 2));
+            entityContainer.setOpaque(false);
+            entityButton = new JRadioButton();
+            entityButton.setIcon(MainContainer.imageResize(entity.getImage(),
+                    entityWidth,
+                    entityHeight));
+            entityButton.setOpaque(false);
+            entityButton.setBorder(entityContainerBorder);
+            entityButton.setActionCommand(String.valueOf(playerTeam.indexOf(entity)));
+            entityButton.addActionListener(selected -> {
+                // TODO: Set border around selected object or a background or something
+                super.updatePreview(contentButtons, playerTeam.toArray());
+            });
+            contentButtons.add(entityButton);
+            entityContainer.add(entityButton);
 
-                contentDescriptions = new ArrayList<JTextPane>(Arrays.asList(
-                                textPaneEntity1,
-                                textPaneEntity2,
-                                textPaneEntity3,
-                                textPaneEntity4));
+            entityTextPane = new JTextPane();
+            entityTextPane
+                    .setText("\n" + "Position: " + (playerTeam.indexOf(entity) + 1) + "\n" + entity.getRarity().name()
+                            + "\n"
+                            + entity.getName());
+            entityTextPane.setEditable(false);
+            entityTextPane.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+            entityTextPane.setOpaque(false);
+            entityTextPane.setBorder(entityContainerBorder);
+            entityContainer.add(entityTextPane);
 
-                btnMoveDown = new JButton("Move Down");
-                btnMoveDown.addActionListener(moveDown -> {
-                        moveDown();
-                });
-                btnMoveDown.setBounds(690, 487, 137, 47);
-                add(btnMoveDown);
-
-                btnMoveUp = new JButton("Move Up");
-                btnMoveUp.addActionListener(moveUp -> {
-                        moveUp();
-                });
-                btnMoveUp.setBounds(848, 487, 137, 47);
-                add(btnMoveUp);
-
-                update();
+            entityDisplay.add(entityContainer);
         }
-        
-        /**
-         * Populate all the buttons with monsters
-         */
-        public void updateContent() {
-                team = MainContainer.game.getPlayer().getTeam().getMonsters();
-                for (int i = 0; i < contentButtons.size(); i++) {
-                        updateEntity(contentButtons.get(i), contentDescriptions.get(i), i);
-                }
 
+    }
+
+    /**
+     * Move a monster down in the team
+     */
+    private void moveDown() {
+        int index = Integer.parseInt(contentButtons.getSelection().getActionCommand());
+        Monster monsterToMove = playerTeam.get(index);
+        if (index == playerTeam.size() - 1) {
+            new PopUp("Info", monsterToMove.getName() + " is already last",
+                    this.getLocationOnScreen());
+        } else {
+            MainContainer.game.getPlayer().getTeam().moveMonsterDown(monsterToMove);
+            new PopUp("Info", monsterToMove.getName() + " has been moved down",
+                    this.getLocationOnScreen());
         }
-        
-        /**
-         * Move a monster up in the team
-         */
-        private void moveUp() {
-                if (content.getSelection() != null && content.getSelection().getActionCommand() != "-1") {
-                        int index = Integer.parseInt(content.getSelection().getActionCommand());
-                        Monster monsterToMove = team.get(index);
-                        if (index == 0) {
-                                new PopUp("Info", monsterToMove.getName() + " is already first",
-                                                this.getLocationOnScreen());
-                        } else {
-                                MainContainer.game.getPlayer().getTeam().moveMonsterUp(monsterToMove);
-                                new PopUp("Info", monsterToMove.getName() + " has been moved up",
-                                                this.getLocationOnScreen());
-                        }
 
-                        update();
+        update();
 
-                } else {
-                        new PopUp("Error", "Select a Monster", this.getLocationOnScreen());
-                }
+    }
 
+    /**
+     * Move a monster up in the team
+     */
+    private void moveUp() {
+        int index = Integer.parseInt(contentButtons.getSelection().getActionCommand());
+        Monster monsterToMove = playerTeam.get(index);
+        if (index == 0) {
+            new PopUp("Info", monsterToMove.getName() + " is already first",
+                    this.getLocationOnScreen());
+        } else {
+            MainContainer.game.getPlayer().getTeam().moveMonsterUp(monsterToMove);
+            new PopUp("Info", monsterToMove.getName() + " has been moved up",
+                    this.getLocationOnScreen());
         }
-        
-        /**
-         * Move a monster down in the team
-         */
-        private void moveDown() {
-                if (content.getSelection() != null && content.getSelection().getActionCommand() != "-1") {
-                        int index = Integer.parseInt(content.getSelection().getActionCommand());
-                        Monster monsterToMove = team.get(index);
-                        if (index == team.size() - 1) {
-                                new PopUp("Info", monsterToMove.getName() + " is already last",
-                                                this.getLocationOnScreen());
-                        } else {
-                                MainContainer.game.getPlayer().getTeam().moveMonsterDown(monsterToMove);
-                                new PopUp("Info", monsterToMove.getName() + " has been moved down",
-                                                this.getLocationOnScreen());
-                        }
 
-                        update();
+        update();
 
-                } else {
-                        new PopUp("Error", "Select a Monster", this.getLocationOnScreen());
-                }
+    }
 
-        }
-        
-        /**
-         * Update an entity in the display
-         * 
-         * @param image The button to update
-         * @param desc  The description to update
-         * @param index The index of the entity to grab
-         */
-        private void updateEntity(JRadioButton image, JTextPane desc, int index) {
-                if (index == -1 || index >= team.size()) {
-                        desc.setText("");
-                        image.setEnabled(false);
-                        image.setActionCommand("-1");
-                        image.setVisible(false);
-                } else {
-                        image.setEnabled(true);
-                        image.setIcon(MainContainer.imageResize(team.get(index).getImage(), image.getWidth(),
-                                        image.getHeight()));
-                        desc.setText("\n" + team.get(index).getRarity().name() + "\n"
-                                        + team.get(index).getName());
-                        image.setActionCommand("" + index);
-                        image.setVisible(true);
-                }
-
-        }
-        
-        /**
-         * Update the panel with new information
-         */
-        public void update() {
-                updateContent();
-                super.updatePlayerInfo();
-                super.selectFirstAvailableButton(content);
-                super.updatePreview(content, team.toArray());
-        }
+    /**
+     * Update the screen with the new information
+     */
+    public void update() {
+        updateContent();
+        super.updatePlayerInfo();
+        super.selectFirstAvailableButton(contentButtons);
+        super.updatePreview(contentButtons, playerTeam.toArray());
+    }
 }
