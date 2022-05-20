@@ -244,6 +244,8 @@ public class EntityViewer extends JPanel {
         }
     }
 
+    
+
     private ArrayList<String> getDescriptions(ArrayList<Entity> content) {
         ArrayList<String> desc = new ArrayList<String>();
         for (Entity e : content) {
