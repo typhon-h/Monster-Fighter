@@ -210,19 +210,26 @@ public class EntityViewer extends JPanel {
 
     }
 
-    protected void createContentPanel(ArrayList<Entity> contentToDisplay, int width, int height, int posX, int posY) {
-        ContentPanel panelToAdd = new ContentPanel(contentToDisplay, width, height, posX, posY, this.getBackground());
+    protected void createContentPanel(int width, int height, int posX, int posY) {
+        ContentPanel panelToAdd = new ContentPanel(width, height, posX, posY, this.getBackground());
         add(panelToAdd.getPanel());
         contentPanels.add(panelToAdd);
     }
 
-    protected void updateContentPanels(ArrayList<ArrayList<Entity>> content) {
+    protected void createContentPanel() {
+        ContentPanel panelToAdd = new ContentPanel(DEFAULTCONTENTWIDTH, DEFAULTCONTENTHEIGHT, DEFAULTCONTENTX,
+                DEFAULTCONTENTY, this.getBackground());
+        add(panelToAdd.getPanel());
+        contentPanels.add(panelToAdd);
+    }
+
+    protected void updateContentPanels(ArrayList<Object[]> content) {
         if (content.size() != contentPanels.size()) {
             throw new RuntimeException("Available content does not match content panels");
         }
         for (int i = 0; i < contentPanels.size(); i++) {
             ContentPanel panel = contentPanels.get(i);
-            ArrayList<Entity> contentOfPanel = content.get(i);
+            Object[] contentOfPanel = content.get(i);
             panel.setContent(contentOfPanel);
             panel.update(update -> {
                 updatePreview(panel.getButtons(), panel.getContent().toArray());
@@ -241,9 +248,13 @@ public class EntityViewer extends JPanel {
                 desc.add("\n" + e.getSellPrice() + "G \n"
                         + e.getRarity().name() + "\n"
                         + e.getName());
+            } else if (this instanceof TeamPanel) {
+                desc.add("\nPosition: " + (MainContainer.game.getPlayer().getTeam().getMonsters().indexOf(e) + 1) + "\n"
+                        + e.getName());
             }
         }
 
         return desc;
     }
+
 }

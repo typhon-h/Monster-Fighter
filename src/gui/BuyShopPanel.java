@@ -31,9 +31,7 @@ public class BuyShopPanel extends EntityViewer implements Updatable {
         super("Buy Shop", true, true, true);
         setName("BuyShop");
 
-        super.createContentPanel(MainContainer.game.getBuyShop().getContent(), EntityViewer.DEFAULTCONTENTWIDTH,
-                EntityViewer.DEFAULTCONTENTWIDTH, EntityViewer.DEFAULTCONTENTX,
-                EntityViewer.DEFAULTCONTENTY);
+        super.createContentPanel();
 
         btnBuy = new JButton("Buy");
         btnBuy.addActionListener(sell -> {
@@ -71,9 +69,9 @@ public class BuyShopPanel extends EntityViewer implements Updatable {
     public void update() {
         shopContent = MainContainer.game.getBuyShop().getContent();
 
-        ArrayList<ArrayList<Entity>> panelsContent = new ArrayList<ArrayList<Entity>>();
+        ArrayList<Object[]> panelsContent = new ArrayList<Object[]>();
         // Add in order of panel display
-        panelsContent.add(shopContent);
+        panelsContent.add(shopContent.toArray());
 
         super.updateContentPanels(panelsContent);
         super.updatePlayerInfo();

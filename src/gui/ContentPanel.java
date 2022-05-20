@@ -37,9 +37,8 @@ public class ContentPanel extends JPanel {
     private int entityContainerGap;
     private Dimension entityDisplayDimension;
 
-    public ContentPanel(ArrayList<Entity> contentToDisplay, int width, int height, int posX, int posY,
+    public ContentPanel(int width, int height, int posX, int posY,
             Color backgroundColor) {
-        this.contentToDisplay = contentToDisplay;
         this.panelHeight = height;
         this.panelWidth = width;
         this.setBackground(backgroundColor);
@@ -129,8 +128,15 @@ public class ContentPanel extends JPanel {
         return contentToDisplay;
     }
 
-    public void setContent(ArrayList<Entity> content) {
-        contentToDisplay = content;
+    public void setContent(Object[] content) {
+        contentToDisplay = new ArrayList<Entity>();
+        for (Object e : content) {
+            if (e instanceof Entity) {
+                contentToDisplay.add((Entity) e);
+            } else {
+                throw new IllegalArgumentException("Arguments must be instance of Entity");
+            }
+        }
     }
 
     public ButtonGroup getButtons() {
