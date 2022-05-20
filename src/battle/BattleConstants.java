@@ -30,7 +30,7 @@ public final class BattleConstants {
 
     /**
      * A map mapping each subclass of the {@link monsters.Monster monster} class to
-     * an array of {@link main.Trigger triggers}.
+     * an array of {@link monsters.Trigger triggers}.
      */
     private static final Map<Class<?>, Trigger[][]> TRIGGERS = Map.ofEntries(
             // Optimal Triggers for Clink Monster.
@@ -65,7 +65,7 @@ public final class BattleConstants {
                     { Trigger.BEFOREATTACK } }));
 
     /**
-     * Concatenates two {@link main.Trigger trigger} arrays together.
+     * Concatenates two {@link monster.Trigger trigger} arrays together.
      *
      * @param array1 First array to concatenate to.
      * @param array2 Second array to concatenate.
@@ -86,7 +86,7 @@ public final class BattleConstants {
     }
 
     /**
-     * Returns all the {@link main.Trigger triggers} as a one-dimensional array
+     * Returns all the {@link monsters.Trigger triggers} as a one-dimensional array
      * based on the
      * {@link main.Difficulty difficulty} of the game in order from easy to hard.
      *

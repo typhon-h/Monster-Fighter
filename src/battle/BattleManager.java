@@ -35,7 +35,7 @@ public class BattleManager {
     private ArrayList<Player> opponents;
     /**
      * Opponent {@link main.Player player} will battle against
-     *
+     * 
      * @default null
      */
     private Player currentOpponent = null;
@@ -153,16 +153,12 @@ public class BattleManager {
      */
     public void generateOpponents(int currentDay, int maxDays, Difficulty difficulty) {
         battleResult = BattleResult.NULL;
-        // Reset current opponent to null.
         currentOpponent = null;
 
-        // gold = starting gold + goldPerDay * inverse of difficulty multiplier *
-        // currentDay
         int gold = (int) ((float) GameEnvironment.STARTINGGOLD +
                 ((float) GameEnvironment.STARTINGGOLD *
                         (1f + 1f - getDifficultyMultiplier(difficulty)) * currentDay));
 
-        // points = basePoints * 1.1 ^ day * difficulty multiplier
         int points = (int) Math
                 .round(100f * (float) Math.pow(1.1, (double) currentDay) *
                         getDifficultyMultiplier(difficulty));
@@ -305,6 +301,7 @@ public class BattleManager {
      * Checks {@link monsters.Monster monster} has a {@link main.Team team} and runs
      * their {@link monsters.Monster#ability}
      *
+     * @param isPlayer  Is the player an a human player or computer opponent
      * @param allyTeam  The ally {@link main.Team team} respective to the
      *                  {@link monsters.Monster monster}
      * @param enemyTeam The enemy {@link main.Team team} respective to the

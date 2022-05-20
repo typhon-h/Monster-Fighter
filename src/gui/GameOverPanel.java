@@ -12,6 +12,12 @@ import javax.swing.SwingConstants;
 import static gui.BattleSimPanel.populateTeamPanel;
 import main.Player;
 
+/**
+ * JPanel for displaying the game over screen
+ * 
+ * @author Jackie Jone
+ * @version 1.0 Mar, 2022
+ */
 public class GameOverPanel extends EntityViewer implements Updatable{
     /**
      *  Default serial version id
@@ -34,9 +40,11 @@ public class GameOverPanel extends EntityViewer implements Updatable{
     private JLabel lblNumDays;
     private JLabel lblGold;
     private JLabel lblScore;
-
-    private static Player player;
-
+    
+    
+    /**
+     * Initialize the game over panel with all the labels, panels, and buttons
+     */
     public GameOverPanel() {
         super(false, false, false);
         setName("GameOver");
@@ -118,8 +126,11 @@ public class GameOverPanel extends EntityViewer implements Updatable{
         this.add(btnExit);
     }
 
+    /**
+     * Update the game over screen with the player's information
+     */
     public void update() {
-        player = MainContainer.game.getPlayer();
+        Player player = MainContainer.game.getPlayer();
 
         lblPlayerName.setText(player.getName());
         lblNumDays.setText("Days: " + String.valueOf(MainContainer.game.getTotalDays()));

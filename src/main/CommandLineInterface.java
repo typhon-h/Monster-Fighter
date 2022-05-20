@@ -81,6 +81,8 @@ public class CommandLineInterface {
 
     /**
      * Gets an integer from the standard input
+     * 
+     * @return The next integer value from standard input
      */
     private int getInt() {
         int value;
@@ -99,6 +101,8 @@ public class CommandLineInterface {
 
     /**
      * Gets a string from the standard input
+     * 
+     * @return The next string value from the standard input
      */
     private String getString() {
         String value;

@@ -5,13 +5,24 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+/**
+ * Main menu panel of the game to navigate to the other displays
+ * 
+ * @author Jackie Jone
+ * @author Harrison Tyson
+ * @version 1.1 Mar, 2022
+ */
 public class MainMenuPanel extends EntityViewer implements Updatable {
 
     private static final long serialVersionUID = 1L;
 
     private int buttonsWidth = (MainContainer.SCREENWIDTH * 9) / 10;
     private int buttonsHeight = 45;
-
+    
+    /**
+     * Initialize the main menu with all the navigation buttons
+     */
     public MainMenuPanel() {
         super(true, false, false);
         setName("MainMenu");
@@ -74,7 +85,10 @@ public class MainMenuPanel extends EntityViewer implements Updatable {
         btnSleep.setPreferredSize(new Dimension(buttonsWidth, buttonsHeight));
         buttonsContainer.add(btnSleep);
     }
-
+    
+    /**
+     * Update the information of the player on the panel
+     */
     public void update() {
         super.updatePlayerInfo();
     }

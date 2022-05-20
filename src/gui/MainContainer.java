@@ -14,6 +14,15 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 
+/**
+ * Main container of the game and entry point of the GUI.
+ * Sets up the main JFrame of the game and the main container JPanel to hold
+ * all the other JPanels of the game.
+ * 
+ * @author Jackie Jone
+ * @author Harrison Tyson
+ * @version 1.3 Mar, 2022
+ */
 public class MainContainer {
 
     private JFrame monsterGameFrame;
@@ -40,6 +49,7 @@ public class MainContainer {
 
     /**
      * Launch the application.
+     * @param args Arguments for the application from standard input
      */
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -86,7 +96,12 @@ public class MainContainer {
         // Show default setup panel
         showScreen("Setup");
     }
-
+    
+    /**
+     * Show a given screen in the application
+     * 
+     * @param screenName The name of the screen to be shown
+     */
     public static void showScreen(String screenName) {
         for (Component c : mainContainerPanel.getComponents()) {
             if (c.getName() == screenName && c instanceof Updatable) {
@@ -98,7 +113,10 @@ public class MainContainer {
 
         cardLayout.show(mainContainerPanel, screenName);
     }
-
+    
+    /**
+     * Set up all the screens in the game
+     */
     public static void setUpScreens() {
         for (Component component : mainContainerPanel.getComponents()) {
             if (component.getName() != "Setup") {
@@ -130,12 +148,23 @@ public class MainContainer {
         gameOverPanel = new GameOverPanel();
         mainContainerPanel.add(gameOverPanel, "GameOver");
     }
-
+    
+    /**
+     * Reset the game to be played again
+     */
     protected static void resetGame() {
         setUpPanel.resetGame();
         game = null;
     }
-
+    
+    /**
+     * Resize a image to a desired size
+     * 
+     * @param image        The image to be resized
+     * @param targetWidth  The width to resize to
+     * @param targetHeight The height to resize to
+     * @return             The resized image
+     */
     protected static ImageIcon imageResize(ImageIcon image, int targetWidth, int targetHeight) {
         Image tmp = image.getImage();
         Image scaled = tmp.getScaledInstance(targetWidth, targetHeight, Image.SCALE_SMOOTH);

@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -14,6 +13,12 @@ import javax.swing.JRadioButton;
 
 import main.Player;
 
+/**
+ * Class for a custom swing panel that displays a selection of monster battles.
+ * 
+ * @author Jackie Jone
+ * @version 1.0 Mar, 2022
+ */
 public class BattleSelectionPanel extends EntityViewer implements Updatable {
 
     private static final long serialVersionUID = 1L;
@@ -22,15 +27,15 @@ public class BattleSelectionPanel extends EntityViewer implements Updatable {
 
 	private ButtonGroup battleButtons;
 
-    private final int radioButtonHeight = 120;
-    private final int pnlBattlesHeight = 475;
-    private final int pnlBattlesWidth = 535;
-    private int buttonGap;
-
+    private static final int RADIOBUTTONHEIGHT = 120;
+    private static final int PNLBATTLESHEIGHT = 475;
+    private static final int PNLBATTLESWIDTH = 535;
+    
+    private int buttonGap; // Not constant, changes at runtime
     private JPanel pnlBattles;
 
     /**
-     * Create the panel.
+     * Init the panel ready to be populated with battles
      */
     public BattleSelectionPanel() {
         super(true, true, true);
@@ -50,15 +55,17 @@ public class BattleSelectionPanel extends EntityViewer implements Updatable {
 
         // Init battles panel
         pnlBattles = new JPanel();
-        pnlBattles.setBounds(16, 54, pnlBattlesWidth, pnlBattlesHeight);
+        pnlBattles.setBounds(16, 54, PNLBATTLESWIDTH, PNLBATTLESHEIGHT);
         pnlBattles.setBackground(this.getBackground());
         add(pnlBattles);
 
         FlowLayout pnlBattlesLayout = new FlowLayout(FlowLayout.CENTER, 0, 0);
         pnlBattles.setLayout(pnlBattlesLayout);
-
     }
-
+    
+    /**
+     * Update the contents of the panel by populating it with all the available battles
+     */
     @Override
     public void update() {
         btnBattle.setEnabled(false);
@@ -69,7 +76,7 @@ public class BattleSelectionPanel extends EntityViewer implements Updatable {
         battleButtons = new ButtonGroup();
         ArrayList<Player> opponents = MainContainer.game.getBattleState().getOpponents();
 
-        buttonGap = (pnlBattlesHeight - (opponents.size() * radioButtonHeight)) / (opponents.size() + 1);
+        buttonGap = (PNLBATTLESHEIGHT - (opponents.size() * RADIOBUTTONHEIGHT)) / (opponents.size() + 1);
         ((FlowLayout) pnlBattles.getLayout()).setVgap(buttonGap);
 
         for (Player opponent : opponents) {
@@ -79,8 +86,9 @@ public class BattleSelectionPanel extends EntityViewer implements Updatable {
                 super.updatePreview(battleButtons, opponents.toArray());
             });
 
-            oppButton.setPreferredSize(new Dimension(pnlBattlesWidth, radioButtonHeight));
+            oppButton.setPreferredSize(new Dimension(PNLBATTLESWIDTH, RADIOBUTTONHEIGHT));
             oppButton.setOpaque(false);
+            oppButton.setFocusable(false);
             oppButton.setFont(oppButton.getFont().deriveFont(25.0f));
             pnlBattles.add(oppButton);
 
@@ -95,16 +103,28 @@ public class BattleSelectionPanel extends EntityViewer implements Updatable {
 
         super.updatePlayerInfo();
         super.selectFirstAvailableButton(battleButtons);
+        
+        
+        
         super.updatePreview(battleButtons, opponents.toArray());
     }
-
+    
+    /**
+     * Get the information of the oppoent to be viewed on the GUI
+     * 
+     * @param  opponent The opponent to view the information of
+     * @return The information of the opponent as a string
+     */
     private String getOpponentDescription(Player opponent) {
         String outputString = opponent.getName() + ":  ";
         outputString += opponent.getTeam().toString();
 
         return outputString;
     }
-
+    
+    /**
+     * Start the battle that was selected by the player
+     */
     private void goToBattle() {
         int battleIndex = Integer.parseInt(battleButtons.getSelection().getActionCommand());
         Player opponent = MainContainer.game.getBattleState().getOpponents().get(battleIndex);

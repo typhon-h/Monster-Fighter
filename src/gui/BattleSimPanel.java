@@ -24,6 +24,12 @@ import main.Player;
 import main.Team;
 import monsters.Monster;
 
+/**
+ * A swing panel made for displaying the simulation of the battle to the player
+ * 
+ * @author Jackie Jone
+ * @version 1.0 Mar, 2022
+ */
 public class BattleSimPanel extends EntityViewer implements Updatable {
 
     /**
@@ -42,6 +48,7 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
 
     BattleEvent currEvent;
     Timer timer;
+    
     /**
      * ActionListener that displays the next event in the
      * simulation.
@@ -70,7 +77,8 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
     private int teamDisplayWidth = 450;
 
     /**
-     * Create the simulation panel
+     * Create the simulation panel with the default buttons and set up the
+     * area which the monsters are displayed.
      */
     public BattleSimPanel() {
         super(true, false, false);

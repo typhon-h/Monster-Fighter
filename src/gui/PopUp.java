@@ -10,6 +10,12 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Point;
 
+/**
+ * A class for creating new warning/error/information popups on the screen
+ * 
+ * @author Harrison Tyson
+ * @version 1.0 Mar 2022
+ */
 public class PopUp extends JFrame {
 
     private static final long serialVersionUID = 1L;
@@ -18,7 +24,7 @@ public class PopUp extends JFrame {
     private int popUpHeight = 150;
 
     /**
-     * Create the frame.
+     * Create the new frame of the popup to be displayed
      */
     public PopUp(String title, String message, Point location) {
         setType(Type.POPUP);

@@ -16,6 +16,13 @@ import javax.swing.border.EtchedBorder;
 
 import monsters.Monster;
 
+/**
+ * Panel to view all the monsters in the team and
+ * to change the order which of the monsters in the team
+ * 
+ * @author Harrison Tyson
+ * @version 1.0 Mar, 2022
+ */
 public class TeamPanel extends EntityViewer implements Updatable {
 
         private static final long serialVersionUID = 1L;
@@ -37,7 +44,7 @@ public class TeamPanel extends EntityViewer implements Updatable {
         private JButton btnMoveUp;
 
         /**
-         * Create the panel.
+         * Create the panel and with all the buttons for the monsters
          */
         public TeamPanel() {
                 super(true, true, true);
@@ -150,7 +157,10 @@ public class TeamPanel extends EntityViewer implements Updatable {
 
                 update();
         }
-
+        
+        /**
+         * Populate all the buttons with monsters
+         */
         public void updateContent() {
                 team = MainContainer.game.getPlayer().getTeam().getMonsters();
                 for (int i = 0; i < contentButtons.size(); i++) {
@@ -158,7 +168,10 @@ public class TeamPanel extends EntityViewer implements Updatable {
                 }
 
         }
-
+        
+        /**
+         * Move a monster up in the team
+         */
         private void moveUp() {
                 if (content.getSelection() != null && content.getSelection().getActionCommand() != "-1") {
                         int index = Integer.parseInt(content.getSelection().getActionCommand());
@@ -179,7 +192,10 @@ public class TeamPanel extends EntityViewer implements Updatable {
                 }
 
         }
-
+        
+        /**
+         * Move a monster down in the team
+         */
         private void moveDown() {
                 if (content.getSelection() != null && content.getSelection().getActionCommand() != "-1") {
                         int index = Integer.parseInt(content.getSelection().getActionCommand());
@@ -200,7 +216,14 @@ public class TeamPanel extends EntityViewer implements Updatable {
                 }
 
         }
-
+        
+        /**
+         * Update an entity in the display
+         * 
+         * @param image The button to update
+         * @param desc  The description to update
+         * @param index The index of the entity to grab
+         */
         private void updateEntity(JRadioButton image, JTextPane desc, int index) {
                 if (index == -1 || index >= team.size()) {
                         desc.setText("");
@@ -218,7 +241,10 @@ public class TeamPanel extends EntityViewer implements Updatable {
                 }
 
         }
-
+        
+        /**
+         * Update the panel with new information
+         */
         public void update() {
                 updateContent();
                 super.updatePlayerInfo();

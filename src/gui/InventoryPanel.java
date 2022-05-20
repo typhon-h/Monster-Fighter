@@ -18,6 +18,12 @@ import items.Item;
 import main.Entity;
 import monsters.Monster;
 
+/**
+ * JPanel for displaying inventory contents and using items
+ * 
+ * @author  Harrison Tyson
+ * @version 1.0 Mar, 2022
+ */
 public class InventoryPanel extends EntityViewer implements Updatable {
 
         private static final long serialVersionUID = 1L;
@@ -46,7 +52,7 @@ public class InventoryPanel extends EntityViewer implements Updatable {
         private final ButtonGroup monsters = new ButtonGroup();
 
         /**
-         * Create the panel.
+         * Create the panel with all the buttons and labels for the items and monsters
          */
         public InventoryPanel() {
                 super(true, true, true);
@@ -306,7 +312,11 @@ public class InventoryPanel extends EntityViewer implements Updatable {
                 lblItems.setBounds(300 / 2 - 120 / 2, 0, 120, 30);
                 teamMonsters.add(lblItems);
         }
-
+        
+        
+        /**
+         * Populate the buttons with the contents in the players inventory
+         */
         private void updateContent() {
                 for (int i = 0; i < contentButtons.size(); i++) {
                         if (i >= inventory.size()) {
@@ -318,6 +328,9 @@ public class InventoryPanel extends EntityViewer implements Updatable {
 
         }
 
+        /**
+         * Use the selected item on a the selected monster
+         */
         private void useItem() {
                 if (content.getSelection() != null && content.getSelection().getActionCommand() != "-1"
                                 && monsters.getSelection() != null
@@ -337,7 +350,14 @@ public class InventoryPanel extends EntityViewer implements Updatable {
                 }
 
         }
-
+        
+        /**
+         * Update the the button and description of the entity
+         * 
+         * @param image The button to be updated
+         * @param desc  JTextPane of the entity to be updated
+         * @param e     Entity to populate the button and text pane with
+         */
         private void updateEntity(JRadioButton image, JTextPane desc, Entity e) {
                 if (e == null) {
                         desc.setText("");
@@ -356,7 +376,10 @@ public class InventoryPanel extends EntityViewer implements Updatable {
                 }
 
         }
-
+        
+        /**
+         * Update the monster selection column of the inventory
+         */
         private void updateTeam() {
                 ArrayList<Monster> team = MainContainer.game.getPlayer().getTeam().getMonsters();
 
@@ -375,7 +398,10 @@ public class InventoryPanel extends EntityViewer implements Updatable {
                 }
 
         }
-
+        
+        /**
+         * Update the whole inventory display
+         */
         public void update() {
                 inventory = MainContainer.game.getPlayer().getInventory();
                 updateContent();

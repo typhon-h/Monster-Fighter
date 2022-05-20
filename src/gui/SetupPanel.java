@@ -29,6 +29,11 @@ import javax.swing.border.BevelBorder;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+/**
+ * Panel for setting up the game
+ * @author Harrison Tyson
+ * @version 1.0 Mar, 2022
+ */
 public class SetupPanel extends EntityViewer {
 
     /**
@@ -52,7 +57,10 @@ public class SetupPanel extends EntityViewer {
     private JRadioButton rdbtnDifficultyEasy;
     private JRadioButton rdbtnDifficultyNormal;
     private JRadioButton rdbtnDifficultyHard;
-
+    
+    /**
+     * Set up the panel with all the fields to be entered in
+     */
     public SetupPanel() {
         super(false, true, false);
 
@@ -230,7 +238,10 @@ public class SetupPanel extends EntityViewer {
         super.selectFirstAvailableButton(starterMonsters);
         super.updatePreview(starterMonsters, availableStarters.toArray());
     }
-
+    
+    /**
+     * reset the values on the setup screen back to default
+     */
     protected void resetGame() {
         this.sliderDays.setValue(10);
         this.textFieldPlayerName.setText(null);
@@ -243,6 +254,9 @@ public class SetupPanel extends EntityViewer {
         MainContainer.showScreen("Setup");
     }
 
+    /**
+     * Generate and populate the starter monsters the player can choose from
+     */
     private void setStartMonsterSelection() {
         int numStarters = GameEnvironment.NUMSTARTERMONSTERS;
         ArrayList<Monster> possibleStarters = GameEnvironment.generateMonsters();
@@ -254,8 +268,10 @@ public class SetupPanel extends EntityViewer {
         }
     }
 
+    /**
+     * Update the buttons for selecting mosnters
+     */
     private void updateMonsterSelectionLabels() {
-        // TODO: change this to the sprites instead
         btnMonster1Img.setIcon(MainContainer.imageResize(availableStarters.get(0).getImage(), btnMonster1Img.getWidth(),
                 btnMonster1Img.getWidth()));
         btnMonster2Img.setIcon(MainContainer.imageResize(availableStarters.get(1).getImage(), btnMonster2Img.getWidth(),
@@ -267,6 +283,9 @@ public class SetupPanel extends EntityViewer {
         lblMonster3Name.setText(availableStarters.get(2).getName());
     }
 
+    /**
+     * Set up the game with the values the player entered in
+     */
     private void setUpGame() {
         // Player Name
         String playerName = textFieldPlayerName.getText();

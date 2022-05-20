@@ -17,6 +17,13 @@ import main.Entity;
 import main.Rarity;
 import monsters.Monster;
 
+/**
+ * Class for a custom swing panel for displaying the contents of the buy shop and
+ * provides an interface for the player to purchase items
+ * 
+ * @author Harrison Tyson
+ * @version 1.0 Mar, 2022
+ */
 public class BuyShopPanel extends EntityViewer implements Updatable {
 
         private static final long serialVersionUID = 1L;
@@ -38,7 +45,8 @@ public class BuyShopPanel extends EntityViewer implements Updatable {
         private JButton btnBuy;
 
         /**
-         * Create the panel.
+         * Create the buy shop panel with all the buttons to be populated
+         * with items and monsters
          */
         public BuyShopPanel() {
                 super(true, true, true);
@@ -166,7 +174,10 @@ public class BuyShopPanel extends EntityViewer implements Updatable {
 
                 update();
         }
-
+        
+        /**
+         * Update the content in the shop
+         */
         private void updateContent() {
                 int commonItem = getEntity(Item.class, Rarity.COMMON);
                 updateEntity(rdBtnCommonItem, textPaneCommonItem, commonItem);
@@ -187,7 +198,14 @@ public class BuyShopPanel extends EntityViewer implements Updatable {
                 updateEntity(rdBtnLegendaryMonster, textPaneLegendaryMonster, legendaryMonster);
 
         }
-
+        
+        /**
+         * Update the radio button with its new content
+         * 
+         * @param image The radio button to be updated
+         * @param desc  The description of the entity in the shop
+         * @param index The index of the entity in the shop
+         */
         private void updateEntity(JRadioButton image, JTextPane desc, int index) {
                 if (index == -1) {
                         desc.setText("\n\nSold Out");
@@ -204,7 +222,14 @@ public class BuyShopPanel extends EntityViewer implements Updatable {
                 }
 
         }
-
+        
+        /**
+         * Get the index of the entity we are searching for
+         * 
+         * @param type   The type of the entity, either a {@link monsters.Monster monster} type or {@link items.Item item} type}
+         * @param rarity The rarity of the entity
+         * @return       The index of the entity we are looking for or -1 if it is not found
+         */
         private int getEntity(Class<?> type, Rarity rarity) {
                 for (Entity e : shopContent) {
                         if (type.isInstance(e) && e.getRarity() == rarity) {
@@ -214,7 +239,10 @@ public class BuyShopPanel extends EntityViewer implements Updatable {
 
                 return -1;
         }
-
+        
+        /**
+         * Purchase the item for the player and update the screen
+         */
         private void buyEntity() {
                 if (content.getSelection() != null && content.getSelection().getActionCommand() != "-1") {
                         int index = Integer.parseInt(content.getSelection().getActionCommand());
@@ -236,7 +264,11 @@ public class BuyShopPanel extends EntityViewer implements Updatable {
                 }
 
         }
-
+        
+        /**
+         * Update all the elements on the screen
+         */
+        @Override
         public void update() {
                 updateContent();
                 super.updatePlayerInfo();

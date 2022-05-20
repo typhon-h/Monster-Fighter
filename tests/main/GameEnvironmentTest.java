@@ -82,17 +82,6 @@ public class GameEnvironmentTest {
     }
 
     /**
-     * Checks sleeping refreshes the {@link main.BattleManager battle state} by
-     * {@link main.BattleManager#generateOpponents generating new opponents}
-     */
-    // @Test
-    // public void sleepGenerateOpponentsTest() {
-    // ArrayList<Player> prevOpponents = game.getBattleState().getOpponents();
-    // game.sleep();
-    // assertNotEquals(prevOpponents, game.getBattleState().getOpponents());
-    // }
-
-    /**
      * Checks sleeping {@link monsters.Monster#restore restores} all
      * {@link monsters.Monster monsters} in {@link main.Team team}
      */

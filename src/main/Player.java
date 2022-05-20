@@ -66,7 +66,7 @@ public class Player implements Previewable {
     /**
      * GUI image for opponents
      */
-    private ImageIcon image = new ImageIcon("img/misc/battle.png");
+    private static final ImageIcon image = new ImageIcon("img/misc/Battle.png");
 
     /**
      * Constructor to create a player with a name and {@link main.Team team}
@@ -333,6 +333,11 @@ public class Player implements Previewable {
      * Get image for GUI opponents
      */
     public ImageIcon getImage() {
-        return image;
+        ArrayList<Monster> monsters = this.getTeam().getMonsters();
+        if (monsters == null || monsters.size() == 0) {
+            return image;
+        } else {
+            return monsters.get(0).getImage();
+        }
     }
 }
