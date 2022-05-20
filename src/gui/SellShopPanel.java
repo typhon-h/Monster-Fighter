@@ -43,15 +43,15 @@ public class SellShopPanel extends EntityViewer implements Updatable {
 
     private JPanel entityDisplay;
 
-    private static final int entityDisplayWidth   = 600;
-    private static final int entityDisplayHeight  = 480;
-    private static final int entityWidth          = 120;
-    private static final int entityHeight         = 120;
+    private static final int entityDisplayWidth = 600;
+    private static final int entityDisplayHeight = 480;
+    private static final int entityWidth = 120;
+    private static final int entityHeight = 120;
     private static final int entityContainerWidth = entityWidth * 2;
-    private static final int entityContainerGap   = (entityDisplayWidth -
-                                                     (2 * entityContainerWidth)) / 3;
+    private static final int entityContainerGap = (entityDisplayWidth -
+            (2 * entityContainerWidth)) / 4;
     private Dimension entityDisplayDimension;
-    
+
     /**
      * Create the panel with all the buttons and boxes without content
      */
@@ -65,10 +65,10 @@ public class SellShopPanel extends EntityViewer implements Updatable {
         add(lblSellShopTitle);
 
         FlowLayout entityContainerLayout = new FlowLayout(FlowLayout.LEFT,
-                                                          entityContainerGap,
-                                                          entityContainerGap);
+                entityContainerGap,
+                entityContainerGap);
         entityDisplayDimension = new Dimension(entityDisplayWidth,
-                                               entityDisplayHeight);
+                entityDisplayHeight);
         entityDisplay = new JPanel();
         entityDisplay.setLayout(entityContainerLayout);
         entityDisplay.setMaximumSize(new Dimension(entityDisplayWidth, 2000));
@@ -91,7 +91,7 @@ public class SellShopPanel extends EntityViewer implements Updatable {
         btnSell.setBounds(690, 487, 295, 47);
         add(btnSell);
     }
-    
+
     /**
      * Populate the content on the panel with entitys that can be sold
      */
@@ -102,18 +102,18 @@ public class SellShopPanel extends EntityViewer implements Updatable {
         shopContent = MainContainer.game.getSellShop().getContent();
 
         int height = (int) ((Math.ceil((float) shopContent.size() / 2.0f)) *
-                            (entityHeight + entityContainerGap));
+                (entityHeight + entityContainerGap));
         height = height > entityDisplayHeight ? height : entityDisplayHeight;
         entityDisplayDimension = new Dimension(entityDisplayWidth,
-                                               height);
+                height);
         entityDisplay.setPreferredSize(entityDisplayDimension);
         entityDisplay.updateUI();
         scrollPane.updateUI();
 
         EtchedBorder entityContainerBorder = new EtchedBorder(EtchedBorder.LOWERED,
-                                                              Color.black, null);
+                Color.black, null);
         Dimension entityContainerDimension = new Dimension(entityContainerWidth,
-                                                           entityHeight);
+                entityHeight);
         JPanel entityContainer;
         JRadioButton entityButton;
         JTextPane entityTextPane;
@@ -139,8 +139,8 @@ public class SellShopPanel extends EntityViewer implements Updatable {
 
             entityTextPane = new JTextPane();
             entityTextPane.setText("\n" + entity.getSellPrice() + "G \n"
-                                   + entity.getRarity().name() + "\n"
-                                   + entity.getName());
+                    + entity.getRarity().name() + "\n"
+                    + entity.getName());
             entityTextPane.setEditable(false);
             entityTextPane.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
             entityTextPane.setOpaque(false);
@@ -151,7 +151,7 @@ public class SellShopPanel extends EntityViewer implements Updatable {
         }
 
     }
-    
+
     /**
      * Sell the selected item
      */
@@ -167,7 +167,7 @@ public class SellShopPanel extends EntityViewer implements Updatable {
         }
         update();
     }
-    
+
     /**
      * Update the screen with the new information
      */
