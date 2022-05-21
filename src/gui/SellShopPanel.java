@@ -50,16 +50,20 @@ public class SellShopPanel extends EntityViewer implements Updatable {
     private void sellEntity() {
         shopContent = MainContainer.game.getSellShop().getContent();
         contentButtons = super.contentPanels.get(0).getButtons();
-        int index = Integer.parseInt(contentButtons.getSelection().getActionCommand());
-        Entity entityToSell = shopContent.get(index);
-        if (entityToSell instanceof Item) {
-            new PopUp("Info", MainContainer.game.getSellShop().sell((Item) entityToSell),
-                    this.getLocationOnScreen());
+        if (shopContent.size() > 0) {
+            int index = Integer.parseInt(contentButtons.getSelection().getActionCommand());
+            Entity entityToSell = shopContent.get(index);
+            if (entityToSell instanceof Item) {
+                new PopUp("Info", MainContainer.game.getSellShop().sell((Item) entityToSell),
+                        this.getLocationOnScreen());
+            } else {
+                new PopUp("Info", MainContainer.game.getSellShop().sell((Monster) entityToSell),
+                        this.getLocationOnScreen());
+            }
+            update();
         } else {
-            new PopUp("Info", MainContainer.game.getSellShop().sell((Monster) entityToSell),
-                    this.getLocationOnScreen());
+            new PopUp("Error", "Please select something to sell", this.getLocationOnScreen());
         }
-        update();
     }
 
     /**

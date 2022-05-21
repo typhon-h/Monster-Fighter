@@ -51,16 +51,20 @@ public class BuyShopPanel extends EntityViewer implements Updatable {
     private void buyEntity() {
         shopContent = MainContainer.game.getBuyShop().getContent();
         contentButtons = super.contentPanels.get(0).getButtons();
-        int index = Integer.parseInt(contentButtons.getSelection().getActionCommand());
-        Entity entityToBuy = shopContent.get(index);
-        if (entityToBuy instanceof Item) {
-            new PopUp("Info", MainContainer.game.getBuyShop().buy((Item) entityToBuy),
-                    this.getLocationOnScreen());
+        if (shopContent.size() > 0) {
+            int index = Integer.parseInt(contentButtons.getSelection().getActionCommand());
+            Entity entityToBuy = shopContent.get(index);
+            if (entityToBuy instanceof Item) {
+                new PopUp("Info", MainContainer.game.getBuyShop().buy((Item) entityToBuy),
+                        this.getLocationOnScreen());
+            } else {
+                new PopUp("Info", MainContainer.game.getBuyShop().buy((Monster) entityToBuy),
+                        this.getLocationOnScreen());
+            }
+            update();
         } else {
-            new PopUp("Info", MainContainer.game.getBuyShop().buy((Monster) entityToBuy),
-                    this.getLocationOnScreen());
+            new PopUp("Error", "Please select something to purchase", this.getLocationOnScreen());
         }
-        update();
     }
 
     /**
