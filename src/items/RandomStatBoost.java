@@ -38,6 +38,7 @@ public class RandomStatBoost extends Item {
                 statChanged = "HEALTH";
                 monster.increaseBaseHealth(getStatBoostAmount());
                 monster.setCurrentHealth(monster.getBaseHealth());
+                monster.setStatus(true);
                 break;
             case 1:
                 statChanged = "ATTACK";

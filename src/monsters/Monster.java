@@ -84,7 +84,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Unique ability of the monster that has special effects in battle
-     * 
+     *
      * @param inPlayerTeam Team which the monster using the ability is in
      * @param allyTeam     Friendly team of the monster
      * @param enemyTeam    Enemy team of the monster
@@ -168,6 +168,7 @@ public abstract class Monster extends Entity {
 
     /**
      * Sets the status of the monster.
+     * true when alive and false when fainted
      *
      * @param status new status of the monster
      */
