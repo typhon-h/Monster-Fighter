@@ -50,12 +50,12 @@ public class SetupPanel extends EntityViewer {
     /**
      * Group of difficulty buttons
      */
-    private final ButtonGroup difficultyOptions = new ButtonGroup();
+    private ButtonGroup difficultyOptions = new ButtonGroup();
 
     /**
      * Group of starting monster buttonss
      */
-    private final ButtonGroup starterMonsters = new ButtonGroup();
+    private ButtonGroup starterMonsters = new ButtonGroup();
 
     /**
      * Field for monster name input

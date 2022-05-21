@@ -69,32 +69,32 @@ public class EntityViewer extends JPanel {
      * {@link ArrayList ArrayList} of {@link gui.ContentPanel ContentPanels} on
      * screen
      */
-    public ArrayList<ContentPanel> contentPanels = new ArrayList<ContentPanel>();
+    protected ArrayList<ContentPanel> contentPanels = new ArrayList<ContentPanel>();
 
     /**
      * Default x position of a content panel
      */
-    public static final int DEFAULTCONTENTX = 6;
+    private static final int DEFAULTCONTENTX = 6;
 
     /**
      * Default y position of a content panel
      */
-    public static final int DEFAULTCONTENTY = 50;
+    private static final int DEFAULTCONTENTY = 50;
 
     /**
      * Default width of a content panel
      */
-    public static final int DEFAULTCONTENTWIDTH = 600;
+    private static final int DEFAULTCONTENTWIDTH = 600;
 
     /**
      * Default height of a content panel
      */
-    public static final int DEFAULTCONTENTHEIGHT = 480;
+    private static final int DEFAULTCONTENTHEIGHT = 480;
 
     /**
      * Default number of entities wide within a content panel
      */
-    public static final int DEFAULTDISPLAYWIDE = 2;
+    private static final int DEFAULTDISPLAYWIDE = 2;
 
     /**
      * Create and place the common elements on the panel, called by the subclass

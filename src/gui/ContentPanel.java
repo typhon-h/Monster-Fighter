@@ -49,12 +49,12 @@ public class ContentPanel extends JPanel {
     /**
      * Default entity width
      */
-    private static final int entityWidth = 120;
+    private static final int ENTITYWIDTH = 120;
 
     /**
      * Default entity height
      */
-    private static final int entityHeight = 120;
+    private static final int ENTITYHEIGHT = 120;
 
     /**
      * Width of the panel
@@ -98,7 +98,7 @@ public class ContentPanel extends JPanel {
         this.setBackground(backgroundColor);
 
         // Container has image and description
-        entityContainerWidth = entityWidth * 2;
+        entityContainerWidth = ENTITYWIDTH * 2;
         entityContainerGap = (width -
                 (numDisplayWide * entityContainerWidth)) / 4;
 
@@ -141,7 +141,7 @@ public class ContentPanel extends JPanel {
         contentButtons = new ButtonGroup();
 
         int height = (int) ((Math.ceil((float) contentToDisplay.size() / 2.0f)) *
-                (entityHeight + entityContainerGap));
+                (ENTITYHEIGHT + entityContainerGap));
         height = height > this.panelHeight ? height : this.panelHeight;
         entityDisplayDimension = new Dimension(this.panelWidth,
                 height);
@@ -152,7 +152,7 @@ public class ContentPanel extends JPanel {
         EtchedBorder entityContainerBorder = new EtchedBorder(EtchedBorder.LOWERED,
                 Color.black, null);
         Dimension entityContainerDimension = new Dimension(entityContainerWidth,
-                entityHeight);
+                ENTITYHEIGHT);
         JPanel entityContainer;
         JRadioButton entityButton;
         JTextPane entityTextPane;
@@ -166,8 +166,8 @@ public class ContentPanel extends JPanel {
             entityContainer.setOpaque(false);
             entityButton = new JRadioButton();
             entityButton.setIcon(MainContainer.imageResize(entity.getImage(),
-                    entityWidth,
-                    entityHeight));
+                    ENTITYWIDTH,
+                    ENTITYHEIGHT));
             entityButton.setOpaque(false);
             entityButton.setBorder(entityContainerBorder);
             entityButton.setActionCommand(String.valueOf(contentToDisplay.indexOf(entity)));

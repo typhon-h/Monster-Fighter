@@ -137,13 +137,6 @@ public class MainContainer {
      * Create the application.
      */
     public MainContainer() {
-        initialize();
-    }
-
-    /**
-     * Initialize the contents of the frame.
-     */
-    private void initialize() {
         monsterGameFrame = new JFrame();
         monsterGameFrame.setResizable(false);
         monsterGameFrame.setTitle("Monster Fighter");

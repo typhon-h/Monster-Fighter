@@ -28,7 +28,7 @@ public class MainMenuPanel extends EntityViewer implements Updatable {
     /**
      * Height of buttons
      */
-    private int buttonsHeight = 45;
+    private final int BUTTONSHEIGHT = 45;
 
     /**
      * Initialize the main menu with all the navigation buttons
@@ -39,7 +39,7 @@ public class MainMenuPanel extends EntityViewer implements Updatable {
 
         JPanel buttonsContainer = new JPanel();
         buttonsContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 0,
-                ((MainContainer.SCREENHEIGHT - 150) - buttonsHeight * 6) / 6));
+                ((MainContainer.SCREENHEIGHT - 150) - BUTTONSHEIGHT * 6) / 6));
         buttonsContainer.setBounds(MainContainer.SCREENWIDTH / 2 - buttonsWidth / 2, 50,
                 buttonsWidth, MainContainer.SCREENHEIGHT - 150);
         buttonsContainer.setOpaque(false);
@@ -49,35 +49,35 @@ public class MainMenuPanel extends EntityViewer implements Updatable {
         btnBattles.addActionListener(battle -> {
             MainContainer.showScreen("BattleSelection");
         });
-        btnBattles.setPreferredSize(new Dimension(buttonsWidth, buttonsHeight));
+        btnBattles.setPreferredSize(new Dimension(buttonsWidth, BUTTONSHEIGHT));
         buttonsContainer.add(btnBattles);
 
         JButton btnBuyShop = new JButton("Buy Shop");
         btnBuyShop.addActionListener(battle -> {
             MainContainer.showScreen("BuyShop");
         });
-        btnBuyShop.setPreferredSize(new Dimension(buttonsWidth, buttonsHeight));
+        btnBuyShop.setPreferredSize(new Dimension(buttonsWidth, BUTTONSHEIGHT));
         buttonsContainer.add(btnBuyShop);
 
         JButton btnSellShop = new JButton("Sell Shop");
         btnSellShop.addActionListener(battle -> {
             MainContainer.showScreen("SellShop");
         });
-        btnSellShop.setPreferredSize(new Dimension(buttonsWidth, buttonsHeight));
+        btnSellShop.setPreferredSize(new Dimension(buttonsWidth, BUTTONSHEIGHT));
         buttonsContainer.add(btnSellShop);
 
         JButton btnInventory = new JButton("Inventory");
         btnInventory.addActionListener(battle -> {
             MainContainer.showScreen("Inventory");
         });
-        btnInventory.setPreferredSize(new Dimension(buttonsWidth, buttonsHeight));
+        btnInventory.setPreferredSize(new Dimension(buttonsWidth, BUTTONSHEIGHT));
         buttonsContainer.add(btnInventory);
 
         JButton btnTeam = new JButton("Team");
         btnTeam.addActionListener(battle -> {
             MainContainer.showScreen("Team");
         });
-        btnTeam.setPreferredSize(new Dimension(buttonsWidth, buttonsHeight));
+        btnTeam.setPreferredSize(new Dimension(buttonsWidth, BUTTONSHEIGHT));
         buttonsContainer.add(btnTeam);
 
         JButton btnSleep = new JButton("Sleep");
@@ -92,7 +92,7 @@ public class MainMenuPanel extends EntityViewer implements Updatable {
                 MainContainer.showScreen("MainMenu");
             }
         });
-        btnSleep.setPreferredSize(new Dimension(buttonsWidth, buttonsHeight));
+        btnSleep.setPreferredSize(new Dimension(buttonsWidth, BUTTONSHEIGHT));
         buttonsContainer.add(btnSleep);
     }
 
