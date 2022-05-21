@@ -11,13 +11,23 @@ import javax.swing.JPanel;
  * 
  * @author Jackie Jone
  * @author Harrison Tyson
- * @version 1.1 Mar, 2022
+ * @version 1.1 May, 2022
  */
 public class MainMenuPanel extends EntityViewer implements Updatable {
 
+    /**
+     * Default serial version iD
+     */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Width of buttons
+     */
     private int buttonsWidth = (MainContainer.SCREENWIDTH * 9) / 10;
+
+    /**
+     * Height of buttons
+     */
     private int buttonsHeight = 45;
 
     /**

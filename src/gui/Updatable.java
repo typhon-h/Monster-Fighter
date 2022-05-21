@@ -4,13 +4,13 @@ package gui;
  * An interface defining all panels that are updatable
  * 
  * @author Harrison Tyson
- * @version 1.0 Mar, 2022
+ * @version 1.0 May, 2022
  */
 public interface Updatable {
-	
+
     /**
-     * update class that all updatable objects need to implement
+     * Perform a refresh on content
      */
-	public void update();
+    public void update();
 
 }

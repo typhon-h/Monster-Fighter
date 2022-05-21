@@ -15,16 +15,28 @@ import javax.swing.JButton;
  * 
  * @author Jackie Jone
  * @author Harrison Tyson
- * @version 1.1 Mar, 2022s
+ * @version 1.1 May, 2022
  */
 public class SellShopPanel extends EntityViewer implements Updatable {
 
+    /**
+     * Default serial version ID
+     */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * {@link main.Entity Entities} available to sell
+     */
     private ArrayList<Entity> shopContent;
 
+    /**
+     * Buttons associated with shop content
+     */
     private ButtonGroup contentButtons;
 
+    /**
+     * Button to perform sell action
+     */
     private JButton btnSell;
 
     /**

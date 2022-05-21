@@ -16,18 +16,38 @@ import monsters.Monster;
  * 
  * @author Jackie Jone
  * @author Harrison Tyson
- * @version 1.1 Mar, 2022s
+ * @version 1.1 May, 2022
  */
 public class InventoryPanel extends EntityViewer implements Updatable {
 
+    /**
+     * Default serial version ID
+     */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Player inventory
+     */
     private ArrayList<Item> playerInventory;
+
+    /**
+     * Player team
+     */
     private ArrayList<Monster> playerTeam;
 
+    /**
+     * Group of buttons associated with inventory
+     */
     private ButtonGroup itemButtons = new ButtonGroup();
+
+    /**
+     * Group of buttons associated with team
+     */
     private ButtonGroup monsterButtons = new ButtonGroup();
 
+    /**
+     * Button for use item action
+     */
     private JButton btnUse;
 
     /**

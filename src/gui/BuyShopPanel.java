@@ -15,13 +15,27 @@ import javax.swing.JButton;
  * 
  * @author Jackie Jone
  * @author Harrison Tyson
- * @version 1.1 Mar, 2022s
+ * @version 1.1 May, 2022
  */
 public class BuyShopPanel extends EntityViewer implements Updatable {
+    /**
+     * Default serial version ID
+     */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Button to complete buy action
+     */
     private JButton btnBuy;
+
+    /**
+     * Buttons associated to shop content
+     */
     ButtonGroup contentButtons;
+
+    /**
+     * {@link main.Entity Entities} in the shop
+     */
     ArrayList<Entity> shopContent;
 
     /**
@@ -40,10 +54,6 @@ public class BuyShopPanel extends EntityViewer implements Updatable {
         btnBuy.setBounds(690, 487, 295, 47);
         add(btnBuy);
     }
-
-    /**
-     * Populate the content on the panel with entitys that can be sold
-     */
 
     /**
      * Purchase the item for the player and update the screen

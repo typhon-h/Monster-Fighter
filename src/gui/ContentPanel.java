@@ -21,27 +21,83 @@ import javax.swing.border.LineBorder;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+/**
+ * Panel to display content as selectable radio buttons with descriptions
+ */
 public class ContentPanel extends JPanel {
 
+    /**
+     * Content displayed on the panel
+     */
     private ArrayList<Entity> contentToDisplay;
+
+    /**
+     * Buttons connected to the content
+     */
     private ButtonGroup contentButtons = new ButtonGroup();
+
+    /**
+     * Pane where content is displayed
+     */
     private JScrollPane scrollPane;
 
+    /**
+     * Panel containing entities
+     */
     private JPanel entityDisplay;
 
+    /**
+     * Default entity width
+     */
     private static final int entityWidth = 120;
+
+    /**
+     * Default entity height
+     */
     private static final int entityHeight = 120;
+
+    /**
+     * Width of the panel
+     */
     private int panelWidth;
+
+    /**
+     * Height of the panel
+     */
     private int panelHeight;
+
+    /**
+     * Width of each {@link main.Entity entity} container
+     */
     private int entityContainerWidth;
+
+    /**
+     * Space between entities in Panel
+     */
     private int entityContainerGap;
+
+    /**
+     * Size of the entity display
+     */
     private Dimension entityDisplayDimension;
 
+    /**
+     * Create a content panel display with specified dimensions
+     * 
+     * @param width           width of the panel
+     * @param height          height of the panel
+     * @param posX            x position within the frame
+     * @param posY            y position within the fram
+     * @param numDisplayWide  number of elements displayed across
+     * @param backgroundColor background color of panel
+     */
     public ContentPanel(int width, int height, int posX, int posY,
             int numDisplayWide, Color backgroundColor) {
         this.panelHeight = height;
         this.panelWidth = width;
         this.setBackground(backgroundColor);
+
+        // Container has image and description
         entityContainerWidth = entityWidth * 2;
         entityContainerGap = (width -
                 (numDisplayWide * entityContainerWidth)) / 4;
@@ -67,6 +123,12 @@ public class ContentPanel extends JPanel {
         this.add(scrollPane);
     }
 
+    /**
+     * Updates the panel with display content
+     * 
+     * @param buttonAction action when button is selected
+     * @param descriptions ArrayList of descriptions for each button
+     */
     public void update(ActionListener buttonAction, ArrayList<String> descriptions) {
         while (descriptions.size() < contentToDisplay.size()) {
             descriptions.add("No description available");
@@ -94,6 +156,7 @@ public class ContentPanel extends JPanel {
         JPanel entityContainer;
         JRadioButton entityButton;
         JTextPane entityTextPane;
+        // Create buttons
         for (int i = 0; i < contentToDisplay.size(); i++) {
             Entity entity = contentToDisplay.get(i);
             String desc = descriptions.get(i);
@@ -125,10 +188,21 @@ public class ContentPanel extends JPanel {
 
     }
 
+    /**
+     * Gets content associated with panel
+     * 
+     * @return {@link ArrayList ArrayList} of panel content
+     */
     public ArrayList<Entity> getContent() {
         return contentToDisplay;
     }
 
+    /**
+     * Sets the content of the panel
+     * 
+     * @param content array of objects that are instances of {@link main.Entity
+     *                Entity}
+     */
     public void setContent(Object[] content) {
         contentToDisplay = new ArrayList<Entity>();
         for (Object e : content) {
@@ -140,10 +214,20 @@ public class ContentPanel extends JPanel {
         }
     }
 
+    /**
+     * Gets the buttons in the panel
+     * 
+     * @return {@link ButtonGroup ButtonGroup} of content buttons
+     */
     public ButtonGroup getButtons() {
         return contentButtons;
     }
 
+    /**
+     * Gets the visible content section of the panel
+     * 
+     * @return {@link JScrollPane ScrollPane} containing active content
+     */
     public JScrollPane getPanel() {
         return scrollPane;
     }

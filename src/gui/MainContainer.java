@@ -21,34 +21,103 @@ import java.awt.Dimension;
  * 
  * @author Jackie Jone
  * @author Harrison Tyson
- * @version 1.3 Mar, 2022
+ * @version 1.3 May, 2022
  */
 public class MainContainer {
-
+    // TODO: add focus listeners
+    /**
+     * Main application frame
+     */
     private JFrame monsterGameFrame;
+
+    /**
+     * Active game
+     */
     protected static GameEnvironment game;
+
+    /**
+     * Height of menu bar
+     */
     private static final int TOPBARHEIGHT = 35;
-    private static final int SCREENWIDTADJUST = 50;
-    protected static final int SCREENWIDTH = 960 + SCREENWIDTADJUST;
+
+    /**
+     * Buffer to account for window border offsets
+     */
+    private static final int SCREENWIDTHADJUST = 50;
+
+    /**
+     * Width of screen
+     */
+    protected static final int SCREENWIDTH = 960 + SCREENWIDTHADJUST;
+
+    /**
+     * Height of screen
+     */
     protected static final int SCREENHEIGHT = 540 + TOPBARHEIGHT;
+
+    /**
+     * Default screen size
+     */
     protected static final Dimension DEFAULTDIMENSION = new Dimension(SCREENWIDTH, SCREENHEIGHT);
+
+    /**
+     * Container to hold all game screens
+     */
     private static JPanel mainContainerPanel;
+
+    /**
+     * Screen manager to switch between different screens
+     */
     private static CardLayout cardLayout;
 
+    /**
+     * Screen for SetUp Menu
+     */
     private static SetupPanel setUpPanel;
+
+    /**
+     * Screen for BuyShop Menu
+     */
     private static BuyShopPanel buyShopPanel;
 
+    /**
+     * Screen for SellShop Menu
+     */
     private static SellShopPanel sellShopPanel;
 
+    /**
+     * Screen for Inventory Menu
+     */
     private static InventoryPanel inventoryPanel;
+
+    /**
+     * Screen for MainMenu
+     */
     private static MainMenuPanel mainMenuPanel;
+
+    /**
+     * Screen for Team Menu
+     */
     private static TeamPanel teamPanel;
+
+    /**
+     * Screen for BattleSelection Menu
+     */
     private static BattleSelectionPanel battleSelectionPanel;
+
+    /**
+     * Screen for Battle Simulation
+     */
     private static BattleSimPanel battleSimulationPanel;
+
+    /**
+     * Screen for Game Over
+     */
     private static GameOverPanel gameOverPanel;
 
     /**
      * Launch the application.
+     * 
      * @param args Arguments for the application from standard input
      */
     public static void main(String[] args) {
@@ -96,7 +165,7 @@ public class MainContainer {
         // Show default setup panel
         showScreen("Setup");
     }
-    
+
     /**
      * Show a given screen in the application
      * 
@@ -113,7 +182,7 @@ public class MainContainer {
 
         cardLayout.show(mainContainerPanel, screenName);
     }
-    
+
     /**
      * Set up all the screens in the game
      */
@@ -148,7 +217,7 @@ public class MainContainer {
         gameOverPanel = new GameOverPanel();
         mainContainerPanel.add(gameOverPanel, "GameOver");
     }
-    
+
     /**
      * Reset the game to be played again
      */
@@ -156,14 +225,14 @@ public class MainContainer {
         setUpPanel.resetGame();
         game = null;
     }
-    
+
     /**
      * Resize a image to a desired size
      * 
      * @param image        The image to be resized
      * @param targetWidth  The width to resize to
      * @param targetHeight The height to resize to
-     * @return             The resized image
+     * @return The resized image
      */
     protected static ImageIcon imageResize(ImageIcon image, int targetWidth, int targetHeight) {
         Image tmp = image.getImage();

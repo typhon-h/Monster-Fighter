@@ -33,7 +33,7 @@ import java.util.ArrayList;
  * Panel for setting up the game
  * 
  * @author Harrison Tyson
- * @version 1.0 Mar, 2022
+ * @version 1.0 May, 2022
  */
 public class SetupPanel extends EntityViewer {
 
@@ -41,22 +41,86 @@ public class SetupPanel extends EntityViewer {
      * Default serial version ID
      */
     private static final long serialVersionUID = 1L;
+
+    /**
+     * Field for player name input
+     */
     private JTextField textFieldPlayerName;
+
+    /**
+     * Group of difficulty buttons
+     */
     private final ButtonGroup difficultyOptions = new ButtonGroup();
+
+    /**
+     * Group of starting monster buttonss
+     */
     private final ButtonGroup starterMonsters = new ButtonGroup();
+
+    /**
+     * Field for monster name input
+     */
     private JTextField textFieldMonsterNickname;
+
+    /**
+     * Slider for total number of days
+     */
     private JSlider sliderDays;
+
+    /**
+     * {@link ArrayList ArrayList} of available starting {@link monsters.Monster
+     * monsters}
+     */
     private ArrayList<Monster> availableStarters;
+
+    /**
+     * Regular Expression for name validation
+     */
     private String nameValidation = "[a-zA-Z]{3,15}";
 
+    /**
+     * Button for first starter monster
+     */
     private JRadioButton btnMonster1Img;
+
+    /**
+     * Button for second starter monster
+     */
     private JRadioButton btnMonster2Img;
+
+    /**
+     * Button for third starter monster
+     */
     private JRadioButton btnMonster3Img;
+
+    /**
+     * Name label for first starter monster
+     */
     private JLabel lblMonster1Name;
+
+    /**
+     * Name label for second starter monster
+     */
     private JLabel lblMonster2Name;
+
+    /**
+     * Name label for third starter monster
+     */
     private JLabel lblMonster3Name;
+
+    /**
+     * Button for easy {@link main.Difficulty difficulty}
+     */
     private JRadioButton rdbtnDifficultyEasy;
+
+    /**
+     * Button for normal {@link main.Difficulty difficulty}
+     */
     private JRadioButton rdbtnDifficultyNormal;
+
+    /**
+     * Button for hard {@link main.Difficulty difficulty}
+     */
     private JRadioButton rdbtnDifficultyHard;
 
     /**

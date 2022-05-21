@@ -15,21 +15,47 @@ import main.Player;
  * Class for a custom swing panel that displays a selection of monster battles.
  * 
  * @author Jackie Jone
- * @version 1.0 Mar, 2022
+ * @version 1.0 May, 2022
  */
 public class BattleSelectionPanel extends EntityViewer implements Updatable {
-
+    /**
+     * Serial Version
+     */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Button to start battle
+     */
     private JButton btnBattle;
 
+    /**
+     * Battle button options
+     */
     private ButtonGroup battleButtons;
 
+    /**
+     * Default button height
+     */
     private static final int RADIOBUTTONHEIGHT = 120;
+
+    /**
+     * Default panel height
+     */
     private static final int PNLBATTLESHEIGHT = 475;
+
+    /**
+     * Default panel width
+     */
     private static final int PNLBATTLESWIDTH = 535;
 
+    /**
+     * Gap between battle buttons
+     */
     private int buttonGap; // Not constant, changes at runtime
+
+    /**
+     * Panel containing battle buttons
+     */
     private JPanel pnlBattles;
 
     /**

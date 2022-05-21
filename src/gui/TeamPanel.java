@@ -12,16 +12,33 @@ import monsters.Monster;
  * 
  * @author Jackie Jone
  * @author Harrison Tyson
- * @version 1.1 Mar, 2022s
+ * @version 1.1 May, 2022
  */
 public class TeamPanel extends EntityViewer implements Updatable {
-
+    // TODO: add change nickname??
+    /**
+     * Default serial version ID
+     */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Player Team
+     */
     private ArrayList<Monster> playerTeam;
 
+    /**
+     * Buttons associated with PlayerTeam
+     */
     private ButtonGroup contentButtons = new ButtonGroup();
+
+    /**
+     * Button to perform move down action
+     */
     private JButton btnMoveDown;
+
+    /**
+     * Button to perform move up action
+     */
     private JButton btnMoveUp;
 
     /**

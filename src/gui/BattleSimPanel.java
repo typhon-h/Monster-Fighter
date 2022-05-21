@@ -28,7 +28,7 @@ import monsters.Monster;
  * A swing panel made for displaying the simulation of the battle to the player
  * 
  * @author Jackie Jone
- * @version 1.0 Mar, 2022
+ * @version 1.0 May, 2022
  */
 public class BattleSimPanel extends EntityViewer implements Updatable {
 
@@ -37,17 +37,80 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
      */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Ally team layout
+     */
     FlowLayout leftLayout;
+
+    /**
+     * Enemy team layout
+     */
     FlowLayout rightLayout;
+
+    /**
+     * Ally team panel
+     */
     JPanel leftTeam;
+
+    /**
+     * Enemy team panel
+     */
     JPanel rightTeam;
+
+    /**
+     * Text area for battle events
+     */
     JTextArea battleLogDisplay;
+
+    /**
+     * Button to procede to next battle event
+     */
     JButton btnContinue;
+
+    /**
+     * Button to skip to end of battle
+     */
     JButton btnSkip;
+
+    /**
+     * Toggleable to enable/disable auto battle
+     */
     JCheckBox chkAutoPlay;
 
+    /**
+     * Most recent battle event
+     */
     BattleEvent currEvent;
+
+    /**
+     * Timer for auto battle
+     */
     Timer timer;
+
+    /**
+     * Default monster width
+     */
+    private static int monsterDisplayWidth = 100;
+
+    /**
+     * Default monster height
+     */
+    private static int monsterIconHeight = 100;
+
+    /**
+     * Default monster text height
+     */
+    private static int monsterLabelHeight = 20;
+
+    /**
+     * Team panel height
+     */
+    private static int teamDisplayHeight = monsterIconHeight + monsterLabelHeight * 2;
+
+    /**
+     * Team panel width
+     */
+    private int teamDisplayWidth = 450;
 
     /**
      * ActionListener that displays the next event in the
@@ -69,12 +132,6 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
             MainContainer.showScreen("MainMenu");
         }
     };
-
-    private static int monsterDisplayWidth = 100;
-    private static int monsterIconHeight = 100;
-    private static int monsterLabelHeight = 20;
-    private static int teamDisplayHeight = monsterIconHeight + monsterLabelHeight * 2;
-    private int teamDisplayWidth = 450;
 
     /**
      * Create the simulation panel with the default buttons and set up the

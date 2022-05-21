@@ -16,7 +16,7 @@ import main.Player;
  * JPanel for displaying the game over screen
  * 
  * @author Jackie Jone
- * @version 1.0 Mar, 2022
+ * @version 1.0 May, 2022
  */
 public class GameOverPanel extends EntityViewer implements Updatable {
     /**
@@ -24,21 +24,79 @@ public class GameOverPanel extends EntityViewer implements Updatable {
      */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Width of a monster icon
+     */
     private int monsterDisplayWidth = 100;
+
+    /**
+     * Height of a monster icon
+     */
     private int monsterIconHeight = 100;
+
+    /**
+     * Height of monster name
+     */
     private int monsterLabelHeight = 20;
+
+    /**
+     * Height of team panel
+     */
     private int teamDisplayHeight = monsterIconHeight + monsterLabelHeight * 2;
+
+    /**
+     * Width of team panel
+     */
     private int teamDisplayWidth = (MainContainer.SCREENWIDTH * 3) / 4;
+
+    /**
+     * Padding for team panel
+     */
     private int teamDisplayPadding = (teamDisplayWidth - monsterDisplayWidth * 4) / 5;
+
+    /**
+     * Default label height
+     */
     private int commonLabelHeight = 75;
+
+    /**
+     * Default label width
+     */
     private int commonLabelWidth = 200;
+
+    /**
+     * Width of results panel
+     */
     private int commonLabelContainerWidth = (MainContainer.SCREENWIDTH * 6) / 7;
 
+    /**
+     * Panel for team
+     */
     private JPanel monsterContainerPanel;
+
+    /**
+     * Panel for results
+     */
     private JPanel labelContainerPanel;
+
+    /**
+     * Label for player name
+     */
     private JLabel lblPlayerName;
+
+    /**
+     * Label for num days
+     */
     private JLabel lblNumDays;
+
+    /**
+     * Label for player gold
+     */
     private JLabel lblGold;
+
+    /**
+     * Label for player score
+     */
     private JLabel lblScore;
 
     /**
