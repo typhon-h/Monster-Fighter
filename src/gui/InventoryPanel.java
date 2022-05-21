@@ -13,7 +13,7 @@ import monsters.Monster;
 
 /**
  * JPanel for displaying the contents of the player that can be sold
- * 
+ *
  * @author Jackie Jone
  * @author Harrison Tyson
  * @version 1.1 May, 2022

@@ -126,7 +126,7 @@ public class BattleManager {
         int totalPoints = (int) (Difficulty.getDifficultyMultiplier(difficulty) *
                 Math.ceil((float) ItemConstants.AVERAGEBOOSTPERBUYPRICE *
                         (float) allyPlayer.getGold() * 0.5 +
-                        (float) allyPlayer.getItemPoints()));
+                        (float) allyPlayer.getItemPoints())) - 1;
 
         int expendedPoints = 0;
         RandomStatBoost boost = new RandomStatBoost(Rarity.COMMON);

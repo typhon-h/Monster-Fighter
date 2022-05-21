@@ -6,14 +6,16 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.AbstractButton;
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
+import javax.swing.JRadioButton;
 import javax.swing.JTextPane;
 
 import javax.swing.SwingConstants;
@@ -24,7 +26,7 @@ import main.Entity;
 /**
  * A superclass used to place the common elements of each panel onto the
  * subclass panels
- * 
+ *
  * @author Harrison Tyson
  * @version 1.0 May, 2022
  */
@@ -97,8 +99,13 @@ public class EntityViewer extends JPanel {
     private static final int DEFAULTDISPLAYWIDE = 2;
 
     /**
+     * Default colour for JRadioButton(s) that are selected
+     */
+    protected static final Color selectedJRadioButtonColor = new Color(128, 150, 114);
+
+    /**
      * Create and place the common elements on the panel, called by the subclass
-     * 
+     *
      * @param title         {@link String String} title of the panel to be displayed
      * @param hasPlayerInfo Flag for whether the panel needs the player information
      * @param hasPreview    Flag for whether the panel needs a preview panel
@@ -220,12 +227,36 @@ public class EntityViewer extends JPanel {
     }
 
     /**
+     * Updated selected JRadioButton background
+     *
+     * @param buttonGroup button group which the selected button belongs to
+     */
+    protected void updateSelectedButtonBackground(ButtonGroup buttonGroup) {
+        Iterator<AbstractButton> buttons = buttonGroup.getElements().asIterator();
+
+        while (buttons.hasNext()) {
+            JRadioButton button = (JRadioButton) (buttons.next());
+            if (button.isSelected()) {
+                button.setOpaque(true);
+                button.setBackground(selectedJRadioButtonColor);
+            } else {
+                button.setOpaque(false);
+                button.setBackground(getBackground());
+            }
+            button.updateUI();
+            button.validate();
+        }
+    }
+
+    /**
      * Update the preview panel
-     * 
+     *
      * @param options Button group with the selected button
      * @param objects Previewable objects to get the image for
      */
     protected void updatePreview(ButtonGroup options, Object[] objects) {
+        updateSelectedButtonBackground(options);
+
         if (options.getSelection() != null) {
             int index = Integer.parseInt(options.getSelection().getActionCommand());
             if (objects.length == 0 || index < 0 || index >= objects.length) { // TODO: remove if statement once dynamic
@@ -249,7 +280,7 @@ public class EntityViewer extends JPanel {
 
     /**
      * Select the first button available in the button group
-     * 
+     *
      * @param content The button group to select the button from
      */
     protected void selectFirstAvailableButton(ButtonGroup content) {
@@ -264,7 +295,7 @@ public class EntityViewer extends JPanel {
 
     /**
      * Adds a content panel to screen with specified dimensions
-     * 
+     *
      * @param width          width of panel
      * @param height         height of panel
      * @param posX           x position of panel in frame
@@ -289,7 +320,7 @@ public class EntityViewer extends JPanel {
 
     /**
      * Updates all content panels
-     * 
+     *
      * @param content {@link ArrayList ArrayList} of Object arrays containing
      *                content to update the panels with
      */
@@ -306,14 +337,16 @@ public class EntityViewer extends JPanel {
                     updatePreview(panel.getButtons(), panel.getContent().toArray());
                 }, getDescriptions(panel.getContent()));
             } else {
-                panel.update(null, getDescriptions(panel.getContent()));
+                panel.update(update -> {
+                    updateSelectedButtonBackground(panel.getButtons());
+                }, getDescriptions(panel.getContent()));
             }
         }
     }
 
     /**
      * Gets content description based on screen it is displayed on
-     * 
+     *
      * @param content {@link ArrayList ArrayList} of {@link main.Entity entities} to
      *                be displayed
      * @return {@link ArrayList ArrayList} of string descriptions
