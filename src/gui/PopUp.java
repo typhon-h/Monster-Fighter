@@ -2,10 +2,14 @@ package gui;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 import javax.swing.JButton;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Point;
@@ -48,6 +52,7 @@ public class PopUp extends JFrame {
      * @param location location of parent window
      */
     public PopUp(String title, String message, Point location) {
+        super();
         setType(Type.POPUP);
         setAlwaysOnTop(true);
         setTitle(title);
@@ -56,15 +61,23 @@ public class PopUp extends JFrame {
         setBounds(0, 0, POPUPWIDTH, 150);
         contentPane = new JPanel();
         // contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        contentPane.setBounds(0, 0, POPUPWIDTH, POPUPHEIGHT);
+        contentPane.setPreferredSize(new Dimension(POPUPWIDTH, POPUPHEIGHT));
         contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
         setContentPane(contentPane);
 
         JLabel lblmessage = new JLabel(message);
         lblmessage.setVerticalAlignment(SwingConstants.TOP);
         lblmessage.setHorizontalAlignment(SwingConstants.CENTER);
-        lblmessage.setPreferredSize(new Dimension(POPUPWIDTH, ((POPUPHEIGHT - 34) * 3) / 4));
-        contentPane.add(lblmessage);
+        lblmessage.setPreferredSize(new Dimension(POPUPWIDTH, ((POPUPHEIGHT - 43) * 3) / 4));
+
+        
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setBorder(new LineBorder(new Color(0, 0, 0)));
+        scrollPane.setBounds(0, 0, POPUPWIDTH, ((POPUPHEIGHT - 43) * 3) / 4);
+        scrollPane.setViewportView(lblmessage);
+        this.add(scrollPane);
 
         JButton btnOK = new JButton("OK");
         btnOK.addActionListener(close -> {
@@ -74,7 +87,8 @@ public class PopUp extends JFrame {
         btnOK.setFocusable(false);
         contentPane.add(btnOK);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
+        
+        
         setLocation(location.x +
                 (gui.MainContainer.SCREENWIDTH / 2) -
                 this.getWidth() / 2,

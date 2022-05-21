@@ -27,6 +27,11 @@ import javax.swing.ScrollPaneConstants;
 public class ContentPanel extends JPanel {
 
     /**
+     * Default serial version ID
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
      * Content displayed on the panel
      */
     private ArrayList<Entity> contentToDisplay;
@@ -80,6 +85,11 @@ public class ContentPanel extends JPanel {
      * Size of the entity display
      */
     private Dimension entityDisplayDimension;
+    
+    /**
+     * Number of entities to display on each row
+     */
+    private int numRowEntites;
 
     /**
      * Create a content panel display with specified dimensions
@@ -96,11 +106,14 @@ public class ContentPanel extends JPanel {
         this.panelHeight = height;
         this.panelWidth = width;
         this.setBackground(backgroundColor);
+        
 
         // Container has image and description
         entityContainerWidth = ENTITYWIDTH * 2;
         entityContainerGap = (width -
                 (numDisplayWide * entityContainerWidth)) / 4;
+        
+        this.numRowEntites = width / (entityContainerWidth + entityContainerGap);
 
         FlowLayout entityContainerLayout = new FlowLayout(FlowLayout.LEFT,
                 entityContainerGap,
@@ -109,7 +122,8 @@ public class ContentPanel extends JPanel {
                 height);
         entityDisplay = new JPanel();
         entityDisplay.setLayout(entityContainerLayout);
-        entityDisplay.setMaximumSize(new Dimension(width, 2000));
+        // TODO: Remove this commented out code if no bugs :)
+//        entityDisplay.setMaximumSize(new Dimension(width, 2000));
         entityDisplay.setPreferredSize(entityDisplayDimension);
         entityDisplay.setBackground(getBackground());
 
@@ -139,15 +153,6 @@ public class ContentPanel extends JPanel {
 
         entityDisplay.removeAll();
         contentButtons = new ButtonGroup();
-
-        int height = (int) ((Math.ceil((float) contentToDisplay.size() / 2.0f)) *
-                (ENTITYHEIGHT + entityContainerGap));
-        height = height > this.panelHeight ? height : this.panelHeight;
-        entityDisplayDimension = new Dimension(this.panelWidth,
-                height);
-        entityDisplay.setPreferredSize(entityDisplayDimension);
-        entityDisplay.updateUI();
-        scrollPane.updateUI();
 
         EtchedBorder entityContainerBorder = new EtchedBorder(EtchedBorder.LOWERED,
                 Color.black, null);
@@ -186,6 +191,14 @@ public class ContentPanel extends JPanel {
             entityDisplay.add(entityContainer);
         }
 
+        int height = (int) ((Math.ceil((float) contentToDisplay.size() / (float) numRowEntites)) *
+                (ENTITYHEIGHT + entityContainerGap));
+        height = height > this.panelHeight ? height : this.panelHeight;
+        entityDisplayDimension = new Dimension(this.panelWidth,
+                height);
+        entityDisplay.setPreferredSize(entityDisplayDimension);
+        entityDisplay.updateUI();
+        scrollPane.updateUI();
     }
 
     /**

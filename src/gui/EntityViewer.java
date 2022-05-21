@@ -10,7 +10,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.AbstractButton;
-import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -284,13 +283,15 @@ public class EntityViewer extends JPanel {
      * @param content The button group to select the button from
      */
     protected void selectFirstAvailableButton(ButtonGroup content) {
+        
+        
         List<AbstractButton> availableButtons = Collections.list(content.getElements());
         if (availableButtons.size() > 0) { // TODO: I think this will work once buttons are dynamic??
             availableButtons.get(0).setSelected(true);
         } else {
             content.clearSelection();
         }
-
+        updateSelectedButtonBackground(content);
     }
 
     /**
