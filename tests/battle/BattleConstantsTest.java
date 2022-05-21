@@ -34,7 +34,7 @@ class BattleConstantsTest {
                                                 Difficulty.HARD),
                                 Arguments.arguments(new DittaMonster(),
                                                 new Trigger[] { Trigger.NOABILITY, Trigger.STARTOFBATTLE,
-                                                                Trigger.ONHURT, Trigger.BEFOREATTACK },
+                                                                Trigger.AFTERATTACK },
                                                 Difficulty.HARD),
                                 Arguments.arguments(new GilMonster(),
                                                 new Trigger[] { Trigger.NOABILITY, Trigger.ONFAINT,
@@ -43,8 +43,7 @@ class BattleConstantsTest {
                                                                 Trigger.AFTERATTACK },
                                                 Difficulty.HARD),
                                 Arguments.arguments(new JynxMonster(),
-                                                new Trigger[] { Trigger.NOABILITY, Trigger.STARTOFBATTLE,
-                                                                Trigger.BEFOREATTACK },
+                                                new Trigger[] { Trigger.NOABILITY, Trigger.STARTOFBATTLE },
                                                 Difficulty.HARD),
                                 Arguments.arguments(new LuciferMonster(),
                                                 new Trigger[] { Trigger.NOABILITY, Trigger.STARTOFBATTLE,
@@ -53,7 +52,7 @@ class BattleConstantsTest {
                                                 Difficulty.HARD),
                                 Arguments.arguments(new TeddyMonster(),
                                                 new Trigger[] { Trigger.NOABILITY, Trigger.STARTOFBATTLE,
-                                                                Trigger.AFTERATTACK,
+                                                                Trigger.ONFAINT,
                                                                 Trigger.BEFOREATTACK },
                                                 Difficulty.HARD));
         }
@@ -101,7 +100,7 @@ class BattleConstantsTest {
                                                 Difficulty.HARD),
                                 Arguments.arguments(new DittaMonster(),
                                                 new Trigger[] { Trigger.NOABILITY, Trigger.STARTOFBATTLE,
-                                                                Trigger.ONHURT, Trigger.BEFOREATTACK },
+                                                                Trigger.AFTERATTACK },
                                                 Difficulty.HARD));
         }
 
