@@ -4,6 +4,7 @@ import static gui.MainContainer.DEFAULTDIMENSION;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -12,43 +13,110 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 import javax.swing.JTextPane;
+
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+import main.Entity;
+
 /**
- * A superclass used to place the common elements of each panel onto the subclass panels
+ * A superclass used to place the common elements of each panel onto the
+ * subclass panels
  * 
  * @author Harrison Tyson
- * @version 1.0 Mar, 2022
+ * @version 1.0 May, 2022
  */
 public class EntityViewer extends JPanel {
 
+    /**
+     * Default serial version ID
+     */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Label for player gold
+     */
     private JLabel lblPlayerGold;
+
+    /**
+     * Label for player score
+     */
     private JLabel lblPlayerScore;
+
+    /**
+     * Label for current day
+     */
     private JLabel lblCurrentDay;
 
+    /**
+     * Label for image of previewed entity
+     */
     private JLabel lblPreviewEntityImg;
+
+    /**
+     * Description of previewed entity
+     */
     private JTextPane textPanePreviewEntityDesc;
 
+    /**
+     * Button to return to menu
+     */
     private JButton btnBack;
-    
+
+    /**
+     * {@link ArrayList ArrayList} of {@link gui.ContentPanel ContentPanels} on
+     * screen
+     */
+    protected ArrayList<ContentPanel> contentPanels = new ArrayList<ContentPanel>();
+
+    /**
+     * Default x position of a content panel
+     */
+    private static final int DEFAULTCONTENTX = 6;
+
+    /**
+     * Default y position of a content panel
+     */
+    private static final int DEFAULTCONTENTY = 50;
+
+    /**
+     * Default width of a content panel
+     */
+    private static final int DEFAULTCONTENTWIDTH = 600;
+
+    /**
+     * Default height of a content panel
+     */
+    private static final int DEFAULTCONTENTHEIGHT = 480;
+
+    /**
+     * Default number of entities wide within a content panel
+     */
+    private static final int DEFAULTDISPLAYWIDE = 2;
+
     /**
      * Create and place the common elements on the panel, called by the subclass
      * 
+     * @param title         {@link String String} title of the panel to be displayed
      * @param hasPlayerInfo Flag for whether the panel needs the player information
      * @param hasPreview    Flag for whether the panel needs a preview panel
      * @param hasBack       Flag for whether the panel needs a back button
      */
-    public EntityViewer(boolean hasPlayerInfo, boolean hasPreview, boolean hasBack) {
+    public EntityViewer(String title, boolean hasPlayerInfo, boolean hasPreview, boolean hasBack) {
         super();
         setMinimumSize(DEFAULTDIMENSION);
         setSize(DEFAULTDIMENSION);
         setVerifyInputWhenFocusTarget(false);
         this.setBackground(Color.GRAY);
         setLayout(null);
+
+        JLabel lblTitle = new JLabel(title);
+        lblTitle.setBounds(430, 0, 190, 37);
+        lblTitle.setFont(new Font("Lucida Grande", Font.BOLD, 23));
+        lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
+        add(lblTitle);
 
         if (hasPlayerInfo) {
             initializePlayerInfo();
@@ -68,7 +136,7 @@ public class EntityViewer extends JPanel {
         }
 
     }
-    
+
     /**
      * Initialize the player information
      */
@@ -116,7 +184,7 @@ public class EntityViewer extends JPanel {
         add(lblPlayerGold);
 
     }
-    
+
     /**
      * Initialize the preview panel
      */
@@ -141,7 +209,7 @@ public class EntityViewer extends JPanel {
         textPanePreviewEntityDesc.setBackground(this.getBackground());
         preview.add(textPanePreviewEntityDesc);
     }
-    
+
     /**
      * Update the player information
      */
@@ -150,7 +218,7 @@ public class EntityViewer extends JPanel {
         lblPlayerScore.setText("" + MainContainer.game.getPlayer().getScore());
         lblCurrentDay.setText(MainContainer.game.getCurrentDay() + "/" + MainContainer.game.getTotalDays());
     }
-    
+
     /**
      * Update the preview panel
      * 
@@ -176,8 +244,9 @@ public class EntityViewer extends JPanel {
 
         lblPreviewEntityImg.setText("Nothing to do here");
         textPanePreviewEntityDesc.setText("");
+        lblPreviewEntityImg.setIcon(null);
     }
-    
+
     /**
      * Select the first button available in the button group
      * 
@@ -192,4 +261,83 @@ public class EntityViewer extends JPanel {
         }
 
     }
+
+    /**
+     * Adds a content panel to screen with specified dimensions
+     * 
+     * @param width          width of panel
+     * @param height         height of panel
+     * @param posX           x position of panel in frame
+     * @param posY           y position of panel in frame
+     * @param numDisplayWide number of entities in a single row
+     */
+    protected void createContentPanel(int width, int height, int posX, int posY, int numDisplayWide) {
+        ContentPanel panelToAdd = new ContentPanel(width, height, posX, posY, numDisplayWide, this.getBackground());
+        add(panelToAdd.getPanel());
+        contentPanels.add(panelToAdd);
+    }
+
+    /**
+     * Adds a content panel to screen with default dimensions
+     */
+    protected void createContentPanel() {
+        ContentPanel panelToAdd = new ContentPanel(DEFAULTCONTENTWIDTH, DEFAULTCONTENTHEIGHT, DEFAULTCONTENTX,
+                DEFAULTCONTENTY, DEFAULTDISPLAYWIDE, this.getBackground());
+        add(panelToAdd.getPanel());
+        contentPanels.add(panelToAdd);
+    }
+
+    /**
+     * Updates all content panels
+     * 
+     * @param content {@link ArrayList ArrayList} of Object arrays containing
+     *                content to update the panels with
+     */
+    protected void updateContentPanels(ArrayList<Object[]> content) {
+        if (content.size() != contentPanels.size()) {
+            throw new RuntimeException("Available content does not match content panels");
+        }
+        for (int i = 0; i < contentPanels.size(); i++) {
+            ContentPanel panel = contentPanels.get(i);
+            Object[] contentOfPanel = content.get(i);
+            panel.setContent(contentOfPanel);
+            if (i == 0) { // Only the first content panel has a select action
+                panel.update(update -> {
+                    updatePreview(panel.getButtons(), panel.getContent().toArray());
+                }, getDescriptions(panel.getContent()));
+            } else {
+                panel.update(null, getDescriptions(panel.getContent()));
+            }
+        }
+    }
+
+    /**
+     * Gets content description based on screen it is displayed on
+     * 
+     * @param content {@link ArrayList ArrayList} of {@link main.Entity entities} to
+     *                be displayed
+     * @return {@link ArrayList ArrayList} of string descriptions
+     */
+    private ArrayList<String> getDescriptions(ArrayList<Entity> content) {
+        ArrayList<String> desc = new ArrayList<String>();
+        for (Entity e : content) {
+            if (this instanceof BuyShopPanel) {
+                desc.add("\n" + e.getBuyPrice() + "G \n"
+                        + e.getRarity().name() + "\n"
+                        + e.getName());
+            } else if (this instanceof SellShopPanel) {
+                desc.add("\n" + e.getSellPrice() + "G \n"
+                        + e.getRarity().name() + "\n"
+                        + e.getName());
+            } else if (this instanceof TeamPanel) {
+                desc.add("\nPosition: " + (MainContainer.game.getPlayer().getTeam().getMonsters().indexOf(e) + 1) + "\n"
+                        + e.getName());
+            } else if (this instanceof InventoryPanel) {
+                desc.add("\n" + e.getRarity().name() + "\n" + e.getName());
+            }
+        }
+
+        return desc;
+    }
+
 }

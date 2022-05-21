@@ -152,7 +152,7 @@ public class GameEnvironment {
             for (Monster monster : player.getTeam().getMonsters()) {
                 monster.restore();
             }
-            
+
             gameOverStatus = true;
             currentDay = totalDays;
             events.add("Game has ended");

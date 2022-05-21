@@ -44,6 +44,11 @@ public class CommandLineInterface {
     private static final char MSGCHAR = '*';
 
     /**
+     * REGEX for validating name strings
+     */
+    private String nameValidation = "[a-zA-Z]{3,15}";
+
+    /**
      * Displays the options on the command line
      *
      * @param options {@link ArrayList} of option strings
@@ -105,9 +110,14 @@ public class CommandLineInterface {
      * @return The next string value from the standard input
      */
     private String getString() {
-        String value;
-
-        value = scanner.next();
+        String value = "";
+        // Loop consuming tokens until int
+        while (!value.matches(nameValidation) && scanner.hasNext()) {
+            value = scanner.next();
+            if (!value.matches(nameValidation)) {
+                System.out.println("Please enter a valid name 3-15 characters, no numbers or special characters");
+            }
+        }
 
         clearBuffer();
 

@@ -66,7 +66,7 @@ public class Player implements Previewable {
     /**
      * GUI image for opponents
      */
-    private static final ImageIcon image = new ImageIcon("img/misc/Battle.png");
+    private ImageIcon image = new ImageIcon(Player.class.getResource("/img/Battle.png"));
 
     /**
      * Constructor to create a player with a name and {@link main.Team team}

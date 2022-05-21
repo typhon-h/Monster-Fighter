@@ -28,7 +28,7 @@ import monsters.Monster;
  * A swing panel made for displaying the simulation of the battle to the player
  * 
  * @author Jackie Jone
- * @version 1.0 Mar, 2022
+ * @version 1.0 May, 2022
  */
 public class BattleSimPanel extends EntityViewer implements Updatable {
 
@@ -37,18 +37,81 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
      */
     private static final long serialVersionUID = 1L;
 
-    FlowLayout leftLayout;
-    FlowLayout rightLayout;
-    JPanel leftTeam;
-    JPanel rightTeam;
-    JTextArea battleLogDisplay;
-    JButton btnContinue;
-    JButton btnSkip;
-    JCheckBox chkAutoPlay;
+    /**
+     * Ally team layout
+     */
+    private FlowLayout leftLayout;
 
-    BattleEvent currEvent;
-    Timer timer;
-    
+    /**
+     * Enemy team layout
+     */
+    private FlowLayout rightLayout;
+
+    /**
+     * Ally team panel
+     */
+    private JPanel leftTeam;
+
+    /**
+     * Enemy team panel
+     */
+    private JPanel rightTeam;
+
+    /**
+     * Text area for battle events
+     */
+    private JTextArea battleLogDisplay;
+
+    /**
+     * Button to procede to next battle event
+     */
+    private JButton btnContinue;
+
+    /**
+     * Button to skip to end of battle
+     */
+    private JButton btnSkip;
+
+    /**
+     * Toggleable to enable/disable auto battle
+     */
+    private JCheckBox chkAutoPlay;
+
+    /**
+     * Most recent battle event
+     */
+    private BattleEvent currEvent;
+
+    /**
+     * Timer for auto battle
+     */
+    private Timer timer;
+
+    /**
+     * Default monster width
+     */
+    private static final int MONSTERDISPLAYWIDTH = 100;
+
+    /**
+     * Default monster height
+     */
+    private static final int MONSTERICONHEIGHT = 100;
+
+    /**
+     * Default monster text height
+     */
+    private static final int MONSTERLABELHEIGHT = 20;
+
+    /**
+     * Team panel height
+     */
+    private static int teamDisplayHeight = MONSTERICONHEIGHT + MONSTERLABELHEIGHT * 2;
+
+    /**
+     * Team panel width
+     */
+    private static final int TEAMDISPLAYWIDTH = 450;
+
     /**
      * ActionListener that displays the next event in the
      * simulation.
@@ -70,42 +133,28 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
         }
     };
 
-    private static int monsterDisplayWidth = 100;
-    private static int monsterIconHeight = 100;
-    private static int monsterLabelHeight = 20;
-    private static int teamDisplayHeight = monsterIconHeight + monsterLabelHeight * 2;
-    private int teamDisplayWidth = 450;
-
     /**
      * Create the simulation panel with the default buttons and set up the
      * area which the monsters are displayed.
      */
     public BattleSimPanel() {
-        super(true, false, false);
+        super("Battle", true, false, false);
         setName("BattleSimulation");
-
-        JLabel lblBattleSimTitle = new JLabel("Battle");
-        lblBattleSimTitle.setBounds((MainContainer.SCREENWIDTH / 2 - 45),
-                6, 90, 37);
-        lblBattleSimTitle.setFont(new Font("Lucida Grande", Font.BOLD, 30));
-        lblBattleSimTitle.setHorizontalAlignment(SwingConstants.CENTER);
-        lblBattleSimTitle.setVerticalAlignment(SwingConstants.CENTER);
-        add(lblBattleSimTitle);
 
         leftLayout = new FlowLayout(FlowLayout.RIGHT, 10, 0);
         rightLayout = new FlowLayout(FlowLayout.LEFT, 10, 0);
 
         leftTeam = new JPanel();
-        leftTeam.setBounds((MainContainer.SCREENWIDTH / 4 - teamDisplayWidth / 2),
-                130, teamDisplayWidth, teamDisplayHeight);
+        leftTeam.setBounds((MainContainer.SCREENWIDTH / 4 - TEAMDISPLAYWIDTH / 2),
+                130, TEAMDISPLAYWIDTH, teamDisplayHeight);
         leftTeam.setOpaque(false);
         leftTeam.setLayout(leftLayout);
         this.add(leftTeam);
 
         rightTeam = new JPanel();
         rightTeam.setBounds((MainContainer.SCREENWIDTH / 2 +
-                (MainContainer.SCREENWIDTH / 4 - teamDisplayWidth / 2)),
-                130, teamDisplayWidth, teamDisplayHeight);
+                (MainContainer.SCREENWIDTH / 4 - TEAMDISPLAYWIDTH / 2)),
+                130, TEAMDISPLAYWIDTH, teamDisplayHeight);
         rightTeam.setOpaque(false);
         rightTeam.setLayout(rightLayout);
         this.add(rightTeam);
@@ -172,15 +221,15 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
         for (int i = 0; i < team.size(); i++) {
             Monster monster = team.get(!reverse ? i : team.size() - 1 - i);
             JPanel monsterContainer = new JPanel();
-            monsterContainer.setPreferredSize(new Dimension(monsterDisplayWidth,
+            monsterContainer.setPreferredSize(new Dimension(MONSTERDISPLAYWIDTH,
                     teamDisplayHeight));
             monsterContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
             monsterContainer.setOpaque(false);
 
             JLabel monsterStatsLabel = new JLabel();
-            monsterStatsLabel.setPreferredSize(new Dimension(monsterDisplayWidth,
-                    monsterLabelHeight));
-            monsterStatsLabel.setBounds(0, 0, monsterDisplayWidth, monsterLabelHeight);
+            monsterStatsLabel.setPreferredSize(new Dimension(MONSTERDISPLAYWIDTH,
+                    MONSTERLABELHEIGHT));
+            monsterStatsLabel.setBounds(0, 0, MONSTERDISPLAYWIDTH, MONSTERLABELHEIGHT);
             monsterStatsLabel.setHorizontalAlignment(SwingConstants.CENTER);
             monsterStatsLabel.setVerticalAlignment(SwingConstants.CENTER);
             monsterStatsLabel.setText(monster.getCurrentAttackDamage() + " | " +
@@ -191,18 +240,18 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
             ;
 
             JLabel monsterIcon = new JLabel();
-            monsterIcon.setPreferredSize(new Dimension(monsterDisplayWidth,
-                    monsterIconHeight));
-            monsterIcon.setBounds(0, 0, monsterDisplayWidth, monsterIconHeight);
+            monsterIcon.setPreferredSize(new Dimension(MONSTERDISPLAYWIDTH,
+                    MONSTERICONHEIGHT));
+            monsterIcon.setBounds(0, 0, MONSTERDISPLAYWIDTH, MONSTERICONHEIGHT);
             monsterIcon.setIcon(
                     MainContainer.imageResize(monster.getImage(), monsterIcon.getWidth(), monsterIcon.getHeight()));
             monsterIcon.setText(monster.getName());
             monsterIcon.setOpaque(false);
 
             JLabel monsterNameLabel = new JLabel();
-            monsterNameLabel.setPreferredSize(new Dimension(monsterDisplayWidth,
-                    monsterLabelHeight));
-            monsterNameLabel.setBounds(0, 0, monsterDisplayWidth, monsterLabelHeight);
+            monsterNameLabel.setPreferredSize(new Dimension(MONSTERDISPLAYWIDTH,
+                    MONSTERLABELHEIGHT));
+            monsterNameLabel.setBounds(0, 0, MONSTERDISPLAYWIDTH, MONSTERLABELHEIGHT);
             monsterNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
             monsterNameLabel.setVerticalAlignment(SwingConstants.CENTER);
             monsterNameLabel.setText(monster.getName());

@@ -2,12 +2,12 @@ package gui;
 
 import java.awt.Color;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Font;
 
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.JRadioButton;
@@ -31,8 +31,9 @@ import java.util.ArrayList;
 
 /**
  * Panel for setting up the game
+ * 
  * @author Harrison Tyson
- * @version 1.0 Mar, 2022
+ * @version 1.0 May, 2022
  */
 public class SetupPanel extends EntityViewer {
 
@@ -40,34 +41,93 @@ public class SetupPanel extends EntityViewer {
      * Default serial version ID
      */
     private static final long serialVersionUID = 1L;
+
+    /**
+     * Field for player name input
+     */
     private JTextField textFieldPlayerName;
-    private final ButtonGroup difficultyOptions = new ButtonGroup();
-    private final ButtonGroup starterMonsters = new ButtonGroup();
+
+    /**
+     * Group of difficulty buttons
+     */
+    private ButtonGroup difficultyOptions = new ButtonGroup();
+
+    /**
+     * Group of starting monster buttonss
+     */
+    private ButtonGroup starterMonsters = new ButtonGroup();
+
+    /**
+     * Field for monster name input
+     */
     private JTextField textFieldMonsterNickname;
+
+    /**
+     * Slider for total number of days
+     */
     private JSlider sliderDays;
+
+    /**
+     * {@link ArrayList ArrayList} of available starting {@link monsters.Monster
+     * monsters}
+     */
     private ArrayList<Monster> availableStarters;
+
+    /**
+     * Regular Expression for name validation
+     */
     private String nameValidation = "[a-zA-Z]{3,15}";
 
+    /**
+     * Button for first starter monster
+     */
     private JRadioButton btnMonster1Img;
+
+    /**
+     * Button for second starter monster
+     */
     private JRadioButton btnMonster2Img;
+
+    /**
+     * Button for third starter monster
+     */
     private JRadioButton btnMonster3Img;
+
+    /**
+     * Name label for first starter monster
+     */
     private JLabel lblMonster1Name;
+
+    /**
+     * Name label for second starter monster
+     */
     private JLabel lblMonster2Name;
+
+    /**
+     * Name label for third starter monster
+     */
     private JLabel lblMonster3Name;
+
+    /**
+     * Button for easy {@link main.Difficulty difficulty}
+     */
     private JRadioButton rdbtnDifficultyEasy;
+
+    /**
+     * Button for normal {@link main.Difficulty difficulty}
+     */
     private JRadioButton rdbtnDifficultyNormal;
+
+    /**
+     * Button for hard {@link main.Difficulty difficulty}
+     */
     private JRadioButton rdbtnDifficultyHard;
-    
+
     /**
      * Set up the panel with all the fields to be entered in
      */
     public SetupPanel() {
-        super(false, true, false);
-
-        JLabel lblSetupTitle = new JLabel("Game Setup");
-        lblSetupTitle.setFont(new Font("Lucida Grande", Font.BOLD, 30));
-        lblSetupTitle.setBounds(430, 6, 193, 37);
-        add(lblSetupTitle);
+        super("Game Setup", false, true, false);
 
         JPanel jPanelGameSettings = new JPanel();
         jPanelGameSettings.setBorder(null);
@@ -238,7 +298,7 @@ public class SetupPanel extends EntityViewer {
         super.selectFirstAvailableButton(starterMonsters);
         super.updatePreview(starterMonsters, availableStarters.toArray());
     }
-    
+
     /**
      * reset the values on the setup screen back to default
      */

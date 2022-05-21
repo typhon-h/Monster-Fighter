@@ -2,12 +2,10 @@ package gui;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
@@ -17,34 +15,55 @@ import main.Player;
  * Class for a custom swing panel that displays a selection of monster battles.
  * 
  * @author Jackie Jone
- * @version 1.0 Mar, 2022
+ * @version 1.0 May, 2022
  */
 public class BattleSelectionPanel extends EntityViewer implements Updatable {
-
+    /**
+     * Serial Version
+     */
     private static final long serialVersionUID = 1L;
 
-	private JButton btnBattle;
+    /**
+     * Button to start battle
+     */
+    private JButton btnBattle;
 
-	private ButtonGroup battleButtons;
+    /**
+     * Battle button options
+     */
+    private ButtonGroup battleButtons;
 
+    /**
+     * Default button height
+     */
     private static final int RADIOBUTTONHEIGHT = 120;
+
+    /**
+     * Default panel height
+     */
     private static final int PNLBATTLESHEIGHT = 475;
+
+    /**
+     * Default panel width
+     */
     private static final int PNLBATTLESWIDTH = 535;
-    
+
+    /**
+     * Gap between battle buttons
+     */
     private int buttonGap; // Not constant, changes at runtime
+
+    /**
+     * Panel containing battle buttons
+     */
     private JPanel pnlBattles;
 
     /**
      * Init the panel ready to be populated with battles
      */
     public BattleSelectionPanel() {
-        super(true, true, true);
+        super("Battle Selection", true, true, true);
         setName("BattleSelection");
-
-        JLabel lblBattleSelectionTitle = new JLabel("Battle Selection");
-        lblBattleSelectionTitle.setBounds(385, 6, 246, 37);
-        lblBattleSelectionTitle.setFont(new Font("Lucida Grande", Font.BOLD, 30));
-        add(lblBattleSelectionTitle);
 
         btnBattle = new JButton("Battle");
         btnBattle.addActionListener(battle -> {
@@ -62,9 +81,10 @@ public class BattleSelectionPanel extends EntityViewer implements Updatable {
         FlowLayout pnlBattlesLayout = new FlowLayout(FlowLayout.CENTER, 0, 0);
         pnlBattles.setLayout(pnlBattlesLayout);
     }
-    
+
     /**
-     * Update the contents of the panel by populating it with all the available battles
+     * Update the contents of the panel by populating it with all the available
+     * battles
      */
     @Override
     public void update() {
@@ -103,16 +123,14 @@ public class BattleSelectionPanel extends EntityViewer implements Updatable {
 
         super.updatePlayerInfo();
         super.selectFirstAvailableButton(battleButtons);
-        
-        
-        
+
         super.updatePreview(battleButtons, opponents.toArray());
     }
-    
+
     /**
      * Get the information of the oppoent to be viewed on the GUI
      * 
-     * @param  opponent The opponent to view the information of
+     * @param opponent The opponent to view the information of
      * @return The information of the opponent as a string
      */
     private String getOpponentDescription(Player opponent) {
@@ -121,7 +139,7 @@ public class BattleSelectionPanel extends EntityViewer implements Updatable {
 
         return outputString;
     }
-    
+
     /**
      * Start the battle that was selected by the player
      */
