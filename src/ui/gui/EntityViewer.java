@@ -115,7 +115,12 @@ public class EntityViewer extends JPanel {
     /**
      * Default colour for JRadioButton(s) that are selected
      */
-    protected static final Color selectedJRadioButtonColor = new Color(128, 150, 114);
+    protected static final Color SELECTEDJRADIOBUTTONCOLOUR = new Color(177, 162, 150);
+    
+    /**
+     * Default background colour of application
+     */
+    protected static final Color BACKGROUNDCOLOUR = new Color(225, 231, 217);
 
     /**
      * Create and place the common elements on the panel, called by the subclass
@@ -130,7 +135,7 @@ public class EntityViewer extends JPanel {
         setMinimumSize(DEFAULTDIMENSION);
         setSize(DEFAULTDIMENSION);
         setVerifyInputWhenFocusTarget(false);
-        this.setBackground(Color.GRAY);
+        this.setBackground(BACKGROUNDCOLOUR);
         setLayout(null);
 
         lblTitle = new JLabel(title);
@@ -255,7 +260,7 @@ public class EntityViewer extends JPanel {
             JRadioButton button = (JRadioButton) (buttons.next());
             if (button.isSelected()) {
                 button.setOpaque(true);
-                button.setBackground(selectedJRadioButtonColor);
+                button.setBackground(SELECTEDJRADIOBUTTONCOLOUR);
             } else {
                 button.setOpaque(false);
                 button.setBackground(getBackground());

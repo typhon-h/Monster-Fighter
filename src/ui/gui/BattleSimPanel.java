@@ -1,5 +1,6 @@
 package ui.gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -18,6 +19,7 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
+import javax.swing.border.EtchedBorder;
 
 import battle.BattleEvent;
 import battle.BattleResult;
@@ -175,7 +177,7 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
         // Add background
         background = new JLabel();
         background.setBounds((MainContainer.SCREENWIDTH / 2 - BACKGROUNDIMAGEWIDTH / 2),
-                             41, BACKGROUNDIMAGEWIDTH, BACKGROUNDIMAGEHEIGHT);
+                             40, BACKGROUNDIMAGEWIDTH, BACKGROUNDIMAGEHEIGHT);
         background.setIcon(BACKGROUNDIMAGE);
 
         // Add Panels for each team to be displayed
@@ -205,11 +207,15 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
         battleLogDisplay.setLineWrap(true);
         battleLogDisplay.setWrapStyleWord(true);
         battleLogDisplay.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+        battleLogDisplay.setBackground(getBackground());
 
         JScrollPane scroll = new JScrollPane(battleLogDisplay);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.setBounds((MainContainer.SCREENWIDTH / 2 - 850 / 2), 280, 850, 200);
+        scroll.setBackground(getBackground());
+        scroll.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
+                Color.black, null));
         this.add(scroll);
 
         JPanel pnlButtonsContainer = new JPanel();
