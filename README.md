@@ -1,12 +1,13 @@
 # Monster Fighter
-A monster fighting game for SENG201-2022 by Jackie Jone and Harrison Tyson
+A monster fighting game for SENG201-2022 by Harrison Tyson and Jackie Jone
 
 ## Import into Eclipse
  - Open `Eclipse`
- - `File > Import > Existing Projects into Workspace`
+ - Select `File > Import > Existing Projects into Workspace`
  - Select `Next`
  - Go to `Select root directory > Browse`
- - Open project `hty13_jjo134_MonsterFighter` - make sure it is selected under  `Projects`
+ - Open project `hty13_jjo134_MonsterFighter` - make sure it is
+ selected under  `Projects`
  - Select `Finish`
 
 The source code should now be inside Eclipse.
@@ -14,12 +15,16 @@ The source code should now be inside Eclipse.
 ## Building Source Code
 
 Once you have the source code in Eclipse in order to build as a .jar
-
- - Right-Click on the project `hty13_jjo134_MonsterFighter` from `Project Explorer`
+ - If the application has not been run before, then: <br>
+  Right click on `hty13_jjo134_MonsterFighter` from `Package Explorer`
+  and select `Run as > Java Application > Main - main > OK` and close
+  the application that pops up
+ - Right-Click on the project `hty13_jjo134_MonsterFighter` from `Package Explorer`
  - Select `Export`
  - Select `Java > Runnable JAR file`
  - Select `Next`
- - Under `Launch configuration` select the `Main` class
+ - Under `Launch configuration` select the `Main` class for
+ `hty13_jjo134_MonsterFighter`
  - Set an export destination
  - Under `Library handling` select `Extract required libraries into generated JAR`
  - Select `Finish`
