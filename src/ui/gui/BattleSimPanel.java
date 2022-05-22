@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -118,6 +119,31 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
     private static final int BATTLEEVENTSPEED = 400;
 
     /**
+     * Path for background image
+     */
+    private static final String BACKGROUNDIMAGEPATH = "/img/BattleBackground.jpg";
+
+    /**
+     * Background image for battle simulation
+     */
+    private static final ImageIcon BACKGROUNDIMAGE = new ImageIcon(BattleSimPanel.class.getResource(BACKGROUNDIMAGEPATH));
+
+    /**
+     * Background image width
+     */
+    private static final int BACKGROUNDIMAGEWIDTH = 950;
+
+    /**
+     * Background image height
+     */
+    private static final int BACKGROUNDIMAGEHEIGHT = teamDisplayHeight + 100;
+
+    /**
+     * Background image
+     */
+    private JLabel background;
+
+    /**
      * ActionListener that displays the next event in the
      * simulation.
      */
@@ -146,6 +172,13 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
         super("Battle", true, false, false);
         setName("BattleSimulation");
 
+        // Add background
+        background = new JLabel();
+        background.setBounds((MainContainer.SCREENWIDTH / 2 - BACKGROUNDIMAGEWIDTH / 2),
+                             41, BACKGROUNDIMAGEWIDTH, BACKGROUNDIMAGEHEIGHT);
+        background.setIcon(BACKGROUNDIMAGE);
+
+        // Add Panels for each team to be displayed
         leftLayout = new FlowLayout(FlowLayout.RIGHT, 10, 0);
         rightLayout = new FlowLayout(FlowLayout.LEFT, 10, 0);
 
@@ -164,6 +197,7 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
         rightTeam.setLayout(rightLayout);
         this.add(rightTeam);
 
+        // Add battle log
         battleLogDisplay = new JTextArea();
         battleLogDisplay.setBounds(0, 0, 750, 200);
         battleLogDisplay.setEditable(false);
@@ -185,6 +219,7 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
         pnlButtonsContainer.setOpaque(false);
         this.add(pnlButtonsContainer);
 
+        // Add buttons to go through battle log
         btnContinue = new JButton();
         btnContinue.setBounds(0, 0, 850 / 2, 40);
         btnContinue.setPreferredSize(new Dimension(850 / 2, 40));
@@ -394,9 +429,11 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
      */
     @Override
     public void update() {
+        this.remove(background);
         // Update team display
         showTeams(MainContainer.game.getBattleState().getPlayer().getTeam(),
                 MainContainer.game.getBattleState().getCurrOpponent().getTeam());
+        this.add(background);
 
         if (MainContainer.game.getBattleState().getCurrOpponent() != null) {
             this.setPanelTitle(MainContainer.game.getBattleState().getCurrOpponent().getName());

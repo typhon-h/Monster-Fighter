@@ -118,3 +118,5 @@ monster it is applied to
 
 #### Misc
 [Battle Symbol](https://freesvg.org/zeimusu-crossed-swords): freesvg
+
+[Battle Background](https://pixabay.com/illustrations/illustration-background-landscape-4763593/): pixabay - Artist [aalmeidah](https://pixabay.com/users/aalmeidah-4277022/)
