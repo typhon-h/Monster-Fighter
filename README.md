@@ -11,7 +11,7 @@ A monster fighting game for SENG201-2022 by Jackie Jone and Harrison Tyson
 
 The source code should now be inside Eclipse.
 
-## Building Source Code 
+## Building Source Code
 
 Once you have the source code in Eclipse in order to build as a .jar
 
@@ -23,7 +23,7 @@ Once you have the source code in Eclipse in order to build as a .jar
  - Set an export destination
  - Under `Library handling` select `Extract required libraries into generated JAR`
  - Select `Finish`
- 
+
  You should now have an executable .jar file of the program.
 
 ## Running the program
@@ -57,7 +57,7 @@ The possible events are as follows:
 - ONHURT - triggers every time a monster receives damage (but doesn't faint)
 - ONFAINT - triggers once when a monster faints
 
- #### Types of Monsters
+#### Types of Monsters
 
 **Clink**: COMMON
 	- **Ability:** Loses 1 Attack, gains 1 Health
@@ -87,7 +87,7 @@ A **LEGENDARY stat boost** will boost a stat by **5**
 
 In addition to this there are two extra items:
 - **Random Trigger**
-A Random Trigger item is a **rare** item which randomly assigns the ability trigger of the 
+A Random Trigger item is a **rare** item which randomly assigns the ability trigger of the
 monster it is applied to
 - **Select Trigger**
 - A Select Trigger item is a **legendary** item that specifies what ability trigger it will give
