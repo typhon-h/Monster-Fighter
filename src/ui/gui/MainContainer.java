@@ -166,7 +166,7 @@ public class MainContainer {
             }
         }
 
-        mainMenuPanel = new MainMenuPanel(); // TODO: extract menu names to constants
+        mainMenuPanel = new MainMenuPanel();
         mainContainerPanel.add(mainMenuPanel, "MainMenu");
 
         buyShopPanel = new BuyShopPanel();

@@ -121,8 +121,6 @@ public class ContentPanel extends JPanel {
                 height);
         entityDisplay = new JPanel();
         entityDisplay.setLayout(entityContainerLayout);
-        // TODO: Remove this commented out code if no bugs :)
-        // entityDisplay.setMaximumSize(new Dimension(width, 2000));
         entityDisplay.setPreferredSize(entityDisplayDimension);
         entityDisplay.setBackground(getBackground());
 

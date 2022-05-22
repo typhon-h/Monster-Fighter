@@ -395,7 +395,7 @@ public class SetupPanel extends EntityViewer {
         // CREATE GAME
         try {
             Team team = new Team(starter);
-            Player player = new Player(playerName, team, GameEnvironment.STARTINGGOLD);
+            Player player = new Player(playerName, team, 5000);
             MainContainer.game = new GameEnvironment(player, numDays, gameDifficulty);
             MainContainer.setUpScreens();
             MainContainer.showScreen("MainMenu");
