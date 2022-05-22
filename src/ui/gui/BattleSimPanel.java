@@ -26,7 +26,7 @@ import monsters.Monster;
 
 /**
  * A swing panel made for displaying the simulation of the battle to the player
- * 
+ *
  * @author Jackie Jone
  * @version 1.0 May, 2022
  */
@@ -392,6 +392,12 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
         // Update team display
         showTeams(MainContainer.game.getBattleState().getPlayer().getTeam(),
                 MainContainer.game.getBattleState().getCurrOpponent().getTeam());
+
+        if (MainContainer.game.getBattleState().getCurrOpponent() != null) {
+            this.setPanelTitle(MainContainer.game.getBattleState().getCurrOpponent().getName());
+        } else {
+            this.setPanelTitle("Battle");
+        }
 
         // Reset buttons
         btnSkip.setEnabled(true);

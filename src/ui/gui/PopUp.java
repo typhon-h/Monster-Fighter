@@ -103,7 +103,7 @@ public class PopUp extends JFrame {
 
             @Override
             public void windowLostFocus(WindowEvent e) {
-//                e.getWindow().dispose();
+                e.getWindow().dispose();
             }
 
             @Override

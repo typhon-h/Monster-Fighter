@@ -34,7 +34,7 @@ public class MainMenuPanel extends EntityViewer implements Updatable {
      * Initialize the main menu with all the navigation buttons
      */
     public MainMenuPanel() {
-        super("", true, false, false);
+        super("Main Menu", true, false, false);
         setName("MainMenu");
 
         JPanel buttonsContainer = new JPanel();
