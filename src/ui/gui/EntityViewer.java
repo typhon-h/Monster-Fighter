@@ -332,15 +332,9 @@ public class EntityViewer extends JPanel {
             ContentPanel panel = contentPanels.get(i);
             Object[] contentOfPanel = content.get(i);
             panel.setContent(contentOfPanel);
-            if (i == 0) { // Only the first content panel has a select action
-                panel.update(update -> {
-                    updatePreview(panel.getButtons(), panel.getContent().toArray());
-                }, getDescriptions(panel.getContent()));
-            } else {
-                panel.update(update -> {
-                    updateSelectedButtonBackground(panel.getButtons());
-                }, getDescriptions(panel.getContent()));
-            }
+            panel.update(update -> {
+                updatePreview(panel.getButtons(), panel.getContent().toArray());
+            }, getDescriptions(panel.getContent()));
         }
     }
 
