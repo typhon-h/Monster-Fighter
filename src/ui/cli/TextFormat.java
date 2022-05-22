@@ -1,5 +1,6 @@
-package main;
+package ui.cli;
 
+import main.Team;
 import monsters.Monster;
 
 /**
@@ -13,7 +14,7 @@ public class TextFormat {
      * Gets the length of the longest string in the array
      *
      * @param strings An array to find the longest string of
-     * @return        The length of the longest string in the array
+     * @return The length of the longest string in the array
      */
     private static int longestStringLen(String[] strings) {
         int longest = 0;
@@ -30,7 +31,7 @@ public class TextFormat {
      *
      * @param string String to be centered
      * @param width  Width of the string to center to
-     * @return       Text centered with padding using ' '
+     * @return Text centered with padding using ' '
      */
     private static String centerText(String string, int width) {
         if (string.length() >= width) {
@@ -44,8 +45,10 @@ public class TextFormat {
         boolean extraRightPadding = padding % 2 == 1;
         int leftRightPadding = padding / 2;
 
-        for (int i = 0; i < leftRightPadding; i++) leftPadding = leftPadding.concat(" ");
-        for (int i = 0; i < leftRightPadding; i++) rightPadding = rightPadding.concat(" ");
+        for (int i = 0; i < leftRightPadding; i++)
+            leftPadding = leftPadding.concat(" ");
+        for (int i = 0; i < leftRightPadding; i++)
+            rightPadding = rightPadding.concat(" ");
         rightPadding = rightPadding.concat(extraRightPadding ? " " : "");
 
         return leftPadding + string + rightPadding;
@@ -70,9 +73,11 @@ public class TextFormat {
         headerWidth = maxTextWidth + 4; // 4 char longer than maxTextWidth for border chars
 
         // Print white space
-        for (int i = 0; i < whiteSpaceBefore; i++) System.out.println();
+        for (int i = 0; i < whiteSpaceBefore; i++)
+            System.out.println();
 
-        for (int i = 0; i < headerWidth; i++) System.out.print(horizBorder);
+        for (int i = 0; i < headerWidth; i++)
+            System.out.print(horizBorder);
         System.out.println();
         String finalString = "";
 
@@ -100,7 +105,8 @@ public class TextFormat {
             }
             currWord++;
         }
-        for (int i = 0; i < headerWidth; i++) System.out.print(horizBorder);
+        for (int i = 0; i < headerWidth; i++)
+            System.out.print(horizBorder);
         System.out.println();
     }
 
@@ -109,7 +115,7 @@ public class TextFormat {
      *
      * @param allyTeam     Ally team respective to the player
      * @param opponentTeam Opponent team respective to the player
-     * @return             String format of both teams
+     * @return String format of both teams
      */
     public static String printBothTeams(Team allyTeam, Team opponentTeam) {
         String output = "| ";

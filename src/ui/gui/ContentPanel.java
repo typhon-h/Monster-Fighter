@@ -1,4 +1,4 @@
-package gui;
+package ui.gui;
 
 import java.awt.Color;
 
@@ -85,7 +85,7 @@ public class ContentPanel extends JPanel {
      * Size of the entity display
      */
     private Dimension entityDisplayDimension;
-    
+
     /**
      * Number of entities to display on each row
      */
@@ -106,13 +106,12 @@ public class ContentPanel extends JPanel {
         this.panelHeight = height;
         this.panelWidth = width;
         this.setBackground(backgroundColor);
-        
 
         // Container has image and description
         entityContainerWidth = ENTITYWIDTH * 2;
         entityContainerGap = (width -
                 (numDisplayWide * entityContainerWidth)) / 4;
-        
+
         this.numRowEntites = width / (entityContainerWidth + entityContainerGap);
 
         FlowLayout entityContainerLayout = new FlowLayout(FlowLayout.LEFT,
@@ -123,7 +122,7 @@ public class ContentPanel extends JPanel {
         entityDisplay = new JPanel();
         entityDisplay.setLayout(entityContainerLayout);
         // TODO: Remove this commented out code if no bugs :)
-//        entityDisplay.setMaximumSize(new Dimension(width, 2000));
+        // entityDisplay.setMaximumSize(new Dimension(width, 2000));
         entityDisplay.setPreferredSize(entityDisplayDimension);
         entityDisplay.setBackground(getBackground());
 

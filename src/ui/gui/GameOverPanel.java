@@ -1,6 +1,9 @@
-package gui;
+package ui.gui;
 
 import java.awt.Font;
+
+import static ui.gui.BattleSimPanel.populateTeamPanel;
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
@@ -9,7 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import static gui.BattleSimPanel.populateTeamPanel;
 import main.Player;
 
 /**

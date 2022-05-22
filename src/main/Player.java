@@ -6,9 +6,9 @@ import javax.swing.ImageIcon;
 
 import exceptions.InsufficientFundsException;
 import exceptions.UnusableItemException;
-import gui.Previewable;
 import items.Item;
 import monsters.Monster;
+import ui.gui.Previewable;
 
 /**
  * A class for defining a player. Used to track the players information

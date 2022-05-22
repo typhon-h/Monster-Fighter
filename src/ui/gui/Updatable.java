@@ -1,4 +1,4 @@
-package gui;
+package ui.gui;
 
 /**
  * An interface defining all panels that are updatable

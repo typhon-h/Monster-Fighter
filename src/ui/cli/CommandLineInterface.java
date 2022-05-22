@@ -1,4 +1,4 @@
-package main;
+package ui.cli;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +11,11 @@ import battle.BattleResult;
 import exceptions.DuplicateMonsterException;
 import exceptions.TeamSizeException;
 import items.Item;
+import main.Difficulty;
+import main.Entity;
+import main.GameEnvironment;
+import main.Player;
+import main.Team;
 import monsters.Monster;
 
 /**
@@ -575,18 +580,11 @@ public class CommandLineInterface {
     }
 
     /**
-     * Entry point for command line application
-     *
-     * @param args Arguments passed in when running program
+     * Get active Game status
+     * 
+     * @return boolean flag if game has ended
      */
-    public static void main(String args[]) {
-        CommandLineInterface cli = new CommandLineInterface();
-        cli.setUp();
-
-        while (!cli.game.isGameOver()) {
-            cli.mainMenu();
-        }
-
-        cli.gameOverScreen();
+    public boolean isGameOver() {
+        return game.isGameOver();
     }
 }

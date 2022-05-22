@@ -1,4 +1,4 @@
-package gui;
+package ui.gui;
 
 import javax.swing.ImageIcon;
 

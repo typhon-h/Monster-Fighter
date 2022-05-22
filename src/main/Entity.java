@@ -2,7 +2,7 @@ package main;
 
 import javax.swing.ImageIcon;
 
-import gui.Previewable;
+import ui.gui.Previewable;
 
 /**
  * Superclass for game objects.

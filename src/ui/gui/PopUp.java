@@ -1,4 +1,4 @@
-package gui;
+package ui.gui;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -70,7 +70,6 @@ public class PopUp extends JFrame {
         lblmessage.setHorizontalAlignment(SwingConstants.CENTER);
         lblmessage.setPreferredSize(new Dimension(POPUPWIDTH, ((POPUPHEIGHT - 43) * 3) / 4));
 
-        
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -87,13 +86,12 @@ public class PopUp extends JFrame {
         btnOK.setFocusable(false);
         contentPane.add(btnOK);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        
-        
+
         setLocation(location.x +
-                (gui.MainContainer.SCREENWIDTH / 2) -
+                (ui.gui.MainContainer.SCREENWIDTH / 2) -
                 this.getWidth() / 2,
                 location.y +
-                        (gui.MainContainer.SCREENHEIGHT / 2) -
+                        (ui.gui.MainContainer.SCREENHEIGHT / 2) -
                         this.getHeight() / 2);
 
         setVisible(true);

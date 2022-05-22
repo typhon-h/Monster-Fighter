@@ -1,6 +1,5 @@
-package gui;
+package ui.gui;
 
-import java.awt.EventQueue;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
@@ -116,24 +115,6 @@ public class MainContainer {
     private static GameOverPanel gameOverPanel;
 
     /**
-     * Launch the application.
-     * 
-     * @param args Arguments for the application from standard input
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    MainContainer window = new MainContainer();
-                    window.monsterGameFrame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    /**
      * Create the application.
      */
     public MainContainer() {
@@ -231,5 +212,12 @@ public class MainContainer {
         Image tmp = image.getImage();
         Image scaled = tmp.getScaledInstance(targetWidth, targetHeight, Image.SCALE_SMOOTH);
         return new ImageIcon(scaled);
+    }
+
+    /**
+     * Gets game window frame
+     */
+    public JFrame getGameFrame() {
+        return monsterGameFrame;
     }
 }

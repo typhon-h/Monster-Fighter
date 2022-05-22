@@ -1,6 +1,6 @@
-package gui;
+package ui.gui;
 
-import static gui.MainContainer.DEFAULTDIMENSION;
+import static ui.gui.MainContainer.DEFAULTDIMENSION;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -67,7 +67,7 @@ public class EntityViewer extends JPanel {
     private JButton btnBack;
 
     /**
-     * {@link ArrayList ArrayList} of {@link gui.ContentPanel ContentPanels} on
+     * {@link ArrayList ArrayList} of {@link ui.gui.ContentPanel ContentPanels} on
      * screen
      */
     protected ArrayList<ContentPanel> contentPanels = new ArrayList<ContentPanel>();
@@ -283,8 +283,7 @@ public class EntityViewer extends JPanel {
      * @param content The button group to select the button from
      */
     protected void selectFirstAvailableButton(ButtonGroup content) {
-        
-        
+
         List<AbstractButton> availableButtons = Collections.list(content.getElements());
         if (availableButtons.size() > 0) { // TODO: I think this will work once buttons are dynamic??
             availableButtons.get(0).setSelected(true);
