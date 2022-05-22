@@ -120,6 +120,6 @@ public class ClinkMonsterTest {
     public void abilityReturnTest() {
         BattleEvent ability = monster.ability(true, allyTeam, enemyTeam);
         assertEquals(monster.getName() + "'s " + monster.getTrigger().name()
-                + " ability triggered. Lost 1 ATK and gained 1 HP", ability.getDescription());
+                + " ability triggered. Lost 1 ATK and gained 1 HP.", ability.getDescription());
     }
 }

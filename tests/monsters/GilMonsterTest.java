@@ -137,6 +137,6 @@ public class GilMonsterTest {
         BattleEvent ability = monster.ability(true, allyTeam, enemyTeam);
         assertEquals(monster.getName() + "'s " + monster.getTrigger().name() + " ability triggered. "
                 + ally.getName() + "'s attack increased to "
-                + ally.getCurrentAttackDamage(), ability.getDescription());
+                + ally.getCurrentAttackDamage() + ".", ability.getDescription());
     }
 }
