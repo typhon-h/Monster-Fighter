@@ -34,7 +34,7 @@ public class ClinkMonster extends Monster {
             Team player = (inPlayerTeam) ? allyTeam : enemyTeam;
             Team opponent = (inPlayerTeam) ? enemyTeam : allyTeam;
             return new BattleEvent(player, opponent, this.getName() + "'s " + this.getTrigger().name()
-                    + " ability triggered. Lost 1 ATK and gained 1 HP");
+                    + " ability triggered. Lost 1 ATK and gained 1 HP.");
 
         }
         return null;

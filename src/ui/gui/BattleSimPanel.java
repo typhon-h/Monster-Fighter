@@ -113,6 +113,11 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
     private static final int TEAMDISPLAYWIDTH = 450;
 
     /**
+     * Speed which battle events are automatically displayed (in milliseconds)
+     */
+    private static final int BATTLEEVENTSPEED = 400;
+
+    /**
      * ActionListener that displays the next event in the
      * simulation.
      */
@@ -306,11 +311,11 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
             if (MainContainer.game.getBattleState().getResult() == BattleResult.WIN) {
                 new PopUp("Winner", rewardsString, this.getLocationOnScreen());
                 battleLogDisplay.setText(battleLogDisplay.getText() +
-                        "\nAll the opponent monsters fainted\nYOU WON!\n" +
+                        "\nAll the opponent monsters fainted.\nYOU WON!\n" +
                         rewardsString);
             } else if (MainContainer.game.getBattleState().getResult() == BattleResult.LOSS) {
                 battleLogDisplay.setText(battleLogDisplay.getText() +
-                        "\nAll your monsters have fainted\nYOU LOST!");
+                        "\nAll your monsters have fainted.\nYOU LOST!");
             }
             // Distribute rewards
             MainContainer.game.getBattleState().giveRewards();
@@ -356,7 +361,7 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
         if (chkAutoPlay.isSelected()) {
             btnContinue.setEnabled(false);
             btnSkip.setEnabled(false);
-            timer = new Timer(500, new ActionListener() {
+            timer = new Timer(BATTLEEVENTSPEED, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (currEvent != null) {

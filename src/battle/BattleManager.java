@@ -262,12 +262,12 @@ public class BattleManager {
                     " dealt " +
                     attackingMonster.getCurrentAttackDamage() +
                     " damage to " +
-                    receivingMonster.getName();
+                    receivingMonster.getName() + ". ";
 
             Trigger trigger;
             if (!receivingMonster.getStatus()) {
                 trigger = Trigger.ONFAINT;
-                description += ". " + receivingMonster.getName() + " fainted.";
+                description += receivingMonster.getName() + " fainted.";
             } else {
                 trigger = Trigger.ONHURT;
             }

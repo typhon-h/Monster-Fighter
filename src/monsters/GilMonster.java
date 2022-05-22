@@ -41,7 +41,7 @@ public class GilMonster extends Monster {
             return new BattleEvent(player, opponent,
                     this.getName() + "'s " + this.getTrigger().name() + " ability triggered. "
                             + monsterToAdjust.getName() + "'s attack increased to "
-                            + monsterToAdjust.getCurrentAttackDamage());
+                            + monsterToAdjust.getCurrentAttackDamage() + ".");
         }
 
         return null; // No trigger

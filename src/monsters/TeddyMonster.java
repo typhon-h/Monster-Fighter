@@ -40,7 +40,7 @@ public class TeddyMonster extends Monster {
             Team player = (inPlayerTeam) ? allyTeam : enemyTeam;
             Team opponent = (inPlayerTeam) ? enemyTeam : allyTeam;
             return new BattleEvent(player, opponent, this.getName() + "'s " + this.getTrigger().name()
-                    + " ability triggered. " + monsterToAdjust.getName() + " gained 1 HP");
+                    + " ability triggered. " + monsterToAdjust.getName() + " gained 1 HP.");
         }
         return null; // Empty
     }

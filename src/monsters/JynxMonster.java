@@ -40,7 +40,7 @@ public class JynxMonster extends Monster {
         Team player = (inPlayerTeam) ? allyTeam : enemyTeam;
         Team opponent = (inPlayerTeam) ? enemyTeam : allyTeam;
         return new BattleEvent(player, opponent, this.getName() + "'s " + this.getTrigger().name()
-                + " ability triggered. " + this.getName() + "'s new HP is " + this.getCurrentHealth());
+                + " ability triggered. " + this.getName() + "'s new HP is " + this.getCurrentHealth() + ".");
     }
 
 }
