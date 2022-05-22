@@ -15,7 +15,6 @@ import monsters.Monster;
  * @version 1.1 May, 2022
  */
 public class TeamPanel extends EntityViewer implements Updatable {
-    // TODO: add change nickname??
     /**
      * Default serial version ID
      */

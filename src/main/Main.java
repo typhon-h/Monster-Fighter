@@ -4,6 +4,14 @@ import ui.cli.CommandLineInterface;
 import ui.gui.MainContainer;
 import java.awt.EventQueue;
 
+
+/**
+ * Contains main methods to execute the program
+ * @author Harrison Tyson
+ * @author Jackie Jone
+ * @version 1.0, May. 2022
+ *
+ */
 public class Main {
     /**
      * Main application execution

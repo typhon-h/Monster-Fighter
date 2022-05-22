@@ -53,7 +53,7 @@ public class SetupPanel extends EntityViewer {
     private ButtonGroup difficultyOptions = new ButtonGroup();
 
     /**
-     * Group of starting monster buttonss
+     * Group of starting monster buttons
      */
     private ButtonGroup starterMonsters = new ButtonGroup();
 
@@ -329,7 +329,7 @@ public class SetupPanel extends EntityViewer {
     }
 
     /**
-     * Update the buttons for selecting mosnters
+     * Update the buttons for selecting monsters
      */
     private void updateMonsterSelectionLabels() {
         btnMonster1Img.setIcon(MainContainer.imageResize(availableStarters.get(0).getImage(), btnMonster1Img.getWidth(),
@@ -344,16 +344,16 @@ public class SetupPanel extends EntityViewer {
     }
 
     /**
-     * Set up the game with the values the player entered in
+     * Set up the game with the values the user entered in
      */
     private void setUpGame() {
         // Player Name
         String playerName = textFieldPlayerName.getText();
         if (!playerName.matches(nameValidation)) {
-            new PopUp("Error", "<html>Name must be 3-15 characters<br />No numbers or special characters</html>",
-                    this.getLocationOnScreen());
             textFieldPlayerName.setText("");
             textFieldPlayerName.grabFocus();
+            new PopUp("Error", "<html>Name must be 3-15 characters<br />No numbers or special characters</html>",
+                    this.getLocationOnScreen());
             return;
         }
 
@@ -376,14 +376,15 @@ public class SetupPanel extends EntityViewer {
         String selectedStarter = starterMonsters.getSelection().getActionCommand();
         int index = Integer.parseInt(selectedStarter);
         Monster starter = availableStarters.get(index);
+        
         String monsterName = textFieldMonsterNickname.getText().strip();
         if (monsterName.length() > 0) {
             if (!monsterName.matches(nameValidation)) {
+                textFieldMonsterNickname.setText("");
+                textFieldMonsterNickname.grabFocus();
                 new PopUp("Error",
                         "<html>Monster name must be 3-15 characters<br />No numbers or special characters</html>",
                         this.getLocationOnScreen());
-                textFieldMonsterNickname.setText("");
-                textFieldMonsterNickname.grabFocus();
                 return;
             } else {
                 starter.setName(monsterName);

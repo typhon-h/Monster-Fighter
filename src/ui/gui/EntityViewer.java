@@ -258,10 +258,7 @@ public class EntityViewer extends JPanel {
 
         if (options.getSelection() != null) {
             int index = Integer.parseInt(options.getSelection().getActionCommand());
-            if (objects.length == 0 || index < 0 || index >= objects.length) { // TODO: remove if statement once dynamic
-                                                                               // buttons
-                return;
-            }
+
             Object o = objects[index];
             if (o instanceof Previewable) {
                 lblPreviewEntityImg.setIcon(((Previewable) objects[index]).getImage());
@@ -285,7 +282,7 @@ public class EntityViewer extends JPanel {
     protected void selectFirstAvailableButton(ButtonGroup content) {
 
         List<AbstractButton> availableButtons = Collections.list(content.getElements());
-        if (availableButtons.size() > 0) { // TODO: I think this will work once buttons are dynamic??
+        if (availableButtons.size() > 0) {
             availableButtons.get(0).setSelected(true);
         } else {
             content.clearSelection();
