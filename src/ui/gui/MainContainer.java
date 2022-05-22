@@ -23,7 +23,6 @@ import java.awt.Dimension;
  * @version 1.3 May, 2022
  */
 public class MainContainer {
-    // TODO: add focus listeners
     /**
      * Main application frame
      */
@@ -216,6 +215,8 @@ public class MainContainer {
 
     /**
      * Gets game window frame
+     * 
+     * @return master game JFrame
      */
     public JFrame getGameFrame() {
         return monsterGameFrame;

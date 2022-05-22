@@ -93,15 +93,17 @@ public class PopUp extends JFrame {
                 location.y +
                         (ui.gui.MainContainer.SCREENHEIGHT / 2) -
                         this.getHeight() / 2);
-
-        setVisible(true);
-
+        
+        this.setAutoRequestFocus(true);
+        
+        this.setAlwaysOnTop(true);
+        
         // Closes when loses focus
         this.addWindowFocusListener(new WindowFocusListener() {
 
             @Override
             public void windowLostFocus(WindowEvent e) {
-                e.getWindow().dispose();
+//                e.getWindow().dispose();
             }
 
             @Override
@@ -111,6 +113,11 @@ public class PopUp extends JFrame {
             }
 
         });
+
+       
+        setVisible(true);
+
+
 
         this.getRootPane().setDefaultButton(btnOK);
     }
