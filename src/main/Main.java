@@ -18,7 +18,7 @@ public class Main {
      * Runs game as CommandLine Application
      */
     @SuppressWarnings("unused")
-	private static void runCLI() {
+    private static void runCLI() {
         CommandLineInterface cli = new CommandLineInterface();
         cli.setUp();
 
