@@ -1,24 +1,19 @@
 package ui.gui;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Point;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.JButton;
-
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Insets;
-import java.awt.Point;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowFocusListener;
 
 /**
  * A class for creating new warning/error/information popups on the screen
@@ -66,7 +61,7 @@ public class PopUp extends JFrame {
         contentPane.setPreferredSize(new Dimension(POPUPWIDTH, POPUPHEIGHT));
         contentPane.setLayout(null);
         setContentPane(contentPane);
-        
+
         JTextArea messageDisplay = new JTextArea();
         messageDisplay.setBounds(0, 0, POPUPWIDTH, POPUPHEIGHT - 50);
         messageDisplay.setEditable(false);
@@ -79,11 +74,12 @@ public class PopUp extends JFrame {
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.setBounds(0, 0, POPUPWIDTH, POPUPHEIGHT - 55);
-        scroll.setBackground(getBackground());;
+        scroll.setBackground(getBackground());
+        ;
         scroll.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
                 Color.black, null));
         this.add(scroll);
-        
+
         messageDisplay.setText(message);
         messageDisplay.setCaretPosition(0);
 
@@ -103,11 +99,11 @@ public class PopUp extends JFrame {
                 location.y +
                         (ui.gui.MainContainer.SCREENHEIGHT / 2) -
                         this.getHeight() / 2);
-        
+
         this.setAutoRequestFocus(true);
-        
+
         this.setAlwaysOnTop(true);
-        
+
         // Closes when loses focus
         this.addWindowFocusListener(new WindowFocusListener() {
 
@@ -124,10 +120,7 @@ public class PopUp extends JFrame {
 
         });
 
-       
         setVisible(true);
-
-
 
         this.getRootPane().setDefaultButton(btnOK);
     }
