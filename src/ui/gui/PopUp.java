@@ -3,15 +3,19 @@ package ui.gui;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.JButton;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Insets;
 import java.awt.Point;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
@@ -59,23 +63,29 @@ public class PopUp extends JFrame {
         setResizable(false);
         setBounds(0, 0, POPUPWIDTH, 150);
         contentPane = new JPanel();
-        // contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setPreferredSize(new Dimension(POPUPWIDTH, POPUPHEIGHT));
-        contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        contentPane.setLayout(null);
         setContentPane(contentPane);
+        
+        JTextArea messageDisplay = new JTextArea();
+        messageDisplay.setBounds(0, 0, POPUPWIDTH, POPUPHEIGHT - 50);
+        messageDisplay.setEditable(false);
+        messageDisplay.setLineWrap(true);
+        messageDisplay.setWrapStyleWord(true);
+        messageDisplay.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+        messageDisplay.setBackground(getBackground());
 
-        JLabel lblmessage = new JLabel(message);
-        lblmessage.setVerticalAlignment(SwingConstants.TOP);
-        lblmessage.setHorizontalAlignment(SwingConstants.CENTER);
-        lblmessage.setPreferredSize(new Dimension(POPUPWIDTH, ((POPUPHEIGHT - 43) * 3) / 4));
-
-        JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setBorder(new LineBorder(new Color(0, 0, 0)));
-        scrollPane.setBounds(0, 0, POPUPWIDTH, ((POPUPHEIGHT - 43) * 3) / 4);
-        scrollPane.setViewportView(lblmessage);
-        this.add(scrollPane);
+        JScrollPane scroll = new JScrollPane(messageDisplay);
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scroll.setBounds(0, 0, POPUPWIDTH, POPUPHEIGHT - 55);
+        scroll.setBackground(getBackground());;
+        scroll.setBorder(new EtchedBorder(EtchedBorder.LOWERED,
+                Color.black, null));
+        this.add(scroll);
+        
+        messageDisplay.setText(message);
+        messageDisplay.setCaretPosition(0);
 
         JButton btnOK = new JButton("OK");
         btnOK.addActionListener(close -> {
@@ -83,6 +93,7 @@ public class PopUp extends JFrame {
         });
         btnOK.setPreferredSize(new Dimension(POPUPWIDTH, (POPUPHEIGHT - 34) / 4));
         btnOK.setFocusable(false);
+        btnOK.setBounds(0, POPUPHEIGHT - 55, POPUPWIDTH, 25);
         contentPane.add(btnOK);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -113,12 +124,12 @@ public class PopUp extends JFrame {
 
         });
 
-        this.getRootPane().setDefaultButton(btnOK);
        
         setVisible(true);
 
 
 
+        this.getRootPane().setDefaultButton(btnOK);
     }
 
 }

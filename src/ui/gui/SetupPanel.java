@@ -277,6 +277,7 @@ public class SetupPanel extends EntityViewer {
         jPanelStarterMonsters.add(lblMonster3Name);
 
         JLabel lblNickname = new JLabel("Give Nickname (optional):");
+        lblNickname.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
         lblNickname.setBounds(690, 500, 173, 16);
         add(lblNickname);
 
@@ -352,7 +353,7 @@ public class SetupPanel extends EntityViewer {
         if (!playerName.matches(nameValidation)) {
             textFieldPlayerName.setText("");
             textFieldPlayerName.grabFocus();
-            new PopUp("Error", "<html>Name must be 3-15 characters<br />No numbers or special characters</html>",
+            new PopUp("Error", "Name must be 3-15 characters\nNo numbers or special characters",
                     this.getLocationOnScreen());
             return;
         }
@@ -383,7 +384,7 @@ public class SetupPanel extends EntityViewer {
                 textFieldMonsterNickname.setText("");
                 textFieldMonsterNickname.grabFocus();
                 new PopUp("Error",
-                        "<html>Monster name must be 3-15 characters<br />No numbers or special characters</html>",
+                        "Monster name must be 3-15 characters\nNo numbers or special characters\n",
                         this.getLocationOnScreen());
                 return;
             } else {

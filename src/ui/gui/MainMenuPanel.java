@@ -82,9 +82,9 @@ public class MainMenuPanel extends EntityViewer implements Updatable {
 
         JButton btnSleep = new JButton("Sleep");
         btnSleep.addActionListener(sleep -> {
-            String sleepEvents = String.join("<br>", MainContainer.game.sleep());
-            String sleepMessage = "<html>You have advanced to the next day<br>" +
-                    sleepEvents + "</html>";
+            String sleepEvents = String.join("\n", MainContainer.game.sleep());
+            String sleepMessage = "You have advanced to the next day\n" +
+                    sleepEvents + "\n";
             if (MainContainer.game.isGameOver()) {
                 MainContainer.showScreen("GameOver");
             } else {

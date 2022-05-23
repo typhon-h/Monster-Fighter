@@ -136,7 +136,7 @@ public class EntityViewer extends JPanel {
         lblTitle = new JLabel(title);
         lblTitle.setBounds(DEFAULTDIMENSION.width / 2 - TITLEWIDTH / 2, 0,
                            TITLEWIDTH, 37);
-        lblTitle.setFont(new Font("Lucida Grande", Font.BOLD, 23));
+        lblTitle.setFont(new Font("Lucida Grande", Font.BOLD, 20));
         lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
         add(lblTitle);
 
@@ -165,7 +165,7 @@ public class EntityViewer extends JPanel {
     private void initializePlayerInfo() {
 
         JLabel lblName = new JLabel("Name: ");
-        lblName.setFont(new Font("Lucida Grande", Font.BOLD, 19));
+        lblName.setFont(new Font("Lucida Grande", Font.BOLD, 17));
         lblName.setBounds(90, 6, 70, PLAYERINFOHEIGHT);
         lblName.setVerticalAlignment(SwingConstants.CENTER);
         lblName.setVerticalTextPosition(SwingConstants.CENTER);
@@ -177,33 +177,33 @@ public class EntityViewer extends JPanel {
         add(lblPlayerName);
 
         JLabel lblDay = new JLabel("Day:");
-        lblDay.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+        lblDay.setFont(new Font("Lucida Grande", Font.BOLD, 17));
         lblDay.setBounds(280, 6, 51, PLAYERINFOHEIGHT);
         add(lblDay);
 
         lblCurrentDay = new JLabel(
                 MainContainer.game.getCurrentDay() + "/" + MainContainer.game.getTotalDays());
-        lblCurrentDay.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+        lblCurrentDay.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
         lblCurrentDay.setBounds(330, 6, 61, PLAYERINFOHEIGHT);
         add(lblCurrentDay);
 
         JLabel lblScore = new JLabel("Score: ");
-        lblScore.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+        lblScore.setFont(new Font("Lucida Grande", Font.BOLD, 17));
         lblScore.setBounds(660, 6, 70, PLAYERINFOHEIGHT);
         add(lblScore);
 
         lblPlayerScore = new JLabel("" + MainContainer.game.getPlayer().getScore());
-        lblPlayerScore.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+        lblPlayerScore.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
         lblPlayerScore.setBounds(730, 6, 61, PLAYERINFOHEIGHT);
         add(lblPlayerScore);
 
         JLabel lblGold = new JLabel("Gold:");
-        lblGold.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+        lblGold.setFont(new Font("Lucida Grande", Font.BOLD, 17));
         lblGold.setBounds(800, 6, 61, PLAYERINFOHEIGHT);
         add(lblGold);
 
         lblPlayerGold = new JLabel("" + MainContainer.game.getPlayer().getGold());
-        lblPlayerGold.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+        lblPlayerGold.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
         lblPlayerGold.setBounds(860, 6, 61, PLAYERINFOHEIGHT);
         add(lblPlayerGold);
 
