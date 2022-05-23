@@ -25,6 +25,7 @@ public class DittaMonster extends Monster {
         this.setTrigger(Trigger.STARTOFBATTLE);
     }
 
+    // Runs the ability of the monster - javadoc inherited from super
     @Override
     public BattleEvent ability(boolean inPlayerTeam, Team allyTeam, Team enemyTeam) {
         // COPY the stats of the enemy in front

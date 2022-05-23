@@ -160,6 +160,36 @@ public class Entity implements Cloneable, Previewable {
     }
 
     /**
+     * ## References
+     * ### Images
+     * #### Monsters
+     * [Clink
+     * Monster](https://publicdomainvectors.org/en/free-clipart/Purple-monster/37504.html):
+     * publicdomainvectors
+     * 
+     * [Ditta
+     * Monster](https://publicdomainvectors.org/en/free-clipart/Vector-graphics-of-blue-cartoon-creature/29376.html):
+     * publicdomainvectors
+     * 
+     * [Gil
+     * Monster](https://pixabay.com/vectors/logo-monster-cartoon-technology-5492440/):
+     * pixabay
+     * 
+     * [Jynx Monster](https://freesvg.org/monster-02): freesvg
+     * 
+     * [Lucifer
+     * Monster](https://publicdomainvectors.org/en/free-clipart/Red-flying-monster/81412.html):
+     * publicdomainvectors
+     * 
+     * [Teddy
+     * Monster](https://publicdomainvectors.org/en/free-clipart/Cute-toothless-monster/81416.html):
+     * freesvg
+     * 
+     * #### Items
+     * [All Items](https://freesvg.org/potions): freesvg
+     */
+
+    /**
      * Sets image of the entity
      */
     public void setImage() {

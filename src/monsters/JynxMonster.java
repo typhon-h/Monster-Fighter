@@ -25,6 +25,7 @@ public class JynxMonster extends Monster {
         this.setTrigger(Trigger.STARTOFBATTLE);
     }
 
+    // Runs the ability of the monster - javadoc inherited from super
     public BattleEvent ability(boolean inPlayerTeam, Team allyTeam, Team enemyTeam) {
         // Copy HEALTH of healthiest ally
 
