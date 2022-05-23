@@ -224,13 +224,13 @@ class BattleManagerTests {
 
         // Run tests
         BattleEvent event1 = battleManager.nextEvent();
-        assertEquals("Monster 1 dealt " + allyMonsterDmg + " damage to Monster 2",
+        assertEquals("Monster 1 dealt " + allyMonsterDmg + " damage to Monster 2. ",
                 event1.getDescription());
         assertEquals(monsterHealth - allyMonsterDmg,
                 event1.getOpponentTeam().getFirstAliveMonster().getCurrentHealth());
 
         BattleEvent event2 = battleManager.nextEvent();
-        assertEquals("Monster 2 dealt " + oppoMonsterDmg + " damage to Monster 1",
+        assertEquals("Monster 2 dealt " + oppoMonsterDmg + " damage to Monster 1. ",
                 event2.getDescription());
         assertEquals(monsterHealth - oppoMonsterDmg,
                 event2.getAllyTeam().getFirstAliveMonster().getCurrentHealth());
@@ -280,7 +280,7 @@ class BattleManagerTests {
                 currEvent.getOpponentTeam().getFirstAliveMonster().getName());
 
         currEvent = battleManager.nextEvent();
-        assertEquals("Opponent Monster 2 dealt 4 damage to Ally Monster",
+        assertEquals("Opponent Monster 2 dealt 4 damage to Ally Monster. ",
                 currEvent.getDescription());
         assertEquals(monsterHealth - oppoMonsterDmg2,
                 currEvent.getAllyTeam().getFirstAliveMonster().getCurrentHealth());
@@ -324,7 +324,7 @@ class BattleManagerTests {
                 battleEvent.getDescription());
         assertEquals(monsterHealth, battleEvent.getAllyTeam().getFirstAliveMonster().getCurrentHealth());
         battleEvent = battleManager.nextEvent();
-        assertEquals("Monster 1's AFTERATTACK ability triggered. Lost 1 ATK and gained 1 HP",
+        assertEquals("Monster 1's AFTERATTACK ability triggered. Lost 1 ATK and gained 1 HP.",
                 battleEvent.getDescription());
         assertNull(battleManager.nextEvent());
     }
@@ -395,19 +395,19 @@ class BattleManagerTests {
         battleManager.simulateBattle();
 
         String[] expectedOutputArray = new String[] {
-                "AllyMonster 1's STARTOFBATTLE ability triggered. Lost 1 ATK and gained 1 HP",
-                "AllyMonster 1 dealt 1 damage to OppoMonster",
+                "AllyMonster 1's STARTOFBATTLE ability triggered. Lost 1 ATK and gained 1 HP.",
+                "AllyMonster 1 dealt 1 damage to OppoMonster. ",
                 "OppoMonster dealt 10 damage to AllyMonster 1. AllyMonster 1 fainted.",
-                "AllyMonster 2's BEFOREATTACK ability triggered. Lost 1 ATK and gained 1 HP",
-                "AllyMonster 2 dealt 1 damage to OppoMonster",
+                "AllyMonster 2's BEFOREATTACK ability triggered. Lost 1 ATK and gained 1 HP.",
+                "AllyMonster 2 dealt 1 damage to OppoMonster. ",
                 "OppoMonster dealt 10 damage to AllyMonster 2. AllyMonster 2 fainted.",
-                "AllyMonster 3 dealt 2 damage to OppoMonster",
-                "AllyMonster 3's AFTERATTACK ability triggered. Lost 1 ATK and gained 1 HP",
+                "AllyMonster 3 dealt 2 damage to OppoMonster. ",
+                "AllyMonster 3's AFTERATTACK ability triggered. Lost 1 ATK and gained 1 HP.",
                 "OppoMonster dealt 10 damage to AllyMonster 3. AllyMonster 3 fainted.",
-                "AllyMonster 4 dealt 2 damage to OppoMonster",
-                "OppoMonster dealt 10 damage to AllyMonster 4",
-                "AllyMonster 4's ONHURT ability triggered. Lost 1 ATK and gained 1 HP",
-                "AllyMonster 4 dealt 1 damage to OppoMonster",
+                "AllyMonster 4 dealt 2 damage to OppoMonster. ",
+                "OppoMonster dealt 10 damage to AllyMonster 4. ",
+                "AllyMonster 4's ONHURT ability triggered. Lost 1 ATK and gained 1 HP.",
+                "AllyMonster 4 dealt 1 damage to OppoMonster. ",
                 "OppoMonster dealt 10 damage to AllyMonster 4. AllyMonster 4 fainted."
         };
 

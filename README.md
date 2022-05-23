@@ -65,38 +65,44 @@ The possible events are as follows:
 #### Types of Monsters
 
 **Clink**: COMMON
-	- **Ability:** Loses 1 Attack, gains 1 Health
+
+- **Ability:** Loses 1 Attack, gains 1 Health
 
 **Ditta**: COMMON
-	- **Ability**: Copies the stats of the first enemy
+
+- **Ability**: Copies the stats of the first enemy
 
 **Gil**: RARE
-	- **Ability**: Boosts the attack of the ally behind it by 50% of it's attack
+- **Ability**: Boosts the attack of the ally behind it by 50% of it's attack
 
 **Jynx**: RARE
-	- **Ability**: Copies the health of the healthiest ally
+
+- **Ability**: Copies the health of the healthiest ally
 
 **Lucifer**: LEGENDARY
-	- **Ability**: Swaps it's attack and health stats
+- **Ability**: Swaps it's attack and health stats
 
 **Teddy**: LEGENDARY
-	- **Ability**: Randomly heals an ally for 1 health
+- **Ability**: Randomly heals an ally for 1 health
 
 ### Items
 There are 6 different key items in the game. Each item has a rarity which determines it's cost
 and effectiveness
 
 A **COMMON stat boost** will boost a stat by **1**
+
 A **RARE stat boost** will boost a stat by **3**
+
 A **LEGENDARY stat boost** will boost a stat by **5**
 
 In addition to this there are two extra items:
 - **Random Trigger**
+
 A Random Trigger item is a **rare** item which randomly assigns the ability trigger of the
 monster it is applied to
 - **Select Trigger**
-- A Select Trigger item is a **legendary** item that specifies what ability trigger it will give
-- to the monster it is applied to
+
+A Select Trigger item is a **legendary** item that specifies what ability trigger it will give to the monster it is applied to
 
 ## References
 ### Images
