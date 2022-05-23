@@ -25,6 +25,7 @@ public class GilMonster extends Monster {
         this.setTrigger(Trigger.ONFAINT);
     }
 
+    // Runs the ability of the monster - javadoc inherited from super
     @Override
     public BattleEvent ability(boolean inPlayerTeam, Team allyTeam, Team enemyTeam) {
         // Boosts attack of ALLY behind by 50% of my ATTACK

@@ -27,11 +27,7 @@ public abstract class Item extends Entity {
         super(newName, newDescription, newRarity);
     }
 
-    /**
-     * Creates new Item and Sets the {@link main.Rarity} of the item.
-     *
-     * @param rarity New {@link main.Rarity} of the item
-     */
+    // Sets rarity of monster - javadoc inherited from super
     @Override
     public void setRarity(Rarity rarity) {
         super.setRarity(rarity);
@@ -113,17 +109,13 @@ public abstract class Item extends Entity {
      */
     public abstract String use(Monster monster) throws UnusableItemException;
 
-    /**
-     * Gets the string representation of the item
-     *
-     * @return The string representation of the item
-     */
+    // Sets rarity of monster - javadoc inherited from super
     @Override
     public String toString() {
         String output;
         output = this.getName() + " (" +
-        this.getRarity() + ")\n\n" +
-        this.getDescription();
+                this.getRarity() + ")\n\n" +
+                this.getDescription();
 
         return output;
     }

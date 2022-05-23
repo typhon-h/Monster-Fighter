@@ -25,6 +25,7 @@ public class ClinkMonster extends Monster {
         this.setTrigger(Trigger.AFTERATTACK);
     }
 
+    // Runs the ability of the monster - javadoc inherited from super
     @Override
     public BattleEvent ability(boolean inPlayerTeam, Team allyTeam, Team enemyTeam) {
         // -1 Attack and +1 Health (min 1 Attack)

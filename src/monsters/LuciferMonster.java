@@ -26,6 +26,7 @@ public class LuciferMonster extends Monster {
         this.setTrigger(Trigger.AFTERATTACK);
     }
 
+    // Runs the ability of the monster - javadoc inherited from super
     @Override
     public BattleEvent ability(boolean inPlayerTeam, Team allyTeam, Team enemyTeam) {
         // SWAP Attack and Health
@@ -38,7 +39,8 @@ public class LuciferMonster extends Monster {
         Team player = (inPlayerTeam) ? allyTeam : enemyTeam;
         Team opponent = (inPlayerTeam) ? enemyTeam : allyTeam;
         return new BattleEvent(player, opponent,
-                this.getName() + "'s " + this.getTrigger().name() + " ability triggered. ATK and HP have been swapped.");
+                this.getName() + "'s " + this.getTrigger().name()
+                        + " ability triggered. ATK and HP have been swapped.");
     }
 
 }

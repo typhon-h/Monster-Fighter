@@ -285,6 +285,7 @@ public abstract class Monster extends Entity {
         faintCount++;
     }
 
+    // Sets rarity of monster - javadoc inherited from super
     @Override
     public void setRarity(Rarity rarity) {
         super.setRarity(rarity);
@@ -346,6 +347,7 @@ public abstract class Monster extends Entity {
         return super.clone();
     }
 
+    // String representation - javadoc inherited from super
     @Override
     public String toString() {
         return this.getName() + " (" +

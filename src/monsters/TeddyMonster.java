@@ -28,6 +28,7 @@ public class TeddyMonster extends Monster {
         this.setTrigger(Trigger.BEFOREATTACK);
     }
 
+    // Runs the ability of the monster - javadoc inherited from super
     @Override
     public BattleEvent ability(boolean inPlayerTeam, Team allyTeam, Team enemyTeam) {
         // +1 Health to a random ALLY
