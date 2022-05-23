@@ -137,7 +137,7 @@ public class Team implements Cloneable {
      */
     public void removeMonster(int index) throws TeamSizeException {
         if (monsters.size() == MINTEAMSIZE) {
-            throw new TeamSizeException("Team must have at least " + MINTEAMSIZE + " monster");
+            throw new TeamSizeException("Team must have at least " + MINTEAMSIZE + " monsters");
         } else {
             monsters.remove(index);
             teamSize = monsters.size();

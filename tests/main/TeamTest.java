@@ -205,6 +205,45 @@ public class TeamTest {
 
         assertEquals("Team must have at least " + Team.getMinTeamSize() + " monsters", exception.getMessage());
     }
+    
+    @ParameterizedTest
+    @MethodSource("positionsToTest")
+    public void removeIndexMonsterTest(int[] positionsToRemove) throws TeamSizeException {
+        ArrayList<Monster> expected = new ArrayList<>(team.getMonsters());
+        for (int position : positionsToRemove) { // Remove monsters and alter expected
+            
+            if (position >= expected.size()) {
+                assertThrows(IndexOutOfBoundsException.class, () -> {
+                    team.removeMonster(position);
+                });
+            } else {
+                expected.remove(position);
+                team.removeMonster(position);
+            }
+            
+            
+        }
+        assertEquals(expected, team.getMonsters());
+    }
+
+    /**
+     * Checks {@link monsters.Monster monsters} not in the {@link main.Team team}
+     * cannot be removed
+     *
+     * @throws TeamSizeException if too many team members
+     */
+    @Test
+    public void removeIndexMonsterOverflowTest() throws TeamSizeException {
+        while (team.getTeamSize() > Team.getMinTeamSize()) {
+            team.removeMonster(0);
+        }
+
+        TeamSizeException exception = assertThrows(TeamSizeException.class, () -> {
+            team.removeMonster(0);
+        });
+
+        assertEquals("Team must have at least " + Team.getMinTeamSize() + " monsters", exception.getMessage());
+    }
 
     /**
      * Checks {@link monsters.Monster monster} is able to be moved up in the
