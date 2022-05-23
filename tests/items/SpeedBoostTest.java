@@ -14,7 +14,14 @@ import monsters.Monster;
 
 import main.Rarity;
 
-class SpeedBoostTest {
+/**
+ * Tests for the Speed Boost item
+ * 
+ * @author Jackie Jone
+ * @version 1.0, Apr. 2022
+ *
+ */
+public class SpeedBoostTest {
     /**
      * {@link monsters.Monster Monster} to test {@link items.AttackBoost Attack
      * Boost} on

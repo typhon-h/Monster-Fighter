@@ -20,7 +20,7 @@ import monsters.*;
  * @author Jackie Jone
  * @version 1.1, Apr 2022.
  */
-class RandomStatBoostTest {
+public class RandomStatBoostTest {
     /**
      * {@link monsters.Monster Monster} for {@link items.Item item} to be tested on
      */

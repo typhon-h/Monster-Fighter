@@ -18,7 +18,7 @@ import monsters.*;
  * @author Jackie Jone
  * @version 1.1, Apr 2022.
  */
-class BattleConstantsTest {
+public class BattleConstantsTest {
 
         /**
          * Sets up the arguments for each test
@@ -58,7 +58,7 @@ class BattleConstantsTest {
         }
 
         /**
-         * Tests that {@link BattleConstants#getTriggers(Class) getTriggers(Class)}
+         * Tests that getTriggers(Class)
          * returns the correct {@link monsters.Trigger triggers} for each
          * {@link monsters.Monster monster}.
          *

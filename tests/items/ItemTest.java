@@ -18,7 +18,7 @@ import main.Rarity;
  * @author Jackie Jone
  * @version 1.0, Apr 2022.
  */
-class ItemTest {
+public class ItemTest {
 
     /**
      * Sets up the arguments for each test with {@link main.Rarity rarity} and

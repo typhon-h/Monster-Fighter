@@ -26,7 +26,7 @@ import monsters.*;
  * @author Jackie Jone
  * @version 1.1, Apr 2022
  */
-class BattleManagerTests {
+public class BattleManagerTests {
     /**
      * {@link main.Player Player} to test with
      */
@@ -191,6 +191,9 @@ class BattleManagerTests {
      * the monsters faint. The method is tested through the information obtained by
      * the event log (BattleEvent class).
      * Covers: fight method (excluding ability) and simulateBattle method.
+     * 
+     * @throws TeamSizeException if too many members in team
+     * @throws DuplicateMonsterException if member already in team
      */
     @Test
     public void bothTeamsTakeDamage() throws TeamSizeException, DuplicateMonsterException {
@@ -239,6 +242,8 @@ class BattleManagerTests {
     /**
      * Tests that if a monster faints then on the next attack round, the
      * next alive monster attacks instead of the fainted monster
+     * @throws TeamSizeException if too many members in team
+     * @throws DuplicateMonsterException if member already in team
      */
     @Test
     public void faintedMonsterTest() throws TeamSizeException, DuplicateMonsterException {
@@ -290,8 +295,8 @@ class BattleManagerTests {
      * Tests that the simulation ends after one of the teams have no alive monsters
      * and that all triggers have been processed.
      *
-     * @throws TeamSizeException
-     * @throws DuplicateMonsterException
+     * @throws TeamSizeException if too many members in team
+     * @throws DuplicateMonsterException if member already in team
      */
     @Test
     public void endAfterTeamWipe() throws TeamSizeException, DuplicateMonsterException {
@@ -336,8 +341,8 @@ class BattleManagerTests {
      * The order in which the triggers for each monster are placed also contributes
      * to this fact.
      *
-     * @throws TeamSizeException
-     * @throws DuplicateMonsterException
+     * @throws TeamSizeException if too many members in team
+     * @throws DuplicateMonsterException if member already in team
      */
     @Test
     public void triggersTests() throws TeamSizeException, DuplicateMonsterException {

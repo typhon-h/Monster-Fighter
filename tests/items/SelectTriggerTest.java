@@ -12,7 +12,14 @@ import monsters.ClinkMonster;
 import monsters.Monster;
 import monsters.Trigger;
 
-class SelectTriggerTest {
+/**
+ * Tests for the Select Trigger item
+ * 
+ * @author Jackie Jone
+ * @version 1.0, Apr. 2022
+ *
+ */
+public class SelectTriggerTest {
     /**
      * {@link monsters.Monster Monster} to test {@link items.AttackBoost Attack
      * Boost} on
@@ -29,7 +36,8 @@ class SelectTriggerTest {
     }
 
     /**
-     * Test that the item has the correct {@link monsters.Trigger trigger} that is given
+     * Test that the item has the correct {@link monsters.Trigger trigger} that is
+     * given
      * to it
      * 
      * @param trigger {@link monsters.Trigger trigger} to be checked
@@ -45,7 +53,8 @@ class SelectTriggerTest {
     }
 
     /**
-     * Test that the item applies a given {@link monsters.Trigger trigger} effect onto
+     * Test that the item applies a given {@link monsters.Trigger trigger} effect
+     * onto
      * the provided {@link monsters.Monster monster}
      * and that a {@link exceptions.UnusableItemException exception} is thrown at an
      * appropriate time.

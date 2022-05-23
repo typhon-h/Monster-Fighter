@@ -20,7 +20,7 @@ import main.Rarity;
  * @author Jackie Jone
  * @version 1.0, Apr 2022.
  */
-class HealthBoostTest {
+public class HealthBoostTest {
     /**
      * {@link monsters.Monster Monster} to test {@link items.AttackBoost Attack
      * Boost} on

@@ -9,7 +9,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-
 import main.Rarity;
 import monsters.Monster;
 import monsters.ClinkMonster;
@@ -20,7 +19,7 @@ import monsters.ClinkMonster;
  * @author Jackie Jone
  * @version 1.0, Apr 2022.
  */
-class AttackBoostTest {
+public class AttackBoostTest {
     /**
      * {@link monsters.Monster Monster} to test {@link items.AttackBoost Attack
      * Boost} on

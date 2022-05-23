@@ -11,7 +11,13 @@ import monsters.Monster;
 import monsters.Trigger;
 import main.GameEnvironment;
 
-class RandomTriggerTest {
+/**
+ * Tests for the random trigger item
+ * @author Jackie Jone
+ * @version 1.0, Apr. 2022
+ *
+ */
+public class RandomTriggerTest {
     /**
      * {@link monsters.Monster Monster} for item to be tested on
      */
@@ -27,7 +33,8 @@ class RandomTriggerTest {
 
     /**
      * Tests that the {@link items.Item item} gives the {@link monsters.Monster
-     * monster} a new random {@link monsters.Trigger trigger}. The {@link monsters.Trigger
+     * monster} a new random {@link monsters.Trigger trigger}. The
+     * {@link monsters.Trigger
      * trigger} cannot be {@link monsters.Trigger#NOABILITY} nor can it be the
      * {@link monsters.Trigger trigger} that the {@link monsters.Monster monster}
      * already has.
@@ -51,7 +58,8 @@ class RandomTriggerTest {
     }
 
     /**
-     * Tests that the all possible {@link monsters.Trigger trigger} are applied to the
+     * Tests that the all possible {@link monsters.Trigger trigger} are applied to
+     * the
      * {@link monsters.Monster monster} at least
      * once.
      * Seed: 14
@@ -63,7 +71,7 @@ class RandomTriggerTest {
         RandomTrigger testItem = new RandomTrigger();
         testMonster.setTrigger(Trigger.NOABILITY);
         ArrayList<Trigger> foundTriggers = new ArrayList<Trigger>();
-        
+
         for (int i = 0; i < Trigger.numTriggers; i++) {
             testItem.use(testMonster);
             if (!foundTriggers.contains(testMonster.getTrigger())) {
