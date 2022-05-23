@@ -166,7 +166,7 @@ public class TeamTest {
 
     /**
      * Checks {@link monsters.Monster monsters} are correctly removed from various
-     * positions in {@link main.Team team}
+     * positions in {@link main.Team team} by {@link monsters.Monster monster}
      *
      * @param positionsToRemove array of indexes of {@link monsters.Monster
      *                          monsters} to remove
@@ -206,6 +206,15 @@ public class TeamTest {
         assertEquals("Team must have at least " + Team.getMinTeamSize() + " monsters", exception.getMessage());
     }
     
+    /**
+     * Checks {@link monsters.Monster monsters} are correctly removed from various
+     * positions in {@link main.Team team} by index
+     *
+     * @param positionsToRemove array of indexes of {@link monsters.Monster
+     *                          monsters} to remove
+     * @throws TeamSizeException if tries to remove more than
+     *                           {@link main.Team#MINTEAMSIZE minimum team size}
+     */
     @ParameterizedTest
     @MethodSource("positionsToTest")
     public void removeIndexMonsterTest(int[] positionsToRemove) throws TeamSizeException {
