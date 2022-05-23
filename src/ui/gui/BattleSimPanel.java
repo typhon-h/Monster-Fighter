@@ -66,7 +66,7 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
     private JTextArea battleLogDisplay;
 
     /**
-     * Button to procede to next battle event
+     * Button to proceed to next battle event
      */
     private JButton btnContinue;
 
@@ -133,12 +133,12 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
     /**
      * Background image width
      */
-    private static final int BACKGROUNDIMAGEWIDTH = 950;
+    private static final int BACKGROUNDIMAGEWIDTH = MainContainer.SCREENWIDTH;
 
     /**
      * Background image height
      */
-    private static final int BACKGROUNDIMAGEHEIGHT = teamDisplayHeight + 100;
+    private static final int BACKGROUNDIMAGEHEIGHT = MainContainer.SCREENHEIGHT;
 
     /**
      * Background image
@@ -177,7 +177,7 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
         // Add background
         background = new JLabel();
         background.setBounds((MainContainer.SCREENWIDTH / 2 - BACKGROUNDIMAGEWIDTH / 2),
-                             40, BACKGROUNDIMAGEWIDTH, BACKGROUNDIMAGEHEIGHT);
+                             0, BACKGROUNDIMAGEWIDTH, BACKGROUNDIMAGEHEIGHT);
         background.setIcon(BACKGROUNDIMAGE);
 
         // Add Panels for each team to be displayed

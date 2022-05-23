@@ -13,7 +13,7 @@ import main.Player;
 
 /**
  * Class for a custom swing panel that displays a selection of monster battles.
- * 
+ *
  * @author Jackie Jone
  * @version 1.0 May, 2022
  */
@@ -128,8 +128,8 @@ public class BattleSelectionPanel extends EntityViewer implements Updatable {
     }
 
     /**
-     * Get the information of the oppoent to be viewed on the GUI
-     * 
+     * Get the information of the opponent to be viewed on the GUI
+     *
      * @param opponent The opponent to view the information of
      * @return The information of the opponent as a string
      */

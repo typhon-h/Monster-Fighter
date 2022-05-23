@@ -10,6 +10,7 @@ import main.GameEnvironment;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 
@@ -112,6 +113,11 @@ public class MainContainer {
      * Screen for Game Over
      */
     private static GameOverPanel gameOverPanel;
+    
+    /**
+     * Default background colour of application
+     */
+    protected static final Color BACKGROUNDCOLOUR = new Color(225, 231, 217);
 
     /**
      * Create the application.
