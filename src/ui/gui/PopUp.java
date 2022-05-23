@@ -53,7 +53,6 @@ public class PopUp extends JFrame {
      */
     public PopUp(String title, String message, Point location) {
         super();
-        setType(Type.POPUP);
         setAlwaysOnTop(true);
         setTitle(title);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -114,12 +113,12 @@ public class PopUp extends JFrame {
 
         });
 
+        this.getRootPane().setDefaultButton(btnOK);
        
         setVisible(true);
 
 
 
-        this.getRootPane().setDefaultButton(btnOK);
     }
 
 }
