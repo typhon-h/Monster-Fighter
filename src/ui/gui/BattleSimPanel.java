@@ -127,6 +127,8 @@ public class BattleSimPanel extends EntityViewer implements Updatable {
 
     /**
      * Background image for battle simulation
+     * From: https://pixabay.com/illustrations/illustration-background-landscape-4763593/
+     * Artist: aalmeidah - https://pixabay.com/users/aalmeidah-4277022/
      */
     private static final ImageIcon BACKGROUNDIMAGE = new ImageIcon(BattleSimPanel.class.getResource(BACKGROUNDIMAGEPATH));
 
